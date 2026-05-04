@@ -1,18 +1,32 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 export function Hero() {
   return (
     <section className="relative overflow-hidden">
-      {/* Subtle backdrop accent — orange + deep blue gradient at low opacity */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 opacity-[0.07]"
-        style={{
-          background:
-            'radial-gradient(circle at 20% 0%, #FA961C 0%, transparent 40%), radial-gradient(circle at 80% 100%, #107099 0%, transparent 50%)',
-        }}
-      />
-      <div className="container-site py-20 md:py-28 lg:py-36">
+      {/* Background image — empty pitch at sunset, no faces, calm and ambitious. */}
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src="/images/hero-pitch.jpg"
+          alt=""
+          fill
+          priority
+          quality={85}
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        {/* Gradient overlay so text remains readable across the cinematic image. */}
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(105deg, rgba(245,250,245,0.96) 0%, rgba(245,250,245,0.86) 35%, rgba(245,250,245,0.50) 60%, rgba(16,112,153,0.10) 100%)',
+          }}
+        />
+      </div>
+
+      <div className="container-site py-24 md:py-32 lg:py-40">
         <p className="font-ui uppercase tracking-widest text-sm text-orange mb-5">
           The methodology behind individual development
         </p>
@@ -34,10 +48,8 @@ export function Hero() {
             Read the Codex
           </Link>
         </div>
-        <p className="mt-8 text-sm text-brown/60 italic max-w-2xl">
-          “Football greatness is built by deliberate training, disciplined habits, and the
-          daily search for the better — practised long enough that ordinary players become
-          uncommonly good.”
+        <p className="mt-10 max-w-xl text-sm text-brown/70 italic">
+          “Skills and abilities are not born with anyone. They get developed by hard work.”
         </p>
       </div>
     </section>

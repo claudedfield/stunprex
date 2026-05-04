@@ -1,6 +1,7 @@
 import { Header } from '@/components/Header';
 import { Hero } from '@/components/Hero';
 import { BenefitsGrid } from '@/components/BenefitsGrid';
+import { PullQuote } from '@/components/PullQuote';
 import { Pillars } from '@/components/Pillars';
 import { Methodology } from '@/components/Methodology';
 import { AudienceHubs } from '@/components/AudienceHubs';
@@ -14,6 +15,7 @@ export default function HomePage() {
       <main>
         <Hero />
         <BenefitsGrid />
+        <PullQuote />
         <Pillars />
         <Methodology />
         <AudienceHubs />

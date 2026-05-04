@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { PRIMARY_NAV, UTILITY_NAV } from '@/lib/nav';
 
@@ -20,10 +21,21 @@ export function Footer() {
       <div className="container-site py-16">
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-10">
           <div className="col-span-2 lg:col-span-2">
-            <p className="font-heading text-3xl text-white">StunpreX</p>
-            <p className="mt-2 text-sm text-white/65 font-ui uppercase tracking-widest">
-              Strive · Unleash · Progress · Excel
-            </p>
+            <div className="flex items-center gap-3">
+              <Image
+                src="/brand/logo.png"
+                alt=""
+                width={56}
+                height={56}
+                className="rounded-full bg-white/95 p-1"
+              />
+              <div>
+                <p className="font-heading text-3xl text-white">StunpreX</p>
+                <p className="text-xs text-white/65 font-ui uppercase tracking-widest">
+                  Strive · Unleash · Progress · Excel
+                </p>
+              </div>
+            </div>
             <p className="mt-6 text-sm text-white/75 leading-relaxed max-w-sm">
               A soccer player development hub for individual development.
               Methodology-first. Codex-driven. Built by DField Kft.

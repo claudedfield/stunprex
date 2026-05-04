@@ -1,0 +1,21 @@
+{
+  "name": "StunpreX",
+  "short_name": "StunpreX",
+  "description": "Soccer player development hub. Methodology-first.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F5FAF5",
+  "theme_color": "#107099",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

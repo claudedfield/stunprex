@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { PRIMARY_NAV, UTILITY_NAV } from '@/lib/nav';
+import { Logo } from './Logo';
 
 export function Header() {
   return (
@@ -27,17 +28,10 @@ export function Header() {
       </div>
 
       {/* Primary row — eight sections */}
-      <div className="container-site flex items-center justify-between py-4">
-        <Link href="/" className="flex items-baseline gap-2 group">
-          <span className="font-heading text-3xl font-bold text-deepblue group-hover:text-orange transition-colors">
-            StunpreX
-          </span>
-          <span className="hidden lg:inline text-xs font-ui uppercase tracking-widest text-brown/50">
-            Strive · Unleash · Progress · Excel
-          </span>
-        </Link>
+      <div className="container-site flex items-center justify-between py-3">
+        <Logo size={44} />
 
-        <nav className="hidden lg:flex items-center gap-7">
+        <nav className="hidden lg:flex items-center gap-6">
           {PRIMARY_NAV.map((item) => (
             <Link key={item.href} href={item.href} className="nav-link">
               {item.label}

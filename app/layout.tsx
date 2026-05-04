@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Mate, Play, Dosis, Noto_Sans } from 'next/font/google';
 import './globals.css';
 
@@ -59,16 +59,40 @@ export const metadata: Metadata = {
     description:
       'A soccer player development hub for individual development. Methodology-first. Codex-driven.',
     siteName: 'StunpreX',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'StunpreX — Train Smarter. Play Better. Reach your potential.',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'StunpreX',
     description: 'Train Smarter. Play Better. Reach Your Full Potential.',
+    images: ['/og-image.jpg'],
   },
+  icons: {
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.ico' },
+    ],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
+  },
+  manifest: '/site.webmanifest',
   robots: {
     index: true,
     follow: true,
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: '#107099',
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export default function RootLayout({
