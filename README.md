@@ -14,7 +14,14 @@ v2.1**. The website serves the Codex, not the other way around.
 - [Next.js 15](https://nextjs.org/) — App Router, TypeScript, React 19
 - [Tailwind CSS 3](https://tailwindcss.com/)
 - Hosted on [Vercel](https://vercel.com/) (auto-deploy from `main`)
+- Node 20+ (pinned via `engines` in `package.json`)
 - Domain: `stunprex.com` (DNS pointed at Vercel)
+
+## Deploy pipeline
+
+Push to `main` → Vercel builds and deploys to production automatically.
+Pull-request branches get preview URLs from Vercel.
+No GitHub Actions workflow is needed.
 
 ## Local development
 
