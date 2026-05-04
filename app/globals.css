@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* StunpreX brand spine — Blueprint v2.1 §7. */
+
+:root {
+  --colour-orange: #FA961C;
+  --colour-deepblue: #107099;
+  --colour-brown: #472B08;
+  --colour-mint: #F5FAF5;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--colour-mint);
+  color: var(--colour-brown);
+  font-family: var(--font-play), system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-mate), Georgia, serif;
+  color: var(--colour-deepblue);
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: clamp(2.25rem, 4vw + 1rem, 3.75rem); line-height: 1.05; }
+h2 { font-size: clamp(1.75rem, 2vw + 1rem, 2.5rem); line-height: 1.15; }
+h3 { font-size: clamp(1.25rem, 1vw + 1rem, 1.625rem); line-height: 1.25; }
+
+a {
+  color: var(--colour-deepblue);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+a:hover {
+  color: var(--colour-orange);
+}
+
+/* Reusable component classes. */
+@layer components {
+  .container-site {
+    @apply mx-auto px-5 sm:px-8;
+    max-width: 1200px;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-md px-6 py-3 text-base font-semibold tracking-wide;
+    background-color: var(--colour-orange);
+    color: white;
+    transition: transform 150ms ease, background-color 150ms ease;
+    font-family: var(--font-dosis), system-ui, sans-serif;
+    letter-spacing: 0.04em;
+  }
+  .btn-primary:hover {
+    background-color: #d87c0a;
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-md px-6 py-3 text-base font-semibold tracking-wide;
+    border: 2px solid var(--colour-deepblue);
+    color: var(--colour-deepblue);
+    background-color: transparent;
+    transition: background-color 150ms ease, color 150ms ease;
+    font-family: var(--font-dosis), system-ui, sans-serif;
+    letter-spacing: 0.04em;
+  }
+  .btn-secondary:hover {
+    background-color: var(--colour-deepblue);
+    color: white;
+  }
+
+  .nav-link {
+    @apply text-sm font-semibold uppercase tracking-wider;
+    font-family: var(--font-dosis), system-ui, sans-serif;
+    letter-spacing: 0.06em;
+    color: var(--colour-deepblue);
+  }
+  .nav-link:hover {
+    color: var(--colour-orange);
+  }
+}
