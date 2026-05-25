@@ -1,12 +1,7 @@
-// Eight-section primary nav — Blueprint v2.1 §5/§12. Locked.
+// Primary nav — D8 scope: Home, Blog, Community, About. Other sections return when built.
 export const PRIMARY_NAV = [
-  { href: '/playbook',   label: 'Playbook',    blurb: 'Soccer intelligence at your fingertips.' },
-  { href: '/training',   label: 'Training',    blurb: 'Train smarter, play better.' },
+  { href: '/blog',       label: 'Blog',        blurb: 'Methodology-first articles on soccer player development.' },
   { href: '/community',  label: 'Community',   blurb: 'Connect. Compete. Grow together.' },
-  { href: '/games',      label: 'Games',       blurb: 'Boost your Soccer IQ with fun & interactive games.' },
-  { href: '/reviews',    label: 'Reviews',     blurb: 'Gear up for success.' },
-  { href: '/shop',       label: 'Shop',        blurb: 'The right tools for next-level training.' },
-  { href: '/me',         label: 'MyStunpreX',  blurb: 'Your journey, your progress, your success.' },
 ] as const;
 
 // Brand-spine / utility nav — top-right + footer. Build Plan §A.
