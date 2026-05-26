@@ -54,7 +54,7 @@ export function TableOfContents({ headings }: Props) {
           <li key={id} className={level === 3 ? 'pl-3' : ''}>
             <a
               href={`#${id}`}
-              className={`block rounded px-2 py-1 transition-colors leading-snug ${
+              className={`block rounded px-2 py-1 transition-colors leading-snug focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40 focus-visible:ring-offset-1 ${
                 activeId === id
                   ? 'bg-orange/10 text-orange font-semibold'
                   : 'text-brown/65 hover:text-deepblue'

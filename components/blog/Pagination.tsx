@@ -21,7 +21,7 @@ export function Pagination({ currentPage, totalPages, baseHref }: Props) {
       {currentPage > 1 ? (
         <Link
           href={pageHref(currentPage - 1)}
-          className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-deepblue/20 text-deepblue hover:bg-deepblue hover:text-white transition-colors"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-deepblue/20 text-deepblue hover:bg-deepblue hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40 focus-visible:ring-offset-1"
           aria-label="Previous page"
         >
           ←
@@ -37,7 +37,7 @@ export function Pagination({ currentPage, totalPages, baseHref }: Props) {
         <Link
           key={p}
           href={pageHref(p)}
-          className={`inline-flex h-9 w-9 items-center justify-center rounded-lg text-sm font-semibold font-ui transition-colors ${
+          className={`inline-flex h-9 w-9 items-center justify-center rounded-lg text-sm font-semibold font-ui transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40 focus-visible:ring-offset-1 ${
             p === currentPage
               ? 'bg-deepblue text-white border border-deepblue'
               : 'border border-deepblue/20 text-deepblue hover:bg-deepblue/8'
@@ -52,7 +52,7 @@ export function Pagination({ currentPage, totalPages, baseHref }: Props) {
       {currentPage < totalPages ? (
         <Link
           href={pageHref(currentPage + 1)}
-          className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-deepblue/20 text-deepblue hover:bg-deepblue hover:text-white transition-colors"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-deepblue/20 text-deepblue hover:bg-deepblue hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40 focus-visible:ring-offset-1"
           aria-label="Next page"
         >
           →

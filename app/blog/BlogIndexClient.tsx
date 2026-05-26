@@ -41,7 +41,7 @@ export function BlogIndexClient({ allPosts, showSearch }: Props) {
       )}
 
       {searchResults !== null && (
-        <p className="mb-6 text-sm text-brown/55 font-ui">
+        <p className="mb-6 text-sm text-brown/70 font-ui">
           {displayPosts.length === 0
             ? 'No posts matched your search.'
             : `${displayPosts.length} post${displayPosts.length !== 1 ? 's' : ''} found`}

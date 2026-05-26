@@ -23,7 +23,7 @@ export function CategoryFilter({ categories }: Props) {
       {/* All */}
       <Link
         href="/blog"
-        className={`inline-flex items-center rounded-full border px-4 py-1.5 text-sm font-semibold font-ui tracking-wide transition-colors ${
+        className={`inline-flex items-center rounded-full border px-4 py-1.5 text-sm font-semibold font-ui tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40 focus-visible:ring-offset-1 ${
           isAll
             ? 'border-deepblue bg-deepblue text-white'
             : 'border-deepblue/25 text-brown/70 hover:border-deepblue hover:text-deepblue'
@@ -40,7 +40,7 @@ export function CategoryFilter({ categories }: Props) {
           <Link
             key={slug}
             href={`/blog/category/${slug}`}
-            className={`inline-flex items-center rounded-full border px-4 py-1.5 text-sm font-semibold font-ui tracking-wide transition-colors ${
+            className={`inline-flex items-center rounded-full border px-4 py-1.5 text-sm font-semibold font-ui tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40 focus-visible:ring-offset-1 ${
               isActive
                 ? 'border-orange bg-orange text-white'
                 : 'border-brown/20 text-brown/70 hover:border-orange hover:text-orange'
