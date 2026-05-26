@@ -13,13 +13,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.10.3",
+    "@supabase/supabase-js": "^2.106.2",
     "flexsearch": "^0.8.212",
     "gray-matter": "^4.0.3",
     "next": "15.5.15",
     "next-mdx-remote": "^6.0.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "reading-time": "^1.5.0"
+    "react-markdown": "^10.1.0",
+    "reading-time": "^1.5.0",
+    "rehype-sanitize": "^6.0.0",
+    "remark-gfm": "^4.0.1",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/flexsearch": "^0.7.6",
