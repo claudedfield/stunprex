@@ -28,7 +28,13 @@ export const authConfig: NextAuthConfig = {
       /**
        * Magic-link — no password. Custom sendVerificationRequest routes
        * through our own SMTP Nodemailer send so no third-party logo appears.
+       *
+       * `server` must be non-empty to pass Auth.js instantiation check at build
+       * time even when SMTP env vars are not yet provisioned. The actual send
+       * goes through sendMagicLink (lib/email.ts) which reads env vars at
+       * call time — it will throw a clear error if vars are missing at runtime.
        */
+      server: process.env.EMAIL_SERVER ?? 'smtp://localhost:25',
       sendVerificationRequest: async ({ identifier: email, url }) => {
         await sendMagicLink(email, url)
       },
