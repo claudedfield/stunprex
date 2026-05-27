@@ -5,7 +5,7 @@ import { PullQuote } from '@/components/PullQuote';
 import { Pillars } from '@/components/Pillars';
 import { Methodology } from '@/components/Methodology';
 import { AudienceHubs } from '@/components/AudienceHubs';
-import { NewsletterCapture } from '@/components/NewsletterCapture';
+import { JoinCommunity } from '@/components/JoinCommunity';
 import { Footer } from '@/components/Footer';
 
 export default function HomePage() {
@@ -19,7 +19,7 @@ export default function HomePage() {
         <Pillars />
         <Methodology />
         <AudienceHubs />
-        <NewsletterCapture />
+        <JoinCommunity />
       </main>
       <Footer />
     </>

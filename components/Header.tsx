@@ -1,37 +1,24 @@
+/**
+ * Site header — single primary row only (D8 alignment).
+ *
+ * Utility row (Codex / Methodology / Pricing / About) removed — Codex is internal,
+ * Pricing is out of Q1, About now lives in PRIMARY_NAV.
+ *
+ * Mobile hamburger is deferred to feat/mobile-menu-v1 brief.
+ * Current behaviour: mobile shows Logo + CTA only (existing pattern preserved).
+ */
 import Link from 'next/link';
-import { PRIMARY_NAV, UTILITY_NAV } from '@/lib/nav';
+import { PRIMARY_NAV } from '@/lib/nav';
 import { Logo } from './Logo';
 
 export function Header() {
   return (
     <header className="border-b border-deepblue/10 bg-mint sticky top-0 z-40 backdrop-blur-sm bg-mint/90">
-      {/* Utility row — Codex / Methodology / About / Pricing */}
-      <div className="hidden md:block border-b border-deepblue/5">
-        <div className="container-site flex items-center justify-end gap-6 py-2 text-xs">
-          {UTILITY_NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="font-ui uppercase tracking-wider text-brown/70 hover:text-orange transition-colors"
-            >
-              {item.label}
-            </Link>
-          ))}
-          <span className="h-4 w-px bg-deepblue/15" aria-hidden />
-          <Link
-            href="/login"
-            className="font-ui uppercase tracking-wider text-deepblue hover:text-orange"
-          >
-            Sign in
-          </Link>
-        </div>
-      </div>
-
-      {/* Primary row — eight sections */}
+      {/* Primary row — Logo | Nav (desktop) | Sign in | CTA */}
       <div className="container-site flex items-center justify-between py-3">
         <Logo size={44} />
 
-        <nav className="hidden lg:flex items-center gap-6">
+        <nav className="hidden lg:flex items-center gap-6" aria-label="Primary navigation">
           {PRIMARY_NAV.map((item) => (
             <Link key={item.href} href={item.href} className="nav-link">
               {item.label}
@@ -39,10 +26,19 @@ export function Header() {
           ))}
         </nav>
 
-        <Link href="/signup" className="btn-primary text-sm py-2 px-5">
-          Start training
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link
+            href="/signin"
+            className="hidden sm:inline font-ui uppercase text-deepblue hover:text-orange tracking-wider text-sm transition-colors"
+          >
+            Sign in
+          </Link>
+          <Link href="/community" className="btn-primary text-sm py-2 px-5">
+            Join the community
+          </Link>
+        </div>
       </div>
+      {/* Mobile menu deferred to mobile_menu_v1 brief */}
     </header>
   );
 }

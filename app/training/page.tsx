@@ -6,8 +6,8 @@ export default function Page() {
   return (
     <ComingSoon
       section="Training"
-      blurb="Train smarter, play better."
-      shipsIn="Block 2 (Weeks 3–4 of Wave 2)"
+      blurb="Drill library, themed and filterable."
+      shipsIn="Next implementation phase"
     />
   );
 }
