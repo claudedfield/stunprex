@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { getAllPostCards } from '@/lib/posts';
-import { CATEGORY_SLUGS } from '@/lib/types/post';
+import { getQuestions } from '@/lib/community/queries';
 
 const STATIC_ROUTES = [
   '/',
@@ -17,7 +17,7 @@ const STATIC_ROUTES = [
   '/blog/category/reflections',
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   // Static routes
@@ -37,5 +37,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticEntries, ...postEntries];
+  // Dynamic community question entries — all published questions
+  // Fetch up to 1 000; paginated sitemap deferred to v1.1 per §10 brief.
+  let questionEntries: MetadataRoute.Sitemap = [];
+  try {
+    const { items } = await getQuestions({ perPage: 1000, sort: 'newest' });
+    questionEntries = items.map((q) => ({
+      url: `https://stunprex.com/community/${encodeURIComponent(q.slug)}`,
+      lastModified: new Date(q.updated_at),
+      changeFrequency: 'weekly',
+      priority: 0.75,
+    }));
+  } catch {
+    // If DB is unavailable (e.g. local dev without credentials), skip community entries gracefully
+  }
+
+  return [...staticEntries, ...postEntries, ...questionEntries];
 }
