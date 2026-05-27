@@ -6,7 +6,8 @@
  */
 import { getQuestions } from '@/lib/community/queries'
 
-export const revalidate = 3600 // 1 h ISR
+// Never pre-render at build time — requires live DB. Edge-cached via Cache-Control.
+export const dynamic = 'force-dynamic'
 
 function escapeXml(str: string): string {
   return str

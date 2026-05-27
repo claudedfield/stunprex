@@ -40,16 +40,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Dynamic community question entries — all published questions
   // Fetch up to 1 000; paginated sitemap deferred to v1.1 per §10 brief.
   let questionEntries: MetadataRoute.Sitemap = [];
-  try {
-    const { items } = await getQuestions({ perPage: 1000, sort: 'newest' });
-    questionEntries = items.map((q) => ({
-      url: `https://stunprex.com/community/${encodeURIComponent(q.slug)}`,
-      lastModified: new Date(q.updated_at),
-      changeFrequency: 'weekly',
-      priority: 0.75,
-    }));
-  } catch {
-    // If DB is unavailable (e.g. local dev without credentials), skip community entries gracefully
+  // Only query if POSTGRES_URL is present — avoids VercelPostgresError at build time.
+  if (process.env.POSTGRES_URL) {
+    try {
+      const { items } = await getQuestions({ perPage: 1000, sort: 'newest' });
+      questionEntries = items.map((q) => ({
+        url: `https://stunprex.com/community/${encodeURIComponent(q.slug)}`,
+        lastModified: new Date(q.updated_at),
+        changeFrequency: 'weekly',
+        priority: 0.75,
+      }));
+    } catch {
+      // Non-fatal — skip community entries if DB is unreachable.
+    }
   }
 
   return [...staticEntries, ...postEntries, ...questionEntries];

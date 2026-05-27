@@ -10,7 +10,8 @@
 import { NextResponse } from 'next/server'
 import { getSearchIndexData } from '@/lib/community/queries'
 
-export const revalidate = 300 // 5 min ISR cache
+// Never pre-render at build time — requires live DB. Edge-cached via Cache-Control.
+export const dynamic = 'force-dynamic'
 
 export async function GET() {
   try {
