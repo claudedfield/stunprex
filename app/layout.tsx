@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     template: '%s · StunpreX',
   },
   description:
-    'StunpreX is a soccer player development hub for individual development — methodology, drills, analysis, and a community for players, parents, and coaches.',
+    'Individual soccer player development — methodology-first. Articles, drills, and a community for players, parents, and coaches. Free.',
   keywords: [
     'soccer development',
     'football training',

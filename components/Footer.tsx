@@ -1,18 +1,31 @@
+/**
+ * Site footer — D8 alignment.
+ * UTILITY_NAV removed (Codex internal, Pricing out of Q1).
+ * Sections column reflects full PRIMARY_NAV (5 items).
+ * Brand column: Methodology (ComingSoon), About, Sign in.
+ * No newsletter capture, no paid-tier teaser, no Skool reference.
+ */
 import Image from 'next/image';
 import Link from 'next/link';
-import { PRIMARY_NAV, UTILITY_NAV } from '@/lib/nav';
+import { PRIMARY_NAV } from '@/lib/nav';
 
-const LEGAL = [
-  { href: '/privacy',   label: 'Privacy' },
-  { href: '/terms',     label: 'Terms' },
-  { href: '/cookies',   label: 'Cookies' },
-  { href: '/imprint',   label: 'Imprint' },
+const BRAND = [
+  { href: '/methodology', label: 'Methodology' },
+  { href: '/about',       label: 'About' },
+  { href: '/signin',      label: 'Sign in' },
 ];
 
 const AUDIENCE = [
   { href: '/for-players',  label: 'For players' },
   { href: '/for-parents',  label: 'For parents' },
   { href: '/for-coaches',  label: 'For coaches' },
+];
+
+const LEGAL = [
+  { href: '/privacy',  label: 'Privacy' },
+  { href: '/terms',    label: 'Terms' },
+  { href: '/cookies',  label: 'Cookies' },
+  { href: '/imprint',  label: 'Imprint' },
 ];
 
 export function Footer() {
@@ -62,7 +75,7 @@ export function Footer() {
               Brand
             </h4>
             <ul className="space-y-2 text-sm">
-              {UTILITY_NAV.map((item) => (
+              {BRAND.map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="hover:text-orange text-white/85 transition-colors">
                     {item.label}

@@ -8,8 +8,8 @@ interface ComingSoonProps {
   shipsIn?: string;
 }
 
-// Generic placeholder for routes that exist in the nav but ship in later Wave-2 blocks.
-// Codex-aligned: states honestly what's coming and when, no fake countdowns.
+// Generic placeholder for routes that exist in the nav but ship in later phases.
+// Codex-aligned: states honestly what's coming, no fake countdowns.
 export function ComingSoon({ section, blurb, shipsIn }: ComingSoonProps) {
   return (
     <>
@@ -22,15 +22,15 @@ export function ComingSoon({ section, blurb, shipsIn }: ComingSoonProps) {
           <h1 className="font-heading max-w-3xl">{blurb}</h1>
           {shipsIn && (
             <p className="mt-6 text-brown/70 text-lg">
-              Shipping in <span className="font-semibold text-deepblue">{shipsIn}</span>.
+              <span className="font-semibold text-deepblue">{shipsIn}</span>.
             </p>
           )}
           <div className="mt-10 flex flex-wrap gap-4">
             <Link href="/" className="btn-primary">
               Back to home
             </Link>
-            <Link href="/codex" className="btn-secondary">
-              Read the Codex while you wait
+            <Link href="/blog" className="btn-secondary">
+              Read the blog →
             </Link>
           </div>
         </section>
