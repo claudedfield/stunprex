@@ -10,9 +10,20 @@ import { generateDisplayName } from '@/lib/community/utils'
 /**
  * Returns the profile for userId, creating a default one if it doesn't exist.
  * Called on every session read — must be fast. The INSERT is a no-op on conflict.
+ *
+ * Admin promotion: if the email matches any address in the comma-separated
+ * ADMIN_EMAILS env var, the profile is created with role='admin'.
+ * On conflict (returning user) the role is NOT downgraded — preserves manual promotions.
  */
 export async function ensureProfile(userId: string, email: string): Promise<ProfileRow> {
   const displayName = generateDisplayName(email)
+
+  // Determine role at profile creation time.
+  const adminEmails = (process.env.ADMIN_EMAILS ?? '')
+    .split(',')
+    .map((e) => e.trim().toLowerCase())
+    .filter(Boolean)
+  const role: string = adminEmails.includes(email.toLowerCase()) ? 'admin' : 'user'
 
   const { rows } = await sql<ProfileRow>`
     INSERT INTO profiles (user_id, display_name, role, is_banned, wants_newsletter, onboarded)
@@ -26,7 +37,7 @@ export async function ensureProfile(userId: string, email: string): Promise<Prof
         ELSE ${displayName} || '-' || substr(${userId}, 1, 4)
         END
       )),
-      'user',
+      ${role},
       false,
       false,
       false
