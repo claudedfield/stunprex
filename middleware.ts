@@ -1,11 +1,18 @@
 /**
  * Next.js middleware — Auth.js v5 session handling.
- * Exports the auth middleware from auth.ts so Auth.js can refresh sessions
- * and protect routes via the authorized callback.
+ *
+ * Uses the edge-compatible authConfig (auth.config.ts) — no pg or nodemailer
+ * imports. The Edge Runtime cannot load those Node.js-only modules.
+ *
+ * The authorized callback always returns true (no edge-level route locking).
+ * Auth enforcement happens in Server Components and Actions via auth() from auth.ts.
  *
  * Runs on all paths except static assets, images, and public files.
  */
-export { auth as middleware } from '@/auth'
+import NextAuth from 'next-auth'
+import { authConfig } from '@/auth.config'
+
+export const { auth: middleware } = NextAuth(authConfig)
 
 export const config = {
   matcher: [
