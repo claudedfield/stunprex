@@ -1,12 +1,12 @@
 import Link from 'next/link';
 
-// Five priority pillars — Wave-2 ship sequence, Blueprint v2.1 §15.
+// Five priority pillars — methodology coverage map. Internal planning lives in the COO Plan, not in this comment.
 const PILLARS = [
-  { slug: 'dribbling',                   title: 'Dribbling',                  blurb: 'Broad search demand. Player-layer entry-point.', status: 'In production' },
-  { slug: 'speed-and-agility',           title: 'Speed & Agility',            blurb: 'Mid-volume keyword set. Broad audience.',         status: 'Coming soon' },
-  { slug: 'tactical-intelligence',       title: 'Tactical Intelligence',      blurb: 'Distinctive methodology. Coach/parent layer.',    status: 'Coming soon' },
-  { slug: 'first-touch',                 title: 'First Touch',                blurb: 'Codex Conviction 4 made into a pillar.',          status: 'Coming soon' },
-  { slug: 'strength-endurance-recovery', title: 'Strength · Endurance · Recovery', blurb: 'Physical conditioning anchor.',              status: 'Coming soon' },
+  { slug: 'dribbling',                   title: 'Dribbling',                       blurb: 'Beat the defender. Carry the ball with intent. Make the move that decides the moment.', status: 'In production' },
+  { slug: 'speed-and-agility',           title: 'Speed & Agility',                 blurb: 'The burst the moment demands. The recovery the next moment requires.',                   status: 'Coming soon' },
+  { slug: 'tactical-intelligence',       title: 'Tactical Intelligence',           blurb: 'The decision before the touch. Read the game so the game stops surprising you.',         status: 'Coming soon' },
+  { slug: 'first-touch',                 title: 'First Touch',                     blurb: 'The skill that makes every other skill possible. Receive cleanly, under pressure, on either foot.', status: 'Coming soon' },
+  { slug: 'strength-endurance-recovery', title: 'Strength · Endurance · Recovery', blurb: 'Train harder than you play. Recover smarter than you train.',                            status: 'Coming soon' },
 ] as const;
 
 export function Pillars() {
@@ -15,13 +15,12 @@ export function Pillars() {
       <div className="container-site">
         <div className="max-w-2xl mb-12">
           <p className="font-ui uppercase tracking-widest text-sm text-orange mb-3">
-            Five priority pillars
+            What StunpreX trains
           </p>
           <h2 className="font-heading">Five pillars, five paths in</h2>
           <p className="mt-5 text-brown/80 text-lg">
-            Each pillar gathers the convictions, drills, and articles that build that part of
-            the player. Designed to be entered from a single search query and read in a single
-            sitting.
+            Each pillar gathers the principles, drills, and articles that develop one part of
+            the player. Entered from a single question, read in a single sitting.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

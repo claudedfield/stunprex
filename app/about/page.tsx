@@ -29,10 +29,6 @@ export default function Page() {
               development serve that player at the highest level, on a long horizon, without
               the routine harms of modern youth football.
             </p>
-            <p>
-              Owned by DField Kft., a Hungary-based company. Built for players, parents,
-              and coaches anywhere.
-            </p>
           </div>
 
           {/* Section 2 */}
@@ -102,24 +98,19 @@ export default function Page() {
 
           {/* Section 5 */}
           <div className="mt-12">
-            <h2 className="font-heading">How this is built</h2>
+            <h2 className="font-heading">How we work</h2>
             <div className="mt-6 space-y-6 text-brown/85 text-lg leading-relaxed">
               <p>
-                StunpreX is built by one person and a system of AI specialists. Dezső, the
-                owner, holds the strategic direction and quality control. The day-to-day
-                production — content, drills, research, analysis, evaluation — runs through
-                AI specialists trained on the methodology. Videos are created digitally;
-                nothing is filmed.
+                StunpreX runs lean and methodology-first. The work — articles, drills, analysis,
+                evaluation — passes through a system designed to hold the same quality bar at every
+                piece. The brand refuses the patterns of high-volume content businesses: engagement-bait,
+                fabricated statistics, premium-luxury positioning, the pressure to publish more rather
+                than publish better.
               </p>
               <p>
-                The target is a self-running platform where running the business does not
-                depend on any one person moment to moment, and Dezső&apos;s attention is
-                reserved for major strategic decisions. We are honest about the build state:
-                we are not yet there. The system is being assembled in the open.
-              </p>
-              <p>
-                This model lets the brand stay disciplined about cost, voice, and quality at
-                a scale that a one-founder content business otherwise could not reach.
+                What that means for you: every drill traces to a defended principle. Every article cites
+                sources or removes the claim. Every recommendation passes through gates designed to catch
+                the things willpower alone misses. The discipline is structural, not aspirational.
               </p>
             </div>
           </div>

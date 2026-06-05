@@ -1,9 +1,7 @@
 /**
- * Site footer — D8 alignment.
- * UTILITY_NAV removed (Codex internal, Pricing out of Q1).
- * Sections column reflects full PRIMARY_NAV (5 items).
- * Brand column: Methodology (ComingSoon), About, Sign in.
- * No newsletter capture, no paid-tier teaser, no Skool reference.
+ * Site footer — wave-2 polish.
+ * Audiences column removed (ComingSoon placeholders; re-added when real content ships).
+ * Grid reduced from 5 to 4 columns. Brand copy and copyright simplified.
  */
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,12 +11,6 @@ const BRAND = [
   { href: '/methodology', label: 'Methodology' },
   { href: '/about',       label: 'About' },
   { href: '/signin',      label: 'Sign in' },
-];
-
-const AUDIENCE = [
-  { href: '/for-players',  label: 'For players' },
-  { href: '/for-parents',  label: 'For parents' },
-  { href: '/for-coaches',  label: 'For coaches' },
 ];
 
 const LEGAL = [
@@ -32,7 +24,7 @@ export function Footer() {
   return (
     <footer className="bg-deepblue text-white/85 mt-12">
       <div className="container-site py-16">
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-10">
           <div className="col-span-2 lg:col-span-2">
             <div className="flex items-center gap-3">
               <Image
@@ -50,8 +42,8 @@ export function Footer() {
               </div>
             </div>
             <p className="mt-6 text-sm text-white/75 leading-relaxed max-w-sm">
-              A soccer player development hub for individual development.
-              Methodology-first. Codex-driven. Built by DField Kft.
+              A methodology-first hub for individual soccer player development. Built lean,
+              refined continuously, defended in public.
             </p>
           </div>
 
@@ -84,26 +76,11 @@ export function Footer() {
               ))}
             </ul>
           </div>
-
-          <div>
-            <h4 className="font-ui uppercase tracking-widest text-sm text-orange mb-4">
-              Audiences
-            </h4>
-            <ul className="space-y-2 text-sm">
-              {AUDIENCE.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="hover:text-orange text-white/85 transition-colors">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
 
         <div className="mt-14 pt-8 border-t border-white/10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-sm">
           <p className="text-white/60">
-            © {new Date().getFullYear()} DField Kft. — Initiative CN-STNPX. All rights reserved.
+            © {new Date().getFullYear()} DField Kft. All rights reserved.
           </p>
           <ul className="flex flex-wrap gap-6">
             {LEGAL.map((item) => (

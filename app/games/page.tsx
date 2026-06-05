@@ -6,8 +6,8 @@ export default function Page() {
   return (
     <ComingSoon
       section="Games"
-      blurb="Boost your Soccer IQ with fun & interactive games."
-      shipsIn="Wave 3 (after Sequence Boards launch)"
+      blurb="Football intelligence in playable form — drills, decisions, and scenarios you can train through quick, focused interactions. The cognitive side of the game, made trainable."
+      shipsIn="Coming soon"
     />
   );
 }

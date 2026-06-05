@@ -29,6 +29,8 @@ export type PostStatus = 'draft' | 'published';
 
 export interface CodexAnchors {
   convictions: number[];
+  /** Public-facing plain-language themes — rendered instead of conviction numbers. */
+  convictionThemes?: string[];
   capacities: {
     primary: CapacityFamily;
     secondary?: CapacityFamily;
