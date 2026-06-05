@@ -15,7 +15,7 @@ export function Pillars() {
       <div className="container-site">
         <div className="max-w-2xl mb-12">
           <p className="font-ui uppercase tracking-widest text-sm text-orange mb-3">
-            Wave-2 priority pillars
+            Five priority pillars
           </p>
           <h2 className="font-heading">Five pillars, five paths in</h2>
           <p className="mt-5 text-brown/80 text-lg">
@@ -30,7 +30,7 @@ export function Pillars() {
             return (
               <Link
                 key={p.slug}
-                href={live ? `/playbook/pillar/${p.slug}` : '#'}
+                href={live ? `/blog/develop-the-player-not-the-position` : '#'}
                 aria-disabled={!live}
                 className={`group block rounded-lg border-2 p-6 transition-all
                   ${live

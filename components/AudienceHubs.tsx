@@ -17,7 +17,7 @@ const HUBS = [
   {
     href: '/for-coaches',
     title: 'For coaches',
-    line: 'Drill library, tactical content, coach certification path.',
+    line: 'Drill library, tactical content, the conversations only coaches have.',
     accent: 'deepblue' as const,
   },
 ];

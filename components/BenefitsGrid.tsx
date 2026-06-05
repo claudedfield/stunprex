@@ -8,9 +8,9 @@ const BENEFITS = [
       'Every drill names the human capacities it builds — perceptual, cognitive, motor, communication, affective, adaptive. Train what you actually need.',
   },
   {
-    title: 'A defended methodology',
+    title: 'A methodology under development',
     body:
-      'Thirty-six convictions, five age-band pathways, and an anti-pattern list — published openly. The brand is its source code.',
+      'Thirty-six convictions, five age-band pathways, an anti-pattern list. Built openly, refined continuously, applied to every drill and every article.',
   },
   {
     title: 'Process, not promises',
@@ -20,7 +20,7 @@ const BENEFITS = [
   {
     title: 'Built for the long game',
     body:
-      'For 13–24 players, the parents who fund them, and the coaches who multiply them. Designed to compound over years, not impress in weeks.',
+      'For players, the parents who support them, the coaches who multiply them, and anyone serious about how the game gets taught. Designed to compound over years, not impress in weeks.',
   },
 ] as const;
 
