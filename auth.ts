@@ -16,12 +16,18 @@ import NextAuth from 'next-auth'
 import type { NextAuthConfig } from 'next-auth'
 import Email from 'next-auth/providers/email'
 import PostgresAdapter from '@auth/pg-adapter'
-import { db } from '@vercel/postgres'
+import pg from 'pg'
+
+// Direct pg.Pool for @auth/pg-adapter — VercelPool type is not directly
+// assignable to pg.Pool; using pg directly resolves the TS type mismatch.
+const pool = new pg.Pool({
+  connectionString: process.env.POSTGRES_URL_NON_POOLING ?? process.env.POSTGRES_URL,
+})
 import { sendMagicLink } from '@/lib/email'
 import { ensureProfile } from '@/lib/auth/db'
 
 export const authConfig: NextAuthConfig = {
-  adapter: PostgresAdapter(db),
+  adapter: PostgresAdapter(pool),
 
   providers: [
     Email({
