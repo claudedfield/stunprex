@@ -177,23 +177,20 @@ export default async function BlogPostPage({ params }: Props) {
         {/* Post body */}
         <div className="py-12">
           <div className="container-site">
-            <div className="mx-auto max-w-[860px] lg:grid lg:max-w-none lg:grid-cols-[1fr_260px] lg:gap-12 xl:grid-cols-[1fr_280px]">
-              {/* Main column */}
-              <article>
-                {/* Content column — max-width matches post header so edges align at all breakpoints */}
-                <div className="max-w-[860px]">
-                  {/* Codex anchor block */}
-                  <CodexAnchorBlock anchors={frontmatter.codexAnchors} category={frontmatter.category} />
+            <div className="lg:grid lg:grid-cols-[1fr_260px] lg:gap-12 xl:grid-cols-[1fr_280px]">
+              {/* Main column — left-aligned to container-site edge, matching the post header */}
+              <article className="max-w-[860px]">
+                {/* Codex anchor block */}
+                <CodexAnchorBlock anchors={frontmatter.codexAnchors} category={frontmatter.category} />
 
-                  {/* MDX content */}
-                  <div className="prose-stunprex">
-                    <MDXRemote source={source} components={mdxComponents} />
-                  </div>
+                {/* MDX content */}
+                <div className="prose-stunprex">
+                  <MDXRemote source={source} components={mdxComponents} />
+                </div>
 
-                  {/* Share links */}
-                  <div className="mt-12 border-t border-deepblue/10 pt-8">
-                    <ShareLinks title={frontmatter.title} url={postUrl} />
-                  </div>
+                {/* Share links */}
+                <div className="mt-12 border-t border-deepblue/10 pt-8">
+                  <ShareLinks title={frontmatter.title} url={postUrl} />
                 </div>
               </article>
 

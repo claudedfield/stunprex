@@ -47,18 +47,16 @@ export default async function BlogIndexPage({ searchParams }: Props) {
     <>
       <Header />
       <main id="main-content" className="min-h-screen">
-        {/* Page hero */}
-        <section className="border-b border-deepblue/8 bg-deepblue/[0.02] py-14">
-          <div className="container-site">
-            <h1 className="mb-3 text-deepblue font-heading">
-              Blog
-            </h1>
-            <p className="max-w-2xl text-lg text-brown/70 font-body leading-relaxed">
-              Methodology-first articles on individual soccer player development.
-              Grounded in the Codex. Written for players, parents, coaches, and the broader
-              football development community.
-            </p>
-          </div>
+        {/* Page hero — matches the site-wide hero pattern (Training / About / Community / Games) */}
+        <section className="container-site py-24 md:py-32">
+          <p className="font-ui uppercase tracking-widest text-sm text-orange mb-3">
+            Blog
+          </p>
+          <h1 className="font-heading mt-3">Blog</h1>
+          <p className="mt-6 text-brown/85 text-lg leading-relaxed max-w-3xl">
+            Methodology-first articles on individual soccer player development. Written for
+            players, parents, coaches, and the broader football development community.
+          </p>
         </section>
 
         {/* Filter + content */}
