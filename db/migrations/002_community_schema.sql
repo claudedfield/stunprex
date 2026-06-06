@@ -81,10 +81,19 @@ CREATE INDEX IF NOT EXISTS answers_question_id_votes_idx ON answers (question_id
 CREATE INDEX IF NOT EXISTS answers_author_id_idx         ON answers (author_id);
 
 -- Now add the FK from questions.accepted_answer_id → answers.id
-ALTER TABLE questions
-  ADD CONSTRAINT fk_accepted_answer
-  FOREIGN KEY (accepted_answer_id) REFERENCES answers(id) ON DELETE SET NULL
-  NOT VALID;   -- NOT VALID to skip full table scan; validate separately if needed
+-- Wrapped in DO block for idempotency — ADD CONSTRAINT has no IF NOT EXISTS in Postgres
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_constraint WHERE conname = 'fk_accepted_answer'
+  ) THEN
+    ALTER TABLE questions
+      ADD CONSTRAINT fk_accepted_answer
+      FOREIGN KEY (accepted_answer_id) REFERENCES answers(id) ON DELETE SET NULL
+      NOT VALID;   -- NOT VALID to skip full table scan; validate separately if needed
+  END IF;
+END
+$$;
 
 -- ─── comments ────────────────────────────────────────────────────────────────
 
