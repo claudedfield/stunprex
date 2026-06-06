@@ -19,10 +19,11 @@ export function ComingSoon({ section, blurb, shipsIn }: ComingSoonProps) {
           <p className="font-ui uppercase tracking-widest text-sm text-orange mb-3">
             {section}
           </p>
-          <h1 className="font-heading max-w-3xl">{blurb}</h1>
+          <h1 className="font-heading mt-3">{section}</h1>
+          <p className="mt-6 text-brown/85 text-lg leading-relaxed max-w-3xl">{blurb}</p>
           {shipsIn && (
-            <p className="mt-6 text-brown/70 text-lg">
-              <span className="font-semibold text-deepblue">{shipsIn}</span>.
+            <p className="mt-4 text-brown/70 text-lg">
+              <span className="font-semibold text-deepblue">{shipsIn}</span>
             </p>
           )}
           <div className="mt-10 flex flex-wrap gap-4">
