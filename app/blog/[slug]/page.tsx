@@ -174,35 +174,23 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
         </header>
 
-        {/* Post body */}
+        {/* Post body — matches the post header (centered 860px column) */}
         <div className="py-12">
-          <div className="container-site">
-            <div className="lg:grid lg:grid-cols-[1fr_260px] lg:gap-12 xl:grid-cols-[1fr_280px]">
-              {/* Main column — left-aligned to container-site edge, matching the post header */}
-              <article className="max-w-[860px]">
-                {/* Codex anchor block */}
-                <CodexAnchorBlock anchors={frontmatter.codexAnchors} category={frontmatter.category} />
+          <div className="container-site max-w-[860px]">
+            <article>
+              {/* Codex anchor block */}
+              <CodexAnchorBlock anchors={frontmatter.codexAnchors} category={frontmatter.category} />
 
-                {/* MDX content */}
-                <div className="prose-stunprex">
-                  <MDXRemote source={source} components={mdxComponents} />
-                </div>
+              {/* MDX content */}
+              <div className="prose-stunprex">
+                <MDXRemote source={source} components={mdxComponents} />
+              </div>
 
-                {/* Share links */}
-                <div className="mt-12 border-t border-deepblue/10 pt-8">
-                  <ShareLinks title={frontmatter.title} url={postUrl} />
-                </div>
-              </article>
-
-              {/* Sidebar — TOC */}
-              {hasLongContent && headings.length > 0 && (
-                <aside className="hidden lg:block">
-                  <div className="sticky top-24">
-                    <TableOfContents headings={headings} />
-                  </div>
-                </aside>
-              )}
-            </div>
+              {/* Share links */}
+              <div className="mt-12 border-t border-deepblue/10 pt-8">
+                <ShareLinks title={frontmatter.title} url={postUrl} />
+              </div>
+            </article>
           </div>
         </div>
       </main>
