@@ -15,8 +15,8 @@ export default function NotFound() {
             That page hasn&rsquo;t been built yet.
           </h1>
           <p className="mt-5 max-w-2xl text-brown/80 text-lg">
-            StunpreX is in Wave 2 production. Most of the site goes live in stages over the
-            next 90 days. Try the home page or the Codex.
+            StunpreX is in active development. Most of the site goes live in stages over the
+            coming weeks. Try the home page or the Codex.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
             <Link href="/" className="btn-primary">Back to home</Link>
