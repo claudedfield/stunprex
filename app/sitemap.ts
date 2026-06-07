@@ -32,6 +32,7 @@ const STATIC_ROUTES: StaticRoute[] = [
   { path: '/for-parents',  priority: 0.5, changeFrequency: 'monthly' },
   { path: '/for-coaches',  priority: 0.5, changeFrequency: 'monthly' },
   // ComingSoon placeholders
+  { path: '/pricing',   priority: 0.3, changeFrequency: 'yearly' },
   { path: '/training',  priority: 0.3, changeFrequency: 'yearly' },
   { path: '/games',     priority: 0.3, changeFrequency: 'yearly' },
   { path: '/playbook',  priority: 0.3, changeFrequency: 'yearly' },

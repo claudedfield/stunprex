@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'StunpreX — Individual soccer player development',
+    title: 'StunpreX — A methodology-first hub for individual soccer player development',
     description:
       'Develop the player, not the position. Built for players, parents, and coaches who take long-horizon development seriously.',
   },

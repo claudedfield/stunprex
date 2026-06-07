@@ -57,26 +57,17 @@ export const metadata: Metadata = {
   authors: [{ name: 'DField Kft.' }],
   openGraph: {
     type: 'website',
-    locale: 'en_GB',
-    url: 'https://stunprex.com',
+    locale: 'en_US',
+    url: 'https://www.stunprex.com',
     title: 'StunpreX — Train Smarter. Play Better. Reach Your Full Potential.',
     description:
       'A soccer player development hub for individual development. Methodology-first. Codex-driven.',
     siteName: 'StunpreX',
-    images: [
-      {
-        url: '/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'StunpreX — Train Smarter. Play Better. Reach your potential.',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'StunpreX',
     description: 'Train Smarter. Play Better. Reach Your Full Potential.',
-    images: ['/og-image.jpg'],
   },
   icons: {
     icon: [
