@@ -2,10 +2,27 @@ import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 
-export const metadata = {
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
   title: 'About',
   description:
     'StunpreX is a methodology-first soccer player development hub by DField Kft. — free, long-horizon, deliberately not engagement-bait.',
+  openGraph: {
+    title: 'About — StunpreX',
+    description:
+      'StunpreX is a methodology-first soccer player development hub by DField Kft. — free, long-horizon, deliberately not engagement-bait.',
+    url: 'https://www.stunprex.com/about',
+    siteName: 'StunpreX',
+    type: 'website',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About — StunpreX',
+    description:
+      'StunpreX is a methodology-first soccer player development hub by DField Kft. — free, long-horizon, deliberately not engagement-bait.',
+  },
 };
 
 export default function Page() {

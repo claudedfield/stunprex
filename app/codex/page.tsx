@@ -2,9 +2,24 @@ import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 
-export const metadata = {
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
   title: 'Codex',
   description: 'The StunpreX methodology — in preparation.',
+  openGraph: {
+    title: 'Codex — StunpreX',
+    description: 'The StunpreX methodology — in preparation.',
+    url: 'https://www.stunprex.com/codex',
+    siteName: 'StunpreX',
+    type: 'website',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Codex — StunpreX',
+    description: 'The StunpreX methodology — in preparation.',
+  },
 };
 
 export default function Page() {

@@ -1,6 +1,27 @@
 import { ComingSoon } from '@/components/ComingSoon';
 
-export const metadata = { title: 'Games' };
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Games',
+  description:
+    'Game formats and small-sided structures for individual football development — pressure, decision-making, and creativity built in by design.',
+  openGraph: {
+    title: 'Games — StunpreX',
+    description:
+      'Game formats and small-sided structures for individual football development — pressure, decision-making, and creativity built in by design.',
+    url: 'https://www.stunprex.com/games',
+    siteName: 'StunpreX',
+    type: 'website',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Games — StunpreX',
+    description:
+      'Game formats and small-sided structures for individual football development — pressure, decision-making, and creativity built in by design.',
+  },
+};
 
 export default function Page() {
   return (

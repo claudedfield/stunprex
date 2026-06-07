@@ -28,7 +28,7 @@ export function Header() {
 
         <div className="flex items-center gap-4">
           <Link
-            href="/signin"
+            href="/auth/sign-in"
             className="hidden sm:inline font-ui uppercase text-deepblue hover:text-orange tracking-wider text-sm transition-colors"
           >
             Sign in

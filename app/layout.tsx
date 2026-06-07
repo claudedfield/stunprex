@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import { Mate, Play, Dosis, Noto_Sans } from 'next/font/google';
 import './globals.css';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 // StunpreX visual identity — Blueprint v2.1 §7.
 // Headings — Mate
@@ -36,7 +38,7 @@ const notoSans = Noto_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://stunprex.com'),
+  metadataBase: new URL('https://www.stunprex.com'),
   title: {
     default: 'StunpreX — Train Smarter. Play Better. Reach Your Full Potential.',
     template: '%s · StunpreX',
@@ -51,6 +53,8 @@ export const metadata: Metadata = {
     'soccer drills',
     'StunpreX',
   ],
+  applicationName: 'StunpreX',
+  authors: [{ name: 'DField Kft.' }],
   openGraph: {
     type: 'website',
     locale: 'en_GB',
@@ -87,6 +91,12 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  alternates: {
+    canonical: 'https://www.stunprex.com',
+    types: {
+      'application/rss+xml': 'https://www.stunprex.com/feed.xml',
+    },
+  },
 };
 
 export const viewport: Viewport = {
@@ -103,7 +113,11 @@ export default function RootLayout({
       lang="en"
       className={`${mate.variable} ${play.variable} ${dosis.variable} ${notoSans.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+        <SpeedInsights />
+      </body>
     </html>
   );
 }

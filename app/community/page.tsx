@@ -17,8 +17,18 @@ export const metadata: Metadata = {
     'Questions, answers, and observations on football player development. Ask anything — methodology, coaching, player progress, parent corner.',
   openGraph: {
     title: 'Community — StunpreX',
-    description: 'A calm, methodology-grounded Q&A community for football development.',
-    url: 'https://stunprex.com/community',
+    description:
+      'A calm, methodology-grounded Q&A community for football development. Questions from players, parents, and coaches.',
+    url: 'https://www.stunprex.com/community',
+    siteName: 'StunpreX',
+    type: 'website',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Community — StunpreX',
+    description:
+      'A calm, methodology-grounded Q&A community for football development. Questions from players, parents, and coaches.',
   },
 }
 

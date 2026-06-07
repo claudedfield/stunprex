@@ -17,13 +17,18 @@ export const metadata: Metadata = {
     description:
       'Methodology-first articles on soccer player development. Convictions, drills, and the science behind developing complete players.',
     type: 'website',
-    url: 'https://stunprex.com/blog',
+    url: 'https://www.stunprex.com/blog',
+    siteName: 'StunpreX',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Blog — StunpreX Soccer Development',
+    description:
+      'Methodology-first articles on soccer player development. Convictions, drills, and the science behind developing complete players.',
   },
   alternates: {
-    canonical: 'https://stunprex.com/blog',
-    types: {
-      'application/rss+xml': 'https://stunprex.com/blog/rss.xml',
-    },
+    canonical: 'https://www.stunprex.com/blog',
   },
 };
 
