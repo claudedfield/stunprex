@@ -58,7 +58,7 @@ const nextConfig = {
         // /signin → real Auth.js route (301 permanent)
         source: '/signin',
         destination: '/auth/sign-in',
-        permanent: true,
+        statusCode: 301,
       },
     ];
   },
