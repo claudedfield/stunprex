@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Mate, Play, Dosis, Noto_Sans } from 'next/font/google';
 import './globals.css';
-import { Analytics } from '@vercel/analytics/next';
+import Script from 'next/script';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 // StunpreX visual identity — Blueprint v2.1 §7.
@@ -106,7 +106,7 @@ export default function RootLayout({
     >
       <body>
         {children}
-        <Analytics />
+        <Script src="/_vercel/insights/script.js" strategy="beforeInteractive" />
         <SpeedInsights />
       </body>
     </html>
