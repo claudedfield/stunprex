@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { getAllPostCards } from '@/lib/posts';
+import { getAllDrillCards } from '@/lib/drills';
 import { getQuestions } from '@/lib/community/queries';
 
 const BASE = 'https://www.stunprex.com';
@@ -9,7 +10,8 @@ const BASE = 'https://www.stunprex.com';
 //   0.9 daily     — blog index (new posts arrive frequently)
 //   0.8 monthly   — blog posts, community posts
 //   0.75 weekly   — community index
-//   0.7 monthly   — pillar pages with real content (about, codex, methodology)
+//   0.7 monthly   — pillar pages with real content (about, codex, methodology, training index)
+//   0.7 monthly   — drill detail pages
 //   0.5 monthly   — primary audience-hub pages (for-players, for-parents, for-coaches)
 //   0.3 yearly    — ComingSoon placeholders, legal pages
 
@@ -27,13 +29,13 @@ const STATIC_ROUTES: StaticRoute[] = [
   { path: '/about',       priority: 0.7, changeFrequency: 'monthly' },
   { path: '/codex',       priority: 0.7, changeFrequency: 'monthly' },
   { path: '/methodology', priority: 0.7, changeFrequency: 'monthly' },
+  { path: '/training',    priority: 0.7, changeFrequency: 'weekly' },
   // Audience hubs
   { path: '/for-players',  priority: 0.5, changeFrequency: 'monthly' },
   { path: '/for-parents',  priority: 0.5, changeFrequency: 'monthly' },
   { path: '/for-coaches',  priority: 0.5, changeFrequency: 'monthly' },
   // ComingSoon placeholders
   { path: '/pricing',   priority: 0.3, changeFrequency: 'yearly' },
-  { path: '/training',  priority: 0.3, changeFrequency: 'yearly' },
   { path: '/games',     priority: 0.3, changeFrequency: 'yearly' },
   { path: '/playbook',  priority: 0.3, changeFrequency: 'yearly' },
   // Legal
@@ -69,6 +71,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
+  // Dynamic drill entries — each with its actual lastModified date
+  const drills = getAllDrillCards();
+  const drillEntries: MetadataRoute.Sitemap = drills.map(({ frontmatter, slug }) => ({
+    url: `${BASE}/training/${slug}`,
+    lastModified: new Date(frontmatter.lastModified ?? frontmatter.date),
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
+
   // Dynamic community question entries — all published questions
   // Fetch up to 1 000; paginated sitemap deferred to v1.1 per §10 brief.
   let questionEntries: MetadataRoute.Sitemap = [];
@@ -87,5 +98,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  return [...staticEntries, ...postEntries, ...questionEntries];
+  return [...staticEntries, ...postEntries, ...drillEntries, ...questionEntries];
 }
