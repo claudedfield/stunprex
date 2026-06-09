@@ -1,12 +1,14 @@
 /**
  * /community/ask — New question form with preview step.
  * Auth required. Redirect to sign-in if not authenticated.
+ * Supports ?category=<value> query param to pre-select a category.
  */
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import { auth } from '@/auth'
 import { getAllTags } from '@/lib/community/queries'
 import { ALL_CATEGORIES, CATEGORY_LABELS } from '@/lib/types/community'
+import type { QuestionCategory } from '@/lib/types/community'
 import AskForm from './AskForm'
 
 export const metadata: Metadata = {
@@ -15,13 +17,24 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
-export default async function AskPage() {
+export default async function AskPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string }>
+}) {
   const session = await auth()
   if (!session?.user?.id) {
     redirect('/auth/sign-in?next=/community/ask')
   }
 
   const tags = await getAllTags()
+  const { category: categoryParam } = await searchParams
+
+  // Validate the query param against known categories; ignore unknown values
+  const initialCategory: QuestionCategory | '' =
+    categoryParam && (ALL_CATEGORIES as readonly string[]).includes(categoryParam)
+      ? (categoryParam as QuestionCategory)
+      : ''
 
   return (
     <main className="min-h-screen bg-mint">
@@ -47,6 +60,7 @@ export default async function AskPage() {
           categories={ALL_CATEGORIES}
           categoryLabels={CATEGORY_LABELS}
           tags={tags}
+          initialCategory={initialCategory}
         />
       </div>
     </main>

@@ -26,7 +26,7 @@ export default function Page() {
     <ComingSoon
       section="For coaches"
       blurb="A dedicated path for coaches who multiply players. Coming soon — for now, browse the blog and the community."
-      shipsIn="Next phase"
+      shipsIn="Coming soon"
     />
   );
 }

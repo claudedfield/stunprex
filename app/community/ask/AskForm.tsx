@@ -12,6 +12,7 @@ import { createQuestion } from '@/lib/community/actions'
 import MarkdownBody from '@/components/community/MarkdownBody'
 
 interface AskFormProps {
+  initialCategory?: QuestionCategory | ''
   categories: QuestionCategory[]
   categoryLabels: Record<QuestionCategory, string>
   tags: TagRow[]
@@ -19,11 +20,11 @@ interface AskFormProps {
 
 type Step = 'compose' | 'preview'
 
-export default function AskForm({ categories, categoryLabels, tags }: AskFormProps) {
+export default function AskForm({ categories, categoryLabels, tags, initialCategory = '' }: AskFormProps) {
   const router = useRouter()
   const [step, setStep] = useState<Step>('compose')
   const [title, setTitle] = useState('')
-  const [category, setCategory] = useState<QuestionCategory | ''>('')
+  const [category, setCategory] = useState<QuestionCategory | ''>(initialCategory)
   const [body, setBody] = useState('')
   const [selectedTagIds, setSelectedTagIds] = useState<string[]>([])
   const [errors, setErrors] = useState<Record<string, string>>({})
