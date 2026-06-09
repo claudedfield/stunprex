@@ -17,8 +17,16 @@ import pg from 'pg'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const migrationsDir = join(__dirname, 'migrations')
 
-// Prefer the non-pooling connection for multi-statement migrations
-const connectionString = process.env.POSTGRES_URL_NON_POOLING ?? process.env.POSTGRES_URL
+// Prefer the non-pooling connection for multi-statement migrations.
+// Pin the SSL mode to verify-full explicitly: pg-connection-string currently
+// treats `sslmode=require` as `verify-full` but warns it will weaken in a
+// future major version. This is behavior-identical today and silences the
+// deprecation warning during the build.
+const rawConnectionString = process.env.POSTGRES_URL_NON_POOLING ?? process.env.POSTGRES_URL
+const connectionString = rawConnectionString?.replace(
+  /([?&]sslmode=)(prefer|require|verify-ca)\b/i,
+  '$1verify-full',
+)
 
 if (!connectionString) {
   console.warn('[migrate] No POSTGRES_URL_NON_POOLING or POSTGRES_URL found — skipping migrations.')

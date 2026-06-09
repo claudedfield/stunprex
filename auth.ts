@@ -20,8 +20,21 @@ import pg from 'pg'
 
 // Direct pg.Pool for @auth/pg-adapter — VercelPool type is not directly
 // assignable to pg.Pool; using pg directly resolves the TS type mismatch.
+//
+// Make the SSL mode explicit: pg-connection-string currently treats
+// `sslmode=require` as `verify-full`, but warns that a future major version
+// will silently downgrade it to weaker (libpq) semantics. Pinning to
+// `verify-full` is behavior-identical today and removes the deprecation
+// warning + future security regression.
+function withExplicitSslMode(cs: string | undefined): string | undefined {
+  if (!cs) return cs
+  return cs.replace(/([?&]sslmode=)(prefer|require|verify-ca)\b/i, '$1verify-full')
+}
+
 const pool = new pg.Pool({
-  connectionString: process.env.POSTGRES_URL_NON_POOLING ?? process.env.POSTGRES_URL,
+  connectionString: withExplicitSslMode(
+    process.env.POSTGRES_URL_NON_POOLING ?? process.env.POSTGRES_URL,
+  ),
 })
 import { sendMagicLink } from '@/lib/email'
 import { ensureProfile } from '@/lib/auth/db'
