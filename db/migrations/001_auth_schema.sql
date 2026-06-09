@@ -44,7 +44,16 @@ CREATE TABLE IF NOT EXISTS sessions (
 );
 
 -- Auth.js verification tokens (magic links)
-CREATE TABLE IF NOT EXISTS verification_tokens (
+-- NOTE: @auth/pg-adapter queries this table by the SINGULAR name
+-- `verification_token` (unlike users/accounts/sessions which are plural).
+-- The name MUST match exactly or createVerificationToken throws
+-- `relation "verification_token" does not exist`.
+-- Drop the previously misnamed table from earlier deploys. It was never
+-- written to (the adapter only ever queried the singular name) so this is a
+-- safe, no-data-loss cleanup.
+DROP TABLE IF EXISTS verification_tokens;
+
+CREATE TABLE IF NOT EXISTS verification_token (
   identifier text NOT NULL,
   expires    timestamptz NOT NULL,
   token      text NOT NULL,

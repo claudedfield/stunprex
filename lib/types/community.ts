@@ -3,7 +3,7 @@
  * Stack: Vercel Postgres + Auth.js v5. No RLS — app-level authorization in every mutating action.
  *
  * Tables mirror db/migrations/002_community_schema.sql.
- * Auth.js tables (users, accounts, sessions, verification_tokens) are in 001_auth_schema.sql
+ * Auth.js tables (users, accounts, sessions, verification_token) are in 001_auth_schema.sql
  * and owned by Auth.js — do not redefine them here.
  */
 
