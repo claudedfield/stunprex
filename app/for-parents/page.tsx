@@ -26,7 +26,7 @@ export default function Page() {
     <ComingSoon
       section="For parents"
       blurb="A dedicated path for parents supporting a player's development. Coming soon — for now, browse the blog and the community."
-      shipsIn="Next phase"
+      shipsIn="Coming soon"
     />
   );
 }

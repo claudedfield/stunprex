@@ -38,7 +38,7 @@ export function PullQuote() {
           who relies on talent.
         </p>
         <p className="mt-6 font-ui uppercase tracking-widest text-xs text-white/55">
-          — On Conviction 1, in plain language
+          — On trained greatness, in plain language
         </p>
       </div>
     </section>
