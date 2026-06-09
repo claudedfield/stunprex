@@ -9,7 +9,7 @@
  *   POSTGRES_URL            — Vercel Postgres connection string (pooled)
  *   POSTGRES_URL_NON_POOLING — Vercel Postgres direct connection string
  *   AUTH_SECRET             — 32+ char random string (openssl rand -base64 32)
- *   NEXTAUTH_URL            — https://stunprex.com in production; http://localhost:3000 locally
+ * (Auth.js v5 derives URLs from request headers with trustHost: true — no AUTH_URL needed)
  *   SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM — §11 brief
  */
 import NextAuth from 'next-auth'
@@ -41,6 +41,7 @@ import { ensureProfile } from '@/lib/auth/db'
 
 export const authConfig: NextAuthConfig = {
   adapter: PostgresAdapter(pool),
+  trustHost: true,    // Required for Auth.js v5 behind Vercel's reverse proxy — trusts X-Forwarded-* headers.
 
   providers: [
     Email({
