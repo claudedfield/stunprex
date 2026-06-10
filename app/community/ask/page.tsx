@@ -7,6 +7,7 @@ import { redirect } from 'next/navigation'
 import { auth } from '@/auth'
 import { getAllTags } from '@/lib/community/queries'
 import { ALL_CATEGORIES, CATEGORY_LABELS } from '@/lib/types/community'
+import type { QuestionCategory } from '@/lib/types/community'
 import AskForm from './AskForm'
 
 export const metadata: Metadata = {
@@ -15,13 +16,22 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
-export default async function AskPage() {
+export default async function AskPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string }>
+}) {
   const session = await auth()
   if (!session?.user?.id) {
     redirect('/auth/sign-in?next=/community/ask')
   }
 
-  const tags = await getAllTags()
+  const [tags, params] = await Promise.all([getAllTags(), searchParams])
+
+  const initialCategory =
+    params.category && ALL_CATEGORIES.includes(params.category as QuestionCategory)
+      ? (params.category as QuestionCategory)
+      : null
 
   return (
     <main className="min-h-[60vh] bg-mint">
@@ -47,6 +57,7 @@ export default async function AskPage() {
           categories={ALL_CATEGORIES}
           categoryLabels={CATEGORY_LABELS}
           tags={tags}
+          initialCategory={initialCategory}
         />
       </div>
     </main>

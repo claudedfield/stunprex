@@ -3,8 +3,6 @@
  * Auth.js redirects here after verifyRequest (pages.verifyRequest config).
  */
 import type { Metadata } from 'next'
-import { Header } from '@/components/Header'
-import { Footer } from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Check your email — StunpreX',
@@ -13,8 +11,6 @@ export const metadata: Metadata = {
 
 export default function VerifyPage() {
   return (
-    <>
-      <Header />
       <main className="bg-mint min-h-[60vh]">
         <section className="container-site py-16 md:py-20">
           <div className="mx-auto max-w-md text-center">
@@ -56,7 +52,5 @@ export default function VerifyPage() {
           </div>
         </section>
       </main>
-      <Footer />
-    </>
   )
 }

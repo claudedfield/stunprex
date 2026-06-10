@@ -31,14 +31,12 @@ export function Hero() {
           The methodology behind individual development
         </p>
         <h1 className="max-w-4xl font-heading">
-          Train Smarter. Play Better.
-          <br />
-          <span className="text-orange">Reach Your Full Potential.</span>
+          Develop the player, not the position.
         </h1>
         <p className="mt-7 max-w-2xl text-lg text-brown/85 leading-relaxed">
-          Individual soccer player development built on a long-horizon methodology.
-          Convictions, drills, and pathways for players, parents, and coaches who want
-          development that compounds.
+          Individual soccer player development on a long horizon. Built on a methodology that
+          develops the whole player — perceptual, cognitive, motor, communication, affective,
+          adaptive — not the slot they happen to play.
         </p>
         <div className="mt-10 flex flex-wrap items-center gap-4">
           <Link href="/community" className="btn-primary">

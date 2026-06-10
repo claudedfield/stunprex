@@ -15,15 +15,16 @@ interface AskFormProps {
   categories: QuestionCategory[]
   categoryLabels: Record<QuestionCategory, string>
   tags: TagRow[]
+  initialCategory?: QuestionCategory | null
 }
 
 type Step = 'compose' | 'preview'
 
-export default function AskForm({ categories, categoryLabels, tags }: AskFormProps) {
+export default function AskForm({ categories, categoryLabels, tags, initialCategory = null }: AskFormProps) {
   const router = useRouter()
   const [step, setStep] = useState<Step>('compose')
   const [title, setTitle] = useState('')
-  const [category, setCategory] = useState<QuestionCategory | ''>('')
+  const [category, setCategory] = useState<QuestionCategory | ''>(initialCategory ?? '')
   const [body, setBody] = useState('')
   const [selectedTagIds, setSelectedTagIds] = useState<string[]>([])
   const [errors, setErrors] = useState<Record<string, string>>({})

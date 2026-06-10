@@ -4,8 +4,6 @@
  * Profile (display_name) is completed at /community/welcome after first sign-in.
  */
 import type { Metadata } from 'next'
-import { Header } from '@/components/Header'
-import { Footer } from '@/components/Footer'
 import SignUpForm from './SignUpForm'
 
 export const metadata: Metadata = {
@@ -16,8 +14,6 @@ export const metadata: Metadata = {
 
 export default function SignUpPage() {
   return (
-    <>
-      <Header />
       <main className="bg-mint min-h-[60vh]">
         <section className="container-site py-16 md:py-20">
           <div className="mx-auto max-w-md">
@@ -43,7 +39,5 @@ export default function SignUpPage() {
           </div>
         </section>
       </main>
-      <Footer />
-    </>
   )
 }

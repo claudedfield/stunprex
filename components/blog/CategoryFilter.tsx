@@ -1,8 +1,8 @@
 'use client';
 // CategoryFilter — category chips for /blog index and /blog/category/[slug].
 // Uses router navigation; active state derived from current pathname.
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Chip } from '@/components/Chip';
 import type { Category, CategorySlug } from '@/lib/types/post';
 import { CATEGORY_SLUGS } from '@/lib/types/post';
 
@@ -20,35 +20,21 @@ export function CategoryFilter({ categories }: Props) {
 
   return (
     <nav aria-label="Filter posts by category" className="flex flex-wrap gap-2">
-      {/* All */}
-      <Link
-        href="/blog"
-        className={`inline-flex items-center rounded-full border px-4 py-1.5 text-sm font-semibold font-ui tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40 focus-visible:ring-offset-1 ${
-          isAll
-            ? 'border-deepblue bg-deepblue text-white'
-            : 'border-deepblue/25 text-brown/70 hover:border-deepblue hover:text-deepblue'
-        }`}
-        aria-current={isAll ? 'page' : undefined}
-      >
+      <Chip href="/blog" active={isAll} aria-current={isAll ? 'page' : undefined}>
         All
-      </Link>
-
+      </Chip>
       {categories.map((cat) => {
         const slug = CATEGORY_SLUGS[cat];
         const isActive = activeSlug === slug;
         return (
-          <Link
+          <Chip
             key={slug}
             href={`/blog/category/${slug}`}
-            className={`inline-flex items-center rounded-full border px-4 py-1.5 text-sm font-semibold font-ui tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40 focus-visible:ring-offset-1 ${
-              isActive
-                ? 'border-orange bg-orange text-white'
-                : 'border-brown/20 text-brown/70 hover:border-orange hover:text-orange'
-            }`}
+            active={isActive}
             aria-current={isActive ? 'page' : undefined}
           >
             {cat}
-          </Link>
+          </Chip>
         );
       })}
     </nav>

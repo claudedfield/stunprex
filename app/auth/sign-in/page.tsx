@@ -3,8 +3,6 @@
  * Magic-link only; no password, no OAuth at v1 (brief §3).
  */
 import type { Metadata } from 'next'
-import { Header } from '@/components/Header'
-import { Footer } from '@/components/Footer'
 import SignInForm from './SignInForm'
 
 export const metadata: Metadata = {
@@ -15,8 +13,6 @@ export const metadata: Metadata = {
 
 export default function SignInPage() {
   return (
-    <>
-      <Header />
       <main className="bg-mint min-h-[60vh]">
         <section className="container-site py-16 md:py-20">
           <div className="mx-auto max-w-md">
@@ -33,7 +29,5 @@ export default function SignInPage() {
           </div>
         </section>
       </main>
-      <Footer />
-    </>
   )
 }
