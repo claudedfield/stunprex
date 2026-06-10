@@ -60,10 +60,11 @@ export default async function CommunityPage({ searchParams }: CommunityPageProps
 
   return (
     <main className="min-h-[60vh] bg-mint">
-      <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="container-site py-12">
+        <div className="mx-auto max-w-4xl">
         <header className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <h1 className="font-display text-3xl font-bold text-deepblue mb-1">
+            <h1 className="font-heading font-bold text-deepblue mb-1">
               Community
             </h1>
             <p className="text-brown/60 font-body text-sm">
@@ -93,6 +94,7 @@ export default async function CommunityPage({ searchParams }: CommunityPageProps
           categories={ALL_CATEGORIES}
           categoryLabels={CATEGORY_LABELS}
         />
+        </div>
       </div>
     </main>
   )

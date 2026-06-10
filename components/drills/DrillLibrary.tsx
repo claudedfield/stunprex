@@ -1,4 +1,5 @@
 'use client';
+import { Chip } from '@/components/Chip';
 
 // DrillLibrary — client island for /training listing.
 // Receives pre-fetched drill cards from the server component; handles filter state.
@@ -80,18 +81,14 @@ export function DrillLibrary({ drills }: Props) {
             {ALL_CAPACITY_FAMILIES.map((cap) => {
               const active = activeCapacities.has(cap);
               return (
-                <button
+                <Chip
                   key={cap}
                   onClick={() => toggleCapacity(cap)}
                   aria-pressed={active}
-                  className={`rounded-full border px-4 py-1.5 text-sm font-semibold font-ui transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-orange ${
-                    active
-                      ? 'border-deepblue bg-deepblue text-white'
-                      : 'border-deepblue/20 bg-white text-deepblue hover:border-deepblue/50'
-                  }`}
+                  active={active}
                 >
                   {cap}
-                </button>
+                </Chip>
               );
             })}
           </div>
@@ -106,18 +103,14 @@ export function DrillLibrary({ drills }: Props) {
             {AGE_BANDS.map((band) => {
               const active = activeAgeBands.has(band);
               return (
-                <button
+                <Chip
                   key={band}
                   onClick={() => toggleAgeBand(band)}
                   aria-pressed={active}
-                  className={`rounded-full border px-4 py-1.5 text-sm font-semibold font-ui transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-orange ${
-                    active
-                      ? 'border-orange bg-orange text-white'
-                      : 'border-orange/20 bg-white text-brown hover:border-orange/50'
-                  }`}
+                  active={active}
                 >
                   {band}
-                </button>
+                </Chip>
               );
             })}
           </div>

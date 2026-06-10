@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation'
 import type { QuestionWithAuthor, TagRow, QuestionCategory, SortOrder } from '@/lib/types/community'
 import QuestionCard from '@/components/community/QuestionCard'
 import { Pagination } from '@/components/blog/Pagination'
+import { Chip } from '@/components/Chip'
 
 interface CommunityIndexProps {
   questions: QuestionWithAuthor[]
@@ -67,28 +68,20 @@ export default function CommunityIndex({
     <div className="space-y-5">
       {/* Category filter */}
       <nav aria-label="Category filter" className="flex flex-wrap gap-2">
-        <a
+        <Chip
           href={buildUrl({ category: null, page: 1 })}
-          className={`rounded-full px-3 py-1 text-xs font-ui font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40 focus-visible:ring-offset-1 ${
-            !currentCategory
-              ? 'bg-deepblue text-white'
-              : 'bg-white text-brown/65 hover:text-deepblue border border-deepblue/20'
-          }`}
+          active={!currentCategory}
         >
           All
-        </a>
+        </Chip>
         {categories.map((cat) => (
-          <a
+          <Chip
             key={cat}
             href={buildUrl({ category: cat, page: 1 })}
-            className={`rounded-full px-3 py-1 text-xs font-ui font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40 focus-visible:ring-offset-1 ${
-              currentCategory === cat
-                ? 'bg-deepblue text-white'
-                : 'bg-white text-brown/65 hover:text-deepblue border border-deepblue/20'
-            }`}
+            active={currentCategory === cat}
           >
             {categoryLabels[cat]}
-          </a>
+          </Chip>
         ))}
       </nav>
 
@@ -114,13 +107,9 @@ export default function CommunityIndex({
         {/* Top tags — compact */}
         <div className="flex flex-wrap gap-1.5">
           {tags.slice(0, 6).map((tag) => (
-            <a
-              key={tag.id}
-              href={`/community/tag/${tag.slug}`}
-              className="rounded-full bg-deepblue/8 px-2 py-0.5 text-xs font-ui font-medium text-deepblue/70 hover:bg-deepblue/15 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40"
-            >
+            <Chip key={tag.id} href={`/community/tag/${tag.slug}`}>
               {tag.label}
-            </a>
+            </Chip>
           ))}
         </div>
       </div>

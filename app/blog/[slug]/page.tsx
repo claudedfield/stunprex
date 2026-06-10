@@ -13,6 +13,7 @@ import { mdxComponents } from '@/components/blog/MdxComponents';
 import { getPostBySlug, getAllPostSlugs } from '@/lib/posts';
 import { CATEGORY_SLUGS } from '@/lib/types/post';
 import Link from 'next/link';
+import { Chip } from '@/components/Chip';
 
 // Estimate word count from source
 function wordCount(source: string): number {
@@ -154,12 +155,9 @@ export default async function BlogPostPage({ params }: Props) {
               ]}
             />
             <div className="mb-4">
-              <Link
-                href={`/blog/category/${catSlug}`}
-                className="inline-flex items-center rounded-full border border-orange/30 bg-orange/8 px-3 py-0.5 text-xs font-semibold text-orange-700 font-ui tracking-wide hover:bg-orange/15 transition-colors"
-              >
+              <Chip href={`/blog/category/${catSlug}`}>
                 {frontmatter.category}
-              </Link>
+              </Chip>
             </div>
             <h1 className="mb-5 font-heading text-deepblue">{frontmatter.title}</h1>
             <p className="mb-6 text-lg text-brown/70 font-body leading-relaxed max-w-2xl">
