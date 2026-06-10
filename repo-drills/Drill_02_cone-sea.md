@@ -1,48 +1,51 @@
+# Cone Sea (Without Sequence Boards)
+
+**Drill ID:** SX-DR-002
+**Library status:** Drill 02 — foundational ball-mastery-under-cognitive-load.
+**Codex source:** v0.7.1 Part II — Capacities Framework, *Worked examples — drills as capacity combinations* (Cone Sea canonical reference); Decision E (2026-05-02): Sequence Boards pushed to Wave 3; this version is the methodology-only implementation.
+**Library entry date:** 2026-05-26
+
 ---
-title: "Cone Sea (Without Sequence Boards)"
-slug: "cone-sea"
-drillId: "SX-DR-002"
-date: "2026-05-26"
-lastModified: "2026-05-26"
-description: "The Cone Sea trains what makes possible: creativity under constraint. The player dribbles continuously through a dense field of cones — the \"sea\" — while listening for the coach's gate call."
 
-codexAnchors:
-  convictionThemes:
-    - "Scanning is a habit, not a gift"
-    - "Both feet, or half a player"
-    - "Constraints generate creativity"
-    - "Variability builds robustness"
-    - "Ball mastery is irreplaceable"
-    - "Cognitive load matters"
-  capacities:
-    primary: ["Perceptual", "Cognitive", "Motor"]
-    secondary: ["Affective", "Adaptive"]
-  playerOperatingPrinciple: "Ball mastery while aware"
+## Codex tags
 
-ageBand:
-  introducible: "9–12 Foundation"
-  central: "9–12 Foundation"
-  maintenance: "13–16 Development"
-players: "1–4"
-duration: "12 min total — 3-min working rounds × 3 rounds, 90-sec rest between rounds"
-environment: "pitch, half-pitch, park, or any flat surface at least 10m × 10m"
-equipment:
-  - "21–24 cones (15–18 for the sea; 6 for 3 exit gates — 2 cones each)"
-  - "1 ball per player; coloured cones helpful but not required"
-difficulty:
-  baseline: 1
-  elite: 5
-primaryObjectives:
-  - "Ball mastery (both feet under congestion)"
-  - "Perceptual scanning under motor load"
-  - "Real-time cognitive switching (listening and navigating simultaneously)"
+**Convictions instantiated**
+- **Conviction 5 — Scanning is a habit, not a gift.** The Cone Sea forces continuous scanning — to navigate the dense cone field, locate exit gates, and register the coach's verbal call. All three demands require the player's head up. The scan is not prompted; it is structurally required.
+- **Conviction 6 — Both feet, or half a player.** Alternating-foot rule built into the baseline; the weak foot receives equal dribbling volume from the first rep.
+- **Conviction 13 — Constraints generate creativity.** The dense cone field and unpredictable gate calls produce novel routing on every rep. There is no memorisable path — the player must create one in real time under real pressure.
+- **Conviction 22 — Variability builds robustness.** The cone layout changes each session. Gate calls arrive at irregular intervals. Level 3 and above introduce mid-drill disturbances. The player is never calibrating to the same sea twice.
+- **Conviction 28 — Ball mastery is irreplaceable.** Continuous close-contact dribbling in a congested space is the motor foundation. This is ball-mastery work with perceptual and cognitive structure layered on top.
+- **Conviction 30 — Cognitive load matters.** Verbal gate calls layer real-time auditory-attention demand onto a motor-intensive drill. Same touches, multiplied developmental value — the brain trains alongside the foot.
 
-status: "published"
+**Player Operating Principle reinforced**
+- *Ball mastery while aware* — the player sustains close technical control while simultaneously scanning the environment and processing external calls. This operating condition is present in every real match moment.
+
+**Capacities trained** (by family, primary / secondary distinguished)
+- *Perceptual:* **primary** — peripheral and panoramic visual scanning (cone avoidance and gate location simultaneously), spatial awareness (own position within the sea relative to gates). **secondary** — auditory perception (gate calls against background noise), anticipation (reading the sea for open routes before committing direction).
+- *Cognitive:* **primary** — attention switching (between the ongoing dribbling task and the auditory gate call), working memory (retaining the called gate's spatial location while continuing to navigate), selective attention (filtering the coach's call from environmental noise). **secondary** — decision-making (route selection through the sea toward the called gate), self-monitoring (am I on both feet? have I lost the ball?).
+- *Motor:* **primary** — ball mastery (continuous dribbling in both feet under congestion), agility (direction change around cones without losing possession). **secondary** — balance and whole-body coordination (maintaining stability during quick direction changes at close quarters).
+- *Communication:* not primary at baseline; Level 5 partner-caller variant introduces it as a primary demand.
+- *Affective:* focus and concentration as multipliers — the drill demands sustained split-attention across a full 3-minute round; composure under the slight cognitive pressure of the gate call is the emotional baseline being trained.
+- *Adaptive:* **secondary at baseline, primary at Level 3+** — mid-drill cone changes and gate additions make adaptation the explicit challenge.
+
+---
+
+## Metadata
+- **Age band:** 9–12 (Foundation, primary); 5–8 introducible in simplified form (one gate, no verbal call — see Variations); 13–16 appropriate at Levels 4–5
+- **Level within band:** beginner-to-intermediate within the 9–12 band
+- **Players:** 1 (primary); 2–4 in the same sea (see Variations)
+- **Duration:** 12 min total — 3-min working rounds × 3 rounds, 90-sec rest between rounds
+- **Environment:** pitch, half-pitch, park, or any flat surface at least 10m × 10m
+- **Equipment:** 21–24 cones (15–18 for the sea; 6 for 3 exit gates — 2 cones each), 1 ball per player; coloured cones helpful but not required
+- **Primary objectives:** ball mastery (both feet under congestion), perceptual scanning under motor load, real-time cognitive switching (listening and navigating simultaneously)
+- **Difficulty:** 2 (baseline Level 1); scales to 4 at Level 5
+- **Individual focus:** every rep trains the player's capacity to maintain close ball control while keeping the head up and the ears open — the operating condition of every meaningful ball-carrying moment in a real match.
+
 ---
 
 ## Introduction
 
-The Cone Sea trains what makes possible: creativity under constraint. The player dribbles continuously through a dense field of cones — the "sea" — while listening for the coach's gate call. When a gate is called, the player navigates toward it and exits cleanly. Then re-enters and continues.
+The Cone Sea trains what Conviction 13 makes possible: creativity under constraint. The player dribbles continuously through a dense field of cones — the "sea" — while listening for the coach's gate call. When a gate is called, the player navigates toward it and exits cleanly. Then re-enters and continues.
 
 The challenge is to do three things at once: keep the ball close, keep the head up, and stay alert to the next call. These three things do not compete — in a well-designed Cone Sea, they reinforce each other. Scanning helps you avoid cones. Avoiding cones keeps you mobile. Mobility is what lets you respond to the gate call.
 
@@ -56,7 +59,7 @@ The Codex's Capacities Framework describes the Cone Sea (with Sequence Boards) a
 
 Mark a **10m × 10m** square grid using four corner cones.
 
-**The sea:** scatter 15–18 cones randomly inside the grid. Dense, but navigable — a player dribbling at match pace should be able to find a path in any direction, but no path should be straight or obvious. Re-randomise the layout between rounds and between sessions .
+**The sea:** scatter 15–18 cones randomly inside the grid. Dense, but navigable — a player dribbling at match pace should be able to find a path in any direction, but no path should be straight or obvious. Re-randomise the layout between rounds and between sessions (Conviction 22).
 
 **The exit gates:** on three sides of the grid, mark one exit gate using two cones placed 1m apart at the midpoint of that side:
 - **Gate A** — centre of the north side.
@@ -91,7 +94,7 @@ The coach stands outside the grid on the west side, with sightlines to all three
 
 - **Look for:** head-up scanning during the open-sea dribbling phase (the player should be scanning for cones, gates, and listening for the call simultaneously); clean gate exits (the player routes toward the gate from sufficient distance — not a last-second scramble); foot-alternating compliance during the sea phase.
 - **Cues to give:** *"Head up — where's B?"* *"Both feet."* *"You heard me — go now."* *"Find your route early."* *"Don't stop dribbling when you listen."*
-- **Praise :** head-up moments, clean gate routes, quick response to the call without losing the ball. Examples: *"Good scan there."* *"You found that gate from distance — well done."* *"Both feet — yes, keep that."*
+- **Praise (Conviction 21 — process before outcome):** head-up moments, clean gate routes, quick response to the call without losing the ball. Examples: *"Good scan there."* *"You found that gate from distance — well done."* *"Both feet — yes, keep that."*
 - **Don't fix yet:** light cone contact in the first round. Contact with sea cones is expected during calibration; the player is learning to manage ball closeness + spatial navigation simultaneously. Intervene only if contact is persistent and shows no improvement across two rounds. Similarly, don't fix gate-exit messiness in the first 10 minutes — route selection improves as the drill embeds.
 
 ---
@@ -111,7 +114,7 @@ The coach stands outside the grid on the west side, with sightlines to all three
 - **Solo home / garden version:** no coach present. Player sets a 3-minute timer. Two gates only (left and right of the entry side). Player writes a self-call sequence on a card before starting (e.g. L-R-L-L-R-R-L) and places it outside the grid, visible from inside. The cognitive demand shifts from auditory-attention to memory-recall. Useful for home practice and self-directed development (Convictions 17 and 18 — self-assessment is a skill; the player is the protagonist).
 - **Tight-space version (garden, small area):** 6m × 6m grid, 10 cones, 2 gates. Ball must remain within 1 foot's reach at all times — the tighter space enforces ultra-close control. Viable when only a small surface is available.
 - **Multi-player sea (5–8 players):** all players in the sea simultaneously, each with a ball. Coach calls one gate; first player through it earns one point (process point — for head-up navigation, not just speed). Creates genuine peer pressure and navigational competition without scrimmage contact. Effective for group training environments where individual session time is limited.
-- **Weak-foot-only:** entire drill — sea dribbling, gate approach, and exit touch — in the weak foot only. All other parameters unchanged. Concentrated weak-foot ball-mastery volume at match-tempo .
+- **Weak-foot-only:** entire drill — sea dribbling, gate approach, and exit touch — in the weak foot only. All other parameters unchanged. Concentrated weak-foot ball-mastery volume at match-tempo (Conviction 6).
 - **Discovery band simplification (5–8 year olds):** one gate only (Gate A, clearly marked with a distinctive colour). No alternating-foot rule. Coach calls "Gate!" — player finds the gate and exits. Re-enter and continue. Duration reduced to 2-minute rounds. The cognitive demand is minimal; the motor demand (close ball contact in the cone field) is the foreground. Joy is the primary output.
 
 ---
@@ -142,5 +145,5 @@ Five-minute coach-led reflection after the final round:
 - **Tags:** ball-mastery, dribbling, scanning, cognitive-load, attention-switching, both-feet, 9-12, solo, 2-4-players, foundation
 - **Pairs well with:** Drill 01 — Scan-Decide-Receive (Two-Cone) [scanning complement: SDR trains the receiving moment; Cone Sea trains the carrying moment]; Drill 05 — Scanning-as-Dribble [direct progression on scanning-while-carrying]; Drill 03 — Constrained 1v1 to Score [the Cone Sea prepares ball mastery and scanning for opposition pressure]
 - **Recommended frequency:** 2–3 times per week during Foundation building blocks (9–12 band); weekly maintenance during in-season; cone layout must change each session.
-- **Sequence Board note:** the Codex (, Part II) describes the Cone Sea *with* Sequence Boards as a four-family canonical drill example. This version is the Sequence-Board-free implementation — the same capacity development architecture delivered through coach-voice cognitive trigger rather than visual sequence boards. Sequence Boards enter in of the StunpreX product roadmap (, 2026-05-02). Until then, this version is the published implementation of the Cone Sea drill.
+- **Sequence Board note:** the Codex (v0.7.1, Part II) describes the Cone Sea *with* Sequence Boards as a four-family canonical drill example. This version is the Sequence-Board-free implementation — the same capacity development architecture delivered through coach-voice cognitive trigger rather than visual sequence boards. Sequence Boards enter in Wave 3 of the StunpreX product roadmap (Decision E, 2026-05-02). Until then, this version is the published implementation of the Cone Sea drill.
 - **Design lineage:** adapted from the Codex Part II worked example. The verbal-trigger cognitive mechanism draws on basketball drill design (coach-called plays during ball-handling) and handball quick-decision training — cross-domain application per Drill Architect innovation protocol.

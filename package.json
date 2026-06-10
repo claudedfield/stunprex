@@ -8,10 +8,11 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "node db/migrate.mjs && next build",
+    "build": "node db/migrate.mjs && node scripts/sync-drills.mjs && next build",
     "start": "next start",
     "lint": "next lint",
-    "db:migrate": "node db/migrate.mjs"
+    "db:migrate": "node db/migrate.mjs",
+    "sync-drills": "node scripts/sync-drills.mjs"
   },
   "dependencies": {
     "@auth/pg-adapter": "^1.11.2",
