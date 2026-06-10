@@ -43,6 +43,33 @@ export const authConfig: NextAuthConfig = {
   adapter: PostgresAdapter(pool),
   trustHost: true,    // Required for Auth.js v5 behind Vercel's reverse proxy — trusts X-Forwarded-* headers.
 
+  // Explicit cookie config so session tokens work regardless of whether the
+  // user lands on apex (stunprex.com) or www (www.stunprex.com).
+  // Leading dot on domain covers both; __Host- prefix is intentionally
+  // omitted for sessionToken because __Host- forbids the domain attribute.
+  cookies: {
+    sessionToken: {
+      name: '__Secure-authjs.session-token',
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: true,
+        domain: '.stunprex.com',  // leading dot → valid for apex AND www
+      },
+    },
+    csrfToken: {
+      name: '__Host-authjs.csrf-token',
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: true,
+        // NOTE: __Host- prefix forbids the domain attribute — omitted intentionally.
+      },
+    },
+  },
+
   providers: [
     Email({
       /**
@@ -56,7 +83,10 @@ export const authConfig: NextAuthConfig = {
        */
       server: process.env.EMAIL_SERVER ?? 'smtp://localhost:25',
       sendVerificationRequest: async ({ identifier: email, url }) => {
-        await sendMagicLink(email, url)
+        // Force www host — Auth.js sometimes generates apex URLs despite trustHost:true.
+        // Token validation is a pure DB lookup; rewriting the host is safe.
+        const wwwUrl = url.replace(/^https:\/\/stunprex\.com\//, 'https://www.stunprex.com/')
+        await sendMagicLink(email, wwwUrl)
       },
     }),
   ],
