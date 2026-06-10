@@ -40,7 +40,7 @@ export default async function MemberProfilePage({ params }: ProfilePageProps) {
   })
 
   return (
-    <main className="min-h-screen bg-mint">
+    <main className="min-h-[60vh] bg-mint">
       <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
         <header className="mb-8">
           <nav className="mb-2 text-xs font-ui text-brown/45" aria-label="Breadcrumb">

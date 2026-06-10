@@ -10,8 +10,6 @@ import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { auth } from '@/auth'
-import { Header } from '@/components/Header'
-import { Footer } from '@/components/Footer'
 import { ALL_CATEGORIES, CATEGORY_LABELS } from '@/lib/types/community'
 import WelcomeForm from './WelcomeForm'
 
@@ -29,9 +27,7 @@ export default async function WelcomePage() {
   if (onboarded) redirect('/community')
 
   return (
-    <>
-      <Header />
-      <main className="bg-mint">
+    <main className="min-h-[60vh] bg-mint">
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 lg:px-8">
 
           {/* Header */}
@@ -92,8 +88,6 @@ export default async function WelcomePage() {
           <WelcomeForm />
 
         </div>
-      </main>
-      <Footer />
-    </>
+    </main>
   )
 }

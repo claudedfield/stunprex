@@ -135,7 +135,7 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <main className="min-h-screen bg-mint">
+      <main className="min-h-[60vh] bg-mint">
         <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
           <QuestionDetail
             question={question}
