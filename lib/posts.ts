@@ -157,3 +157,11 @@ export function buildSearchIndex(): SearchIndexEntry[] {
     })
     .filter(Boolean) as SearchIndexEntry[];
 }
+
+/** Returns published PostCards whose codexAnchors capacities include the given family. */
+export function getPostsByCapacity(family: string): PostCard[] {
+  return getAllPostCards().filter((p) => {
+    const { primary, secondary } = p.frontmatter.codexAnchors.capacities
+    return primary === family || secondary === family
+  })
+}

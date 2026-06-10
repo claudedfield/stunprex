@@ -48,6 +48,21 @@ const STATIC_ROUTES: StaticRoute[] = [
   { path: '/blog/category/pro-breakdown',   priority: 0.6, changeFrequency: 'monthly' },
   { path: '/blog/category/operational-core',priority: 0.6, changeFrequency: 'monthly' },
   { path: '/blog/category/reflections',     priority: 0.6, changeFrequency: 'monthly' },
+  // Capacity family pages (Wave C)
+  { path: '/capacities',             priority: 0.7, changeFrequency: 'monthly' },
+  { path: '/capacities/perceptual',  priority: 0.7, changeFrequency: 'monthly' },
+  { path: '/capacities/cognitive',   priority: 0.7, changeFrequency: 'monthly' },
+  { path: '/capacities/motor',       priority: 0.7, changeFrequency: 'monthly' },
+  { path: '/capacities/communication', priority: 0.7, changeFrequency: 'monthly' },
+  { path: '/capacities/affective',   priority: 0.7, changeFrequency: 'monthly' },
+  { path: '/capacities/adaptive',    priority: 0.7, changeFrequency: 'monthly' },
+  // Age-band pages (Wave C)
+  { path: '/age-bands',      priority: 0.7, changeFrequency: 'monthly' },
+  { path: '/age-bands/5-8',  priority: 0.7, changeFrequency: 'monthly' },
+  { path: '/age-bands/9-12', priority: 0.7, changeFrequency: 'monthly' },
+  { path: '/age-bands/13-16',priority: 0.7, changeFrequency: 'monthly' },
+  { path: '/age-bands/17-20',priority: 0.7, changeFrequency: 'monthly' },
+  { path: '/age-bands/adult',priority: 0.7, changeFrequency: 'monthly' },
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

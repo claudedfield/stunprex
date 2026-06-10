@@ -73,3 +73,26 @@ export function getDrill(slug: string): Drill | null {
 export function getAllDrillSlugs(): string[] {
   return getAllDrillCards().map((d) => d.slug);
 }
+
+/** Returns published DrillCards whose capacity arrays include the given family. */
+export function getDrillsByCapacity(family: string): DrillCard[] {
+  return getAllDrillCards().filter((d) => {
+    const { primary, secondary } = d.frontmatter.codexAnchors.capacities
+    return (
+      (Array.isArray(primary) ? primary : [primary]).includes(family) ||
+      (Array.isArray(secondary) ? secondary : secondary ? [secondary] : []).includes(family)
+    )
+  })
+}
+
+/** Returns published DrillCards whose ageBand includes the given band string (en-dash form). */
+export function getDrillsByAgeBand(bandMatch: string): DrillCard[] {
+  return getAllDrillCards().filter((d) => {
+    const { introducible, central, maintenance } = d.frontmatter.ageBand
+    return (
+      introducible?.includes(bandMatch) ||
+      central?.includes(bandMatch) ||
+      maintenance?.includes(bandMatch)
+    )
+  })
+}

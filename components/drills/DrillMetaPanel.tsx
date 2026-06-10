@@ -5,6 +5,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { CapacityChips } from './CapacityChips';
 import { DifficultyDots } from './DifficultyDots';
 import type { DrillFrontmatter } from '@/lib/types/drill';
@@ -12,6 +13,40 @@ import type { DrillFrontmatter } from '@/lib/types/drill';
 interface Props {
   frontmatter: DrillFrontmatter;
   variant?: 'mobile' | 'desktop';
+}
+
+/** Map a frontmatter ageBand string (e.g. "9–12 Foundation") to a URL slug (e.g. "9-12"). */
+function ageBandStringToSlug(value: string): string | null {
+  if (value.includes('5–8')) return '5-8';
+  if (value.includes('9–12')) return '9-12';
+  if (value.includes('13–16')) return '13-16';
+  if (value.includes('17–20')) return '17-20';
+  if (/adult/i.test(value)) return 'adult';
+  return null;
+}
+
+interface AgeBandValueProps {
+  label: string;
+  value: string;
+}
+
+function AgeBandValue({ label, value }: AgeBandValueProps) {
+  const slug = ageBandStringToSlug(value);
+  return (
+    <div>
+      <span className="text-brown/50 font-ui text-xs">{label}: </span>
+      {slug ? (
+        <Link
+          href={`/age-bands/${slug}`}
+          className="text-brown/75 font-body hover:text-deepblue transition-colors"
+        >
+          {value}
+        </Link>
+      ) : (
+        <span className="text-brown/75 font-body">{value}</span>
+      )}
+    </div>
+  );
 }
 
 export function DrillMetaPanel({ frontmatter, variant }: Props) {
@@ -36,24 +71,15 @@ export function DrillMetaPanel({ frontmatter, variant }: Props) {
         <dt className="text-xs font-semibold uppercase tracking-widest text-brown/50 font-ui mb-1">
           Age band
         </dt>
-        <dd className="space-y-0.5 text-brown/75 font-body">
+        <dd className="space-y-0.5">
           {ageBand.introducible && (
-            <div>
-              <span className="text-brown/50 font-ui text-xs">Introducible: </span>
-              {ageBand.introducible}
-            </div>
+            <AgeBandValue label="Introducible" value={ageBand.introducible} />
           )}
           {ageBand.central && (
-            <div>
-              <span className="text-brown/50 font-ui text-xs">Central: </span>
-              {ageBand.central}
-            </div>
+            <AgeBandValue label="Central" value={ageBand.central} />
           )}
           {ageBand.maintenance && (
-            <div>
-              <span className="text-brown/50 font-ui text-xs">Maintenance: </span>
-              {ageBand.maintenance}
-            </div>
+            <AgeBandValue label="Maintenance" value={ageBand.maintenance} />
           )}
         </dd>
       </div>
