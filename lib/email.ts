@@ -6,7 +6,9 @@
  * Required env vars (Vercel + .env.local):
  *   SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM
  *
- * Used by Auth.js sendVerificationRequest for magic-link delivery.
+ * Used by Auth.js sendVerificationRequest for magic-link delivery,
+ * and by the newsletter system (lib/newsletter.ts) via the generic
+ * sendMail export.
  */
 import nodemailer from 'nodemailer'
 
@@ -19,6 +21,32 @@ function getTransport() {
       user: process.env.SMTP_USER!,
       pass: process.env.SMTP_PASS!,
     },
+  })
+}
+
+export interface SendMailOptions {
+  to: string
+  subject: string
+  html: string
+  text?: string
+  /** Extra SMTP headers, e.g. List-Unsubscribe / List-Unsubscribe-Post. */
+  headers?: Record<string, string>
+}
+
+/**
+ * Generic branded send over the same self-built SMTP transport.
+ * Reuses getTransport(); does not touch the magic-link path.
+ */
+export async function sendMail({ to, subject, html, text, headers }: SendMailOptions) {
+  const transport = getTransport()
+
+  await transport.sendMail({
+    from: `"StunpreX" <${process.env.SMTP_FROM!}>`,
+    to,
+    subject,
+    html,
+    ...(text ? { text } : {}),
+    ...(headers ? { headers } : {}),
   })
 }
 

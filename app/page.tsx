@@ -5,7 +5,6 @@ import { PullQuote } from '@/components/PullQuote';
 import { Pillars } from '@/components/Pillars';
 import { Methodology } from '@/components/Methodology';
 import { AudienceHubs } from '@/components/AudienceHubs';
-import { NewsletterCapture } from '@/components/NewsletterCapture';
 import { Footer } from '@/components/Footer';
 
 export default function HomePage() {
@@ -19,7 +18,8 @@ export default function HomePage() {
         <Pillars />
         <Methodology />
         <AudienceHubs />
-        <NewsletterCapture />
+        {/* NewsletterCapture is intentionally unmounted — live form now,
+            placement is Dezső's decision. */}
       </main>
       <Footer />
     </>
