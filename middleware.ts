@@ -4,25 +4,34 @@
  * Uses the edge-compatible authConfig (auth.config.ts) — no pg or nodemailer
  * imports. The Edge Runtime cannot load those Node.js-only modules.
  *
- * The authorized callback always returns true (no edge-level route locking).
- * Auth enforcement happens in Server Components and Actions via auth() from auth.ts.
+ * Safety: if AUTH_SECRET is absent the module returns a no-op so the Edge
+ * Worker doesn't crash with MissingSecret → MIDDLEWARE_INVOCATION_FAILED.
  *
- * Runs on all paths except static assets, images, and public files.
+ * Matcher is intentionally narrow: only routes that actually need a session
+ * cookie read (/auth/*, /community/*). Public pages run without middleware
+ * involvement — no latency added, no cold-start risk.
+ *
+ * Auth enforcement for community routes happens inside Server Components and
+ * Server Actions via auth() from auth.ts (Node.js runtime, not Edge).
  */
 import NextAuth from 'next-auth'
 import { authConfig } from '@/auth.config'
 
-export const { auth: middleware } = NextAuth(authConfig)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const middleware: any = (() => {
+  if (!process.env.AUTH_SECRET) {
+    // No-op: pass every request through unchanged.
+    // Public site stays up even if env vars aren't provisioned yet.
+    return () => undefined
+  }
+  return NextAuth(authConfig).auth
+})()
 
 export const config = {
   matcher: [
-    /*
-     * Run on all paths except:
-     * - _next/static (static files)
-     * - _next/image (image optimisation)
-     * - favicon.ico, opengraph-image, sitemap, robots, rss
-     * - public assets (svg, png, jpg, etc.)
-     */
-    '/((?!_next/static|_next/image|favicon.ico|opengraph-image|sitemap|robots|rss|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    // Only run on routes that need session handling.
+    // Public pages (/, /blog, /about, /training, /games, …) are excluded.
+    '/auth/:path*',
+    '/community/:path*',
   ],
 }

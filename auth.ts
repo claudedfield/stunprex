@@ -72,4 +72,28 @@ export const authConfig: NextAuthConfig = {
   },
 }
 
-export const { handlers, signIn, signOut, auth } = NextAuth(authConfig)
+// Defensive IIFE: if AUTH_SECRET is absent NextAuth() throws MissingSecret.
+// This guard prevents that from crashing the module at import time so the
+// public site keeps serving even when auth env vars aren't provisioned yet.
+// Community routes that depend on a real auth() will receive null (signed-out).
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _auth: any = (() => {
+  try {
+    return NextAuth(authConfig)
+  } catch (err) {
+    console.error('[auth] NextAuth init failed (AUTH_SECRET missing?):', err)
+    return null
+  }
+})()
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const handlers: any = _auth?.handlers ?? {
+  GET: async () => new Response('auth-not-configured', { status: 503 }),
+  POST: async () => new Response('auth-not-configured', { status: 503 }),
+}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const signIn: any = _auth?.signIn ?? (async () => {})
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const signOut: any = _auth?.signOut ?? (async () => {})
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const auth: any = _auth?.auth ?? (async () => null)
