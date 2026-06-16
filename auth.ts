@@ -60,9 +60,9 @@ export const authConfig: NextAuthConfig = {
   },
 
   pages: {
-    signIn: '/auth/sign-in',
-    verifyRequest: '/auth/verify',
-    error: '/auth/sign-in',    // query ?error= for errors
+    signIn: '/signin',
+    verifyRequest: '/signin',
+    error: '/signin',          // query ?error= for errors
     newUser: '/community/welcome',  // first-time onboarding redirect
   },
 

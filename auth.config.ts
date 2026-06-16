@@ -16,9 +16,9 @@ import type { NextAuthConfig } from 'next-auth'
 
 export const authConfig = {
   pages: {
-    signIn: '/auth/sign-in',
-    verifyRequest: '/auth/verify',
-    error: '/auth/sign-in',
+    signIn: '/signin',
+    verifyRequest: '/signin',
+    error: '/signin',
     newUser: '/community/welcome',
   },
 

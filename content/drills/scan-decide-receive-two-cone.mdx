@@ -1,0 +1,258 @@
+---
+title: "Scan-Decide-Receive (Two-Cone)"
+slug: "scan-decide-receive-two-cone"
+drillId: "SX-DR-001"
+description: "The first habit in the StunpreX system — engineering the scan-before-touch sequence as an entry condition, not an optional extra."
+status: "published"
+capacities:
+  primary: ["Perceptual", "Cognitive", "Motor"]
+  secondary: ["Affective", "Adaptive"]
+ageBand: ["9-12", "13-16", "17-20"]
+players: "1–3"
+equipment: "2–4 cones, 1 ball"
+difficulty: 2
+maxDifficulty: 5
+convictions: [3, 4, 5, 6, 13, 28, 30, 36]
+playerOperatingPrinciple: "Scan-decide-receive"
+diagrams:
+  - id: setup
+    pitch: small
+    title: "Baseline setup"
+    caption: "Two players 5 m apart on a centre line. Each flanked by two cones — orange (left) and deepblue (right). Ball starts at A's feet."
+    elements:
+      - type: player
+        id: "A"
+        x: 285
+        y: 200
+        team: home
+      - type: player
+        id: "B"
+        x: 115
+        y: 200
+        team: home
+      - type: ball
+        x: 275
+        y: 190
+        state: static
+      - type: cone
+        x: 115
+        y: 130
+        color: orange
+        label: "L"
+      - type: cone
+        x: 115
+        y: 270
+        color: deepblue
+        label: "R"
+      - type: cone
+        x: 285
+        y: 130
+        color: orange
+        label: "L"
+      - type: cone
+        x: 285
+        y: 270
+        color: deepblue
+        label: "R"
+      - type: label
+        x: 200
+        y: 222
+        text: "5 m"
+
+  - id: one-rep
+    pitch: small
+    title: "One rep"
+    caption: "A passes firmly to B (orange). During the ball's flight B scans both shoulders. First touch goes toward chosen cone — here upper-left (dribble arrow). Second touch returns the ball."
+    elements:
+      - type: player
+        id: "A"
+        x: 285
+        y: 200
+        team: home
+      - type: player
+        id: "B"
+        x: 115
+        y: 200
+        team: home
+      - type: cone
+        x: 115
+        y: 130
+        color: orange
+        label: "L"
+      - type: cone
+        x: 115
+        y: 270
+        color: deepblue
+        label: "R"
+      - type: cone
+        x: 285
+        y: 130
+        color: orange
+        label: "L"
+      - type: cone
+        x: 285
+        y: 270
+        color: deepblue
+        label: "R"
+      - type: ball
+        x: 200
+        y: 200
+        state: rolling
+      - type: arrow
+        x1: 280
+        y1: 198
+        x2: 125
+        y2: 198
+        kind: pass
+      - type: arrow
+        x1: 113
+        y1: 192
+        x2: 88
+        y2: 148
+        kind: dribble
+
+  - id: level-4-defender
+    pitch: small
+    title: "Level 4 — passive defender"
+    caption: "A passive defender D stands 3 m behind B. B must now scan to register D's position and direct the first touch away from them."
+    elements:
+      - type: player
+        id: "A"
+        x: 285
+        y: 200
+        team: home
+      - type: player
+        id: "B"
+        x: 115
+        y: 200
+        team: home
+      - type: player
+        id: "D"
+        x: 152
+        y: 225
+        team: opp
+      - type: cone
+        x: 115
+        y: 130
+        color: orange
+        label: "L"
+      - type: cone
+        x: 115
+        y: 270
+        color: deepblue
+        label: "R"
+      - type: cone
+        x: 285
+        y: 130
+        color: orange
+        label: "L"
+      - type: cone
+        x: 285
+        y: 270
+        color: deepblue
+        label: "R"
+      - type: ball
+        x: 200
+        y: 200
+        state: rolling
+      - type: arrow
+        x1: 280
+        y1: 198
+        x2: 125
+        y2: 198
+        kind: pass
+      - type: arrow
+        x1: 112
+        y1: 191
+        x2: 88
+        y2: 148
+        kind: dribble
+---
+
+## Introduction
+
+This is the first drill in the StunpreX library because it is the first habit StunpreX defends. Before the ball arrives, the player looks. Based on what they see, the first touch goes somewhere — toward open space, toward a chosen cone, away from imagined pressure. The drill makes **scanning the precondition of receiving**, not an optional extra a coach has to remind the player about.
+
+Coaches who shout "scan!" all session are coaching against the design of their own drill. This drill is the opposite: it engineers the environment so that the scan is the only way to know what the first touch should do. Constraints, not commands.
+
+It is a *foundational* drill — modest by appearance, decisive by accumulation. A player who runs Level 1 for ten minutes, three days a week, for six months arrives at Level 5 with a habit they will carry for the next fifteen years.
+
+---
+
+## Setup
+
+**Baseline (2 players, 4 cones):**
+
+- Player A and Player B face each other on a centre line, **5 m apart**.
+- Each player has two flanking cones — one ~2 m to their left (orange), one ~2 m to their right (deepblue).
+- One ground ball between the two players.
+- Flat surface. If only 2 cones are available, flank one player only — the drill works equally well.
+
+**Solo version:** Player stands 5 m from a wall. 2 cones flank them. Player passes into the wall, scans both shoulders during the return, first touch toward the chosen cone.
+
+---
+
+## Description
+
+**One rep:**
+
+1. Player A passes firmly along the ground to Player B.
+2. **During the ball's flight**, Player B turns the head — once over each shoulder — scanning both flanking cones.
+3. B's **first touch** goes toward one cone — the choice made *because of* the scan, not as a reflex.
+4. B's **second touch** returns the ball cleanly to A.
+5. Roles repeat or alternate.
+
+**One block (12 min total):**
+
+- Block 1 (5 min): receiving foot fixed — right. Alternate active role every 2 reps.
+- Rest (30 s): breathing, quick reflection.
+- Block 2 (5 min): receiving foot fixed — left.
+- Closing reflection (2 min).
+
+---
+
+## Progressions
+
+**Level 1 — Baseline.** Free cone choice. Player scans and decides.
+
+**Level 2 — Coach call.** Coach calls a cone colour while the ball is in flight. Player must touch toward the called cone.
+
+**Level 3 — Third cone.** Add a cone *behind* the receiver. Player must scan over both shoulders for all three; coach calls which one.
+
+**Level 4 — Passive defender.** A second player stands 3 m behind the receiver as a passive presence. Receiver scans, registers position, touches away.
+
+**Level 5 — Active defender + goal.** Defender is active. Small goal placed 8 m beyond the receiver. First touch to space, second toward goal within 4 seconds.
+
+---
+
+## Coach guidance
+
+**Look for:** visible two-shoulder head turn before ball arrives. Two scans per rep, not one. First touch *commits* toward a cone. Increasing weak-foot comfort across the block.
+
+**Cues:** *"Scan first." "Both shoulders." "Where are your options?" "What did you see?" "Which foot?"*
+
+**Praise:** *"Good scan." "You looked twice." "Brave touch with the weak foot."*
+
+**Don't fix yet:** touch direction in the first few reps; exact head-turn magnitude; cone choice "errors" — there is no wrong cone at Level 1.
+
+---
+
+## Watch points
+
+- **Only scanning the ball-side shoulder.** Redirect: *"What's behind your other shoulder right now?"*
+- **Scanning after the ball arrives.** Redirect: *"When does the scan happen — before or after the ball gets to your foot?"*
+- **Deciding before scanning.** Redirect: *"Look first. Decide after. What did you actually see?"*
+- **First touch straight back.** Redirect: *"Where did your touch go? Where was it supposed to go?"*
+- **Rotating to the strong foot on weak-foot block.** Redirect: *"Which foot did you receive with? Try the weak one this time."*
+
+---
+
+## How to know it's working
+
+**First session:** visible two-shoulder scans on ≥50% of reps without prompting. Touch begins to go toward a cone instead of straight back.
+
+**Two weeks:** scan is automatic on the strong foot. Player can describe what they saw when asked.
+
+**Two months:** scan reliable under Level 4 conditions. Player begins to anticipate the defender's movement, not just register their position.
+
+**A season:** the scan-decide-receive sequence is no longer a drill — it is how the player receives in matches.

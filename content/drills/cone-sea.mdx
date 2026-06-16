@@ -1,0 +1,493 @@
+---
+title: "Cone Sea (Without Sequence Boards)"
+slug: "cone-sea"
+drillId: "SX-DR-002"
+description: "Ball mastery under cognitive load — continuous dribbling through a dense cone field with real-time gate calls, training the player to sustain close control while keeping the head up and ears open."
+status: "published"
+capacities:
+  primary: ["Perceptual", "Cognitive", "Motor"]
+  secondary: ["Affective", "Adaptive"]
+ageBand: ["9-12", "13-16"]
+players: "1–4"
+equipment: "21–24 cones, 1 ball per player"
+difficulty: 2
+maxDifficulty: 4
+convictions: [5, 6, 13, 22, 28, 30]
+playerOperatingPrinciple: "Ball mastery while aware"
+diagrams:
+  - id: cone-sea-layout
+    pitch: small
+    title: "Cone sea layout"
+    caption: "10 m × 10 m grid. 15–18 sea cones scattered inside. Three exit gates: A (north), B (east), C (south). West side is entry. Coach stands outside, west."
+    elements:
+      - type: zone
+        x: 22
+        y: 22
+        width: 356
+        height: 356
+        label: ""
+      - type: cone
+        x: 22
+        y: 22
+        color: brown
+      - type: cone
+        x: 378
+        y: 22
+        color: brown
+      - type: cone
+        x: 22
+        y: 378
+        color: brown
+      - type: cone
+        x: 378
+        y: 378
+        color: brown
+      - type: cone
+        x: 185
+        y: 22
+        color: orange
+        label: "A"
+      - type: cone
+        x: 215
+        y: 22
+        color: orange
+        label: "A"
+      - type: cone
+        x: 378
+        y: 185
+        color: deepblue
+        label: "B"
+      - type: cone
+        x: 378
+        y: 215
+        color: deepblue
+        label: "B"
+      - type: cone
+        x: 185
+        y: 378
+        color: brown
+        label: "C"
+      - type: cone
+        x: 215
+        y: 378
+        color: brown
+        label: "C"
+      - type: cone
+        x: 80
+        y: 100
+        color: deepblue
+      - type: cone
+        x: 130
+        y: 165
+        color: deepblue
+      - type: cone
+        x: 170
+        y: 90
+        color: deepblue
+      - type: cone
+        x: 220
+        y: 145
+        color: deepblue
+      - type: cone
+        x: 265
+        y: 85
+        color: deepblue
+      - type: cone
+        x: 310
+        y: 150
+        color: deepblue
+      - type: cone
+        x: 90
+        y: 250
+        color: deepblue
+      - type: cone
+        x: 145
+        y: 310
+        color: deepblue
+      - type: cone
+        x: 190
+        y: 240
+        color: deepblue
+      - type: cone
+        x: 240
+        y: 300
+        color: deepblue
+      - type: cone
+        x: 290
+        y: 230
+        color: deepblue
+      - type: cone
+        x: 335
+        y: 295
+        color: deepblue
+      - type: cone
+        x: 110
+        y: 195
+        color: deepblue
+      - type: cone
+        x: 260
+        y: 190
+        color: deepblue
+      - type: cone
+        x: 330
+        y: 120
+        color: deepblue
+      - type: player
+        id: "P"
+        x: 200
+        y: 200
+        team: home
+      - type: ball
+        x: 210
+        y: 192
+        state: static
+      - type: label
+        x: 12
+        y: 200
+        text: "ENTRY"
+
+  - id: gate-call-sequence
+    pitch: small
+    title: "Gate call — \"B!\""
+    caption: "Coach calls Gate B (east). Player navigates from current position through the cone sea toward Gate B and exits cleanly."
+    elements:
+      - type: zone
+        x: 22
+        y: 22
+        width: 356
+        height: 356
+        label: ""
+      - type: cone
+        x: 22
+        y: 22
+        color: brown
+      - type: cone
+        x: 378
+        y: 22
+        color: brown
+      - type: cone
+        x: 22
+        y: 378
+        color: brown
+      - type: cone
+        x: 378
+        y: 378
+        color: brown
+      - type: cone
+        x: 185
+        y: 22
+        color: orange
+        label: "A"
+      - type: cone
+        x: 215
+        y: 22
+        color: orange
+        label: "A"
+      - type: cone
+        x: 378
+        y: 185
+        color: orange
+        label: "B"
+      - type: cone
+        x: 378
+        y: 215
+        color: orange
+        label: "B"
+      - type: cone
+        x: 185
+        y: 378
+        color: brown
+        label: "C"
+      - type: cone
+        x: 215
+        y: 378
+        color: brown
+        label: "C"
+      - type: cone
+        x: 80
+        y: 100
+        color: deepblue
+      - type: cone
+        x: 130
+        y: 165
+        color: deepblue
+      - type: cone
+        x: 170
+        y: 90
+        color: deepblue
+      - type: cone
+        x: 220
+        y: 145
+        color: deepblue
+      - type: cone
+        x: 265
+        y: 85
+        color: deepblue
+      - type: cone
+        x: 310
+        y: 150
+        color: deepblue
+      - type: cone
+        x: 90
+        y: 250
+        color: deepblue
+      - type: cone
+        x: 145
+        y: 310
+        color: deepblue
+      - type: cone
+        x: 190
+        y: 240
+        color: deepblue
+      - type: cone
+        x: 240
+        y: 300
+        color: deepblue
+      - type: cone
+        x: 290
+        y: 230
+        color: deepblue
+      - type: cone
+        x: 335
+        y: 295
+        color: deepblue
+      - type: cone
+        x: 110
+        y: 195
+        color: deepblue
+      - type: cone
+        x: 260
+        y: 190
+        color: deepblue
+      - type: cone
+        x: 330
+        y: 120
+        color: deepblue
+      - type: player
+        id: "P"
+        x: 160
+        y: 200
+        team: home
+      - type: ball
+        x: 170
+        y: 192
+        state: rolling
+      - type: arrow
+        x1: 172
+        y1: 200
+        x2: 350
+        y2: 200
+        kind: dribble
+      - type: label
+        x: 200
+        y: 175
+        text: "→ Gate B"
+
+  - id: level-3-disturbance
+    pitch: small
+    title: "Level 3 — mid-drill disturbance"
+    caption: "Coach silently adds a new cone mid-round (highlighted orange). Player must adapt without breaking dribbling rhythm — the sea is never the same sea twice."
+    elements:
+      - type: zone
+        x: 22
+        y: 22
+        width: 356
+        height: 356
+        label: ""
+      - type: cone
+        x: 22
+        y: 22
+        color: brown
+      - type: cone
+        x: 378
+        y: 22
+        color: brown
+      - type: cone
+        x: 22
+        y: 378
+        color: brown
+      - type: cone
+        x: 378
+        y: 378
+        color: brown
+      - type: cone
+        x: 185
+        y: 22
+        color: orange
+        label: "A"
+      - type: cone
+        x: 215
+        y: 22
+        color: orange
+        label: "A"
+      - type: cone
+        x: 378
+        y: 185
+        color: deepblue
+        label: "B"
+      - type: cone
+        x: 378
+        y: 215
+        color: deepblue
+        label: "B"
+      - type: cone
+        x: 185
+        y: 378
+        color: brown
+        label: "C"
+      - type: cone
+        x: 215
+        y: 378
+        color: brown
+        label: "C"
+      - type: cone
+        x: 80
+        y: 100
+        color: deepblue
+      - type: cone
+        x: 130
+        y: 165
+        color: deepblue
+      - type: cone
+        x: 170
+        y: 90
+        color: deepblue
+      - type: cone
+        x: 220
+        y: 145
+        color: deepblue
+      - type: cone
+        x: 265
+        y: 85
+        color: deepblue
+      - type: cone
+        x: 310
+        y: 150
+        color: deepblue
+      - type: cone
+        x: 90
+        y: 250
+        color: deepblue
+      - type: cone
+        x: 145
+        y: 310
+        color: deepblue
+      - type: cone
+        x: 190
+        y: 240
+        color: deepblue
+      - type: cone
+        x: 240
+        y: 300
+        color: deepblue
+      - type: cone
+        x: 290
+        y: 230
+        color: deepblue
+      - type: cone
+        x: 335
+        y: 295
+        color: deepblue
+      - type: cone
+        x: 110
+        y: 195
+        color: deepblue
+      - type: cone
+        x: 260
+        y: 190
+        color: deepblue
+      - type: cone
+        x: 330
+        y: 120
+        color: deepblue
+      - type: cone
+        x: 205
+        y: 200
+        color: orange
+        label: "NEW"
+      - type: player
+        id: "P"
+        x: 155
+        y: 170
+        team: home
+      - type: ball
+        x: 165
+        y: 162
+        state: rolling
+      - type: label
+        x: 8
+        y: 200
+        text: "COACH"
+---
+
+## Introduction
+
+The Cone Sea trains what constraint makes possible: creativity under pressure. The player dribbles continuously through a dense field of cones — the "sea" — while listening for the coach's gate call. When a gate is called, the player navigates toward it and exits cleanly. Then re-enters and continues.
+
+The challenge is to do three things at once: keep the ball close, keep the head up, and stay alert to the next call. These three things do not compete — in a well-designed Cone Sea, they reinforce each other. Scanning helps you avoid cones. Avoiding cones keeps you mobile. Mobility is what lets you respond to the gate call.
+
+This is not a relay race, and not a cone weave with a prescribed path. There is no correct route through the sea. The player invents their route on every rep — and that invention must account for what they can see, where they are, and where they need to go next.
+
+---
+
+## Setup
+
+Mark a **10 m × 10 m** square grid using four corner cones.
+
+**The sea:** scatter 15–18 cones randomly inside the grid. Dense but navigable — a player dribbling at match pace should be able to find a path in any direction, but no path should be straight or obvious. Re-randomise between rounds and sessions.
+
+**Exit gates — 3 sides:**
+- **Gate A** — centre of the north side (2 cones, 1 m apart).
+- **Gate B** — centre of the east side (2 cones, 1 m apart).
+- **Gate C** — centre of the south side (2 cones, 1 m apart).
+
+The west side is entry/re-entry — no gate. Coach stands outside on the west side, sightlines to all three gates. Player names and locates all three gates before starting.
+
+---
+
+## Description
+
+1. Player enters from the west side, dribbling.
+2. Dribbles freely through the cone field — ball within one foot's reach at all times, head up.
+3. **Alternating-foot rule (baseline):** player alternates the dribbling foot on each touch. Released for the final 3–4 touches approaching a gate.
+4. Coach calls one gate at irregular intervals (8–20 s between calls): *"A!"* / *"B!"* / *"C!"*
+5. On the call: player navigates to the called gate and exits cleanly — ball through first, player follows.
+6. Player re-enters through the same gate and continues.
+7. **Round: 3 minutes. Rest: 90 seconds. Three rounds total.**
+8. Between rounds, coach moves 4–5 cones. Layout never identical.
+
+---
+
+## Progressions
+
+**Level 1 (baseline):** as described. 10 m × 10 m, 3 gates, verbal gate call, alternating-foot rule.
+
+**Level 2:** coach adds a foot instruction to the call — *"B — left!"* means exit Gate B with the left foot making the final contact. Player holds gate identity + required foot in working memory while navigating.
+
+**Level 3:** coach silently adds one new cone to the sea mid-round without announcing. Player adapts without breaking rhythm. Adaptive capacity becomes an explicit demand.
+
+**Level 4:** 2–3 players in the sea simultaneously, each with their own ball. Players navigate around each other as moving obstacles. Individual gate calls.
+
+**Level 5 (elite):** 8 m × 8 m grid. Add Gate D (west side). Compound calls: *"A, then C"* — player exits Gate A, re-enters, then finds Gate C. Dense sea, two-step working memory demand.
+
+---
+
+## Coach guidance
+
+**Look for:** head-up scanning during open-sea phase; clean gate exits (route chosen from distance, not last-second); foot-alternating compliance.
+
+**Cues:** *"Head up — where's B?" "Both feet." "You heard me — go now." "Find your route early." "Don't stop dribbling when you listen."*
+
+**Praise:** head-up moments, clean gate routes, quick response without losing the ball.
+
+**Don't fix yet:** light cone contact in the first round; messy gate exits in the first 10 minutes. These self-correct as the drill embeds.
+
+---
+
+## Watch points
+
+- **Slows or stops when listening.** The tasks have become sequential, not simultaneous. Redirect: *"In a match the game doesn't pause when someone shouts."*
+- **Head stays down throughout.** Redirect: *"Without looking — point to where Gate B is right now."*
+- **Same path every round.** The sea is designed for variety. Redirect: *"New way through. The path you just used doesn't exist this round."*
+- **Rushed messy gate exits.** Redirect: *"You found the gate — now take the time to go through it properly. The gate waits."*
+- **Foot alternation collapses under pressure.** Expected in early reps. Redirect: *"Which foot just touched? Give the other one the next one."*
