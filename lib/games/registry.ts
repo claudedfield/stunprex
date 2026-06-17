@@ -50,7 +50,7 @@ export const GAMES: GameMeta[] = [
     trains: 'Scanning — gathering information from the edges before you act.',
     echoes: 'Xavi’s habit: the scan before the first touch (Conviction 5).',
     capacities: ['Perceptual'],
-    status: 'soon',
+    status: 'live',
     order: 2,
   },
   {
@@ -60,7 +60,7 @@ export const GAMES: GameMeta[] = [
     trains: 'Timing and impulse control — acting at the right moment, not the first.',
     echoes: 'The 1v1 commit window.',
     capacities: ['Cognitive', 'Adaptive'],
-    status: 'soon',
+    status: 'live',
     order: 3,
   },
   {
@@ -70,7 +70,7 @@ export const GAMES: GameMeta[] = [
     trains: 'Peripheral detection while holding a central focus.',
     echoes: 'Sensing the run you never turned to look at.',
     capacities: ['Perceptual'],
-    status: 'soon',
+    status: 'live',
     order: 4,
   },
   {
