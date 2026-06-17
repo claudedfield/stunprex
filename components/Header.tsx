@@ -1,33 +1,11 @@
 import Link from 'next/link';
-import { PRIMARY_NAV, UTILITY_NAV } from '@/lib/nav';
+import { PRIMARY_NAV } from '@/lib/nav';
 import { Logo } from './Logo';
 
 export function Header() {
   return (
     <header className="border-b border-deepblue/10 bg-mint sticky top-0 z-40 backdrop-blur-sm bg-mint/90">
-      {/* Utility row — Codex / Methodology / About / Pricing */}
-      <div className="hidden md:block border-b border-deepblue/5">
-        <div className="container-site flex items-center justify-end gap-6 py-2 text-xs">
-          {UTILITY_NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="font-ui uppercase tracking-wider text-brown/70 hover:text-orange transition-colors"
-            >
-              {item.label}
-            </Link>
-          ))}
-          <span className="h-4 w-px bg-deepblue/15" aria-hidden />
-          <Link
-            href="/login"
-            className="font-ui uppercase tracking-wider text-deepblue hover:text-orange"
-          >
-            Sign in
-          </Link>
-        </div>
-      </div>
-
-      {/* Primary row — eight sections */}
+      {/* Primary row */}
       <div className="container-site flex items-center justify-between py-3">
         <Logo size={44} />
 

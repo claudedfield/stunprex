@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { PageHero } from '@/components/PageHero';
 
 export const metadata = {
   title: 'Pricing',
@@ -74,17 +75,11 @@ export default function Page() {
     <>
       <Header />
       <main>
-        <section className="container-site py-20 md:py-24">
-          <p className="font-ui uppercase tracking-widest text-sm text-orange mb-3">
-            Pricing
-          </p>
-          <h1 className="font-heading max-w-3xl">Four tiers. No tricks.</h1>
-          <p className="mt-6 max-w-2xl text-brown/80 text-lg">
-            Affordability is a stance, not a marketing line. StunpreX is not a
-            premium-luxury product. The free tier is genuinely usable. The cancel path is on
-            the same screen as the upgrade path.
-          </p>
-        </section>
+        <PageHero
+          eyebrow="Pricing"
+          title="Four tiers. No tricks."
+          lede="Affordability is a stance, not a marketing line. StunpreX is not a premium-luxury product. The free tier is genuinely usable. The cancel path is on the same screen as the upgrade path."
+        />
 
         <section className="container-site pb-20">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">

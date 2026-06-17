@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { PageHero } from '@/components/PageHero';
 
 export const metadata = {
   title: 'About',
@@ -12,12 +13,13 @@ export default function Page() {
     <>
       <Header />
       <main>
-        <section className="container-site py-20 md:py-28 max-w-3xl">
-          <p className="font-ui uppercase tracking-widest text-sm text-orange mb-3">
-            About
-          </p>
-          <h1 className="font-heading">Who is behind the methodology</h1>
-          <div className="mt-8 space-y-6 text-brown/85 text-lg leading-relaxed">
+        <PageHero
+          eyebrow="About"
+          title="Who is behind the methodology"
+          lede="A methodology-first hub for individual football player development, built on the belief that complete players grow long-horizon — without the routine harms of modern youth football."
+        />
+        <section className="container-site py-14 max-w-3xl">
+          <div className="space-y-6 text-brown/85 text-lg leading-relaxed">
             <p>
               StunpreX (Strive · Unleash · Progress · Excel) is a content-and-services
               product positioned as the masterclass for individual football player
@@ -46,6 +48,7 @@ export default function Page() {
             <Link href="/" className="btn-secondary">Back to home</Link>
           </div>
         </section>
+
       </main>
       <Footer />
     </>
