@@ -5,6 +5,8 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { auth } from '@/auth'
+import { Header } from '@/components/Header'
+import { Footer } from '@/components/Footer'
 import {
   getQuestionBySlug,
   getAnswersByQuestion,
@@ -135,7 +137,8 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <main className="min-h-screen bg-mint">
+      <Header />
+      <main id="main-content" className="min-h-screen bg-mint">
         <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
           <QuestionDetail
             question={question}
@@ -148,6 +151,7 @@ export default async function QuestionPage({ params }: QuestionPageProps) {
           />
         </div>
       </main>
+      <Footer />
     </>
   )
 }

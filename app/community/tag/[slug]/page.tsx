@@ -4,6 +4,8 @@
  */
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { Header } from '@/components/Header'
+import { Footer } from '@/components/Footer'
 import { getQuestions, getTagBySlug, getAllTags } from '@/lib/community/queries'
 import { ALL_CATEGORIES, CATEGORY_LABELS } from '@/lib/types/community'
 import type { SortOrder } from '@/lib/types/community'
@@ -45,7 +47,9 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
   ])
 
   return (
-    <main className="min-h-screen bg-mint">
+    <>
+      <Header />
+      <main id="main-content" className="min-h-screen bg-mint">
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
         <header className="mb-8">
           <nav className="mb-2 text-xs font-ui text-brown/45" aria-label="Breadcrumb">
@@ -77,6 +81,8 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
           categoryLabels={CATEGORY_LABELS}
         />
       </div>
-    </main>
+      </main>
+      <Footer />
+    </>
   )
 }

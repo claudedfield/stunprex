@@ -4,6 +4,8 @@
  */
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { Header } from '@/components/Header'
+import { Footer } from '@/components/Footer'
 import { getQuestions } from '@/lib/community/queries'
 import { ALL_CATEGORIES, CATEGORY_LABELS } from '@/lib/types/community'
 import QuestionCard from '@/components/community/QuestionCard'
@@ -31,7 +33,9 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const baseHref = query ? `/community/search?q=${encodeURIComponent(query)}&` : '/community/search?'
 
   return (
-    <main className="min-h-screen bg-mint">
+    <>
+      <Header />
+      <main id="main-content" className="min-h-screen bg-mint">
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
         <header className="mb-8">
           <nav className="mb-2 text-xs font-ui text-brown/45" aria-label="Breadcrumb">
@@ -117,6 +121,8 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           </div>
         </div>
       </div>
-    </main>
+      </main>
+      <Footer />
+    </>
   )
 }

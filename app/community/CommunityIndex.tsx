@@ -125,15 +125,23 @@ export default function CommunityIndex({
         </div>
       </div>
 
-      {/* Question list */}
+      {/* Question list — never a dead room: always offer the full set */}
       {questions.length === 0 ? (
-        <p className="py-12 text-center text-brown/50 font-body text-sm">
-          {currentSearch
-            ? `No questions matched &ldquo;${currentSearch}&rdquo;.`
-            : currentCategory
-              ? 'No questions in this category yet — ask one.'
-              : 'No questions yet — be the first to ask one.'}
-        </p>
+        <div className="py-12 text-center">
+          <p className="text-brown/60 font-body text-sm">
+            {currentSearch
+              ? `No answered questions match “${currentSearch}” yet.`
+              : 'No answered questions here yet.'}
+          </p>
+          <p className="mt-3 text-sm font-ui">
+            <a
+              href="/community"
+              className="text-deepblue font-medium hover:text-deepblue/70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40 focus-visible:rounded"
+            >
+              Browse all answered questions →
+            </a>
+          </p>
+        </div>
       ) : (
         <ul className="space-y-3" role="list">
           {questions.map((q) => (

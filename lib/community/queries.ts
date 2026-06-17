@@ -15,6 +15,16 @@ import type {
   SortOrder,
   QuestionCategory,
 } from '@/lib/types/community'
+import {
+  COACH_DISPLAY_NAME,
+  getCoachProfile,
+  getSeedAnswers,
+  getSeedQuestionBySlug,
+  getSeedQuestions,
+  isSeedQuestionId,
+  seedSearchIndex,
+  seedTagCounts,
+} from './seed'
 
 // ─── Options ──────────────────────────────────────────────────────────────────
 
@@ -175,12 +185,18 @@ export async function getQuestions(
     }
   })
 
+  // Merge curated seed questions ("Questions, answered"). They lead page 1 so the
+  // community reads as alive at zero audience; DB items follow. See lib/community/seed.ts.
+  const seedMatches = getSeedQuestions({ category, tagSlug, search, authorId })
+  const combinedTotal = total + seedMatches.length
+  const mergedItems = page === 1 ? [...seedMatches, ...items].slice(0, perPage) : items
+
   return {
-    items,
-    total,
+    items: mergedItems,
+    total: combinedTotal,
     page,
     perPage,
-    totalPages: Math.ceil(total / perPage),
+    totalPages: Math.max(1, Math.ceil(combinedTotal / perPage)),
   }
 }
 
@@ -193,6 +209,10 @@ export async function getQuestionBySlug(
   slug: string,
   viewerUserId?: string
 ): Promise<QuestionWithAuthor | null> {
+  // Curated seed questions are served from code (no DB row).
+  const seeded = getSeedQuestionBySlug(slug)
+  if (seeded) return seeded
+
   const { rows } = await sql<
     QuestionWithAuthor & { author_display_name: string; author_avatar_url: string | null; author_role: string }
   >`
@@ -242,6 +262,9 @@ export async function getAnswersByQuestion(
   questionId: string,
   viewerUserId?: string
 ): Promise<AnswerWithAuthor[]> {
+  // Curated seed questions carry their answer in code.
+  if (isSeedQuestionId(questionId)) return getSeedAnswers(questionId)
+
   const { rows } = await sql<
     AnswerWithAuthor & { author_display_name: string; author_avatar_url: string | null; author_role: string; is_accepted_answer: boolean }
   >`
@@ -336,7 +359,11 @@ export async function getAllTags(): Promise<TagRow[]> {
     FROM tags
     ORDER BY question_count DESC, label ASC
   `
+  // Add curated seed contributions so tag counts reflect what's actually shown.
+  const seedCounts = seedTagCounts()
   return rows
+    .map((r) => ({ ...r, question_count: r.question_count + (seedCounts.get(r.slug) ?? 0) }))
+    .sort((a, b) => b.question_count - a.question_count || a.label.localeCompare(b.label))
 }
 
 /** Fetch a single tag by slug. Returns null if not found. */
@@ -352,7 +379,9 @@ export async function getTagBySlug(slug: string): Promise<TagRow | null> {
     WHERE slug = ${slug}
     LIMIT 1
   `
-  return rows[0] ?? null
+  const tag = rows[0] ?? null
+  if (!tag) return null
+  return { ...tag, question_count: tag.question_count + (seedTagCounts().get(slug) ?? 0) }
 }
 
 // ─── Member profiles ──────────────────────────────────────────────────────────
@@ -362,6 +391,9 @@ export async function getTagBySlug(slug: string): Promise<TagRow | null> {
  * Returns null if the display_name doesn't exist.
  */
 export async function getMemberProfile(displayName: string): Promise<MemberProfile | null> {
+  // The StunpreX Coach (curated-seed author) has no DB profile row.
+  if (displayName === COACH_DISPLAY_NAME) return getCoachProfile()
+
   const { rows: profileRows } = await sql<MemberProfile>`
     SELECT
       p.*,
@@ -453,5 +485,6 @@ export async function getSearchIndexData(): Promise<
     GROUP BY q.id, q.title, q.slug, q.category
     ORDER BY q.created_at DESC
   `
-  return rows
+  // Curated seed questions are searchable too.
+  return [...seedSearchIndex(), ...rows]
 }
