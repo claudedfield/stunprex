@@ -74,7 +74,7 @@ export default function Page() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content">
         <PageHero
           eyebrow="Pricing"
           title="Four tiers. No tricks."

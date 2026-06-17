@@ -12,7 +12,7 @@ export default function Page() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content">
         <PageHero
           eyebrow="About"
           title="Who is behind the methodology"

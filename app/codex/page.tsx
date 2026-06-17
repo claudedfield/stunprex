@@ -21,7 +21,7 @@ export default function Page() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content">
         <PageHero
           eyebrow="The Codex — Version 0.7.1 · May 2026"
           title={<>The worldview &amp; methodology of individual football development</>}

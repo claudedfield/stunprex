@@ -5,7 +5,15 @@ import { MobileNav } from './MobileNav';
 
 export function Header() {
   return (
-    <header className="border-b border-deepblue/10 bg-mint sticky top-0 z-40 backdrop-blur-sm bg-mint/90">
+    <>
+      {/* Skip to content — WCAG 2.4.1 Bypass Blocks. Visible only on keyboard focus. */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:rounded focus:bg-deepblue focus:px-4 focus:py-2 focus:font-ui focus:text-sm focus:text-mint focus:shadow-lg"
+      >
+        Skip to content
+      </a>
+      <header className="border-b border-deepblue/10 bg-mint sticky top-0 z-40 backdrop-blur-sm bg-mint/90">
       <div className="container-site flex items-center justify-between py-3">
         <Logo size={44} />
 
@@ -35,5 +43,6 @@ export function Header() {
         </div>
       </div>
     </header>
+    </>
   );
 }

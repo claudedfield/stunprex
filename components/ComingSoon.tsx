@@ -16,7 +16,7 @@ export function ComingSoon({ section, blurb, shipsIn }: ComingSoonProps) {
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content">
         <PageHero
           eyebrow={section}
           title={blurb}
