@@ -17,9 +17,17 @@ export function Header() {
           ))}
         </nav>
 
-        <Link href="/signup" className="btn-primary text-sm py-2 px-5">
-          Start training
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link
+            href="/signin"
+            className="hidden sm:inline font-ui text-sm text-brown/70 hover:text-deepblue transition-colors"
+          >
+            Sign in
+          </Link>
+          <Link href="/signup" className="btn-primary text-sm py-2 px-5">
+            Start training
+          </Link>
+        </div>
       </div>
     </header>
   );

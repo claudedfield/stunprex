@@ -4,8 +4,6 @@
  * Revalidates at most every 60s (ISR).
  */
 import type { Metadata } from 'next'
-import { Header } from '@/components/Header'
-import { Footer } from '@/components/Footer'
 import { getQuestions, getAllTags } from '@/lib/community/queries'
 import { ALL_CATEGORIES, CATEGORY_LABELS } from '@/lib/types/community'
 import type { QuestionCategory, SortOrder } from '@/lib/types/community'
@@ -51,9 +49,7 @@ export default async function CommunityPage({ searchParams }: CommunityPageProps
   ])
 
   return (
-    <>
-      <Header />
-      <main className="min-h-screen bg-mint">
+    <main className="min-h-screen bg-mint">
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
         <header className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
@@ -88,8 +84,6 @@ export default async function CommunityPage({ searchParams }: CommunityPageProps
           categoryLabels={CATEGORY_LABELS}
         />
       </div>
-      </main>
-      <Footer />
-    </>
+    </main>
   )
 }

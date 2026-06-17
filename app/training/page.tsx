@@ -4,7 +4,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { PageHero } from '@/components/PageHero';
 import { getAllDrillCards } from '@/lib/drills';
 import type { DrillCard } from '@/lib/drills';
 
@@ -90,11 +89,21 @@ export default function TrainingPage() {
       <Header />
       <main id="main-content" className="min-h-screen">
 
-        <PageHero
-          eyebrow="Training"
-          title="Drill Library"
-          lede="Each drill in the StunpreX library trains multiple capacity families at once. Constraints over commands. Process over outcome. Long horizon."
-        />
+        {/* Hero */}
+        <section className="border-b border-deepblue/8 bg-deepblue/[0.02] py-14">
+          <div className="container-site">
+            <p className="font-ui text-xs uppercase tracking-widest text-orange mb-2">
+              Training
+            </p>
+            <h1 className="font-heading text-deepblue mb-3 max-w-3xl">
+              Drill Library
+            </h1>
+            <p className="max-w-2xl text-lg text-brown/70 font-body leading-relaxed">
+              Each drill in the StunpreX library trains multiple capacity families at once.
+              Constraints over commands. Process over outcome. Long horizon.
+            </p>
+          </div>
+        </section>
 
         {/* Drill grid */}
         <section className="container-site py-10 md:py-14">

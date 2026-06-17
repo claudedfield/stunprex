@@ -3,7 +3,6 @@
 import type { Metadata } from 'next';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { PageHero } from '@/components/PageHero';
 import { CategoryFilter } from '@/components/blog/CategoryFilter';
 import { Pagination } from '@/components/blog/Pagination';
 import { BlogIndexClient } from './BlogIndexClient';
@@ -48,11 +47,19 @@ export default async function BlogIndexPage({ searchParams }: Props) {
     <>
       <Header />
       <main id="main-content" className="min-h-screen">
-        <PageHero
-          eyebrow="Blog"
-          title="Blog"
-          lede="Methodology-first articles on individual soccer player development. Grounded in the Codex. Written for players, parents, coaches, and the broader football development community."
-        />
+        {/* Page hero */}
+        <section className="border-b border-deepblue/8 bg-deepblue/[0.02] py-14">
+          <div className="container-site">
+            <h1 className="mb-3 text-deepblue font-heading">
+              Blog
+            </h1>
+            <p className="max-w-2xl text-lg text-brown/70 font-body leading-relaxed">
+              Methodology-first articles on individual soccer player development.
+              Grounded in the Codex. Written for players, parents, coaches, and the broader
+              football development community.
+            </p>
+          </div>
+        </section>
 
         {/* Filter + content */}
         <section className="py-12">
