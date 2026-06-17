@@ -1,13 +1,10 @@
 'use client';
 // TableOfContents — auto-generated from H2/H3 headings. Renders for posts ≥ 1,200 words.
 // Active heading highlighted as the reader scrolls.
+// extractHeadings/slugify live in lib/toc.ts (server-safe) — a client module may not
+// export a function the server calls.
 import { useEffect, useRef, useState } from 'react';
-
-interface Heading {
-  id: string;
-  text: string;
-  level: 2 | 3;
-}
+import type { Heading } from '@/lib/toc';
 
 interface Props {
   headings: Heading[];
@@ -73,32 +70,3 @@ export function TableOfContents({ headings }: Props) {
   );
 }
 
-/** Extract headings from MDX source string — called server-side. */
-export function extractHeadings(source: string): Heading[] {
-  const lines = source.split('\n');
-  const headings: Heading[] = [];
-
-  for (const line of lines) {
-    const h2 = line.match(/^##\s+(.+)/);
-    const h3 = line.match(/^###\s+(.+)/);
-
-    if (h2) {
-      const text = h2[1].replace(/[*_`]/g, '').trim();
-      headings.push({ id: slugify(text), text, level: 2 });
-    } else if (h3) {
-      const text = h3[1].replace(/[*_`]/g, '').trim();
-      headings.push({ id: slugify(text), text, level: 3 });
-    }
-  }
-
-  return headings;
-}
-
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .trim();
-}
