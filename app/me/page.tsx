@@ -7,7 +7,7 @@ export default function Page() {
     <ComingSoon
       section="MyStunpreX"
       blurb="Your journey, your progress, your success."
-      shipsIn="Block 4 (Weeks 7–8 of Wave 2) — auth + tiered membership"
+      shipsIn="Soon"
     />
   );
 }

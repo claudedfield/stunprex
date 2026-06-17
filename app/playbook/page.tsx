@@ -7,7 +7,7 @@ export default function Page() {
     <ComingSoon
       section="Playbook"
       blurb="Soccer intelligence at your fingertips."
-      shipsIn="Block 2 (Weeks 3–4 of Wave 2)"
+      shipsIn="Soon"
     />
   );
 }

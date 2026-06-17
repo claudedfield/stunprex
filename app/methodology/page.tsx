@@ -7,7 +7,7 @@ export default function Page() {
     <ComingSoon
       section="Methodology"
       blurb="A plain-language entry to the Codex."
-      shipsIn="Block 1 (Weeks 1–2 of Wave 2)"
+      shipsIn="Soon"
     />
   );
 }

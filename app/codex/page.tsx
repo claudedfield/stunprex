@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { PageHero } from '@/components/PageHero';
 
 export const metadata = {
   title: 'Codex',
@@ -21,22 +22,15 @@ export default function Page() {
     <>
       <Header />
       <main>
-        <section className="container-site py-20 md:py-28">
-          <p className="font-ui uppercase tracking-widest text-sm text-orange mb-3">
-            The Codex — Version 0.7.1 · May 2026
-          </p>
-          <h1 className="font-heading max-w-4xl">
-            The worldview &amp; methodology of individual football development
-          </h1>
-          <p className="mt-6 max-w-2xl text-brown/85 text-lg leading-relaxed">
-            Every great development brand is recognisable first by its convictions, second
-            by its drills. La Masia, Coerver, Ajax&rsquo;s Total Football — each is a school of
-            thought before it is a curriculum. This is StunpreX&rsquo;s.
-          </p>
-          <p className="mt-4 max-w-2xl text-brown/70">
+        <PageHero
+          eyebrow="The Codex — Version 0.7.1 · May 2026"
+          title={<>The worldview &amp; methodology of individual football development</>}
+          lede={<>Every great development brand is recognisable first by its convictions, second by its drills. La Masia, Coerver, Ajax&rsquo;s Total Football &mdash; each is a school of thought before it is a curriculum. This is StunpreX&rsquo;s.</>}
+        >
+          <p className="max-w-2xl text-brown/70 font-body">
             The Codex is the source code of the brand. The source code is open.
           </p>
-        </section>
+        </PageHero>
 
         <section className="container-site py-12 md:py-20 border-t border-deepblue/15">
           <h2 className="font-heading mb-12">Five parts</h2>
