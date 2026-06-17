@@ -4,6 +4,8 @@
  * Profile (display_name) is completed at /community/welcome after first sign-in.
  */
 import type { Metadata } from 'next'
+import { Header } from '@/components/Header'
+import { Footer } from '@/components/Footer'
 import SignUpForm from './SignUpForm'
 
 export const metadata: Metadata = {
@@ -14,28 +16,35 @@ export const metadata: Metadata = {
 
 export default function SignUpPage() {
   return (
-    <main className="min-h-screen bg-mint flex items-center justify-center px-4 py-16">
-      <div className="w-full max-w-md">
-        <div className="mb-8 text-center">
-          <h1 className="font-display text-2xl font-bold text-deepblue mb-2">
-            Join the community
-          </h1>
-          <p className="text-brown/70 font-body text-sm max-w-xs mx-auto">
-            A free space for players, parents, and coaches who care about
-            long-horizon football development.
+    <>
+      <Header />
+      <main
+        id="main-content"
+        className="bg-mint flex items-center justify-center px-4 py-16 md:py-24 min-h-[60vh]"
+      >
+        <div className="w-full max-w-md">
+          <div className="mb-8 text-center">
+            <h1 className="font-heading text-deepblue text-3xl mb-2">
+              Join the community
+            </h1>
+            <p className="text-brown/70 font-body text-sm max-w-xs mx-auto">
+              A free space for players, parents, and coaches who care about
+              long-horizon football development.
+            </p>
+          </div>
+          <SignUpForm />
+          <p className="mt-4 text-center text-xs text-brown/40 font-body">
+            Already a member?{' '}
+            <a
+              href="/signin"
+              className="text-deepblue underline underline-offset-2 hover:text-deepblue/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40 focus-visible:rounded"
+            >
+              Sign in
+            </a>
           </p>
         </div>
-        <SignUpForm />
-        <p className="mt-4 text-center text-xs text-brown/40 font-body">
-          Already a member?{' '}
-          <a
-            href="/auth/sign-in"
-            className="text-deepblue underline underline-offset-2 hover:text-deepblue/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40 focus-visible:rounded"
-          >
-            Sign in
-          </a>
-        </p>
-      </div>
-    </main>
+      </main>
+      <Footer />
+    </>
   )
 }

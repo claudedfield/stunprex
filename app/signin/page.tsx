@@ -4,6 +4,8 @@
  * /auth/sign-in redirects 308 to here.
  */
 import type { Metadata } from 'next'
+import { Header } from '@/components/Header'
+import { Footer } from '@/components/Footer'
 import SignInForm from '../auth/sign-in/SignInForm'
 
 export const metadata: Metadata = {
@@ -14,19 +16,26 @@ export const metadata: Metadata = {
 
 export default function SignInPage() {
   return (
-    <main className="min-h-screen bg-mint flex items-center justify-center px-4 py-16">
-      <div className="w-full max-w-md">
-        <div className="mb-8 text-center">
-          <h1 className="font-display text-2xl font-bold text-deepblue mb-2">
-            Sign in
-          </h1>
-          <p className="text-brown/70 font-body text-sm">
-            Enter your email and we&rsquo;ll send you a sign-in link.
-            No password required.
-          </p>
+    <>
+      <Header />
+      <main
+        id="main-content"
+        className="bg-mint flex items-center justify-center px-4 py-16 md:py-24 min-h-[60vh]"
+      >
+        <div className="w-full max-w-md">
+          <div className="mb-8 text-center">
+            <h1 className="font-heading text-deepblue text-3xl mb-2">
+              Sign in
+            </h1>
+            <p className="text-brown/70 font-body text-sm">
+              Enter your email and we&rsquo;ll send you a sign-in link.
+              No password required.
+            </p>
+          </div>
+          <SignInForm />
         </div>
-        <SignInForm />
-      </div>
-    </main>
+      </main>
+      <Footer />
+    </>
   )
 }
