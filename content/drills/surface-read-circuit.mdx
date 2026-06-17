@@ -1,0 +1,143 @@
+---
+title: "Surface-Read Circuit (Three-Ball)"
+slug: "surface-read-circuit"
+drillId: "SX-DR-008"
+description: "A three-zone dribbling circuit with a different ball in each zone — standard, futsal, weighted — training the player to recalibrate their touch to a new ball within two contacts."
+status: "published"
+capacities:
+  primary: ["Adaptive", "Motor"]
+  secondary: ["Perceptual", "Cognitive"]
+ageBand: ["5-8", "9-12", "13-16", "17-20"]
+players: "1–6"
+equipment: "3 different balls, 8–10 cones"
+difficulty: 2
+maxDifficulty: 5
+convictions: [4, 6, 9, 13, 21, 22, 25, 28]
+playerOperatingPrinciple: "Read the ball; adapt first"
+diagrams:
+  - id: layout
+    pitch: small
+    title: "Three-ball circuit"
+    caption: "A 24 m circuit, left to right. Zone A (standard ball) → swap cone → Zone B (futsal ball) → swap cone → Zone C (weighted ball). The player leaves each ball at the boundary cone and picks up the next, recalibrating the touch on arrival."
+    elements:
+      - { type: zone, x: 30, y: 150, width: 96, height: 100, label: "A std" }
+      - { type: zone, x: 152, y: 150, width: 96, height: 100, label: "B futsal" }
+      - { type: zone, x: 274, y: 150, width: 96, height: 100, label: "C weighted" }
+      - { type: ball, x: 78, y: 200, state: static }
+      - { type: ball, x: 200, y: 200, state: static }
+      - { type: ball, x: 322, y: 200, state: static }
+      - { type: cone, x: 139, y: 200, color: orange, label: "S" }
+      - { type: cone, x: 261, y: 200, color: orange, label: "S" }
+      - { type: player, id: "P", team: home, x: 50, y: 120 }
+      - { type: arrow, x1: 45, y1: 280, x2: 355, y2: 280, kind: dribble }
+      - { type: label, x: 40, y: 305, text: "START" }
+      - { type: label, x: 360, y: 305, text: "END" }
+---
+
+## Introduction
+
+The match rarely provides the ball the player trained with. Wet pitches make standard balls heavy. Indoor halls use futsal balls. Youth matches use size 4 where training used size 5. Park sessions run with whatever ball is on hand. Every player is exposed to surface variation; only the players who have been trained in it are adapted to it.
+
+The Surface-Read Circuit addresses this directly. Three zones, three balls, two calibration moments per rep. The standard ball in Zone A is the familiar baseline. The futsal ball in Zone B is faster, harder, and less predictable off the foot. The weighted ball in Zone C is slower, heavier, and demands a more deliberate touch. Each transition requires the player to recalibrate their touch mechanics within the first two contacts of the new ball — there is no time for deliberate analysis.
+
+The drill trains the automatic adaptive response: read the new ball, adjust the next touch, continue dribbling. The circuit is short so the transition moments are many, the pace is controlled so each touch is deliberate, and the process metric is not how fast the player completes the circuit but how quickly their touch quality stabilises on the new ball.
+
+## Setup
+
+**Standard (L2–L3): solo circuit, three zones, left to right.**
+
+```
+  START                                                    END
+    ●───────────────────────────────────────────────────────●
+    │ Zone A (8m) │ SWAP B │ Zone B (8m) │ SWAP C │ Zone C (8m) │
+    │  [BALL A]   │   ▲    │  [BALL B]   │   ▲    │  [BALL C]   │
+    │ std. ball   │ cone   │ futsal ball │ cone   │ weighted    │
+    │   ↓ ↓ ↓     │marker  │   ↓ ↓ ↓     │marker  │   ↓ ↓ ↓     │
+
+Direction: left to right.
+Player starts at ● (START) with Ball A (standard).
+At SWAP B cone: player leaves Ball A at the boundary cone, picks up pre-placed Ball B.
+At SWAP C cone: player leaves Ball B at the boundary cone, picks up pre-placed Ball C.
+At END: player leaves Ball C at the end cone, then resets back to START.
+```
+
+- **Dimensions.** Each zone is 8m long × 2m wide (lateral space optional). Total circuit length 24m — fits any pitch corner or touchline. Use 5m zones (15m total) for the 5–8 Discovery version.
+- **Ball pre-placement (solo, no helper).** Before the session, place one spare of each ball at its boundary: Ball B (futsal) at SWAP B; Ball C (weighted) at SWAP C; spare Ball A at the END for the return. A helper simplifies this, but the drill is fully self-serviceable.
+- **Cone markers.** Two larger cones (or bibs draped over cones) at SWAP B and SWAP C to mark the exchange points clearly; three small cones at each zone entry to mark zone start and end. The exchange cones must be visually distinct from the zone-entry cones so the player can identify them while dribbling.
+- **Ball identification.** Zone A ball — no marking (or a white tape ring); Zone B ball — single tape stripe; Zone C ball — double tape stripe. The visual coding lets the player know which zone they are entering during the approach, not only on arrival.
+
+## Description
+
+**One rep cycle:**
+
+1. **Start.** Player at START with Ball A (standard), identifying the first zone — 8m ahead to the SWAP B cone.
+2. **Zone A dribble (8m, standard ball).** Controlled dribbling speed, not sprint. The aim is to arrive at SWAP B with the ball under close control. The coach observes touch quality here as the baseline reference for the other zones.
+3. **Ball swap at SWAP B.** Set Ball A down at the foot of the cone, pick up Ball B (futsal). One smooth movement, no pause to assess the new ball — the calibration happens during the first dribble in Zone B.
+4. **Zone B dribble (8m, futsal ball).** First calibration moment. The futsal ball is harder, smaller, and rolls faster off the foot, so Zone A mechanics produce an over-touched first rep — expected, not corrected. By rep 3 the touch should be visibly shorter and softer. The coach tracks how many Zone B reps pass before the first touch arrives within 50cm of the foot rather than running 1m+ ahead.
+5. **Ball swap at SWAP C.** Same protocol — leave Ball B at the cone, pick up Ball C (weighted), immediate transition.
+6. **Zone C dribble (8m, weighted ball).** Second calibration moment. The weighted ball resists movement and decelerates faster, so Zone B's soft, fast touch produces an under-touched first rep — the ball barely moves. By rep 3 the touch should be visibly heavier. The coach tracks the same arc.
+7. **End and reset.** Player arrives at END with Ball C and leaves it at the END cone. On the return, all balls are repositioned (Ball A to START, Ball B to SWAP B, Ball C to SWAP C); solo, the player collects all three on the way back in one flowing movement.
+8. **Rest between reps.** 30–45 seconds — enough to maintain touch quality, not so much that the calibration state is lost. The player should approach each rep with the previous calibration partially held.
+
+**Session structure.** A block is 6–8 reps (about 5–7 minutes of active circuit time); 90 seconds rest between blocks; 2 blocks for 9–12 Foundation (L1–2), 2–3 blocks for 13–16 Development (L2–4).
+
+**Both-feet protocol (L3+).** Each zone is split in half: first 4m strong foot only, second 4m weak foot only. The player maintains this split internally, with no external cues and no change to the zone markers. The calibration challenge then applies to both feet in alternating 4m segments.
+
+**Self-tracking.** From L2+, the player or coach counts the reps in each zone where the first ball-swap touch runs further than 50cm from the foot. That count should fall across sessions — perhaps 4 out of 6 in session 1, down to 1 out of 6 by session 4. A player still at 4/6 after six sessions should drop back to L1 for more reps before progressing.
+
+## Progressions
+
+Five levels. Each changes one or two variables. The calibration challenge — three balls, two swap moments per rep — is the constant identity of the drill; remove the ball variety and it becomes an ordinary dribbling circuit.
+
+**Level 1 (two balls, 5m zones, slow pace).** Only Zone A (standard) and Zone B (futsal), 5m each, 10m total. Slow enough for a deliberate touch-and-observe moment on first contact with Ball B. No time pressure, no foot assignment. Mastery signal: first touch in Zone B lands within 50cm of the foot in 4 of 6 reps across two consecutive sessions. Can also run out-and-back, swapping again on the return to double the calibration moments.
+
+**Level 2 (three balls, 8m zones).** Full three-ball version as described. No time pressure, no foot assignment; dominant foot unless the player self-selects the weak foot. Self-tracking introduced. Mastery signal: calibration reps in Zone B and Zone C together fall below 3 out of 6 across two consecutive sessions.
+
+**Level 3 (three balls + both-feet protocol).** All three balls, 8m zones split first-half strong foot, second-half weak foot, self-managed. Adds the cognitive load of tracking the 4m midpoint on top of calibration. The arc is tracked separately per foot. Mastery signal: the weak-foot calibration arc for Zone B and Zone C reaches the same level as the strong-foot arc within the same session.
+
+**Level 4 (unexpected swap — coach calls the exchange).** The coach calls "swap!" at an unpredictable moment in any zone; the player stops, leaves the current ball, and picks up the nearest spare (one of each type pre-placed at random viable positions). The player cannot pre-prepare the calibration — they adapt on the first touch after the signal, training surprise handling. Mastery signal: first-touch quality after a surprise swap matches that after a planned swap within two reps.
+
+**Level 5 (three balls + real surface transition — advanced/outdoor).** Where a varied surface exists (grass–gravel–mud, indoor→outdoor, synthetic→natural), align the zone boundaries with the surface changes so each ball-swap coincides with a surface change — a dual-adaptation event. Without real surface variation, simulate L5 with three balls, the fastest controlled circuit pace, and one surprise swap per circuit. Mastery signal: touch quality at L5 pace equals touch quality at L2 pace for the same zone. This is the drill's mastery ceiling.
+
+## Coach guidance
+
+The primary observation is the **calibration arc** in each zone — how many reps until the first touch on the new ball is as clean as the Zone A touch. Only ball proximity and touch intention matter here, not technical pass quality.
+
+**Look for:**
+
+- **The first-touch response to a ball swap.** The desired sequence is wild first touch → immediate awareness → corrected second touch → deliberate third touch. If the player does not adjust the second touch, the calibration is not happening — they are touching without noticing.
+- **Visual behaviour at the swap.** Does the player glance at the new ball as they pick it up? A brief visual read of size and surface (a fraction of a second, not a pause) primes a faster calibration. Players rarely do this without coaching attention on it.
+- **Pace management across zones.** Zone B's faster roll tends to pull the player faster; Zone C's resistance tends to slow them. Whether the player controls pace or is controlled by the ball is a proxy for the adaptive capacity working.
+- **Approach to the swap cone.** Arriving with the ball settled and close to the foot reveals good close control within the zone. The swap itself is secondary; the close control leading to it is primary.
+
+**Cues** (short, in-rep, questions where possible):
+
+- *"What did that first touch tell you about the new ball?"*
+- *"Look at it before you touch it."*
+- *"How heavy do you need your next touch to be?"*
+- *"Your first touch in Zone A looks like this — what does your first touch in Zone B look like?"*
+- *"Slower to the swap cone — you need the ball close to pick it up cleanly."*
+- *"What changed between rep 3 and rep 4 in Zone B?"*
+
+**Praise** (process):
+
+- *"You looked at the new ball before you picked it up — that's the read."*
+- *"First touch ran long in Zone B, you shortened the second. That's the calibration."*
+- *"Zone B rep 5 looked like Zone A. That's the habit closing the gap."*
+- *"You felt the weighted ball in the first touch and pulled back on the second. That's exactly it."*
+- *"Arrived at the swap cone with the ball tight. Zone control into the exchange."*
+
+**Don't fix yet:**
+
+- Speed across the circuit in the first two sessions — controlled pace beats fast-with-a-loose-ball.
+- Specific footwork patterns within each zone — any close-control method is fine; prescribing one competes with the calibration habit.
+- Weak-foot quality in early L1 sessions — observe it, but don't push it before L3.
+- Perfect ball positioning at the swap cone — in the first four sessions the swap is approximate; clean exchange mechanics develop with reps.
+
+## Watch points
+
+- **Same touch weight in all three zones — treating every ball identically.** Redirect: *"How did Ball B feel different from Ball A on the first touch?"* If the player cannot name the difference, slow the pace further until deliberate touch observation is possible.
+- **Accelerating through Zone B, chasing the faster futsal ball instead of controlling it.** Redirect: *"Who is controlling whom — you or the ball?"* The player slows their stride until the ball is back under close control.
+- **Performing the swap without looking at the new ball.** Redirect: *"Before your foot touches it — look at it."* A glance at size, texture, and markings primes the motor system; players who look calibrate faster.
+- **Arriving at the swap cone with the ball ahead of them, out of control.** Redirect: *"Arrive in control — the swap only works if the ball is at your feet."* If the player cannot reach the cone with the ball close, Zone A touch quality needs more reps before adding complexity.
+- **Frustration after several consecutive calibration failures in Zone B (especially weak foot at L3).** Redirect: *"How many reps until Zone B felt like Zone A last session? Compare only to that number — not to Zone A today."* The progress asked for is arc-shortening over sessions, not same-session perfection.

@@ -1,0 +1,169 @@
+---
+title: "Weak-Foot Dribbling Gauntlet"
+slug: "weak-foot-dribbling-gauntlet"
+drillId: "SX-DR-004"
+description: "A four-zone solo gauntlet — slalom, gate maze, turn box, finish strike — run entirely on the weak foot, closing the foot gap with a self-tracked rescue count."
+status: "published"
+capacities:
+  primary: ["Motor"]
+  secondary: ["Adaptive", "Perceptual", "Cognitive", "Affective"]
+ageBand: ["5-8", "9-12", "13-16"]
+players: "1–4"
+equipment: "~16 markers, 1 ball (optional 2nd ball + constraint cards)"
+difficulty: 2
+maxDifficulty: 5
+convictions: [6, 9, 13, 17, 18, 21, 22, 24, 25, 28]
+playerOperatingPrinciple: "Both feet, always"
+diagrams:
+  - id: layout
+    pitch: small
+    title: "The gauntlet — four zones"
+    caption: "~20 m x 12 m, run bottom to top. Zone A slalom (5 markers in line) → Zone B gate maze (scattered gates) → Zone C turn box (3 m x 3 m square) → Zone D finish gate (orange). Player starts at the bottom with the ball."
+    elements:
+      - { type: zone, x: 22, y: 22, width: 356, height: 356, label: "" }
+      - { type: cone, x: 200, y: 352, color: deepblue }
+      - { type: cone, x: 200, y: 330, color: deepblue }
+      - { type: cone, x: 200, y: 308, color: deepblue }
+      - { type: cone, x: 200, y: 286, color: deepblue }
+      - { type: cone, x: 200, y: 264, color: deepblue }
+      - { type: cone, x: 120, y: 235, color: brown }
+      - { type: cone, x: 150, y: 235, color: brown }
+      - { type: cone, x: 235, y: 230, color: brown }
+      - { type: cone, x: 265, y: 230, color: brown }
+      - { type: cone, x: 175, y: 195, color: brown }
+      - { type: cone, x: 205, y: 195, color: brown }
+      - { type: cone, x: 110, y: 165, color: brown }
+      - { type: cone, x: 140, y: 165, color: brown }
+      - { type: cone, x: 255, y: 168, color: brown }
+      - { type: cone, x: 285, y: 168, color: brown }
+      - { type: cone, x: 160, y: 135, color: deepblue }
+      - { type: cone, x: 240, y: 135, color: deepblue }
+      - { type: cone, x: 160, y: 95, color: deepblue }
+      - { type: cone, x: 240, y: 95, color: deepblue }
+      - { type: cone, x: 178, y: 48, color: orange, label: "F" }
+      - { type: cone, x: 222, y: 48, color: orange, label: "F" }
+      - { type: player, id: "P", team: home, x: 200, y: 372 }
+      - { type: ball, x: 212, y: 365, state: static }
+      - { type: arrow, x1: 200, y1: 360, x2: 200, y2: 62, kind: dribble }
+      - { type: label, x: 300, y: 310, text: "A" }
+      - { type: label, x: 320, y: 200, text: "B" }
+      - { type: label, x: 300, y: 115, text: "C" }
+---
+
+## Introduction
+
+A right-foot-only player is a solved problem at any decent level. Most players know this — and still avoid the weak foot, because every weak-foot touch in front of others feels like an audition they're failing. So the weak foot stays weak, not from lack of knowledge but from lack of a structure that makes weak-foot volume unavoidable, private, and measurable.
+
+This is that structure.
+
+The Weak-Foot Dribbling Gauntlet is a four-zone circuit run entirely on the weak foot: a tight slalom, a gate maze with route choice, a turn box, and a finishing gate. The strong foot is never forbidden — it is *counted*. Any strong-foot touch is a "rescue touch," and the rescue count per run is the drill's single tracked number. The player's job, across days and weeks, is to drive that number toward zero. No coach is required: the player sets the gauntlet up, runs it, counts, records, and re-randomises it themselves.
+
+The drill is also the library's strongest Adaptive entry so far. From Level 2 the layout changes every block; from Level 3 the ball changes too. A weak foot that only works on one pattern is a memorised trick; a weak foot that holds up across layouts, balls, and surfaces is a capacity.
+
+## Setup
+
+```
+                    [ZONE D — FINISH]
+                         •   •          ← finish gate (2m wide)
+                          ↑
+                     6m strike zone
+                          ↑
+              [ZONE C — TURN BOX]
+                    •         •
+                                       ← 3m × 3m square
+                    •         •
+                          ↑
+              [ZONE B — GATE MAZE]
+                 •  •        •  •
+                       •  •            ← 5 gates (1.5m wide each),
+                 •  •        •  •         scattered, any orientation
+                       •  •
+                          ↑
+              [ZONE A — SLALOM]
+                  •  •  •  •  •        ← 5 markers in a line, 1m apart
+
+                       [START]
+```
+
+Total length ~20m, width ~12m (minimum 12m × 8m — compress all distances proportionally; the drill survives compression well).
+
+- **Zone A — Tight Slalom:** 5 markers in a straight line, **1m apart**, starting 2m from the start point.
+- **Zone B — Gate Maze:** 5 gates, each **1.5m wide** (2 markers per gate), scattered across a roughly **8m × 8m** area, at mixed orientations — deliberately *not* in a line. There is no single correct path through them.
+- **Zone C — Turn Box:** a **3m × 3m** square marked by 4 markers, 2m beyond Zone B.
+- **Zone D — Finish Gate:** one gate, **2m wide**, placed **6m** beyond the Turn Box exit.
+- **Player:** starts at the start point, ball at their feet. **No clock at baseline.**
+
+Setup takes about five minutes the first time, two minutes after that. The player sets it up themselves — setup is part of the drill's ownership structure.
+
+## Description
+
+**The one rule:** every touch is taken with the **weak foot** — both feet may move, but only the weak foot touches the ball. A strong-foot touch is not a failure and is never punished; it is a **rescue touch**, counted out loud by the player the moment it happens ("one… two…").
+
+One run (Zones A→D, continuous):
+
+1. **Zone A — Slalom:** dribble through all 5 markers, weak foot only, alternating inside and outside surfaces of the foot. Touch tight — the 1m spacing punishes heavy touches by design.
+2. **Zone B — Gate Maze:** carry the ball through **any 3 of the 5 gates**, choosing the route on the move. Head up between touches — the gates are spread wide enough that route reading requires looking. **No-repeat rule:** the route must differ from the previous run (different gate combination or order).
+3. **Zone C — Turn Box:** enter the box, execute **one named weak-foot turn** — pull-back, inside cut, or outside hook — and exit through a different side than entered. The turn for each run is announced by the player to themselves before starting (rotate through all three across a block).
+4. **Zone D — Finish:** from anywhere behind the 6m line, strike or firmly push the ball through the finish gate with the weak foot. Accuracy over power — a rolled ball through the gate beats a blasted ball past it.
+5. **Count and reset:** the run ends when the ball crosses the finish line. The player records two things: rescue touches, and whether the finish was clean. Walk back with the ball — weak foot only on the walk back too; the recovery walk is free extra touches.
+
+Block structure:
+
+1. **Block 1 — 5 runs**, then 90 seconds rest. During rest: record the block's numbers and — from Level 2 — re-randomise the Zone B gates.
+2. **Block 2 — 5 runs**, 90 seconds rest, record, re-randomise.
+3. **Block 3 — 5 runs**, then the closing reflection.
+
+Total: 15 runs, roughly 15–18 minutes.
+
+**Scoring — the player's own ledger.** After each block the player writes down (notebook, phone, anything): **rescue touches per run** (e.g. `4 / 6 / 3 / 5 / 2`) and **clean finishes** out of 5. That's all. The number that matters is the rescue-touch trend *across sessions*, not within one. A "clean run" — zero rescues, clean finish — is the unit of progress. The first clean run usually arrives in week one or two and is worth marking.
+
+## Progressions
+
+Five levels. Each changes one to two variables. The weak-foot-only rule and the rescue count hold at every level — they are the drill's identity.
+
+- **Level 1 (baseline, 9–12 Foundation):** as described. Fixed layout, no clock, self-chosen Zone B routes under the no-repeat rule, three turns rotated in Zone C. Mastery signal: a majority of clean runs (0 rescues) across a full session at comfortable pace.
+- **Level 2 (layout variability):** the player **re-randomises the Zone B gates during every between-block rest** — new positions, new orientations. No two blocks share a maze. Route memory becomes useless; route *reading* replaces it. Costs nothing but the discipline to actually move the gates.
+- **Level 3 (ball variability):** each block uses a **different ball** — regulation ball, futsal or smaller ball, and a slightly soft ball, in any order. The weak foot now negotiates weight, bounce, and roll changes block to block. Adaptive capacity becomes primary from this level. Where a second ball genuinely isn't available, substitute a surface change (grass block / hard-surface block) — same effect.
+- **Level 4 (eyes-up overlay):** a partner, parent, or coach stands beyond Zone D and **flashes a hand count (1–5) at random moments** while the player is in Zone B; the player calls the number without stopping the dribble. Solo alternative: place 3 numbered cards face-down at the far end; mid-run through Zone B, the player looks up, reads the nearest visible card, and calls it. Perception now shares the head with the ball — scanning-while-carrying.
+- **Level 5 (surprise constraints + time-shadowing):** before each run the player draws one **constraint card** from a face-down stack and applies it for that run only: *"outside of the foot only," "two touches maximum in Zone B," "reverse zone order (D→A, finishing through the slalom)," "sole touches only in Zone A," "left hand behind back," "silent count" (track rescues mentally, report at the end).* The player may also time runs **against their own previous best** — never against another player. The clock enters last, after quality is established, and is always self-referenced.
+
+## Coach guidance
+
+*(This drill runs without a coach. Where a coach or parent is present, this is the layer they add.)*
+
+**Look for:**
+
+- **Honest counting.** Does the player count rescue touches out loud, including the embarrassing ones? Hidden rescues mean the feedback loop is broken — and that the player is experiencing the count as a judgment rather than a measurement. Fix the framing, not the player.
+- **Surface variety in Zone A.** Inside-only touches are the weak foot's comfort zone. Look for outside-of-foot touches and the occasional sole touch.
+- **Head position in Zone B.** Route-reading with the head up, or staring at the ball and bumping into gates?
+- **Turn commitment in Zone C.** A turn at walking pace with full commitment beats a half-turn at speed. The collapse point is usually the plant foot, not the touch — watch the balance.
+- **Affective state when the count is high.** A frustrated player rushes, and rushing raises the count further. Intervene with a question, not reassurance: *"What's the count telling you — which zone is eating your rescues?"*
+
+**Cues to give** (short, in-rep, questions where possible):
+
+- *"Which surface was that?"* (Zone A)
+- *"Eyes up — which gates are open?"* (Zone B)
+- *"Name your turn before you start."* (Zone C)
+- *"Slow is fine. Clean is the goal."* (anywhere)
+- *"What did the count say last block?"* (between blocks)
+
+**Praise** (process):
+
+- *"You counted that rescue without breaking stride. That's exactly right."*
+- *"Three different routes in three runs — you're choosing, not repeating."*
+- *"That turn was slow and clean. Speed comes free later."*
+- *"Your count dropped two runs in a row. That's the weak foot learning."*
+
+**Don't fix yet:**
+
+- Slow overall pace in the first week. Speed is never the early objective; the count is. Pace rises on its own as rescues fall.
+- Awkward outside-of-foot touches. They look bad for weeks and then suddenly don't. Volume fixes this; commentary doesn't.
+- Turn technique details. Let the player find their mechanics for the first several sessions; refine after the turn is committed and balanced.
+
+## Watch points
+
+- **Rescue touches quietly not being counted** — the count drifts toward flattery. Redirect: *"The count is a measurement, not a mark against you. If it says six, six is today's starting point. What would make it five?"*
+- **The player repeating the same Zone B route every run** — the maze has been memorised into a corridor. Redirect: *"Which gates haven't you used today? Take the route that feels least familiar."*
+- **Speed creeping up while the count creeps up with it** — the player is racing an imaginary clock the drill deliberately doesn't have until Level 5. Redirect: *"Nobody is timing this. What happens to the count if this run is your slowest and cleanest?"*
+- **The turn in Zone C executed only ever as a pull-back** — the most comfortable turn becoming the only one. Redirect: *"Pull-back is yours now. Which of the other two is furthest from yours?"*
+- **Visible deflation after a high-count run** — ball kicked away, shoulders down, reset slowing. The weak foot is identity-threatening for some players. Redirect with one question, then back to the run: *"Two weeks ago, what was your count? And today's bad run is what?"* The ledger usually answers the feeling.
