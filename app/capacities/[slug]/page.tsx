@@ -35,6 +35,35 @@ const CAPACITY_DESCRIPTION: Record<CapacityFamily, string> = {
     'Reading environmental change, adjusting tactics and technique on the fly, and building flexible response repertoires.',
 };
 
+// Curated related reading per capacity family — essays + Pro Breakdowns that
+// develop or illustrate this capacity. Keeps the topic cluster interlinked.
+const RELATED_READING: Record<string, { href: string; label: string }[]> = {
+  perceptual: [
+    { href: '/blog/perceptual-capacity', label: 'Perceptual Capacity: What the Game Asks You to See' },
+    { href: '/blog/rodri-spatial-intelligence', label: 'Pro Breakdown: Rodri’s positional intelligence' },
+    { href: '/blog/scanning-while-dribbling', label: 'When scanning is the dribble — Xavi’s habit' },
+  ],
+  cognitive: [
+    { href: '/blog/cognitive-capacity', label: 'The Cognitive Capacity: How Players Think in Football' },
+    { href: '/blog/how-to-dribble-in-tight-spaces', label: 'How to dribble in tight spaces — the 1v1 commit window' },
+    { href: '/blog/rodri-spatial-intelligence', label: 'Pro Breakdown: Rodri’s decision-making' },
+  ],
+  motor: [
+    { href: '/blog/soccer-dribbling-drills', label: 'Soccer dribbling drills — the complete guide' },
+    { href: '/blog/weak-foot-dribbling-drills', label: 'Both feet, or half a player — the weak-foot drill' },
+  ],
+  communication: [
+    { href: '/blog/xhaka-communication-composure', label: 'Pro Breakdown: What Xhaka rebuilt — communication & composure' },
+  ],
+  affective: [
+    { href: '/blog/xhaka-communication-composure', label: 'Pro Breakdown: Xhaka on composure under pressure' },
+    { href: '/blog/on-deselection-next-ten-minutes-days-months', label: 'On deselection — the next ten minutes, ten days, ten months' },
+  ],
+  adaptive: [
+    { href: '/blog/creative-dribbling-drills', label: 'Creative dribbling drills — how constraints train creativity' },
+  ],
+};
+
 interface Props {
   params: Promise<{ slug: string }>;
 }
@@ -138,6 +167,26 @@ export default async function CapacityPage({ params }: Props) {
               </div>
             </>
           )}
+
+          {RELATED_READING[slug]?.length ? (
+            <div className="mt-12 border-t border-deepblue/10 pt-8">
+              <h2 className="font-ui text-xs uppercase tracking-widest text-brown/40 mb-4">
+                Related reading
+              </h2>
+              <ul className="space-y-2">
+                {RELATED_READING[slug].map((r) => (
+                  <li key={r.href}>
+                    <Link
+                      href={r.href}
+                      className="font-body text-deepblue hover:text-deepblue/70 transition-colors"
+                    >
+                      {r.label} →
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
 
           <div className="mt-10">
             <Link
