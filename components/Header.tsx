@@ -9,7 +9,7 @@ export function Header() {
       {/* Skip to content — WCAG 2.4.1 Bypass Blocks. Visible only on keyboard focus. */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:rounded focus:bg-deepblue focus:px-4 focus:py-2 focus:font-ui focus:text-sm focus:text-mint focus:shadow-lg"
+        className="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:left-4 focus-visible:top-3 focus-visible:z-50 focus-visible:rounded focus-visible:bg-deepblue focus-visible:px-4 focus-visible:py-2 focus-visible:font-ui focus-visible:text-sm focus-visible:text-mint focus-visible:shadow-lg"
       >
         Skip to content
       </a>
