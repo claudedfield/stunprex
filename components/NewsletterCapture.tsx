@@ -1,5 +1,6 @@
-// Newsletter capture — placeholder form. Wired to Kit (ConvertKit) in Block 4.
+// Newsletter capture — working form (stores to Postgres via /api/newsletter).
 // No countdown, no fake urgency, no fabricated subscriber count. Codex-aligned.
+import { EmailCaptureForm } from './EmailCaptureForm';
 
 export function NewsletterCapture() {
   return (
@@ -14,27 +15,7 @@ export function NewsletterCapture() {
             Methodology pieces, a drill of the week, and the convictions behind them. No
             hype. Unsubscribe anytime.
           </p>
-          <form
-            className="mt-8 flex flex-col sm:flex-row gap-3 justify-center"
-            action="/api/newsletter"
-            method="post"
-          >
-            <label htmlFor="newsletter-email" className="sr-only">
-              Email address
-            </label>
-            <input
-              id="newsletter-email"
-              type="email"
-              name="email"
-              required
-              autoComplete="email"
-              placeholder="your@email.com"
-              className="flex-1 max-w-sm px-5 py-3 rounded-md border border-deepblue/25 bg-white font-body text-brown focus:outline-none focus:ring-2 focus:ring-orange/40 focus:border-orange"
-            />
-            <button type="submit" className="btn-primary">
-              Subscribe
-            </button>
-          </form>
+          <EmailCaptureForm source="home" variant="block" className="mt-8" />
           <p className="mt-3 text-xs text-brown/60 italic">
             We&rsquo;ll send the first issue once we&rsquo;re ready, not before.
           </p>

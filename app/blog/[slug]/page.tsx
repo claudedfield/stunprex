@@ -10,6 +10,7 @@ import { CodexAnchorBlock } from '@/components/blog/CodexAnchorBlock';
 import { TableOfContents } from '@/components/blog/TableOfContents';
 import { extractHeadings } from '@/lib/toc';
 import { ShareLinks } from '@/components/blog/ShareLinks';
+import { EmailCaptureForm } from '@/components/EmailCaptureForm';
 import { mdxComponents } from '@/components/blog/MdxComponents';
 import { getPostBySlug, getAllPostSlugs } from '@/lib/posts';
 import { CATEGORY_SLUGS } from '@/lib/types/post';
@@ -187,6 +188,20 @@ export default async function BlogPostPage({ params }: Props) {
                 {/* MDX content */}
                 <div className="prose-stunprex">
                   <MDXRemote source={source} components={mdxComponents} />
+                </div>
+
+                {/* End-of-article newsletter CTA */}
+                <div className="mt-12 rounded-xl border border-deepblue/15 bg-deepblue/[0.03] p-6 sm:p-8 text-center">
+                  <p className="font-ui text-xs uppercase tracking-widest text-orange mb-2">
+                    Newsletter
+                  </p>
+                  <h2 className="font-heading text-deepblue text-xl mb-2">
+                    Get the next piece in your inbox
+                  </h2>
+                  <p className="text-brown/75 font-body text-sm mb-5 max-w-md mx-auto">
+                    Methodology pieces and a drill of the week. No hype. Unsubscribe anytime.
+                  </p>
+                  <EmailCaptureForm source="article" variant="block" />
                 </div>
 
                 {/* Share links */}

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { PRIMARY_NAV, UTILITY_NAV } from '@/lib/nav';
+import { PRIMARY_NAV } from '@/lib/nav';
+import { EmailCaptureForm } from './EmailCaptureForm';
 
 const LEGAL = [
   { href: '/privacy',   label: 'Privacy' },
@@ -57,19 +58,14 @@ export function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="col-span-2 lg:col-span-1">
             <h4 className="font-ui uppercase tracking-widest text-sm text-orange mb-4">
-              Brand
+              Newsletter
             </h4>
-            <ul className="space-y-2 text-sm">
-              {UTILITY_NAV.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="hover:text-orange text-white/85 transition-colors">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <p className="text-sm text-white/70 mb-3 leading-relaxed">
+              A weekly dispatch on individual development. No hype.
+            </p>
+            <EmailCaptureForm source="footer" variant="inline" />
           </div>
 
           <div>
