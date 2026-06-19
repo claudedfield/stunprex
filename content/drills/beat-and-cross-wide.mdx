@@ -15,6 +15,112 @@ difficulty: 4
 maxDifficulty: 5
 playerOperatingPrinciple: "Beat the full-back; deliver before the block"
 convictions: [3, 6, 13, 30, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Beat the full-back in a wide 1v1, then whip the cross in early — before the recovering block closes. Loops.'
+    entities:
+      - type: cone
+        id: gp1
+        x: 175
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: gp2
+        x: 225
+        'y': 28
+        color: orange
+        label: G
+      - type: label
+        id: goallbl
+        x: 200
+        'y': 54
+        text: GOAL
+      - type: player
+        id: K
+        x: 200
+        'y': 46
+        team: neutral
+        label: K
+      - type: player
+        id: W
+        x: 312
+        'y': 300
+        team: home
+        label: W
+      - type: player
+        id: FB
+        x: 300
+        'y': 205
+        team: opp
+        label: FB
+      - type: player
+        id: B
+        x: 180
+        'y': 130
+        team: opp
+        label: B
+      - type: ball
+        id: ball
+        x: 312
+        'y': 300
+        attachedTo: W
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: Winger attacks the full-back in a wide 1v1.
+          moves:
+            - id: W
+              to:
+                x: 305
+                'y': 185
+            - id: FB
+              to:
+                x: 300
+                'y': 210
+        - duration: 800
+          caption: Beat them down the line.
+          moves:
+            - id: W
+              to:
+                x: 300
+                'y': 100
+            - id: FB
+              to:
+                x: 288
+                'y': 150
+        - duration: 800
+          caption: 'Whip it in early, before the block closes.'
+          moves:
+            - id: ball
+              to:
+                x: 200
+                'y': 120
+            - id: B
+              to:
+                x: 195
+                'y': 120
+        - duration: 900
+          caption: Reset; run it from both flanks.
+          moves:
+            - id: ball
+              to: W
+            - id: W
+              to:
+                x: 312
+                'y': 300
+            - id: FB
+              to:
+                x: 300
+                'y': 205
+            - id: B
+              to:
+                x: 180
+                'y': 130
 ---
 
 ## Introduction

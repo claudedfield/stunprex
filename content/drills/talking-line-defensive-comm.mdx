@@ -15,6 +15,132 @@ difficulty: 4
 maxDifficulty: 5
 playerOperatingPrinciple: "Communicate constantly; defend as a connected unit"
 convictions: [3, 5, 29, 30, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch the line
+    caption: 'The unit organises out loud: shift across together, step up to compress, pass the runner on — defending as one. Loops.'
+    entities:
+      - type: cone
+        id: g1
+        x: 175
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: g2
+        x: 225
+        'y': 28
+        color: orange
+        label: G
+      - type: label
+        id: goallbl
+        x: 200
+        'y': 52
+        text: GOAL
+      - type: player
+        id: D1
+        x: 140
+        'y': 210
+        team: opp
+        label: D1
+      - type: player
+        id: D2
+        x: 200
+        'y': 210
+        team: opp
+        label: D2
+      - type: player
+        id: D3
+        x: 260
+        'y': 210
+        team: opp
+        label: D3
+      - type: player
+        id: A1
+        x: 160
+        'y': 330
+        team: home
+        label: A1
+      - type: player
+        id: A2
+        x: 285
+        'y': 300
+        team: home
+        label: A2
+      - type: ball
+        id: ball
+        x: 160
+        'y': 330
+        attachedTo: A1
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: The attackers probe; the unit organises out loud.
+          moves:
+            - id: A1
+              to:
+                x: 180
+                'y': 280
+            - id: A2
+              to:
+                x: 265
+                'y': 270
+        - duration: 900
+          caption: '"Shift!" — the line slides across together.'
+          moves:
+            - id: D1
+              to:
+                x: 175
+                'y': 205
+            - id: D2
+              to:
+                x: 235
+                'y': 205
+            - id: D3
+              to:
+                x: 295
+                'y': 205
+        - duration: 900
+          caption: '"Step!" — push up together to compress the space.'
+          moves:
+            - id: D1
+              to:
+                x: 175
+                'y': 165
+            - id: D2
+              to:
+                x: 235
+                'y': 165
+            - id: D3
+              to:
+                x: 295
+                'y': 165
+        - duration: 900
+          caption: 'Reset; defend as one, organised by the call.'
+          moves:
+            - id: A1
+              to:
+                x: 160
+                'y': 330
+            - id: A2
+              to:
+                x: 285
+                'y': 300
+            - id: D1
+              to:
+                x: 140
+                'y': 210
+            - id: D2
+              to:
+                x: 200
+                'y': 210
+            - id: D3
+              to:
+                x: 260
+                'y': 210
 ---
 
 ## Introduction

@@ -15,6 +15,127 @@ difficulty: 4
 maxDifficulty: 5
 playerOperatingPrinciple: "Beat the line, then carry intent to the final action"
 convictions: [3, 13, 21, 30, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Beat the first defender, then read the live picture — recovering defender, runner, keeper — and pick the right final action. Loops.'
+    entities:
+      - type: cone
+        id: gp1
+        x: 175
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: gp2
+        x: 225
+        'y': 28
+        color: orange
+        label: G
+      - type: label
+        id: goallbl
+        x: 200
+        'y': 54
+        text: GOAL
+      - type: player
+        id: K
+        x: 200
+        'y': 46
+        team: neutral
+        label: K
+      - type: player
+        id: A
+        x: 200
+        'y': 300
+        team: home
+        label: A
+      - type: player
+        id: D1
+        x: 200
+        'y': 185
+        team: opp
+        label: D1
+      - type: player
+        id: D2
+        x: 120
+        'y': 150
+        team: opp
+        label: D2
+      - type: player
+        id: R
+        x: 290
+        'y': 235
+        team: home
+        label: R
+      - type: ball
+        id: ball
+        x: 200
+        'y': 300
+        attachedTo: A
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: Attack and beat the first defender.
+          moves:
+            - id: A
+              to:
+                x: 175
+                'y': 150
+            - id: D1
+              to:
+                x: 215
+                'y': 188
+        - duration: 800
+          caption: 'Past them, the picture comes alive — read it.'
+          moves:
+            - id: R
+              to:
+                x: 270
+                'y': 150
+            - id: D2
+              to:
+                x: 185
+                'y': 120
+            - id: A
+              to:
+                x: 195
+                'y': 120
+        - duration: 800
+          caption: Right final action — slide it to the free runner.
+          moves:
+            - id: ball
+              to: R
+        - duration: 700
+          caption: Runner finishes.
+          moves:
+            - id: ball
+              to:
+                x: 225
+                'y': 30
+        - duration: 900
+          caption: Reset; connect the beat to a real chance.
+          moves:
+            - id: ball
+              to: A
+            - id: A
+              to:
+                x: 200
+                'y': 300
+            - id: D1
+              to:
+                x: 200
+                'y': 185
+            - id: D2
+              to:
+                x: 120
+                'y': 150
+            - id: R
+              to:
+                x: 290
+                'y': 235
 ---
 
 ## Introduction

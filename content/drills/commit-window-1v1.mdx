@@ -15,6 +15,77 @@ difficulty: 4
 maxDifficulty: 5
 playerOperatingPrinciple: "Read the body; commit at the right window"
 convictions: [3, 13, 24, 25, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Watch for the commit window — a weight shift, a planted foot — and attack the instant it opens. Loops.'
+    entities:
+      - type: cone
+        id: g1
+        x: 175
+        'y': 40
+        color: orange
+        label: G
+      - type: cone
+        id: g2
+        x: 225
+        'y': 40
+        color: orange
+        label: G
+      - type: player
+        id: D
+        x: 200
+        'y': 150
+        team: opp
+        label: D
+      - type: player
+        id: A
+        x: 200
+        'y': 300
+        team: home
+        label: A
+      - type: ball
+        id: ball
+        x: 200
+        'y': 300
+        attachedTo: A
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: Engage the defender; watch for the commit window.
+          moves:
+            - id: A
+              to:
+                x: 200
+                'y': 210
+        - duration: 700
+          caption: Their weight shifts — the window opens.
+          moves:
+            - id: D
+              to:
+                x: 170
+                'y': 142
+        - duration: 700
+          caption: Commit the instant it opens — burst through.
+          moves:
+            - id: A
+              to:
+                x: 222
+                'y': 58
+        - duration: 900
+          caption: Reset; commit only when they're genuinely beatable.
+          moves:
+            - id: A
+              to:
+                x: 200
+                'y': 300
+            - id: D
+              to:
+                x: 200
+                'y': 150
 ---
 
 ## Introduction

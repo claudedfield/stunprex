@@ -15,6 +15,125 @@ difficulty: 4
 maxDifficulty: 5
 playerOperatingPrinciple: "Run for the second pass; attack the cross together"
 convictions: [3, 5, 21, 30, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch the runs
+    caption: 'Three timed runs fill the box — near post, penalty spot, far post — arriving as the ball does for a first-time finish. Loops.'
+    entities:
+      - type: cone
+        id: gp1
+        x: 175
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: gp2
+        x: 225
+        'y': 28
+        color: orange
+        label: G
+      - type: label
+        id: goallbl
+        x: 200
+        'y': 54
+        text: GOAL
+      - type: player
+        id: K
+        x: 200
+        'y': 46
+        team: neutral
+        label: K
+      - type: player
+        id: W
+        x: 312
+        'y': 250
+        team: home
+        label: W
+      - type: player
+        id: R1
+        x: 150
+        'y': 300
+        team: home
+        label: R1
+      - type: player
+        id: R2
+        x: 200
+        'y': 300
+        team: home
+        label: R2
+      - type: player
+        id: R3
+        x: 250
+        'y': 300
+        team: home
+        label: R3
+      - type: ball
+        id: ball
+        x: 312
+        'y': 250
+        attachedTo: W
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: The crosser carries in; the runners start deep.
+          moves:
+            - id: W
+              to:
+                x: 300
+                'y': 120
+        - duration: 800
+          caption: 'Three timed runs fill the box — near, spot, far.'
+          moves:
+            - id: R1
+              to:
+                x: 160
+                'y': 120
+            - id: R2
+              to:
+                x: 200
+                'y': 145
+            - id: R3
+              to:
+                x: 250
+                'y': 118
+        - duration: 700
+          caption: Deliver to the freest run.
+          moves:
+            - id: ball
+              to:
+                x: 248
+                'y': 118
+        - duration: 700
+          caption: First-time finish off the timed arrival.
+          moves:
+            - id: ball
+              to:
+                x: 228
+                'y': 30
+        - duration: 900
+          caption: Reset; don't clog the same post.
+          moves:
+            - id: ball
+              to: W
+            - id: W
+              to:
+                x: 312
+                'y': 250
+            - id: R1
+              to:
+                x: 150
+                'y': 300
+            - id: R2
+              to:
+                x: 200
+                'y': 300
+            - id: R3
+              to:
+                x: 250
+                'y': 300
 ---
 
 ## Introduction

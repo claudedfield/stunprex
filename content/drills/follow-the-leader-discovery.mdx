@@ -15,6 +15,96 @@ difficulty: 1
 maxDifficulty: 5
 playerOperatingPrinciple: "Listen and follow; talk and lead (the first seed)"
 convictions: [7, 11, 29, 32, 34]
+diagrams:
+  - id: run
+    pitch: small
+    title: Follow the leader
+    caption: The leader dribbles a path and calls it; the followers copy and listen. Then swap. Loops.
+    entities:
+      - type: player
+        id: L
+        x: 200
+        'y': 300
+        team: home
+        label: L
+      - type: player
+        id: F1
+        x: 175
+        'y': 340
+        team: home
+        label: F1
+      - type: player
+        id: F2
+        x: 225
+        'y': 340
+        team: home
+        label: F2
+      - type: ball
+        id: bl
+        x: 200
+        'y': 300
+        attachedTo: L
+        state: static
+      - type: ball
+        id: b1
+        x: 175
+        'y': 340
+        attachedTo: F1
+        state: static
+      - type: ball
+        id: b2
+        x: 225
+        'y': 340
+        attachedTo: F2
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1000
+          caption: The leader dribbles a path; the others follow.
+          moves:
+            - id: L
+              to:
+                x: 150
+                'y': 200
+            - id: F1
+              to:
+                x: 175
+                'y': 265
+            - id: F2
+              to:
+                x: 210
+                'y': 290
+        - duration: 1000
+          caption: Listen and copy — the same moves.
+          moves:
+            - id: L
+              to:
+                x: 270
+                'y': 160
+            - id: F1
+              to:
+                x: 165
+                'y': 210
+            - id: F2
+              to:
+                x: 195
+                'y': 250
+        - duration: 900
+          caption: Swap the leader.
+          moves:
+            - id: L
+              to:
+                x: 200
+                'y': 300
+            - id: F1
+              to:
+                x: 175
+                'y': 340
+            - id: F2
+              to:
+                x: 225
+                'y': 340
 ---
 
 ## Introduction

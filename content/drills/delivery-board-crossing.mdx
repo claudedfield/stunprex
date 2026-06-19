@@ -15,6 +15,88 @@ difficulty: 3
 maxDifficulty: 5
 playerOperatingPrinciple: "Carry intent; deliver the right ball for the run"
 convictions: [4, 6, 21, 27, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a delivery
+    caption: 'Carry into the channel, read the called zone, and deliver the matching ball — here a cut-back to the penalty spot. Loops.'
+    entities:
+      - type: cone
+        id: gp1
+        x: 175
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: gp2
+        x: 225
+        'y': 28
+        color: orange
+        label: G
+      - type: label
+        id: goallbl
+        x: 200
+        'y': 54
+        text: GOAL
+      - type: player
+        id: K
+        x: 200
+        'y': 46
+        team: neutral
+        label: K
+      - type: label
+        id: znear
+        x: 150
+        'y': 95
+        text: NEAR
+      - type: label
+        id: zspot
+        x: 205
+        'y': 118
+        text: SPOT
+      - type: label
+        id: zfar
+        x: 255
+        'y': 95
+        text: FAR
+      - type: player
+        id: W
+        x: 312
+        'y': 255
+        team: home
+        label: W
+      - type: ball
+        id: ball
+        x: 312
+        'y': 255
+        attachedTo: W
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1000
+          caption: Carry into the wide channel toward the byline.
+          moves:
+            - id: W
+              to:
+                x: 300
+                'y': 100
+        - duration: 800
+          caption: Cut it back to the penalty spot for an arriving runner.
+          moves:
+            - id: ball
+              to:
+                x: 205
+                'y': 130
+        - duration: 900
+          caption: Reset; vary the cross type and the called zone.
+          moves:
+            - id: ball
+              to: W
+            - id: W
+              to:
+                x: 312
+                'y': 255
 ---
 
 ## Introduction

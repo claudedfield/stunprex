@@ -15,6 +15,83 @@ difficulty: 1
 maxDifficulty: 5
 playerOperatingPrinciple: "Move every way; love the ball (the first seed)"
 convictions: [7, 8, 11, 32, 34]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch the animals
+    caption: 'Each child has a ball and moves like the called animal — bear, crab, frog. Loops.'
+    entities:
+      - type: player
+        id: P1
+        x: 140
+        'y': 180
+        team: home
+        label: '1'
+      - type: player
+        id: P2
+        x: 260
+        'y': 220
+        team: home
+        label: '2'
+      - type: ball
+        id: b1
+        x: 140
+        'y': 180
+        attachedTo: P1
+        state: static
+      - type: ball
+        id: b2
+        x: 260
+        'y': 220
+        attachedTo: P2
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: Bear — big slow steps with the ball.
+          moves:
+            - id: P1
+              to:
+                x: 180
+                'y': 150
+            - id: P2
+              to:
+                x: 220
+                'y': 255
+        - duration: 900
+          caption: Crab — sideways and low.
+          moves:
+            - id: P1
+              to:
+                x: 120
+                'y': 200
+            - id: P2
+              to:
+                x: 300
+                'y': 200
+        - duration: 900
+          caption: 'Frog — little hops, ball close.'
+          moves:
+            - id: P1
+              to:
+                x: 160
+                'y': 255
+            - id: P2
+              to:
+                x: 240
+                'y': 160
+        - duration: 800
+          caption: Reset.
+          moves:
+            - id: P1
+              to:
+                x: 140
+                'y': 180
+            - id: P2
+              to:
+                x: 260
+                'y': 220
 ---
 
 ## Introduction

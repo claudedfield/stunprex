@@ -15,6 +15,88 @@ difficulty: 2
 maxDifficulty: 5
 playerOperatingPrinciple: "Quick and smart; throw to keep possession"
 convictions: [3, 21, 27, 30]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a throw-in
+    caption: 'Read the picture; if a teammate shows, throw quickly to the open player and keep possession. Loops.'
+    entities:
+      - type: label
+        id: tl
+        x: 30
+        'y': 200
+        text: LINE
+      - type: player
+        id: T
+        x: 34
+        'y': 200
+        team: neutral
+        label: T
+      - type: player
+        id: R1
+        x: 160
+        'y': 150
+        team: home
+        label: R1
+      - type: player
+        id: R2
+        x: 185
+        'y': 290
+        team: home
+        label: R2
+      - type: player
+        id: D
+        x: 225
+        'y': 200
+        team: opp
+        label: D
+      - type: ball
+        id: ball
+        x: 34
+        'y': 200
+        attachedTo: T
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: Read the picture — a teammate shows for a quick throw.
+          moves:
+            - id: R1
+              to:
+                x: 140
+                'y': 170
+        - duration: 700
+          caption: Quick throw to the open player before the defence reacts.
+          moves:
+            - id: ball
+              to: R1
+        - duration: 800
+          caption: First touch keeps possession and starts the attack.
+          moves:
+            - id: ball
+              attachedTo: R1
+            - id: R1
+              to:
+                x: 200
+                'y': 150
+            - id: D
+              to:
+                x: 200
+                'y': 185
+        - duration: 900
+          caption: Reset; quick or set is the read.
+          moves:
+            - id: ball
+              to: T
+            - id: R1
+              to:
+                x: 160
+                'y': 150
+            - id: D
+              to:
+                x: 225
+                'y': 200
 ---
 
 ## Introduction

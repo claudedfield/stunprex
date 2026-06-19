@@ -15,6 +15,114 @@ difficulty: 3
 maxDifficulty: 5
 playerOperatingPrinciple: "Deliver to the zone; time the attacking run"
 convictions: [4, 21, 27, 30, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a corner
+    caption: Inswing to the near zone; the late near-post run arrives first to flick it on. Delivery + timed runs = a corner with a plan. Loops.
+    entities:
+      - type: cone
+        id: gp1
+        x: 175
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: gp2
+        x: 225
+        'y': 28
+        color: orange
+        label: G
+      - type: label
+        id: goallbl
+        x: 200
+        'y': 54
+        text: GOAL
+      - type: player
+        id: K
+        x: 200
+        'y': 46
+        team: neutral
+        label: K
+      - type: player
+        id: C
+        x: 38
+        'y': 40
+        team: neutral
+        label: C
+      - type: label
+        id: znear
+        x: 165
+        'y': 95
+        text: NEAR
+      - type: label
+        id: zfar
+        x: 250
+        'y': 95
+        text: FAR
+      - type: player
+        id: H1
+        x: 150
+        'y': 260
+        team: home
+        label: H1
+      - type: player
+        id: H2
+        x: 250
+        'y': 260
+        team: home
+        label: H2
+      - type: ball
+        id: ball
+        x: 38
+        'y': 40
+        attachedTo: C
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: Corner-taker reads the zone; runners start late.
+          moves:
+            - id: H1
+              to:
+                x: 175
+                'y': 135
+            - id: H2
+              to:
+                x: 245
+                'y': 145
+        - duration: 800
+          caption: Inswing to the near zone.
+          moves:
+            - id: ball
+              to:
+                x: 180
+                'y': 115
+            - id: H1
+              to:
+                x: 180
+                'y': 122
+        - duration: 700
+          caption: 'Meet it first — flick it on, on goal.'
+          moves:
+            - id: ball
+              to:
+                x: 215
+                'y': 30
+        - duration: 900
+          caption: Reset; delivery to the zone + timed runs.
+          moves:
+            - id: ball
+              to: C
+            - id: H1
+              to:
+                x: 150
+                'y': 260
+            - id: H2
+              to:
+                x: 250
+                'y': 260
 ---
 
 ## Introduction

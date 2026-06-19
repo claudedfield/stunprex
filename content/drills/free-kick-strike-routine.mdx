@@ -15,6 +15,93 @@ difficulty: 3
 maxDifficulty: 5
 playerOperatingPrinciple: "Trust your training; strike with a calm routine"
 convictions: [9, 15, 21, 27, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a strike
+    caption: 'Place, picture the target, steps and breath — then strike: over the wall, bending into the top corner. Loops.'
+    entities:
+      - type: cone
+        id: gp1
+        x: 175
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: gp2
+        x: 225
+        'y': 28
+        color: orange
+        label: G
+      - type: label
+        id: goallbl
+        x: 200
+        'y': 54
+        text: GOAL
+      - type: player
+        id: K
+        x: 212
+        'y': 46
+        team: neutral
+        label: K
+      - type: cone
+        id: w1
+        x: 182
+        'y': 120
+        color: deepblue
+      - type: cone
+        id: w2
+        x: 200
+        'y': 120
+        color: deepblue
+      - type: cone
+        id: w3
+        x: 218
+        'y': 120
+        color: deepblue
+      - type: label
+        id: walllbl
+        x: 200
+        'y': 145
+        text: WALL
+      - type: player
+        id: A
+        x: 200
+        'y': 300
+        team: home
+        label: A
+      - type: ball
+        id: ball
+        x: 200
+        'y': 288
+        attachedTo: A
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1100
+          caption: 'Place, picture the target, steps and breath.'
+          moves: []
+        - duration: 700
+          caption: 'Strike — over the wall, bending to the corner.'
+          moves:
+            - id: ball
+              to:
+                x: 238
+                'y': 32
+            - id: A
+              to:
+                x: 195
+                'y': 270
+        - duration: 900
+          caption: 'Reset; same routine, every time.'
+          moves:
+            - id: ball
+              to: A
+            - id: A
+              to:
+                x: 200
+                'y': 300
 ---
 
 ## Introduction

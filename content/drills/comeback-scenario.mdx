@@ -15,6 +15,115 @@ difficulty: 4
 maxDifficulty: 5
 playerOperatingPrinciple: "Compose under adversity; adapt the approach and respond"
 convictions: [15, 22, 25, 31, 34]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a response
+    caption: 'A goal down, short clock: respond with composure, adapt the approach — attack the wide overload — and get back in it. Loops.'
+    entities:
+      - type: cone
+        id: gp1
+        x: 175
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: gp2
+        x: 225
+        'y': 28
+        color: orange
+        label: G
+      - type: label
+        id: goallbl
+        x: 200
+        'y': 54
+        text: GOAL
+      - type: player
+        id: K
+        x: 200
+        'y': 46
+        team: neutral
+        label: K
+      - type: player
+        id: A1
+        x: 150
+        'y': 285
+        team: home
+        label: A1
+      - type: player
+        id: A2
+        x: 255
+        'y': 285
+        team: home
+        label: A2
+      - type: player
+        id: D1
+        x: 200
+        'y': 175
+        team: opp
+        label: D1
+      - type: ball
+        id: ball
+        x: 150
+        'y': 285
+        attachedTo: A1
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1000
+          caption: 'One down, short clock — respond with composure, not panic.'
+          moves:
+            - id: A1
+              to:
+                x: 160
+                'y': 220
+        - duration: 800
+          caption: Adapt — switch and attack the wide overload.
+          moves:
+            - id: ball
+              to: A2
+            - id: A2
+              to:
+                x: 270
+                'y': 185
+            - id: D1
+              to:
+                x: 215
+                'y': 165
+        - duration: 800
+          caption: Create the chance and finish.
+          moves:
+            - id: ball
+              attachedTo: A2
+            - id: A2
+              to:
+                x: 250
+                'y': 90
+        - duration: 700
+          caption: Back in it — composed and adapted.
+          moves:
+            - id: ball
+              to:
+                x: 215
+                'y': 30
+        - duration: 900
+          caption: Reset; the response matters more than the result.
+          moves:
+            - id: ball
+              to: A1
+            - id: A1
+              to:
+                x: 150
+                'y': 285
+            - id: A2
+              to:
+                x: 255
+                'y': 285
+            - id: D1
+              to:
+                x: 200
+                'y': 175
 ---
 
 ## Introduction
