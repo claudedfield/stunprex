@@ -21,6 +21,53 @@ export type AgeBand =
   | '17-20'
   | '21+';
 
+/** Football theme / category — one per drill. Drives the /training Category facet. */
+export type DrillCategory =
+  | 'Scanning'
+  | 'First touch & receiving'
+  | 'Dribbling & ball mastery'
+  | 'Attacking 1v1'
+  | 'Running with the ball'
+  | 'Passing & possession'
+  | 'Finishing'
+  | 'Crossing & wide play'
+  | 'Set pieces'
+  | 'Heading & aerial'
+  | 'Defending'
+  | 'Transition'
+  | 'Goalkeeping'
+  | 'Conditioning'
+  | 'Communication'
+  | 'Composure & mindset'
+  | 'Adaptive & game sense';
+
+/** Ordered facet lists (stable display order in the /training filter UI). */
+export const CAPACITY_FAMILIES: CapacityFamily[] = [
+  'Perceptual', 'Cognitive', 'Motor', 'Communication', 'Affective', 'Adaptive',
+];
+
+export const AGE_BANDS: AgeBand[] = ['5-8', '9-12', '13-16', '17-20', '21+'];
+
+export const DRILL_CATEGORIES: DrillCategory[] = [
+  'Scanning',
+  'First touch & receiving',
+  'Dribbling & ball mastery',
+  'Attacking 1v1',
+  'Running with the ball',
+  'Passing & possession',
+  'Finishing',
+  'Crossing & wide play',
+  'Set pieces',
+  'Heading & aerial',
+  'Defending',
+  'Transition',
+  'Goalkeeping',
+  'Conditioning',
+  'Communication',
+  'Composure & mindset',
+  'Adaptive & game sense',
+];
+
 export interface DrillFrontmatter {
   /** Human-readable drill title */
   title: string;
@@ -32,6 +79,8 @@ export interface DrillFrontmatter {
   description: string;
   /** draft | published */
   status: DrillStatus;
+  /** Football theme / category (one per drill) — drives the /training Category facet. */
+  category?: DrillCategory;
   /** Capacity families trained — drives cross-linking pages */
   capacities: {
     primary: CapacityFamily[];
