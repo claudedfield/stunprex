@@ -15,6 +15,112 @@ difficulty: 4
 maxDifficulty: 5
 playerOperatingPrinciple: "React first; counter-press immediately in the five seconds after losing the ball"
 convictions: [2, 13, 15, 22, 30, 34, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a counter-press
+    caption: 'The instant the ball is lost: nearest player hunts it, teammates cut the escapes, win it back inside five seconds and attack. Loops.'
+    entities:
+      - type: zone
+        id: grid
+        x: 22
+        'y': 22
+        width: 356
+        height: 356
+        label: ''
+      - type: cone
+        id: mga1
+        x: 160
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: mga2
+        x: 240
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: mgb1
+        x: 160
+        'y': 372
+        color: deepblue
+        label: G
+      - type: cone
+        id: mgb2
+        x: 240
+        'y': 372
+        color: deepblue
+        label: G
+      - type: player
+        id: A1
+        x: 150
+        'y': 255
+        team: home
+        label: A1
+      - type: player
+        id: A2
+        x: 255
+        'y': 250
+        team: home
+        label: A2
+      - type: player
+        id: B1
+        x: 200
+        'y': 185
+        team: opp
+        label: B1
+      - type: ball
+        id: ball
+        x: 200
+        'y': 185
+        attachedTo: B1
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: Possession is lost — the five-second counter-press is on.
+          moves:
+            - id: A1
+              to:
+                x: 185
+                'y': 210
+            - id: A2
+              to:
+                x: 235
+                'y': 170
+        - duration: 800
+          caption: Nearest player hunts the ball; teammates cut the escapes.
+          moves:
+            - id: ball
+              to: A1
+            - id: B1
+              to:
+                x: 205
+                'y': 175
+        - duration: 900
+          caption: Won back inside five seconds — attack at once.
+          moves:
+            - id: ball
+              attachedTo: A1
+            - id: A1
+              to:
+                x: 185
+                'y': 70
+        - duration: 900
+          caption: Reset — press or recover is the next read.
+          moves:
+            - id: ball
+              to: B1
+            - id: A1
+              to:
+                x: 150
+                'y': 255
+            - id: A2
+              to:
+                x: 255
+                'y': 250
 ---
 
 ## Introduction

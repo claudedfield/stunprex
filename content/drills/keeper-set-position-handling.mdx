@@ -15,6 +15,78 @@ difficulty: 2
 maxDifficulty: 5
 playerOperatingPrinciple: "Set before the shot; see early, secure the ball"
 convictions: [9, 15, 16, 27, 32]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Set as the server shapes to strike, read the flight early, move the body behind the ball, and secure the catch. Loops.'
+    entities:
+      - type: cone
+        id: gp1
+        x: 175
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: gp2
+        x: 225
+        'y': 28
+        color: orange
+        label: G
+      - type: label
+        id: goallbl
+        x: 200
+        'y': 54
+        text: GOAL
+      - type: player
+        id: K
+        x: 200
+        'y': 60
+        team: home
+        label: K
+      - type: player
+        id: S
+        x: 200
+        'y': 255
+        team: neutral
+        label: S
+      - type: ball
+        id: ball
+        x: 200
+        'y': 255
+        attachedTo: S
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1000
+          caption: Keeper sets as the server shapes to deliver.
+          moves: []
+        - duration: 800
+          caption: The ball is struck; read the flight early.
+          moves:
+            - id: ball
+              to:
+                x: 158
+                'y': 90
+            - id: K
+              to:
+                x: 165
+                'y': 72
+        - duration: 800
+          caption: Move the body behind the ball; secure the catch.
+          moves:
+            - id: ball
+              to: K
+        - duration: 900
+          caption: Reset the stance for the next ball.
+          moves:
+            - id: ball
+              to: S
+            - id: K
+              to:
+                x: 200
+                'y': 60
 ---
 
 ## Introduction

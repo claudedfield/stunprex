@@ -15,6 +15,108 @@ difficulty: 3
 maxDifficulty: 5
 playerOperatingPrinciple: "Body position before reception; open up and turn, or protect and set"
 convictions: [4, 5, 6, 15, 25, 30]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Shoulder-check first; receive with a defender on your back; if the turn is on, open away from them toward the gate. Loops.'
+    entities:
+      - type: cone
+        id: gl1
+        x: 115
+        'y': 55
+        color: brown
+        label: L
+      - type: cone
+        id: gl2
+        x: 150
+        'y': 55
+        color: brown
+        label: L
+      - type: cone
+        id: gr1
+        x: 250
+        'y': 55
+        color: brown
+        label: R
+      - type: cone
+        id: gr2
+        x: 285
+        'y': 55
+        color: brown
+        label: R
+      - type: player
+        id: S
+        x: 200
+        'y': 345
+        team: neutral
+        label: S
+      - type: player
+        id: R
+        x: 200
+        'y': 205
+        team: home
+        label: R
+      - type: player
+        id: D
+        x: 200
+        'y': 160
+        team: opp
+        label: D
+      - type: ball
+        id: ball
+        x: 200
+        'y': 345
+        attachedTo: S
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1000
+          caption: Check both shoulders — locate the defender and the space.
+          moves: []
+        - duration: 800
+          caption: Ball into feet; the defender is tight to one side.
+          moves:
+            - id: ball
+              to: R
+            - id: D
+              to:
+                x: 216
+                'y': 170
+        - duration: 800
+          caption: Open away from the defender and turn into space.
+          moves:
+            - id: ball
+              attachedTo: R
+            - id: R
+              to:
+                x: 160
+                'y': 150
+        - duration: 800
+          caption: Carry out through the open gate.
+          moves:
+            - id: ball
+              to:
+                x: 133
+                'y': 58
+            - id: R
+              to:
+                x: 150
+                'y': 95
+        - duration: 900
+          caption: Reset; protect and set when the turn isn't on.
+          moves:
+            - id: ball
+              to: S
+            - id: R
+              to:
+                x: 200
+                'y': 205
+            - id: D
+              to:
+                x: 200
+                'y': 160
 ---
 
 ## Introduction

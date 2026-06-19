@@ -15,6 +15,121 @@ difficulty: 3
 maxDifficulty: 5
 playerOperatingPrinciple: "When to play short, when to play long; scan before the ball arrives"
 convictions: [3, 4, 5, 6, 30, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Scan for the press, take an open first touch onto the right foot, and play the free side — short or long is the read. Loops.'
+    entities:
+      - type: cone
+        id: gp1
+        x: 175
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: gp2
+        x: 225
+        'y': 28
+        color: orange
+        label: G
+      - type: label
+        id: goallbl
+        x: 200
+        'y': 54
+        text: GOAL
+      - type: player
+        id: K
+        x: 200
+        'y': 62
+        team: home
+        label: K
+      - type: cone
+        id: tl1
+        x: 55
+        'y': 150
+        color: orange
+        label: L
+      - type: cone
+        id: tl2
+        x: 55
+        'y': 185
+        color: orange
+        label: L
+      - type: cone
+        id: tr1
+        x: 345
+        'y': 150
+        color: orange
+        label: R
+      - type: cone
+        id: tr2
+        x: 345
+        'y': 185
+        color: orange
+        label: R
+      - type: player
+        id: S
+        x: 200
+        'y': 330
+        team: neutral
+        label: S
+      - type: player
+        id: F
+        x: 280
+        'y': 170
+        team: opp
+        label: F
+      - type: ball
+        id: ball
+        x: 200
+        'y': 330
+        attachedTo: S
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1000
+          caption: Scan for the press and the free outlets.
+          moves: []
+        - duration: 800
+          caption: Back-pass arrives; the press closes from the right.
+          moves:
+            - id: ball
+              to: K
+            - id: F
+              to:
+                x: 240
+                'y': 120
+        - duration: 800
+          caption: 'Open onto the weak foot, away from the press.'
+          moves:
+            - id: ball
+              attachedTo: K
+            - id: K
+              to:
+                x: 165
+                'y': 85
+        - duration: 800
+          caption: Play to the free side.
+          moves:
+            - id: ball
+              to:
+                x: 58
+                'y': 168
+        - duration: 900
+          caption: Reset; short or long is the read.
+          moves:
+            - id: ball
+              to: S
+            - id: K
+              to:
+                x: 200
+                'y': 62
+            - id: F
+              to:
+                x: 280
+                'y': 170
 ---
 
 ## Introduction

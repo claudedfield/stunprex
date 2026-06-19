@@ -15,6 +15,102 @@ difficulty: 3
 maxDifficulty: 5
 convictions: [3, 13, 22, 25, 30, 31, 36]
 playerOperatingPrinciple: "Read body, not feet; jockey or commit with intent"
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Defending a 1v1 in a channel: delay, show the attacker to one side, then commit when the touch runs heavy. Loops.'
+    entities:
+      - type: zone
+        id: ch
+        x: 140
+        'y': 22
+        width: 120
+        height: 356
+        label: ''
+      - type: cone
+        id: g1
+        x: 170
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: g2
+        x: 230
+        'y': 28
+        color: orange
+        label: G
+      - type: player
+        id: A
+        x: 200
+        'y': 340
+        team: home
+        label: A
+      - type: player
+        id: D
+        x: 200
+        'y': 95
+        team: opp
+        label: D
+      - type: ball
+        id: ball
+        x: 200
+        'y': 340
+        attachedTo: A
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: Attacker advances to attack the gate.
+          moves:
+            - id: A
+              to:
+                x: 200
+                'y': 250
+            - id: D
+              to:
+                x: 200
+                'y': 185
+        - duration: 1000
+          caption: 'Delay, then deny — show the attacker to one side.'
+          moves:
+            - id: A
+              to:
+                x: 175
+                'y': 205
+            - id: D
+              to:
+                x: 190
+                'y': 180
+        - duration: 800
+          caption: 'The touch runs heavy — decide, and win the ball.'
+          moves:
+            - id: ball
+              to:
+                x: 198
+                'y': 165
+            - id: D
+              to:
+                x: 198
+                'y': 163
+            - id: A
+              to:
+                x: 178
+                'y': 198
+        - duration: 900
+          caption: Threat contained — reset.
+          moves:
+            - id: ball
+              to: A
+            - id: A
+              to:
+                x: 200
+                'y': 340
+            - id: D
+              to:
+                x: 200
+                'y': 95
 ---
 
 ## Introduction

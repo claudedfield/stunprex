@@ -15,6 +15,142 @@ difficulty: 4
 maxDifficulty: 5
 convictions: [3, 13, 22, 25, 31, 34, 36]
 playerOperatingPrinciple: "Jockey or commit; delay and deny the killer pass"
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a 2v3
+    caption: 'Two defenders versus three: one delays the ball, the other denies the killer pass; they commit together on the loose touch. Loops.'
+    entities:
+      - type: cone
+        id: gp1
+        x: 175
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: gp2
+        x: 225
+        'y': 28
+        color: orange
+        label: G
+      - type: label
+        id: goallbl
+        x: 200
+        'y': 54
+        text: GOAL
+      - type: player
+        id: K
+        x: 200
+        'y': 46
+        team: neutral
+        label: K
+      - type: player
+        id: A1
+        x: 120
+        'y': 300
+        team: home
+        label: A1
+      - type: player
+        id: A2
+        x: 200
+        'y': 320
+        team: home
+        label: A2
+      - type: player
+        id: A3
+        x: 280
+        'y': 300
+        team: home
+        label: A3
+      - type: player
+        id: D1
+        x: 170
+        'y': 185
+        team: opp
+        label: D1
+      - type: player
+        id: D2
+        x: 230
+        'y': 185
+        team: opp
+        label: D2
+      - type: ball
+        id: ball
+        x: 120
+        'y': 300
+        attachedTo: A1
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1000
+          caption: Three advance; the defenders delay and deny together.
+          moves:
+            - id: A1
+              to:
+                x: 140
+                'y': 235
+            - id: A2
+              to:
+                x: 200
+                'y': 250
+            - id: A3
+              to:
+                x: 270
+                'y': 240
+            - id: D1
+              to:
+                x: 160
+                'y': 210
+            - id: D2
+              to:
+                x: 225
+                'y': 200
+        - duration: 800
+          caption: '"I''ve got ball — you''ve got the splitter."'
+          moves:
+            - id: ball
+              to: A2
+            - id: D2
+              to:
+                x: 208
+                'y': 215
+        - duration: 800
+          caption: Commit together on the loose touch and win it.
+          moves:
+            - id: ball
+              to:
+                x: 214
+                'y': 212
+            - id: D2
+              to:
+                x: 214
+                'y': 210
+        - duration: 900
+          caption: Survived — reset.
+          moves:
+            - id: ball
+              to: A1
+            - id: A1
+              to:
+                x: 120
+                'y': 300
+            - id: A2
+              to:
+                x: 200
+                'y': 320
+            - id: A3
+              to:
+                x: 280
+                'y': 300
+            - id: D1
+              to:
+                x: 170
+                'y': 185
+            - id: D2
+              to:
+                x: 230
+                'y': 185
 ---
 
 ## Introduction

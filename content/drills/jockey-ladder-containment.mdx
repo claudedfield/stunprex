@@ -15,6 +15,102 @@ difficulty: 2
 maxDifficulty: 5
 convictions: [3, 13, 16, 22, 25, 30]
 playerOperatingPrinciple: "Body position governs everything; sideways-on to the play"
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch the shadow
+    caption: 'Containment footwork: mirror the attacker at a 2m gap, side-on and balanced, channelling them — no dive. Loops.'
+    entities:
+      - type: cone
+        id: l1
+        x: 170
+        'y': 70
+        color: deepblue
+      - type: cone
+        id: l2
+        x: 230
+        'y': 120
+        color: deepblue
+      - type: cone
+        id: l3
+        x: 170
+        'y': 170
+        color: deepblue
+      - type: cone
+        id: l4
+        x: 230
+        'y': 220
+        color: deepblue
+      - type: cone
+        id: l5
+        x: 170
+        'y': 270
+        color: deepblue
+      - type: player
+        id: A
+        x: 200
+        'y': 60
+        team: home
+        label: A
+      - type: player
+        id: D
+        x: 200
+        'y': 110
+        team: opp
+        label: D
+      - type: ball
+        id: ball
+        x: 200
+        'y': 60
+        attachedTo: A
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: 'Attacker carries forward, changing direction.'
+          moves:
+            - id: A
+              to:
+                x: 150
+                'y': 150
+            - id: D
+              to:
+                x: 150
+                'y': 198
+        - duration: 900
+          caption: 'Defender mirrors — side-on, 2 m gap, feet never cross.'
+          moves:
+            - id: A
+              to:
+                x: 250
+                'y': 210
+            - id: D
+              to:
+                x: 250
+                'y': 258
+        - duration: 900
+          caption: Channel the attacker to one side; stay low and balanced.
+          moves:
+            - id: A
+              to:
+                x: 180
+                'y': 285
+            - id: D
+              to:
+                x: 180
+                'y': 325
+        - duration: 900
+          caption: Reset and contain again.
+          moves:
+            - id: A
+              to:
+                x: 200
+                'y': 60
+            - id: D
+              to:
+                x: 200
+                'y': 110
 ---
 
 ## Introduction

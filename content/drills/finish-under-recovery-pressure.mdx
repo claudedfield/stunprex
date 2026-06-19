@@ -15,6 +15,108 @@ difficulty: 4
 maxDifficulty: 5
 convictions: [4, 6, 15, 21, 25, 34, 36]
 playerOperatingPrinciple: "The first touch is a tactical decision; trust your training under pressure"
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Fed in with a chaser recovering from behind: a first touch away from the defender, then a deliberate strike before the window closes. Loops.'
+    entities:
+      - type: cone
+        id: gp1
+        x: 175
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: gp2
+        x: 225
+        'y': 28
+        color: orange
+        label: G
+      - type: label
+        id: goallbl
+        x: 200
+        'y': 54
+        text: GOAL
+      - type: player
+        id: K
+        x: 200
+        'y': 46
+        team: neutral
+        label: K
+      - type: player
+        id: S
+        x: 90
+        'y': 330
+        team: neutral
+        label: S
+      - type: player
+        id: A
+        x: 200
+        'y': 250
+        team: home
+        label: A
+      - type: player
+        id: D
+        x: 200
+        'y': 305
+        team: opp
+        label: D
+      - type: ball
+        id: ball
+        x: 90
+        'y': 330
+        attachedTo: S
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: The ball is fed in; the beaten defender recovers.
+          moves:
+            - id: ball
+              to: A
+            - id: D
+              to:
+                x: 200
+                'y': 262
+        - duration: 800
+          caption: 'First touch into a finishing position, away from the chaser.'
+          moves:
+            - id: ball
+              attachedTo: A
+            - id: A
+              to:
+                x: 172
+                'y': 205
+            - id: D
+              to:
+                x: 196
+                'y': 235
+        - duration: 800
+          caption: Strike before the defender arrives.
+          moves:
+            - id: ball
+              to:
+                x: 222
+                'y': 30
+            - id: A
+              to:
+                x: 178
+                'y': 188
+        - duration: 900
+          caption: Reset; alternate the finishing foot.
+          moves:
+            - id: ball
+              to: S
+            - id: A
+              to:
+                x: 200
+                'y': 250
+            - id: D
+              to:
+                x: 200
+                'y': 305
 ---
 
 ## Introduction

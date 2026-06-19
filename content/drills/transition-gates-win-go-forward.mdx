@@ -15,6 +15,110 @@ difficulty: 4
 maxDifficulty: 5
 playerOperatingPrinciple: "When you win the ball: forward first, sideways second; sprint into space"
 convictions: [3, 13, 22, 25, 30, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a transition
+    caption: 'The moment the ball is won, break forward fast: a teammate sprints ahead and the ball goes through the attacking gate. Loops.'
+    entities:
+      - type: zone
+        id: grid
+        x: 22
+        'y': 22
+        width: 356
+        height: 356
+        label: ''
+      - type: cone
+        id: ga1
+        x: 150
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: ga2
+        x: 185
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: ga3
+        x: 255
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: ga4
+        x: 290
+        'y': 28
+        color: orange
+        label: G
+      - type: player
+        id: A1
+        x: 200
+        'y': 240
+        team: home
+        label: A1
+      - type: player
+        id: A2
+        x: 280
+        'y': 210
+        team: home
+        label: A2
+      - type: player
+        id: B1
+        x: 185
+        'y': 215
+        team: opp
+        label: B1
+      - type: ball
+        id: ball
+        x: 185
+        'y': 215
+        attachedTo: B1
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 800
+          caption: The ball is won — the transition clock is on.
+          moves:
+            - id: ball
+              to: A1
+            - id: A2
+              to:
+                x: 280
+                'y': 120
+            - id: B1
+              to:
+                x: 180
+                'y': 250
+        - duration: 800
+          caption: Break forward fast — a teammate is running.
+          moves:
+            - id: ball
+              to: A2
+        - duration: 800
+          caption: Through the attacking gate for double.
+          moves:
+            - id: ball
+              attachedTo: A2
+            - id: A2
+              to:
+                x: 272
+                'y': 40
+        - duration: 900
+          caption: Reset; retain if the break isn't on.
+          moves:
+            - id: ball
+              to: B1
+            - id: A2
+              to:
+                x: 280
+                'y': 210
+            - id: A1
+              to:
+                x: 200
+                'y': 240
 ---
 
 ## Introduction

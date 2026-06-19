@@ -15,6 +15,90 @@ difficulty: 4
 maxDifficulty: 5
 playerOperatingPrinciple: "Jockey or commit (keeper variant); read body, not feet"
 convictions: [3, 13, 15, 25, 31, 34, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Read the come-or-stay cue: a heavy touch is a "come" — rush and smother before the attacker can set. Loops.'
+    entities:
+      - type: cone
+        id: gp1
+        x: 175
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: gp2
+        x: 225
+        'y': 28
+        color: orange
+        label: G
+      - type: label
+        id: goallbl
+        x: 200
+        'y': 54
+        text: GOAL
+      - type: player
+        id: K
+        x: 200
+        'y': 55
+        team: home
+        label: K
+      - type: player
+        id: A
+        x: 200
+        'y': 330
+        team: opp
+        label: A
+      - type: ball
+        id: ball
+        x: 200
+        'y': 330
+        attachedTo: A
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: Attacker drives at goal in a 1v1.
+          moves:
+            - id: A
+              to:
+                x: 200
+                'y': 185
+        - duration: 700
+          caption: A heavy touch — the "come" cue.
+          moves:
+            - id: ball
+              to:
+                x: 200
+                'y': 150
+            - id: A
+              to:
+                x: 200
+                'y': 178
+        - duration: 700
+          caption: Read it and rush to smother.
+          moves:
+            - id: K
+              to:
+                x: 200
+                'y': 150
+            - id: ball
+              to: K
+        - duration: 900
+          caption: Saved — reset; a controlled touch would be a "stay".
+          moves:
+            - id: ball
+              to: A
+            - id: A
+              to:
+                x: 200
+                'y': 330
+            - id: K
+              to:
+                x: 200
+                'y': 55
 ---
 
 ## Introduction

@@ -15,6 +15,128 @@ difficulty: 4
 maxDifficulty: 5
 playerOperatingPrinciple: "React first; the fastest to recognise the change wins the second"
 convictions: [3, 13, 22, 30, 31, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a wave
+    caption: 'A unit attacks; at an unpredictable "Switch!" the roles flip — recover, reorient, and react first to the new situation. Loops.'
+    entities:
+      - type: cone
+        id: gp1
+        x: 175
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: gp2
+        x: 225
+        'y': 28
+        color: orange
+        label: G
+      - type: label
+        id: goallbl
+        x: 200
+        'y': 54
+        text: GOAL
+      - type: player
+        id: K
+        x: 200
+        'y': 46
+        team: neutral
+        label: K
+      - type: cone
+        id: mb1
+        x: 160
+        'y': 372
+        color: deepblue
+        label: G
+      - type: cone
+        id: mb2
+        x: 240
+        'y': 372
+        color: deepblue
+        label: G
+      - type: player
+        id: A1
+        x: 150
+        'y': 285
+        team: home
+        label: A1
+      - type: player
+        id: A2
+        x: 250
+        'y': 285
+        team: home
+        label: A2
+      - type: player
+        id: D1
+        x: 200
+        'y': 185
+        team: opp
+        label: D1
+      - type: ball
+        id: ball
+        x: 150
+        'y': 285
+        attachedTo: A1
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: A unit attacks the goal in transition.
+          moves:
+            - id: A1
+              to:
+                x: 165
+                'y': 200
+            - id: A2
+              to:
+                x: 250
+                'y': 210
+            - id: D1
+              to:
+                x: 200
+                'y': 160
+        - duration: 800
+          caption: '"Switch!" — roles flip instantly.'
+          moves:
+            - id: ball
+              to: D1
+        - duration: 900
+          caption: 'React first: the new attacker breaks the other way.'
+          moves:
+            - id: ball
+              attachedTo: D1
+            - id: D1
+              to:
+                x: 200
+                'y': 330
+            - id: A1
+              to:
+                x: 165
+                'y': 255
+            - id: A2
+              to:
+                x: 250
+                'y': 255
+        - duration: 900
+          caption: Reset; the next wave starts.
+          moves:
+            - id: ball
+              to: A1
+            - id: D1
+              to:
+                x: 200
+                'y': 185
+            - id: A1
+              to:
+                x: 150
+                'y': 285
+            - id: A2
+              to:
+                x: 250
+                'y': 285
 ---
 
 ## Introduction

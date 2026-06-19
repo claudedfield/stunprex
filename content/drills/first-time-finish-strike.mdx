@@ -15,6 +15,90 @@ difficulty: 3
 maxDifficulty: 5
 convictions: [4, 6, 9, 27, 28, 36]
 playerOperatingPrinciple: "Carry intent; strike across the keeper with a clean first contact"
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'A short diagonal run onto a ball driven across the box — struck first time into the corner, no control touch. Loops.'
+    entities:
+      - type: cone
+        id: gp1
+        x: 175
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: gp2
+        x: 225
+        'y': 28
+        color: orange
+        label: G
+      - type: label
+        id: goallbl
+        x: 200
+        'y': 54
+        text: GOAL
+      - type: player
+        id: K
+        x: 200
+        'y': 46
+        team: neutral
+        label: K
+      - type: player
+        id: S
+        x: 325
+        'y': 185
+        team: neutral
+        label: S
+      - type: player
+        id: A
+        x: 150
+        'y': 300
+        team: home
+        label: A
+      - type: ball
+        id: ball
+        x: 325
+        'y': 185
+        attachedTo: S
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: Striker makes a short diagonal run onto the ball.
+          moves:
+            - id: A
+              to:
+                x: 205
+                'y': 235
+        - duration: 800
+          caption: Server drives it across the striker's path.
+          moves:
+            - id: ball
+              to:
+                x: 215
+                'y': 235
+        - duration: 700
+          caption: First-time strike into the bottom corner.
+          moves:
+            - id: ball
+              to:
+                x: 172
+                'y': 30
+            - id: A
+              to:
+                x: 208
+                'y': 225
+        - duration: 900
+          caption: 'Reset; train both feet, both sides.'
+          moves:
+            - id: ball
+              to: S
+            - id: A
+              to:
+                x: 150
+                'y': 300
 ---
 
 ## Introduction

@@ -15,6 +15,110 @@ difficulty: 3
 maxDifficulty: 5
 convictions: [3, 21, 25, 27, 30, 36]
 playerOperatingPrinciple: "Recovery angles — run to where you need to be, not where the ball is"
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch the recovery
+    caption: 'Beaten and recovering: run a curved goal-side line that cuts off the cut-back to the far runner while still pressuring the ball. Loops.'
+    entities:
+      - type: cone
+        id: gp1
+        x: 175
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: gp2
+        x: 225
+        'y': 28
+        color: orange
+        label: G
+      - type: label
+        id: goallbl
+        x: 200
+        'y': 54
+        text: GOAL
+      - type: player
+        id: A
+        x: 275
+        'y': 300
+        team: home
+        label: A
+      - type: player
+        id: B
+        x: 120
+        'y': 235
+        team: home
+        label: B
+      - type: player
+        id: D
+        x: 265
+        'y': 320
+        team: opp
+        label: D
+      - type: ball
+        id: ball
+        x: 275
+        'y': 300
+        attachedTo: A
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1000
+          caption: A drives at goal; B arrives late for the cut-back.
+          moves:
+            - id: A
+              to:
+                x: 250
+                'y': 150
+            - id: B
+              to:
+                x: 150
+                'y': 150
+            - id: D
+              to:
+                x: 215
+                'y': 215
+        - duration: 900
+          caption: Recover on a curved goal-side line — eyes on ball and runner.
+          moves:
+            - id: D
+              to:
+                x: 190
+                'y': 150
+            - id: A
+              to:
+                x: 235
+                'y': 110
+        - duration: 800
+          caption: A cuts it back — the defender cuts out the dangerous pass.
+          moves:
+            - id: ball
+              to:
+                x: 188
+                'y': 148
+            - id: D
+              to:
+                x: 186
+                'y': 148
+        - duration: 900
+          caption: Cut-back cut off — reset.
+          moves:
+            - id: ball
+              to: A
+            - id: A
+              to:
+                x: 275
+                'y': 300
+            - id: B
+              to:
+                x: 120
+                'y': 235
+            - id: D
+              to:
+                x: 265
+                'y': 320
 ---
 
 ## Introduction

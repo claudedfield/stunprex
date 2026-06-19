@@ -15,6 +15,99 @@ difficulty: 4
 maxDifficulty: 5
 playerOperatingPrinciple: "Find space; make yourself an option; switch the play to the free man"
 convictions: [3, 5, 13, 30, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a switch
+    caption: 'Use the spare man to keep possession, then switch through the free player to the opposite zone. Loops.'
+    entities:
+      - type: zone
+        id: zA
+        x: 22
+        'y': 22
+        width: 178
+        height: 356
+        label: ZONE A
+      - type: zone
+        id: zB
+        x: 200
+        'y': 22
+        width: 178
+        height: 356
+        label: ZONE B
+      - type: player
+        id: T1
+        x: 80
+        'y': 140
+        team: home
+        label: T1
+      - type: player
+        id: T2
+        x: 90
+        'y': 250
+        team: home
+        label: T2
+      - type: player
+        id: 'N'
+        x: 200
+        'y': 200
+        team: neutral
+        label: 'N'
+      - type: player
+        id: F
+        x: 320
+        'y': 200
+        team: home
+        label: F
+      - type: player
+        id: D1
+        x: 140
+        'y': 180
+        team: opp
+        label: D1
+      - type: player
+        id: D2
+        x: 130
+        'y': 260
+        team: opp
+        label: D2
+      - type: ball
+        id: ball
+        x: 80
+        'y': 140
+        attachedTo: T1
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: Use the spare man to keep possession.
+          moves:
+            - id: ball
+              to: T2
+            - id: D1
+              to:
+                x: 120
+                'y': 200
+        - duration: 800
+          caption: Switch through the central free player.
+          moves:
+            - id: ball
+              to: 'N'
+        - duration: 900
+          caption: Find the free man in the far zone — switch complete.
+          moves:
+            - id: ball
+              to: F
+        - duration: 900
+          caption: Reset; rotate the neutrals.
+          moves:
+            - id: ball
+              to: T1
+            - id: D1
+              to:
+                x: 140
+                'y': 180
 ---
 
 ## Introduction

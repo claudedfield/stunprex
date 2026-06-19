@@ -15,6 +15,130 @@ difficulty: 3
 maxDifficulty: 5
 playerOperatingPrinciple: "Scan-decide-receive; first touch into the next pass"
 convictions: [4, 5, 6, 9, 30, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a sequence
+    caption: 'A pass only counts through a gate to a moving teammate — scan, open the body, play on, away from the defender. Loops.'
+    entities:
+      - type: zone
+        id: area
+        x: 22
+        'y': 22
+        width: 356
+        height: 356
+        label: ''
+      - type: cone
+        id: ga1
+        x: 150
+        'y': 150
+        color: brown
+      - type: cone
+        id: ga2
+        x: 150
+        'y': 185
+        color: brown
+      - type: cone
+        id: gb1
+        x: 255
+        'y': 140
+        color: brown
+      - type: cone
+        id: gb2
+        x: 290
+        'y': 140
+        color: brown
+      - type: cone
+        id: gc1
+        x: 200
+        'y': 270
+        color: brown
+      - type: cone
+        id: gc2
+        x: 235
+        'y': 270
+        color: brown
+      - type: player
+        id: P1
+        x: 80
+        'y': 120
+        team: home
+        label: '1'
+      - type: player
+        id: P2
+        x: 250
+        'y': 230
+        team: home
+        label: '2'
+      - type: player
+        id: P3
+        x: 320
+        'y': 90
+        team: home
+        label: '3'
+      - type: player
+        id: D
+        x: 200
+        'y': 180
+        team: opp
+        label: D
+      - type: ball
+        id: ball
+        x: 80
+        'y': 120
+        attachedTo: P1
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: 'Scan, then pass through a gate to a moving teammate.'
+          moves:
+            - id: ball
+              to: P2
+            - id: P3
+              to:
+                x: 300
+                'y': 150
+        - duration: 800
+          caption: Follow the pass; the receiver opens out.
+          moves:
+            - id: ball
+              attachedTo: P2
+            - id: P2
+              to:
+                x: 240
+                'y': 200
+            - id: P1
+              to:
+                x: 150
+                'y': 120
+        - duration: 900
+          caption: 'Under pressure, the touch goes away from the defender.'
+          moves:
+            - id: ball
+              to: P3
+            - id: D
+              to:
+                x: 235
+                'y': 175
+        - duration: 900
+          caption: Reset and repeat.
+          moves:
+            - id: ball
+              to: P1
+            - id: P2
+              to:
+                x: 250
+                'y': 230
+            - id: P3
+              to:
+                x: 320
+                'y': 90
+            - id: D
+              to:
+                x: 200
+                'y': 180
 ---
 
 ## Introduction

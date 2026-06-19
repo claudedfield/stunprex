@@ -15,6 +15,106 @@ difficulty: 4
 maxDifficulty: 5
 convictions: [3, 5, 13, 30, 34, 36]
 playerOperatingPrinciple: "Read the next two passes ahead; split the line"
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rondo
+    caption: 'Four against two: move the ball, read the gap, and disguise a pass that splits the two defenders. Loops.'
+    entities:
+      - type: zone
+        id: grid
+        x: 60
+        'y': 60
+        width: 280
+        height: 280
+        label: ''
+      - type: player
+        id: O1
+        x: 70
+        'y': 200
+        team: home
+        label: O1
+      - type: player
+        id: O2
+        x: 200
+        'y': 70
+        team: home
+        label: O2
+      - type: player
+        id: O3
+        x: 330
+        'y': 200
+        team: home
+        label: O3
+      - type: player
+        id: O4
+        x: 200
+        'y': 330
+        team: home
+        label: O4
+      - type: player
+        id: X1
+        x: 175
+        'y': 190
+        team: opp
+        label: X1
+      - type: player
+        id: X2
+        x: 225
+        'y': 210
+        team: opp
+        label: X2
+      - type: ball
+        id: ball
+        x: 70
+        'y': 200
+        attachedTo: O1
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 800
+          caption: Keep the ball; move the two defenders.
+          moves:
+            - id: ball
+              to: O2
+            - id: X1
+              to:
+                x: 185
+                'y': 160
+            - id: X2
+              to:
+                x: 225
+                'y': 185
+        - duration: 800
+          caption: Scan the gap between the defenders.
+          moves:
+            - id: ball
+              to: O3
+            - id: X1
+              to:
+                x: 205
+                'y': 175
+            - id: X2
+              to:
+                x: 235
+                'y': 195
+        - duration: 800
+          caption: A disguised pass splits them — line broken!
+          moves:
+            - id: ball
+              to: O1
+        - duration: 900
+          caption: 'Reset; lines broken, not passes completed.'
+          moves:
+            - id: X1
+              to:
+                x: 175
+                'y': 190
+            - id: X2
+              to:
+                x: 225
+                'y': 210
 ---
 
 ## Introduction
