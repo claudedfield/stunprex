@@ -1,13 +1,22 @@
 import Link from 'next/link';
 
 // Five priority pillars — Wave-2 ship sequence, Blueprint v2.1 §15.
-const PILLARS = [
-  { slug: 'dribbling',                   title: 'Dribbling',                  blurb: 'Broad search demand. Player-layer entry-point.', status: 'In production' },
+interface Pillar {
+  slug: string;
+  title: string;
+  blurb: string;
+  status: 'Live' | 'Coming soon';
+  /** Destination for a live pillar. */
+  href?: string;
+}
+
+const PILLARS: Pillar[] = [
+  { slug: 'dribbling',                   title: 'Dribbling',                  blurb: 'Broad search demand. Player-layer entry-point.', status: 'Live', href: '/blog/soccer-dribbling-drills' },
   { slug: 'speed-and-agility',           title: 'Speed & Agility',            blurb: 'Mid-volume keyword set. Broad audience.',         status: 'Coming soon' },
   { slug: 'tactical-intelligence',       title: 'Tactical Intelligence',      blurb: 'Distinctive methodology. Coach/parent layer.',    status: 'Coming soon' },
   { slug: 'first-touch',                 title: 'First Touch',                blurb: 'Codex Conviction 4 made into a pillar.',          status: 'Coming soon' },
   { slug: 'strength-endurance-recovery', title: 'Strength · Endurance · Recovery', blurb: 'Physical conditioning anchor.',              status: 'Coming soon' },
-] as const;
+];
 
 export function Pillars() {
   return (
@@ -26,11 +35,11 @@ export function Pillars() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {PILLARS.map((p) => {
-            const live = p.status === 'In production';
+            const live = p.status === 'Live';
             return (
               <Link
                 key={p.slug}
-                href={live ? `/playbook/pillar/${p.slug}` : '#'}
+                href={live ? (p.href ?? '#') : '#'}
                 aria-disabled={!live}
                 className={`group block rounded-lg border-2 p-6 transition-all
                   ${live

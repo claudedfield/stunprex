@@ -33,9 +33,9 @@ export function PullQuote() {
           Greatness is trained, not born.
         </p>
         <p className="mt-5 text-white/85 text-lg leading-relaxed">
-          Roughly ninety percent method and effort, ten percent genetics. The player who
-          treats themselves as a beginner-with-potential outdevelops the one who relies on
-          talent.
+          The trainable component dominates outcomes; genetics is real but never
+          determinative. The player who treats themselves as a beginner-with-potential
+          outdevelops the one who relies on talent.
         </p>
         <p className="mt-6 font-ui uppercase tracking-widest text-xs text-white/55">
           — Codex Conviction 1

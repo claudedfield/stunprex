@@ -4,7 +4,7 @@ export default function Page() {
   return (
     <ComingSoon
       section="Imprint"
-      blurb="Legal imprint for DField Kft. (Hungary) is in preparation. EU/DACH legal requirement — real content shipping shortly."
+      blurb="Legal imprint for DField Kft. (Hungary) is in preparation. EU/Hungary legal requirement — real content shipping shortly."
       shipsIn="Shortly"
     />
   );
