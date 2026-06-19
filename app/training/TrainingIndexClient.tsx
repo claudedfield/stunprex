@@ -10,6 +10,7 @@ import {
   AGE_BANDS,
   DRILL_CATEGORIES,
 } from '@/lib/types/drill';
+import { filterChipClass } from '@/components/ui/filterChip';
 
 const PER_PAGE = 12;
 const DIFFICULTIES = [1, 2, 3, 4, 5];
@@ -86,7 +87,7 @@ function FacetGroup<T extends string | number>({
 }) {
   return (
     <div>
-      <p className="mb-2 font-ui text-[11px] uppercase tracking-widest text-brown/45">{label}</p>
+      <p className="mb-2.5 font-ui text-[11px] uppercase tracking-widest text-brown/45">{label}</p>
       <div className="flex flex-wrap gap-2">
         {options.map((opt) => {
           const isActive = selected.includes(opt);
@@ -96,11 +97,7 @@ function FacetGroup<T extends string | number>({
               type="button"
               aria-pressed={isActive}
               onClick={() => onToggle(opt)}
-              className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-ui font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40 focus-visible:ring-offset-1 ${
-                isActive
-                  ? 'border-deepblue bg-deepblue text-white'
-                  : 'border-deepblue/20 text-brown/70 hover:border-deepblue hover:text-deepblue'
-              }`}
+              className={filterChipClass(isActive)}
             >
               {format ? format(opt) : String(opt)}
             </button>
@@ -169,8 +166,31 @@ export function TrainingIndexClient({ drills }: { drills: DrillCard[] }) {
 
   return (
     <div>
-      {/* Search */}
-      <div className="relative mb-5 max-w-xl">
+      {/* Mobile filter toggle */}
+      <button
+        type="button"
+        onClick={() => setFiltersOpen((o) => !o)}
+        aria-expanded={filtersOpen}
+        className="mb-4 inline-flex items-center gap-2 rounded-lg border border-deepblue/20 px-4 py-2 font-ui text-sm text-deepblue sm:hidden"
+      >
+        {filtersOpen ? 'Hide filters' : 'Filters'}
+        {activeCount > 0 && (
+          <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-orange px-1.5 text-[11px] font-semibold text-white">
+            {activeCount}
+          </span>
+        )}
+      </button>
+
+      {/* Facets — open chip rows, unified with /blog */}
+      <div className={`${filtersOpen ? 'block' : 'hidden'} sm:block mb-8 space-y-5`}>
+        <FacetGroup label="Capacity family" options={CAPACITY_FAMILIES} selected={caps} onToggle={toggleCap} />
+        <FacetGroup label="Age band" options={AGE_BANDS} selected={ages} onToggle={toggleAge} />
+        <FacetGroup label="Difficulty" options={DIFFICULTIES} selected={diffs} onToggle={toggleDiff} format={(d) => `Level ${d}`} />
+        <FacetGroup label="Theme" options={DRILL_CATEGORIES} selected={cats} onToggle={toggleCat} />
+      </div>
+
+      {/* Search — same component style as /blog */}
+      <div className="relative mb-8">
         <label htmlFor="drill-search" className="sr-only">Search drills</label>
         <svg
           aria-hidden
@@ -191,40 +211,17 @@ export function TrainingIndexClient({ drills }: { drills: DrillCard[] }) {
         />
       </div>
 
-      {/* Mobile filter toggle */}
-      <button
-        type="button"
-        onClick={() => setFiltersOpen((o) => !o)}
-        aria-expanded={filtersOpen}
-        className="mb-4 inline-flex items-center gap-2 rounded-lg border border-deepblue/20 px-4 py-2 font-ui text-sm text-deepblue sm:hidden"
-      >
-        {filtersOpen ? 'Hide filters' : 'Filters'}
-        {activeCount > 0 && (
-          <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-orange px-1.5 text-[11px] font-semibold text-white">
-            {activeCount}
-          </span>
-        )}
-      </button>
-
-      {/* Facets */}
-      <div className={`${filtersOpen ? 'block' : 'hidden'} sm:block mb-6 space-y-5 rounded-xl border border-deepblue/10 bg-deepblue/[0.02] p-5`}>
-        <FacetGroup label="Capacity family" options={CAPACITY_FAMILIES} selected={caps} onToggle={toggleCap} />
-        <FacetGroup label="Age band" options={AGE_BANDS} selected={ages} onToggle={toggleAge} />
-        <FacetGroup label="Difficulty" options={DIFFICULTIES} selected={diffs} onToggle={toggleDiff} format={(d) => `Level ${d}`} />
-        <FacetGroup label="Theme" options={DRILL_CATEGORIES} selected={cats} onToggle={toggleCat} />
-      </div>
-
       {/* Count + clear */}
       <div className="mb-6 flex items-center justify-between gap-3">
-        <p className="font-ui text-xs uppercase tracking-widest text-brown/40">
+        <p className="text-sm text-brown/70 font-ui">
           {filtered.length} drill{filtered.length !== 1 ? 's' : ''}
-          {activeCount > 0 ? ' match' : ' published'}
+          {activeCount > 0 ? ' found' : ''}
         </p>
         {activeCount > 0 && (
           <button
             type="button"
             onClick={clearAll}
-            className="font-ui text-xs text-deepblue underline underline-offset-2 hover:text-orange focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40 focus-visible:rounded"
+            className="font-ui text-sm text-deepblue underline underline-offset-2 hover:text-orange focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40 focus-visible:rounded"
           >
             Clear all
           </button>
