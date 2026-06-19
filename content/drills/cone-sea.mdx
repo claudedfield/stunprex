@@ -16,6 +16,154 @@ maxDifficulty: 4
 convictions: [5, 6, 13, 22, 28, 30]
 playerOperatingPrinciple: "Ball mastery while aware"
 diagrams:
+  - id: run
+    pitch: small
+    title: Watch a run
+    caption: 'Enter, scan, call a gate aloud, carry through the cone sea, and exit cleanly — head up throughout. Loops.'
+    entities:
+      - type: zone
+        id: grid
+        x: 22
+        'y': 22
+        width: 356
+        height: 356
+        label: ''
+      - type: cone
+        id: cn1
+        x: 22
+        'y': 22
+        color: brown
+      - type: cone
+        id: cn2
+        x: 378
+        'y': 22
+        color: brown
+      - type: cone
+        id: cn3
+        x: 22
+        'y': 378
+        color: brown
+      - type: cone
+        id: cn4
+        x: 378
+        'y': 378
+        color: brown
+      - type: cone
+        id: gA1
+        x: 185
+        'y': 22
+        color: orange
+        label: A
+      - type: cone
+        id: gA2
+        x: 215
+        'y': 22
+        color: orange
+        label: A
+      - type: cone
+        id: gB1
+        x: 378
+        'y': 185
+        color: deepblue
+        label: B
+      - type: cone
+        id: gB2
+        x: 378
+        'y': 215
+        color: deepblue
+        label: B
+      - type: cone
+        id: gC1
+        x: 185
+        'y': 378
+        color: brown
+        label: C
+      - type: cone
+        id: gC2
+        x: 215
+        'y': 378
+        color: brown
+        label: C
+      - type: cone
+        id: s1
+        x: 130
+        'y': 165
+        color: deepblue
+      - type: cone
+        id: s2
+        x: 170
+        'y': 90
+        color: deepblue
+      - type: cone
+        id: s3
+        x: 220
+        'y': 145
+        color: deepblue
+      - type: cone
+        id: s4
+        x: 120
+        'y': 240
+        color: deepblue
+      - type: cone
+        id: s5
+        x: 240
+        'y': 230
+        color: deepblue
+      - type: label
+        id: entry
+        x: 14
+        'y': 200
+        text: ENTRY
+      - type: player
+        id: P
+        x: 40
+        'y': 200
+        team: home
+        label: P
+      - type: ball
+        id: ball
+        x: 40
+        'y': 200
+        attachedTo: P
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: 'Enter from the west, ball moving, head up.'
+          moves:
+            - id: P
+              to:
+                x: 95
+                'y': 185
+        - duration: 900
+          caption: Scan the field and call a gate aloud — "gate A!"
+          moves:
+            - id: P
+              to:
+                x: 150
+                'y': 200
+        - duration: 1000
+          caption: 'Carry through the cone sea, eyes up between touches.'
+          moves:
+            - id: P
+              to:
+                x: 180
+                'y': 115
+        - duration: 900
+          caption: Commit through the called gate and exit cleanly.
+          moves:
+            - id: P
+              to:
+                x: 200
+                'y': 34
+        - duration: 900
+          caption: Reset — re-enter and call the next gate.
+          moves:
+            - id: P
+              to:
+                x: 40
+                'y': 200
   - id: cone-sea-layout
     pitch: small
     title: "Cone sea layout"
@@ -146,279 +294,6 @@ diagrams:
         x: 12
         y: 200
         text: "ENTRY"
-
-  - id: gate-call-sequence
-    pitch: small
-    title: "Gate call — \"B!\""
-    caption: "Coach calls Gate B (east). Player navigates from current position through the cone sea toward Gate B and exits cleanly."
-    elements:
-      - type: zone
-        x: 22
-        y: 22
-        width: 356
-        height: 356
-        label: ""
-      - type: cone
-        x: 22
-        y: 22
-        color: brown
-      - type: cone
-        x: 378
-        y: 22
-        color: brown
-      - type: cone
-        x: 22
-        y: 378
-        color: brown
-      - type: cone
-        x: 378
-        y: 378
-        color: brown
-      - type: cone
-        x: 185
-        y: 22
-        color: orange
-        label: "A"
-      - type: cone
-        x: 215
-        y: 22
-        color: orange
-        label: "A"
-      - type: cone
-        x: 378
-        y: 185
-        color: orange
-        label: "B"
-      - type: cone
-        x: 378
-        y: 215
-        color: orange
-        label: "B"
-      - type: cone
-        x: 185
-        y: 378
-        color: brown
-        label: "C"
-      - type: cone
-        x: 215
-        y: 378
-        color: brown
-        label: "C"
-      - type: cone
-        x: 80
-        y: 100
-        color: deepblue
-      - type: cone
-        x: 130
-        y: 165
-        color: deepblue
-      - type: cone
-        x: 170
-        y: 90
-        color: deepblue
-      - type: cone
-        x: 220
-        y: 145
-        color: deepblue
-      - type: cone
-        x: 265
-        y: 85
-        color: deepblue
-      - type: cone
-        x: 310
-        y: 150
-        color: deepblue
-      - type: cone
-        x: 90
-        y: 250
-        color: deepblue
-      - type: cone
-        x: 145
-        y: 310
-        color: deepblue
-      - type: cone
-        x: 190
-        y: 240
-        color: deepblue
-      - type: cone
-        x: 240
-        y: 300
-        color: deepblue
-      - type: cone
-        x: 290
-        y: 230
-        color: deepblue
-      - type: cone
-        x: 335
-        y: 295
-        color: deepblue
-      - type: cone
-        x: 110
-        y: 195
-        color: deepblue
-      - type: cone
-        x: 260
-        y: 190
-        color: deepblue
-      - type: cone
-        x: 330
-        y: 120
-        color: deepblue
-      - type: player
-        id: "P"
-        x: 160
-        y: 200
-        team: home
-      - type: ball
-        x: 170
-        y: 192
-        state: rolling
-      - type: arrow
-        x1: 172
-        y1: 200
-        x2: 350
-        y2: 200
-        kind: dribble
-      - type: label
-        x: 200
-        y: 175
-        text: "→ Gate B"
-
-  - id: level-3-disturbance
-    pitch: small
-    title: "Level 3 — mid-drill disturbance"
-    caption: "Coach silently adds a new cone mid-round (highlighted orange). Player must adapt without breaking dribbling rhythm — the sea is never the same sea twice."
-    elements:
-      - type: zone
-        x: 22
-        y: 22
-        width: 356
-        height: 356
-        label: ""
-      - type: cone
-        x: 22
-        y: 22
-        color: brown
-      - type: cone
-        x: 378
-        y: 22
-        color: brown
-      - type: cone
-        x: 22
-        y: 378
-        color: brown
-      - type: cone
-        x: 378
-        y: 378
-        color: brown
-      - type: cone
-        x: 185
-        y: 22
-        color: orange
-        label: "A"
-      - type: cone
-        x: 215
-        y: 22
-        color: orange
-        label: "A"
-      - type: cone
-        x: 378
-        y: 185
-        color: deepblue
-        label: "B"
-      - type: cone
-        x: 378
-        y: 215
-        color: deepblue
-        label: "B"
-      - type: cone
-        x: 185
-        y: 378
-        color: brown
-        label: "C"
-      - type: cone
-        x: 215
-        y: 378
-        color: brown
-        label: "C"
-      - type: cone
-        x: 80
-        y: 100
-        color: deepblue
-      - type: cone
-        x: 130
-        y: 165
-        color: deepblue
-      - type: cone
-        x: 170
-        y: 90
-        color: deepblue
-      - type: cone
-        x: 220
-        y: 145
-        color: deepblue
-      - type: cone
-        x: 265
-        y: 85
-        color: deepblue
-      - type: cone
-        x: 310
-        y: 150
-        color: deepblue
-      - type: cone
-        x: 90
-        y: 250
-        color: deepblue
-      - type: cone
-        x: 145
-        y: 310
-        color: deepblue
-      - type: cone
-        x: 190
-        y: 240
-        color: deepblue
-      - type: cone
-        x: 240
-        y: 300
-        color: deepblue
-      - type: cone
-        x: 290
-        y: 230
-        color: deepblue
-      - type: cone
-        x: 335
-        y: 295
-        color: deepblue
-      - type: cone
-        x: 110
-        y: 195
-        color: deepblue
-      - type: cone
-        x: 260
-        y: 190
-        color: deepblue
-      - type: cone
-        x: 330
-        y: 120
-        color: deepblue
-      - type: cone
-        x: 205
-        y: 200
-        color: orange
-        label: "NEW"
-      - type: player
-        id: "P"
-        x: 155
-        y: 170
-        team: home
-      - type: ball
-        x: 165
-        y: 162
-        state: rolling
-      - type: label
-        x: 8
-        y: 200
-        text: "COACH"
 ---
 
 ## Introduction

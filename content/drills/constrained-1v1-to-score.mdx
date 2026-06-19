@@ -16,6 +16,125 @@ maxDifficulty: 5
 convictions: [3, 5, 6, 13, 15, 21, 25, 36]
 playerOperatingPrinciple: "Scan, decide, execute under pressure"
 diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Scan, drive at the defender, beat them, and finish through the goal inside the 8-second window. Loops.'
+    entities:
+      - type: zone
+        id: grid
+        x: 22
+        'y': 22
+        width: 356
+        height: 356
+        label: ''
+      - type: cone
+        id: cn1
+        x: 22
+        'y': 22
+        color: brown
+      - type: cone
+        id: cn2
+        x: 378
+        'y': 22
+        color: brown
+      - type: cone
+        id: cn3
+        x: 22
+        'y': 378
+        color: brown
+      - type: cone
+        id: cn4
+        x: 378
+        'y': 378
+        color: brown
+      - type: cone
+        id: g1
+        x: 175
+        'y': 22
+        color: orange
+        label: G
+      - type: cone
+        id: g2
+        x: 225
+        'y': 22
+        color: orange
+        label: G
+      - type: label
+        id: goal
+        x: 200
+        'y': 52
+        text: GOAL
+      - type: player
+        id: D
+        x: 200
+        'y': 80
+        team: opp
+        label: D
+      - type: player
+        id: A
+        x: 200
+        'y': 330
+        team: home
+        label: A
+      - type: ball
+        id: ball
+        x: 200
+        'y': 330
+        attachedTo: A
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1000
+          caption: 'Pre-engagement scan — goal, boundaries, defender.'
+          moves: []
+        - duration: 900
+          caption: Attacker drives at the defender.
+          moves:
+            - id: A
+              to:
+                x: 200
+                'y': 180
+            - id: D
+              to:
+                x: 200
+                'y': 150
+        - duration: 800
+          caption: A feint and a change of direction beats the defender.
+          moves:
+            - id: A
+              to:
+                x: 150
+                'y': 120
+            - id: D
+              to:
+                x: 225
+                'y': 135
+        - duration: 800
+          caption: Finish through the small goal.
+          moves:
+            - id: ball
+              to:
+                x: 200
+                'y': 26
+            - id: A
+              to:
+                x: 165
+                'y': 95
+        - duration: 900
+          caption: 'Reset — next rep, both feet.'
+          moves:
+            - id: ball
+              to: A
+            - id: A
+              to:
+                x: 200
+                'y': 330
+            - id: D
+              to:
+                x: 200
+                'y': 80
   - id: layout
     pitch: small
     title: "1v1 to score — layout"

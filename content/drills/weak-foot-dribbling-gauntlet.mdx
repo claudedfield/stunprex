@@ -16,6 +16,161 @@ maxDifficulty: 5
 convictions: [6, 9, 13, 17, 18, 21, 22, 24, 25, 28]
 playerOperatingPrinciple: "Both feet, always"
 diagrams:
+  - id: run
+    pitch: small
+    title: Watch a run
+    caption: 'Weak foot only, bottom to top: slalom, gate maze, turn box, finish strike. Strong-foot touches are counted. Loops.'
+    entities:
+      - type: zone
+        id: grid
+        x: 22
+        'y': 22
+        width: 356
+        height: 356
+        label: ''
+      - type: cone
+        id: a1
+        x: 200
+        'y': 352
+        color: deepblue
+      - type: cone
+        id: a2
+        x: 200
+        'y': 330
+        color: deepblue
+      - type: cone
+        id: a3
+        x: 200
+        'y': 308
+        color: deepblue
+      - type: cone
+        id: a4
+        x: 200
+        'y': 286
+        color: deepblue
+      - type: cone
+        id: a5
+        x: 200
+        'y': 264
+        color: deepblue
+      - type: cone
+        id: b1
+        x: 120
+        'y': 235
+        color: brown
+      - type: cone
+        id: b2
+        x: 150
+        'y': 235
+        color: brown
+      - type: cone
+        id: b3
+        x: 235
+        'y': 230
+        color: brown
+      - type: cone
+        id: b4
+        x: 265
+        'y': 230
+        color: brown
+      - type: cone
+        id: b5
+        x: 175
+        'y': 195
+        color: brown
+      - type: cone
+        id: b6
+        x: 205
+        'y': 195
+        color: brown
+      - type: cone
+        id: c1
+        x: 160
+        'y': 135
+        color: deepblue
+      - type: cone
+        id: c2
+        x: 240
+        'y': 135
+        color: deepblue
+      - type: cone
+        id: c3
+        x: 160
+        'y': 95
+        color: deepblue
+      - type: cone
+        id: c4
+        x: 240
+        'y': 95
+        color: deepblue
+      - type: cone
+        id: f1
+        x: 178
+        'y': 48
+        color: orange
+        label: F
+      - type: cone
+        id: f2
+        x: 222
+        'y': 48
+        color: orange
+        label: F
+      - type: player
+        id: P
+        x: 200
+        'y': 372
+        team: home
+        label: P
+      - type: ball
+        id: ball
+        x: 200
+        'y': 372
+        attachedTo: P
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1100
+          caption: Zone A — weak-foot slalom through the line.
+          moves:
+            - id: P
+              to:
+                x: 215
+                'y': 300
+        - duration: 900
+          caption: Zone B — pick a route through the gate maze.
+          moves:
+            - id: P
+              to:
+                x: 190
+                'y': 215
+        - duration: 900
+          caption: 'Zone C — into the turn box: stop and turn.'
+          moves:
+            - id: P
+              to:
+                x: 200
+                'y': 115
+        - duration: 900
+          caption: Zone D — strike through the finish gate.
+          moves:
+            - id: ball
+              to:
+                x: 200
+                'y': 34
+            - id: P
+              to:
+                x: 200
+                'y': 70
+        - duration: 900
+          caption: Reset to the start; re-randomise the layout.
+          moves:
+            - id: ball
+              to: P
+            - id: P
+              to:
+                x: 200
+                'y': 372
   - id: layout
     pitch: small
     title: "The gauntlet — four zones"

@@ -15,6 +15,95 @@ difficulty: 2
 maxDifficulty: 5
 convictions: [4, 9, 13, 15, 21, 25, 34, 36]
 playerOperatingPrinciple: "Arrive ready; composure is a skill — breath, body, eyes"
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Sprint in, full stop, run the reset (breath, body, eyes), then one composed touch into the target. Loops.'
+    entities:
+      - type: label
+        id: startlbl
+        x: 200
+        'y': 374
+        text: START
+      - type: cone
+        id: arrival
+        x: 200
+        'y': 200
+        color: deepblue
+      - type: label
+        id: arrlbl
+        x: 246
+        'y': 203
+        text: STOP
+      - type: cone
+        id: L
+        x: 140
+        'y': 140
+        color: orange
+        label: L
+      - type: cone
+        id: R
+        x: 260
+        'y': 140
+        color: orange
+        label: R
+      - type: player
+        id: S
+        x: 80
+        'y': 150
+        team: neutral
+        label: S
+      - type: player
+        id: P
+        x: 200
+        'y': 352
+        team: home
+        label: P
+      - type: ball
+        id: ball
+        x: 80
+        'y': 150
+        attachedTo: S
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: Sprint from the start at ~80% effort.
+          moves:
+            - id: P
+              to:
+                x: 200
+                'y': 214
+        - duration: 1100
+          caption: 'Full stop at the cone — composure window: breath, body, eyes.'
+          moves: []
+        - duration: 800
+          caption: Server plays in; the target is called — "Right!"
+          moves:
+            - id: ball
+              to: P
+        - duration: 800
+          caption: 'One composed touch, directed into the target.'
+          moves:
+            - id: ball
+              to:
+                x: 260
+                'y': 140
+            - id: P
+              to:
+                x: 228
+                'y': 178
+        - duration: 900
+          caption: Jog back to the start.
+          moves:
+            - id: ball
+              to: S
+            - id: P
+              to:
+                x: 200
+                'y': 352
 ---
 
 ## Introduction

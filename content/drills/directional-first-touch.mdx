@@ -16,6 +16,87 @@ maxDifficulty: 5
 convictions: [3, 4, 6, 13, 17, 18, 21, 22, 28, 32]
 playerOperatingPrinciple: "Receive pre-shaped, any direction"
 diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: Approach on the move; the zone is called at the moment of delivery; one touch sends the ball there. Loops.
+    entities:
+      - type: player
+        id: S
+        x: 200
+        'y': 52
+        team: neutral
+        label: S
+      - type: cone
+        id: L
+        x: 110
+        'y': 255
+        color: brown
+        label: L
+      - type: cone
+        id: R
+        x: 290
+        'y': 255
+        color: brown
+        label: R
+      - type: cone
+        id: F
+        x: 200
+        'y': 340
+        color: brown
+        label: F
+      - type: label
+        id: lane
+        x: 200
+        'y': 372
+        text: APPROACH LANE
+      - type: player
+        id: P
+        x: 200
+        'y': 300
+        team: home
+        label: P
+      - type: ball
+        id: ball
+        x: 200
+        'y': 52
+        attachedTo: S
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: Player approaches the receive point on the move.
+          moves:
+            - id: P
+              to:
+                x: 200
+                'y': 235
+        - duration: 800
+          caption: Server plays in; the zone is called at delivery — "Left!"
+          moves:
+            - id: ball
+              to: P
+        - duration: 800
+          caption: One touch redirects the ball into the called zone.
+          moves:
+            - id: ball
+              to:
+                x: 110
+                'y': 255
+            - id: P
+              to:
+                x: 155
+                'y': 250
+        - duration: 900
+          caption: 'Reset — return the ball, approach again.'
+          moves:
+            - id: ball
+              to: S
+            - id: P
+              to:
+                x: 200
+                'y': 300
   - id: layout
     pitch: small
     title: "Three-zone receive"

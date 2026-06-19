@@ -15,6 +15,123 @@ difficulty: 2
 maxDifficulty: 5
 convictions: [3, 5, 13, 14, 18, 22, 30, 34, 36]
 playerOperatingPrinciple: "Know the pitch; contribute in every phase; your role today is not your ceiling"
+diagrams:
+  - id: run
+    pitch: small
+    title: The rotation
+    caption: 'One player per zone. At each signal everyone shifts forward a zone — so every player defends, builds, and attacks. Loops.'
+    entities:
+      - type: zone
+        id: zFwd
+        x: 22
+        'y': 22
+        width: 356
+        height: 112
+        label: ATTACK
+      - type: zone
+        id: zMid
+        x: 22
+        'y': 144
+        width: 356
+        height: 112
+        label: MIDFIELD
+      - type: zone
+        id: zDef
+        x: 22
+        'y': 266
+        width: 356
+        height: 112
+        label: DEFEND
+      - type: cone
+        id: gA1
+        x: 175
+        'y': 22
+        color: orange
+        label: G
+      - type: cone
+        id: gA2
+        x: 225
+        'y': 22
+        color: orange
+        label: G
+      - type: cone
+        id: gB1
+        x: 175
+        'y': 378
+        color: deepblue
+        label: G
+      - type: cone
+        id: gB2
+        x: 225
+        'y': 378
+        color: deepblue
+        label: G
+      - type: player
+        id: P1
+        x: 160
+        'y': 322
+        team: home
+        label: '1'
+      - type: player
+        id: P2
+        x: 200
+        'y': 200
+        team: home
+        label: '2'
+      - type: player
+        id: P3
+        x: 240
+        'y': 78
+        team: home
+        label: '3'
+      - type: ball
+        id: ball
+        x: 200
+        'y': 200
+        attachedTo: P2
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1100
+          caption: 'Segment 1 — one player per zone: defend, build, attack.'
+          moves: []
+        - duration: 1100
+          caption: Rotation signal — everyone shifts forward one zone.
+          moves:
+            - id: P1
+              to:
+                x: 160
+                'y': 200
+            - id: P2
+              to:
+                x: 200
+                'y': 78
+            - id: P3
+              to:
+                x: 240
+                'y': 322
+        - duration: 1100
+          caption: 'New roles: the forward now defends; the defender now builds.'
+          moves: []
+        - duration: 1100
+          caption: Next signal — shift forward again; the cycle is circular.
+          moves:
+            - id: P1
+              to:
+                x: 160
+                'y': 78
+            - id: P2
+              to:
+                x: 200
+                'y': 322
+            - id: P3
+              to:
+                x: 240
+                'y': 200
+        - duration: 1100
+          caption: 'Over a session, every player plays every role.'
+          moves: []
 ---
 
 ## Introduction

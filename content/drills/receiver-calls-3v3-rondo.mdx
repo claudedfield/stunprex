@@ -16,6 +16,142 @@ maxDifficulty: 5
 convictions: [2, 3, 5, 6, 13, 21, 25, 29, 30, 36]
 playerOperatingPrinciple: "Communicate your intent"
 diagrams:
+  - id: run
+    pitch: small
+    title: Watch a cycle
+    caption: 'No pass until the receiver calls: A2 calls, A1 plays; A2 receives and carries; A3 calls next. Loops.'
+    entities:
+      - type: zone
+        id: grid
+        x: 22
+        'y': 22
+        width: 356
+        height: 356
+        label: ''
+      - type: cone
+        id: cn1
+        x: 22
+        'y': 22
+        color: brown
+      - type: cone
+        id: cn2
+        x: 378
+        'y': 22
+        color: brown
+      - type: cone
+        id: cn3
+        x: 22
+        'y': 378
+        color: brown
+      - type: cone
+        id: cn4
+        x: 378
+        'y': 378
+        color: brown
+      - type: player
+        id: A1
+        x: 150
+        'y': 215
+        team: home
+        label: A1
+      - type: player
+        id: A2
+        x: 120
+        'y': 95
+        team: home
+        label: A2
+      - type: player
+        id: A3
+        x: 135
+        'y': 320
+        team: home
+        label: A3
+      - type: player
+        id: D1
+        x: 255
+        'y': 230
+        team: opp
+        label: D1
+      - type: player
+        id: D2
+        x: 275
+        'y': 110
+        team: opp
+        label: D2
+      - type: player
+        id: D3
+        x: 260
+        'y': 315
+        team: opp
+        label: D3
+      - type: ball
+        id: ball
+        x: 150
+        'y': 215
+        attachedTo: A1
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1000
+          caption: A1 has the ball; A2 and A3 move to find space.
+          moves:
+            - id: A2
+              to:
+                x: 150
+                'y': 120
+            - id: A3
+              to:
+                x: 160
+                'y': 300
+            - id: D1
+              to:
+                x: 195
+                'y': 215
+        - duration: 800
+          caption: A2 calls "Switch!" — A1 plays to the call.
+          moves:
+            - id: ball
+              to: A2
+        - duration: 800
+          caption: A2 takes a directional first touch and carries.
+          moves:
+            - id: ball
+              attachedTo: A2
+            - id: A2
+              to:
+                x: 185
+                'y': 140
+            - id: D2
+              to:
+                x: 230
+                'y': 150
+        - duration: 800
+          caption: A3 calls "Here!" — A2 passes on.
+          moves:
+            - id: ball
+              to: A3
+        - duration: 1000
+          caption: Possession continues — reset.
+          moves:
+            - id: ball
+              to: A1
+            - id: A2
+              to:
+                x: 120
+                'y': 95
+            - id: A3
+              to:
+                x: 135
+                'y': 320
+            - id: D1
+              to:
+                x: 255
+                'y': 230
+            - id: D2
+              to:
+                x: 275
+                'y': 110
   - id: layout
     pitch: small
     title: "3v3 — receiver calls"

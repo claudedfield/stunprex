@@ -53,6 +53,9 @@ interface Frame {
   followers: Record<string, string>;
 }
 
+/** Hold the final frame this long before re-looping, so each rep reads as one complete rep (§6 decision #1). */
+const LOOP_HOLD_MS = 1000;
+
 const clamp01 = (t: number) => (t < 0 ? 0 : t > 1 ? 1 : t);
 
 /** Smooth ease-in-out (quadratic). */
@@ -285,9 +288,11 @@ export function AnimatedDrillDiagram({
       const dt = now - last;
       last = now;
       let next = elapsedRef.current + dt;
-      if (next >= total) {
+      // When looping, run past `total` by LOOP_HOLD_MS holding the final frame, then restart.
+      const wrapAt = total + (loop ? LOOP_HOLD_MS : 0);
+      if (next >= wrapAt) {
         if (loop) {
-          next = next % total;
+          next = 0; // restart after the end-of-rep hold
         } else {
           elapsedRef.current = total;
           setElapsed(total);
@@ -303,9 +308,9 @@ export function AnimatedDrillDiagram({
     return () => cancelAnimationFrame(raf);
   }, [reduced, playing, inView, total, loop, steps.length]);
 
-  // Derived frame.
+  // Derived frame. Clamp to `total` so the end-of-rep hold (elapsed in [total, total+hold]) shows the final frame.
   const atEnd = elapsed >= total && !loop;
-  const { stepIndex, t } = locate(reduced ? total : elapsed, steps);
+  const { stepIndex, t } = locate(reduced ? total : Math.min(elapsed, total), steps);
   const positions = resolveFrame(frames, stepIndex, t);
   const activeCaption = steps[stepIndex]?.caption ?? '';
 
