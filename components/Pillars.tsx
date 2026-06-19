@@ -38,11 +38,13 @@ export function Pillars() {
                     : 'border-deepblue/10 bg-white/50 cursor-default'
                   }`}
               >
-                <div className="flex items-start justify-between mb-3">
+                <div className="flex items-start justify-between gap-3 mb-3">
                   <h3 className="font-heading text-deepblue group-hover:text-orange transition-colors">
                     {p.title}
                   </h3>
-                  <span className={`font-ui uppercase tracking-widest text-[10px] px-2 py-1 rounded-full
+                  {/* Status pill — fixed box: never shrinks or wraps, so it is identical
+                      across every tile and stays top-right regardless of title line count. */}
+                  <span className={`shrink-0 whitespace-nowrap inline-flex items-center font-ui uppercase tracking-widest text-[10px] leading-none px-2.5 py-1 rounded-full
                     ${live ? 'bg-orange/15 text-orange' : 'bg-brown/10 text-brown/60'}`}>
                     {p.status}
                   </span>

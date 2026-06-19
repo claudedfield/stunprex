@@ -11,7 +11,7 @@ import { getPostCardsByCategory, getPublishedCategories } from '@/lib/posts';
 import { CATEGORY_LABELS } from '@/lib/types/post';
 import type { CategorySlug } from '@/lib/types/post';
 
-const POSTS_PER_PAGE = 10;
+const POSTS_PER_PAGE = 12;
 
 const ALL_CATEGORY_SLUGS: CategorySlug[] = [
   'methodology',

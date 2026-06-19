@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
 };
 
-const POSTS_PER_PAGE = 10;
+const POSTS_PER_PAGE = 12;
 
 interface Props {
   searchParams: Promise<{ page?: string }>;

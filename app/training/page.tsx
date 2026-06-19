@@ -5,8 +5,11 @@ import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { PageHero } from '@/components/PageHero';
+import { Pagination } from '@/components/blog/Pagination';
 import { getAllDrillCards } from '@/lib/drills';
 import type { DrillCard } from '@/lib/drills';
+
+const DRILLS_PER_PAGE = 12;
 
 export const metadata: Metadata = {
   title: 'Drill Library — StunpreX Training',
@@ -82,8 +85,18 @@ function DrillCardTile({ drill }: { drill: DrillCard }) {
 
 // ─── Page ──────────────────────────────────────────────────────────────────────
 
-export default function TrainingPage() {
+interface Props {
+  searchParams: Promise<{ page?: string }>;
+}
+
+export default async function TrainingPage({ searchParams }: Props) {
+  const params = await searchParams;
+  const currentPage = Math.max(1, parseInt(params.page ?? '1', 10));
   const drills = getAllDrillCards();
+
+  const totalPages = Math.max(1, Math.ceil(drills.length / DRILLS_PER_PAGE));
+  const safePage = Math.min(currentPage, totalPages);
+  const pageDrills = drills.slice((safePage - 1) * DRILLS_PER_PAGE, safePage * DRILLS_PER_PAGE);
 
   return (
     <>
@@ -106,10 +119,16 @@ export default function TrainingPage() {
                 {drills.length} drill{drills.length !== 1 ? 's' : ''} published
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {drills.map((drill) => (
+                {pageDrills.map((drill) => (
                   <DrillCardTile key={drill.slug} drill={drill} />
                 ))}
               </div>
+
+              <Pagination
+                currentPage={safePage}
+                totalPages={totalPages}
+                baseHref="/training"
+              />
             </>
           )}
         </section>
