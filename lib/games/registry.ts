@@ -100,7 +100,7 @@ export const GAMES: GameMeta[] = [
     trains: 'Divided attention: a tracking task and a decision task at the same time.',
     echoes: 'Dribbling while you scan (Conviction 30, cognitive load).',
     capacities: ['Cognitive', 'Motor'],
-    status: 'soon',
+    status: 'live',
     order: 7,
   },
   {
@@ -110,7 +110,7 @@ export const GAMES: GameMeta[] = [
     trains: 'Spatial working memory.',
     echoes: 'Knowing where teammates were without a second glance.',
     capacities: ['Cognitive', 'Perceptual'],
-    status: 'soon',
+    status: 'live',
     order: 8,
   },
   {
@@ -120,7 +120,7 @@ export const GAMES: GameMeta[] = [
     trains: 'Cognitive flexibility — switching rules without losing the thread.',
     echoes: 'The space or instruction changes and you adjust instantly.',
     capacities: ['Adaptive', 'Cognitive'],
-    status: 'soon',
+    status: 'live',
     order: 9,
   },
   {
