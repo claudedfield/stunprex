@@ -77,18 +77,29 @@ function FacetGroup<T extends string | number>({
   options,
   selected,
   onToggle,
+  onClear,
   format,
 }: {
   label: string;
   options: readonly T[];
   selected: T[];
   onToggle: (v: T) => void;
+  onClear: () => void;
   format?: (v: T) => string;
 }) {
+  const allActive = selected.length === 0;
   return (
     <div>
       <p className="mb-2.5 font-ui text-[11px] uppercase tracking-widest text-brown/45">{label}</p>
       <div className="flex flex-wrap gap-2">
+        <button
+          type="button"
+          aria-pressed={allActive}
+          onClick={onClear}
+          className={filterChipClass(allActive)}
+        >
+          All
+        </button>
         {options.map((opt) => {
           const isActive = selected.includes(opt);
           return (
@@ -183,10 +194,10 @@ export function TrainingIndexClient({ drills }: { drills: DrillCard[] }) {
 
       {/* Facets — open chip rows, unified with /blog */}
       <div className={`${filtersOpen ? 'block' : 'hidden'} sm:block mb-8 space-y-5`}>
-        <FacetGroup label="Capacity family" options={CAPACITY_FAMILIES} selected={caps} onToggle={toggleCap} />
-        <FacetGroup label="Age band" options={AGE_BANDS} selected={ages} onToggle={toggleAge} />
-        <FacetGroup label="Difficulty" options={DIFFICULTIES} selected={diffs} onToggle={toggleDiff} format={(d) => `Level ${d}`} />
-        <FacetGroup label="Theme" options={DRILL_CATEGORIES} selected={cats} onToggle={toggleCat} />
+        <FacetGroup label="Capacity family" options={CAPACITY_FAMILIES} selected={caps} onToggle={toggleCap} onClear={() => { setCaps([]); setPage(1); }} />
+        <FacetGroup label="Age band" options={AGE_BANDS} selected={ages} onToggle={toggleAge} onClear={() => { setAges([]); setPage(1); }} />
+        <FacetGroup label="Difficulty" options={DIFFICULTIES} selected={diffs} onToggle={toggleDiff} onClear={() => { setDiffs([]); setPage(1); }} format={(d) => `Level ${d}`} />
+        <FacetGroup label="Theme" options={DRILL_CATEGORIES} selected={cats} onToggle={toggleCat} onClear={() => { setCats([]); setPage(1); }} />
       </div>
 
       {/* Search — same component style as /blog */}
