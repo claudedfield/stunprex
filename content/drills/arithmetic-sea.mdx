@@ -14,6 +14,113 @@ equipment: "21–24 cones, 1 ball, a caller with a question list"
 difficulty: 4
 convictions: [5, 6, 13, 22, 28, 30]
 playerOperatingPrinciple: "Ball mastery while aware"
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a run
+    caption: 'Dribble the sea; on a sum, keep dribbling, say the answer aloud, and exit the matching numbered gate. Loops.'
+    entities:
+      - type: zone
+        id: grid
+        x: 22
+        'y': 22
+        width: 356
+        height: 356
+        label: ''
+      - type: cone
+        id: g1a
+        x: 185
+        'y': 22
+        color: orange
+        label: '1'
+      - type: cone
+        id: g1b
+        x: 215
+        'y': 22
+        color: orange
+        label: '1'
+      - type: cone
+        id: g2a
+        x: 378
+        'y': 185
+        color: deepblue
+        label: '2'
+      - type: cone
+        id: g2b
+        x: 378
+        'y': 215
+        color: deepblue
+        label: '2'
+      - type: cone
+        id: g3a
+        x: 185
+        'y': 378
+        color: brown
+        label: '3'
+      - type: cone
+        id: g3b
+        x: 215
+        'y': 378
+        color: brown
+        label: '3'
+      - type: cone
+        id: s1
+        x: 130
+        'y': 150
+        color: deepblue
+      - type: cone
+        id: s2
+        x: 240
+        'y': 140
+        color: deepblue
+      - type: cone
+        id: s3
+        x: 170
+        'y': 260
+        color: deepblue
+      - type: player
+        id: P
+        x: 60
+        'y': 200
+        team: home
+        label: P
+      - type: ball
+        id: ball
+        x: 60
+        'y': 200
+        attachedTo: P
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1000
+          caption: 'Dribble the sea, head up.'
+          moves:
+            - id: P
+              to:
+                x: 130
+                'y': 180
+        - duration: 1000
+          caption: '"Seven minus five?" — keep dribbling, solve: "Two!"'
+          moves:
+            - id: P
+              to:
+                x: 250
+                'y': 200
+        - duration: 800
+          caption: Exit the matching gate.
+          moves:
+            - id: P
+              to:
+                x: 356
+                'y': 200
+        - duration: 1000
+          caption: Re-enter; next question.
+          moves:
+            - id: P
+              to:
+                x: 60
+                'y': 200
 ---
 
 ## Introduction

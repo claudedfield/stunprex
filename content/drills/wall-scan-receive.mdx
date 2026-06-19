@@ -29,6 +29,80 @@ convictions:
   - 5
   - 6
 playerOperatingPrinciple: "Scan-decide-receive, in its self-sufficient daily form"
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Solo: pass into the wall, scan both shoulders as it returns, and take the first touch toward the chosen target. Loops.'
+    entities:
+      - type: zone
+        id: wall
+        x: 60
+        'y': 34
+        width: 280
+        height: 12
+        label: WALL
+      - type: cone
+        id: L
+        x: 120
+        'y': 290
+        color: brown
+        label: L
+      - type: cone
+        id: R
+        x: 280
+        'y': 290
+        color: brown
+        label: R
+      - type: player
+        id: P
+        x: 200
+        'y': 250
+        team: home
+        label: P
+      - type: ball
+        id: ball
+        x: 200
+        'y': 250
+        attachedTo: P
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 800
+          caption: Pass firmly into the wall.
+          moves:
+            - id: ball
+              to:
+                x: 200
+                'y': 52
+        - duration: 900
+          caption: Scan both shoulders as it returns.
+          moves:
+            - id: ball
+              to:
+                x: 200
+                'y': 235
+        - duration: 800
+          caption: First touch toward the chosen target.
+          moves:
+            - id: ball
+              to:
+                x: 128
+                'y': 285
+            - id: P
+              to:
+                x: 172
+                'y': 255
+        - duration: 900
+          caption: Reset; new self-rule next rep.
+          moves:
+            - id: ball
+              to: P
+            - id: P
+              to:
+                x: 200
+                'y': 250
 ---
 
 ## Introduction

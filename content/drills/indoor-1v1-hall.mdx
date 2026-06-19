@@ -30,6 +30,96 @@ convictions:
   - 25
   - 36
 playerOperatingPrinciple: "1v1 attacking sequence, expressed in a biomechanically and spatially distinct environment"
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'A tight indoor 1v1 on a fast surface: drive at the defender, beat them in the small space, and finish low. Loops.'
+    entities:
+      - type: cone
+        id: g1
+        x: 175
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: g2
+        x: 225
+        'y': 28
+        color: orange
+        label: G
+      - type: label
+        id: goallbl
+        x: 200
+        'y': 54
+        text: GOAL
+      - type: player
+        id: D
+        x: 200
+        'y': 95
+        team: opp
+        label: D
+      - type: player
+        id: A
+        x: 200
+        'y': 320
+        team: home
+        label: A
+      - type: ball
+        id: ball
+        x: 200
+        'y': 320
+        attachedTo: A
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: Drive at the defender on the fast surface.
+          moves:
+            - id: A
+              to:
+                x: 200
+                'y': 185
+            - id: D
+              to:
+                x: 200
+                'y': 155
+        - duration: 800
+          caption: Beat them in the tight space.
+          moves:
+            - id: A
+              to:
+                x: 155
+                'y': 120
+            - id: D
+              to:
+                x: 220
+                'y': 138
+        - duration: 700
+          caption: Finish low into the goal.
+          moves:
+            - id: ball
+              to:
+                x: 200
+                'y': 26
+            - id: A
+              to:
+                x: 168
+                'y': 95
+        - duration: 900
+          caption: 'Reset; futsal ball, tight grid.'
+          moves:
+            - id: ball
+              to: A
+            - id: A
+              to:
+                x: 200
+                'y': 320
+            - id: D
+              to:
+                x: 200
+                'y': 95
 ---
 
 ## Introduction

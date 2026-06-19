@@ -15,6 +15,83 @@ difficulty: 2
 maxDifficulty: 5
 convictions: [4, 13, 21, 22, 28]
 playerOperatingPrinciple: "Body-open receive"
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Indoor directional first touch: approach, the zone is called at delivery, one touch sends the ball there. Loops.'
+    entities:
+      - type: player
+        id: S
+        x: 200
+        'y': 52
+        team: neutral
+        label: S
+      - type: cone
+        id: L
+        x: 110
+        'y': 255
+        color: brown
+        label: L
+      - type: cone
+        id: R
+        x: 290
+        'y': 255
+        color: brown
+        label: R
+      - type: cone
+        id: F
+        x: 200
+        'y': 340
+        color: brown
+        label: F
+      - type: player
+        id: P
+        x: 200
+        'y': 300
+        team: home
+        label: P
+      - type: ball
+        id: ball
+        x: 200
+        'y': 52
+        attachedTo: S
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: Approach the receive point on the move.
+          moves:
+            - id: P
+              to:
+                x: 200
+                'y': 235
+        - duration: 800
+          caption: Feed in; the zone is called at delivery — "left!"
+          moves:
+            - id: ball
+              to: P
+        - duration: 800
+          caption: One touch redirects the ball into the called zone.
+          moves:
+            - id: ball
+              to:
+                x: 110
+                'y': 255
+            - id: P
+              to:
+                x: 155
+                'y': 250
+        - duration: 900
+          caption: 'Reset — return the ball, approach again.'
+          moves:
+            - id: ball
+              to: S
+            - id: P
+              to:
+                x: 200
+                'y': 300
 ---
 
 ## Introduction

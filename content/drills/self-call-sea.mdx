@@ -15,6 +15,106 @@ difficulty: 2
 maxDifficulty: 3
 convictions: [5, 6, 13, 22, 28, 30]
 playerOperatingPrinciple: "Ball mastery while aware"
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a run
+    caption: 'Solo: dribble the sea, steer to the card station, flip a card without stopping the ball, then exit the named gate. Loops.'
+    entities:
+      - type: zone
+        id: grid
+        x: 22
+        'y': 22
+        width: 356
+        height: 356
+        label: ''
+      - type: label
+        id: cards
+        x: 200
+        'y': 14
+        text: CARDS
+      - type: cone
+        id: gL1
+        x: 40
+        'y': 185
+        color: orange
+        label: L
+      - type: cone
+        id: gL2
+        x: 40
+        'y': 215
+        color: orange
+        label: L
+      - type: cone
+        id: gR1
+        x: 360
+        'y': 185
+        color: deepblue
+        label: R
+      - type: cone
+        id: gR2
+        x: 360
+        'y': 215
+        color: deepblue
+        label: R
+      - type: cone
+        id: s1
+        x: 140
+        'y': 150
+        color: brown
+      - type: cone
+        id: s2
+        x: 240
+        'y': 160
+        color: brown
+      - type: cone
+        id: s3
+        x: 180
+        'y': 250
+        color: brown
+      - type: player
+        id: P
+        x: 200
+        'y': 300
+        team: home
+        label: P
+      - type: ball
+        id: ball
+        x: 200
+        'y': 300
+        attachedTo: P
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1000
+          caption: 'Dribble the open sea, head up, feet alternating.'
+          moves:
+            - id: P
+              to:
+                x: 170
+                'y': 200
+        - duration: 900
+          caption: 'Steer to the card station — ball still moving — flip a card: "L!"'
+          moves:
+            - id: P
+              to:
+                x: 200
+                'y': 95
+        - duration: 900
+          caption: Exit the named gate.
+          moves:
+            - id: P
+              to:
+                x: 45
+                'y': 200
+        - duration: 1000
+          caption: Re-enter; next card.
+          moves:
+            - id: P
+              to:
+                x: 200
+                'y': 300
 ---
 
 ## Introduction

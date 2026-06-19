@@ -27,6 +27,95 @@ convictions:
   - 25
   - 32
 playerOperatingPrinciple: "Scan–decide–move, in its simplest form: see the defender, choose the more open side, commit."
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Two-point scan, then dribble at the shadow defender, go around them, and score through the wide goal. Loops.'
+    entities:
+      - type: cone
+        id: g1
+        x: 160
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: g2
+        x: 240
+        'y': 28
+        color: orange
+        label: G
+      - type: label
+        id: goallbl
+        x: 200
+        'y': 54
+        text: GOAL
+      - type: player
+        id: D
+        x: 200
+        'y': 90
+        team: opp
+        label: D
+      - type: player
+        id: A
+        x: 200
+        'y': 330
+        team: home
+        label: A
+      - type: ball
+        id: ball
+        x: 200
+        'y': 330
+        attachedTo: A
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1000
+          caption: 'Two-point scan — goal, then defender.'
+          moves: []
+        - duration: 900
+          caption: Dribble at the defender.
+          moves:
+            - id: A
+              to:
+                x: 200
+                'y': 175
+        - duration: 800
+          caption: Go around them.
+          moves:
+            - id: A
+              to:
+                x: 158
+                'y': 115
+            - id: D
+              to:
+                x: 215
+                'y': 100
+        - duration: 700
+          caption: Score through the wide goal.
+          moves:
+            - id: ball
+              to:
+                x: 200
+                'y': 26
+            - id: A
+              to:
+                x: 165
+                'y': 90
+        - duration: 900
+          caption: Reset; no score is announced — try again.
+          moves:
+            - id: ball
+              to: A
+            - id: A
+              to:
+                x: 200
+                'y': 330
+            - id: D
+              to:
+                x: 200
+                'y': 90
 ---
 
 ## Introduction

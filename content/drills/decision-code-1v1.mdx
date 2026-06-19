@@ -15,6 +15,99 @@ difficulty: 4
 maxDifficulty: 5
 convictions: [3, 6, 13, 22, 25, 30, 36]
 playerOperatingPrinciple: "Scan, register the constraint, decide, execute under double load"
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Scan and read the colour card during the scan, then attack the 1v1 under that constraint and finish. Loops.'
+    entities:
+      - type: cone
+        id: g1
+        x: 175
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: g2
+        x: 225
+        'y': 28
+        color: orange
+        label: G
+      - type: label
+        id: goallbl
+        x: 200
+        'y': 54
+        text: GOAL
+      - type: player
+        id: D
+        x: 200
+        'y': 80
+        team: opp
+        label: D
+      - type: player
+        id: A
+        x: 200
+        'y': 330
+        team: home
+        label: A
+      - type: ball
+        id: ball
+        x: 200
+        'y': 330
+        attachedTo: A
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1100
+          caption: 'Scan goal, boundaries, defender — and read the card: "RED — weak foot!"'
+          moves: []
+        - duration: 900
+          caption: Drive at the defender.
+          moves:
+            - id: A
+              to:
+                x: 200
+                'y': 180
+            - id: D
+              to:
+                x: 200
+                'y': 150
+        - duration: 800
+          caption: Beat them — finish under the constraint.
+          moves:
+            - id: A
+              to:
+                x: 150
+                'y': 120
+            - id: D
+              to:
+                x: 225
+                'y': 135
+        - duration: 700
+          caption: Weak-foot finish through the goal.
+          moves:
+            - id: ball
+              to:
+                x: 200
+                'y': 26
+            - id: A
+              to:
+                x: 165
+                'y': 95
+        - duration: 900
+          caption: Reset; the card changes each rep.
+          moves:
+            - id: ball
+              to: A
+            - id: A
+              to:
+                x: 200
+                'y': 330
+            - id: D
+              to:
+                x: 200
+                'y': 80
 ---
 
 ## Introduction

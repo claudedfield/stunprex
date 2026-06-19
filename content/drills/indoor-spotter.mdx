@@ -15,6 +15,119 @@ difficulty: 2
 maxDifficulty: 5
 convictions: [5, 9, 13, 21, 22, 28]
 playerOperatingPrinciple: "Scan-decide-act while dribbling"
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a run
+    caption: 'Indoor call-the-gate field: carry, scan, call a gate before arriving, carry through, chain to the next. Loops.'
+    entities:
+      - type: zone
+        id: field
+        x: 22
+        'y': 22
+        width: 356
+        height: 356
+        label: ''
+      - type: zone
+        id: home
+        x: 178
+        'y': 178
+        width: 44
+        height: 44
+        label: HOME
+      - type: cone
+        id: o1
+        x: 60
+        'y': 70
+        color: orange
+      - type: cone
+        id: o2
+        x: 92
+        'y': 70
+        color: orange
+      - type: cone
+        id: d1
+        x: 300
+        'y': 80
+        color: deepblue
+      - type: cone
+        id: d2
+        x: 332
+        'y': 80
+        color: deepblue
+      - type: cone
+        id: r1
+        x: 300
+        'y': 305
+        color: brown
+      - type: cone
+        id: r2
+        x: 332
+        'y': 305
+        color: brown
+      - type: cone
+        id: b1
+        x: 60
+        'y': 300
+        color: brown
+      - type: cone
+        id: b2
+        x: 92
+        'y': 300
+        color: brown
+      - type: player
+        id: P
+        x: 200
+        'y': 200
+        team: home
+        label: P
+      - type: ball
+        id: ball
+        x: 200
+        'y': 200
+        attachedTo: P
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1000
+          caption: In the home square — scan and call a gate.
+          moves: []
+        - duration: 1000
+          caption: 'Carry to the called gate, head up.'
+          moves:
+            - id: P
+              to:
+                x: 76
+                'y': 90
+        - duration: 800
+          caption: Commit through the gate.
+          moves:
+            - id: P
+              to:
+                x: 76
+                'y': 48
+        - duration: 1000
+          caption: Scan and call the next gate.
+          moves:
+            - id: P
+              to:
+                x: 230
+                'y': 110
+        - duration: 900
+          caption: Carry through the next gate.
+          moves:
+            - id: P
+              to:
+                x: 316
+                'y': 72
+        - duration: 1000
+          caption: Return to home; the chain continues.
+          moves:
+            - id: P
+              to:
+                x: 200
+                'y': 200
 ---
 
 ## Introduction

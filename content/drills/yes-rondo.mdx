@@ -26,6 +26,86 @@ convictions:
   - 29
   - 34
 playerOperatingPrinciple: "Communicate your intent — one word, spoken before the ball moves"
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a cycle
+    caption: 'No pass without a "Yes!": the receiver calls before the ball is played, then becomes the next caller. Loops.'
+    entities:
+      - type: zone
+        id: grid
+        x: 60
+        'y': 60
+        width: 280
+        height: 280
+        label: ''
+      - type: player
+        id: A1
+        x: 90
+        'y': 200
+        team: home
+        label: A1
+      - type: player
+        id: A2
+        x: 200
+        'y': 90
+        team: home
+        label: A2
+      - type: player
+        id: A3
+        x: 200
+        'y': 310
+        team: home
+        label: A3
+      - type: player
+        id: X
+        x: 200
+        'y': 200
+        team: opp
+        label: X
+      - type: ball
+        id: ball
+        x: 90
+        'y': 200
+        attachedTo: A1
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: A2 calls "Yes!" — only then is the pass on.
+          moves:
+            - id: ball
+              to: A2
+            - id: X
+              to:
+                x: 170
+                'y': 160
+        - duration: 900
+          caption: A3 calls "Yes!" — play to the call.
+          moves:
+            - id: ball
+              to: A3
+            - id: X
+              to:
+                x: 200
+                'y': 250
+        - duration: 900
+          caption: A1 calls — the chain of calls continues.
+          moves:
+            - id: ball
+              to: A1
+            - id: X
+              to:
+                x: 170
+                'y': 240
+        - duration: 900
+          caption: Reset.
+          moves:
+            - id: X
+              to:
+                x: 200
+                'y': 200
 ---
 
 ## Introduction

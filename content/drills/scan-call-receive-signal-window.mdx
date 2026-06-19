@@ -15,6 +15,81 @@ difficulty: 3
 maxDifficulty: 5
 convictions: [3, 5, 6, 25, 30, 36]
 playerOperatingPrinciple: "Scan-extract-decide-receive"
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Server passes; a signal flashes during the flight — scan over the shoulder, call it aloud, and direct the first touch to the signalled cone. Loops.'
+    entities:
+      - type: cone
+        id: L
+        x: 130
+        'y': 150
+        color: orange
+        label: L
+      - type: cone
+        id: R
+        x: 270
+        'y': 150
+        color: deepblue
+        label: R
+      - type: player
+        id: S
+        x: 200
+        'y': 330
+        team: neutral
+        label: S
+      - type: player
+        id: Rc
+        x: 200
+        'y': 205
+        team: home
+        label: R
+      - type: player
+        id: Sg
+        x: 255
+        'y': 255
+        team: neutral
+        label: Sg
+      - type: ball
+        id: ball
+        x: 200
+        'y': 330
+        attachedTo: S
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 800
+          caption: Server passes firmly to the receiver.
+          moves:
+            - id: ball
+              to:
+                x: 200
+                'y': 255
+        - duration: 800
+          caption: 'Scan over the shoulder, read the signal — call it: "red!"'
+          moves:
+            - id: ball
+              to: Rc
+        - duration: 800
+          caption: First touch to the signalled cone.
+          moves:
+            - id: ball
+              attachedTo: Rc
+            - id: Rc
+              to:
+                x: 150
+                'y': 165
+        - duration: 900
+          caption: Reset; the signal lives only during the flight.
+          moves:
+            - id: ball
+              to: S
+            - id: Rc
+              to:
+                x: 200
+                'y': 205
 ---
 
 ## Introduction

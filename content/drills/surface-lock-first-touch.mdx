@@ -27,6 +27,80 @@ convictions:
   - 28
   - 30
 playerOperatingPrinciple: "Receive with intention — the surface is part of the intention"
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Solo wall: lock the receiving surface, take the return with that surface, and direct it into the chosen zone. Loops.'
+    entities:
+      - type: zone
+        id: wall
+        x: 60
+        'y': 34
+        width: 280
+        height: 12
+        label: WALL
+      - type: cone
+        id: L
+        x: 120
+        'y': 290
+        color: brown
+        label: L
+      - type: cone
+        id: R
+        x: 280
+        'y': 290
+        color: brown
+        label: R
+      - type: player
+        id: P
+        x: 200
+        'y': 250
+        team: home
+        label: P
+      - type: ball
+        id: ball
+        x: 200
+        'y': 250
+        attachedTo: P
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 800
+          caption: Pass into the wall; lock the receiving surface.
+          moves:
+            - id: ball
+              to:
+                x: 200
+                'y': 52
+        - duration: 900
+          caption: Take the return with the locked surface.
+          moves:
+            - id: ball
+              to:
+                x: 200
+                'y': 240
+        - duration: 800
+          caption: Direct the first touch into the chosen zone.
+          moves:
+            - id: ball
+              to:
+                x: 128
+                'y': 285
+            - id: P
+              to:
+                x: 172
+                'y': 252
+        - duration: 900
+          caption: Reset; lock a new surface next rep.
+          moves:
+            - id: ball
+              to: P
+            - id: P
+              to:
+                x: 200
+                'y': 250
 ---
 
 ## Introduction

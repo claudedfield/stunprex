@@ -15,6 +15,86 @@ difficulty: 4
 maxDifficulty: 5
 convictions: [2, 3, 5, 13, 25, 30, 36]
 playerOperatingPrinciple: "Communicate your intent"
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rondo
+    caption: 'One-touch 3v1: support angles ready, scan before it arrives, and move it on first time. Loops.'
+    entities:
+      - type: zone
+        id: grid
+        x: 80
+        'y': 80
+        width: 240
+        height: 240
+        label: ''
+      - type: player
+        id: A1
+        x: 100
+        'y': 200
+        team: home
+        label: A1
+      - type: player
+        id: A2
+        x: 200
+        'y': 100
+        team: home
+        label: A2
+      - type: player
+        id: A3
+        x: 200
+        'y': 300
+        team: home
+        label: A3
+      - type: player
+        id: X
+        x: 200
+        'y': 200
+        team: opp
+        label: X
+      - type: ball
+        id: ball
+        x: 100
+        'y': 200
+        attachedTo: A1
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 700
+          caption: First time — move it on before the defender arrives.
+          moves:
+            - id: ball
+              to: A2
+            - id: X
+              to:
+                x: 165
+                'y': 160
+        - duration: 700
+          caption: One touch — scan done before it arrived.
+          moves:
+            - id: ball
+              to: A3
+            - id: X
+              to:
+                x: 200
+                'y': 250
+        - duration: 700
+          caption: 'Keep it moving, support angles ready.'
+          moves:
+            - id: ball
+              to: A1
+            - id: X
+              to:
+                x: 165
+                'y': 240
+        - duration: 800
+          caption: Reset.
+          moves:
+            - id: X
+              to:
+                x: 200
+                'y': 200
 ---
 
 ## Introduction

@@ -15,6 +15,99 @@ difficulty: 1
 maxDifficulty: 1
 convictions: [5, 6, 13, 22, 28, 30]
 playerOperatingPrinciple: "Ball mastery while aware"
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a voyage
+    caption: Sail the boat through the rocky sea; on "Storm! To the harbour!" steer through the harbour gate. Loops.
+    entities:
+      - type: zone
+        id: sea
+        x: 30
+        'y': 40
+        width: 340
+        height: 330
+        label: ''
+      - type: cone
+        id: h1
+        x: 185
+        'y': 40
+        color: orange
+        label: H
+      - type: cone
+        id: h2
+        x: 215
+        'y': 40
+        color: orange
+        label: H
+      - type: cone
+        id: rk1
+        x: 110
+        'y': 150
+        color: deepblue
+      - type: cone
+        id: rk2
+        x: 160
+        'y': 250
+        color: deepblue
+      - type: cone
+        id: rk3
+        x: 230
+        'y': 200
+        color: deepblue
+      - type: cone
+        id: rk4
+        x: 260
+        'y': 280
+        color: deepblue
+      - type: cone
+        id: rk5
+        x: 140
+        'y': 300
+        color: deepblue
+      - type: player
+        id: C
+        x: 200
+        'y': 330
+        team: home
+        label: C
+      - type: ball
+        id: ball
+        x: 200
+        'y': 330
+        attachedTo: C
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1000
+          caption: Sail through the rocky sea — steer around the rocks.
+          moves:
+            - id: C
+              to:
+                x: 150
+                'y': 215
+        - duration: 900
+          caption: 'Keep dribbling, head up.'
+          moves:
+            - id: C
+              to:
+                x: 230
+                'y': 155
+        - duration: 900
+          caption: '"Storm! To the harbour!" — sail through the gate.'
+          moves:
+            - id: C
+              to:
+                x: 200
+                'y': 52
+        - duration: 900
+          caption: 'Safe landing — reset, back to sea.'
+          moves:
+            - id: C
+              to:
+                x: 200
+                'y': 330
 ---
 
 ## Introduction

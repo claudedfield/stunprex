@@ -28,6 +28,77 @@ convictions:
   - 28
   - 29
 playerOperatingPrinciple: "Communicate your intent"
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'A two-player passing loop: call before you receive, open the body, and play it back on the call. Loops.'
+    entities:
+      - type: cone
+        id: c1
+        x: 110
+        'y': 150
+        color: brown
+      - type: cone
+        id: c2
+        x: 290
+        'y': 150
+        color: brown
+      - type: cone
+        id: c3
+        x: 110
+        'y': 250
+        color: brown
+      - type: cone
+        id: c4
+        x: 290
+        'y': 250
+        color: brown
+      - type: player
+        id: P1
+        x: 120
+        'y': 200
+        team: home
+        label: P1
+      - type: player
+        id: P2
+        x: 280
+        'y': 200
+        team: home
+        label: P2
+      - type: ball
+        id: ball
+        x: 120
+        'y': 200
+        attachedTo: P1
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: P2 calls "here!" — P1 passes to the call.
+          moves:
+            - id: ball
+              to: P2
+        - duration: 800
+          caption: Open the body; P1 calls and shows for the return.
+          moves:
+            - id: P1
+              to:
+                x: 150
+                'y': 160
+        - duration: 900
+          caption: Play it back on the call.
+          moves:
+            - id: ball
+              to: P1
+        - duration: 800
+          caption: Reset.
+          moves:
+            - id: P1
+              to:
+                x: 120
+                'y': 200
 ---
 
 ## Introduction

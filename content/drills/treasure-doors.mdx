@@ -26,6 +26,87 @@ convictions:
   - "Free play is protected"
   - "Constraints generate creativity"
 playerOperatingPrinciple: "Scan-decide-receive — in embryo: look at both doors, pick one, take the ball there."
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a round
+    caption: 'The ball rolls in and the roller points to a door mid-roll — look up at both, then steer the ball through the treasure door. Loops.'
+    entities:
+      - type: cone
+        id: dL1
+        x: 120
+        'y': 150
+        color: orange
+        label: L
+      - type: cone
+        id: dL2
+        x: 120
+        'y': 185
+        color: orange
+        label: L
+      - type: cone
+        id: dR1
+        x: 280
+        'y': 150
+        color: deepblue
+        label: R
+      - type: cone
+        id: dR2
+        x: 280
+        'y': 185
+        color: deepblue
+        label: R
+      - type: player
+        id: Roller
+        x: 200
+        'y': 330
+        team: neutral
+        label: R
+      - type: player
+        id: C
+        x: 200
+        'y': 210
+        team: home
+        label: C
+      - type: ball
+        id: ball
+        x: 200
+        'y': 330
+        attachedTo: Roller
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: The ball rolls in; look up at both doors.
+          moves:
+            - id: ball
+              to:
+                x: 200
+                'y': 250
+        - duration: 700
+          caption: Receive it.
+          moves:
+            - id: ball
+              to: C
+        - duration: 900
+          caption: Steer through the treasure door — found it!
+          moves:
+            - id: ball
+              attachedTo: C
+            - id: C
+              to:
+                x: 120
+                'y': 167
+        - duration: 900
+          caption: Reset; new door next round.
+          moves:
+            - id: C
+              to:
+                x: 200
+                'y': 210
+            - id: ball
+              to: Roller
 ---
 
 ## Introduction
