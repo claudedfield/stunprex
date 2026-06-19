@@ -5,6 +5,9 @@
 export { DrillDiagram } from './DrillDiagram';
 export type { DrillDiagramProps } from './DrillDiagram';
 
+export { AnimatedDrillDiagram } from './AnimatedDrillDiagram';
+export type { AnimatedDrillDiagramProps } from './AnimatedDrillDiagram';
+
 export { PitchSmallBackground, PITCH_SMALL_VIEWBOX } from './PitchSmall';
 export { PitchHalfBackground, PITCH_HALF_VIEWBOX } from './PitchHalf';
 export { PitchFullBackground, PITCH_FULL_VIEWBOX } from './PitchFull';
@@ -30,4 +33,10 @@ export type {
   ArrowKind,
   ArrowStyle,
   PitchSize,
+  Point,
+  AnimatedEntity,
+  AnimatedEntityType,
+  AnimationMove,
+  AnimationStep,
+  AnimationSpec,
 } from './types';

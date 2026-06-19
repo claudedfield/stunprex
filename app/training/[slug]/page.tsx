@@ -6,7 +6,8 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { DrillDiagram } from '@/components/drill-diagrams';
+import { DrillDiagram, AnimatedDrillDiagram } from '@/components/drill-diagrams';
+import type { DiagramSpec } from '@/components/drill-diagrams';
 import { getDrillBySlug, getAllDrillSlugs } from '@/lib/drills';
 
 interface Props {
@@ -84,7 +85,13 @@ export default async function DrillDetailPage({ params }: Props) {
   const { frontmatter, source } = drill;
   const primaryCaps = frontmatter.capacities.primary;
   const secondaryCaps = frontmatter.capacities.secondary ?? [];
-  const hasDiagrams = frontmatter.diagrams && frontmatter.diagrams.length > 0;
+
+  // Fallback ladder: animation → static diagram → prose (the body's ASCII setup).
+  const diagrams = frontmatter.diagrams ?? [];
+  const isAnimated = (d: DiagramSpec) => !!d.animation && !!d.entities && d.entities.length > 0;
+  const animatedDiagrams = diagrams.filter(isAnimated);
+  const staticDiagrams = diagrams.filter((d) => !isAnimated(d) && !!d.elements && d.elements.length > 0);
+  const hasDiagrams = animatedDiagrams.length > 0 || staticDiagrams.length > 0;
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -160,17 +167,37 @@ export default async function DrillDetailPage({ params }: Props) {
                   <p className="font-ui text-[10px] uppercase tracking-widest text-brown/50 mb-4">
                     Diagrams
                   </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {frontmatter.diagrams!.map((spec) => (
-                      <DrillDiagram
-                        key={spec.id}
-                        pitch={spec.pitch}
-                        elements={spec.elements}
-                        title={spec.title}
-                        caption={spec.caption}
-                      />
-                    ))}
-                  </div>
+
+                  {/* Animated diagrams — full width, with play/scrub controls. */}
+                  {animatedDiagrams.length > 0 && (
+                    <div className="mb-4 space-y-4">
+                      {animatedDiagrams.map((spec) => (
+                        <AnimatedDrillDiagram
+                          key={spec.id}
+                          pitch={spec.pitch}
+                          entities={spec.entities!}
+                          animation={spec.animation!}
+                          title={spec.title}
+                          caption={spec.caption}
+                        />
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Static diagrams — two-column grid (unchanged). */}
+                  {staticDiagrams.length > 0 && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {staticDiagrams.map((spec) => (
+                        <DrillDiagram
+                          key={spec.id}
+                          pitch={spec.pitch}
+                          elements={spec.elements!}
+                          title={spec.title}
+                          caption={spec.caption}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
 

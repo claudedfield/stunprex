@@ -16,6 +16,43 @@ maxDifficulty: 5
 convictions: [3, 4, 5, 6, 13, 28, 30, 36]
 playerOperatingPrinciple: "Scan-decide-receive"
 diagrams:
+  # ── Animated diagram (Drill Animation System v1 reference / template) ──
+  # entities = stable, animatable objects (movers + static props).
+  # animation.steps move them over time; the renderer interpolates with ease-in-out.
+  # `attachedTo` makes the ball follow a player; a move's `to` snaps to an entity id
+  # or an {x,y}; `moves: []` is a held beat. See the AnimatedDrillDiagram component.
+  - id: run
+    pitch: small
+    title: "Watch one rep"
+    caption: "Scan → pass → first touch toward the chosen cone → return. The drill, in motion — it loops."
+    entities:
+      - { id: coneAL, type: cone, x: 285, y: 130, color: orange,   label: "L" }
+      - { id: coneAR, type: cone, x: 285, y: 270, color: deepblue, label: "R" }
+      - { id: coneBL, type: cone, x: 115, y: 130, color: orange,   label: "L" }
+      - { id: coneBR, type: cone, x: 115, y: 270, color: deepblue, label: "R" }
+      - { id: dist,   type: label, x: 200, y: 222, label: "5 m" }
+      - { id: A,    type: player, x: 285, y: 200, team: home, label: "A" }
+      - { id: B,    type: player, x: 115, y: 200, team: home, label: "B" }
+      - { id: ball, type: ball,   x: 285, y: 200, attachedTo: A, state: static }
+    animation:
+      loop: true
+      steps:
+        - duration: 1100
+          caption: "B checks both shoulders — the scan happens before the ball arrives."
+          moves: []
+        - duration: 850
+          caption: "A passes firmly along the ground to B."
+          moves: [ { id: ball, to: B } ]
+        - duration: 800
+          caption: "B's first touch goes toward the chosen cone — decided by the scan, not a reflex."
+          moves: [ { id: B, to: { x: 95, y: 165 } }, { id: ball, to: { x: 78, y: 150 } } ]
+        - duration: 850
+          caption: "B's second touch returns the ball cleanly to A."
+          moves: [ { id: ball, to: A } ]
+        - duration: 700
+          caption: "Reset — roles repeat or alternate."
+          moves: [ { id: B, to: { x: 115, y: 200 } } ]
+
   - id: setup
     pitch: small
     title: "Baseline setup"
