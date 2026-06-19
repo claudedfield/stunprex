@@ -80,7 +80,7 @@ export const GAMES: GameMeta[] = [
     trains: 'Decision-making under a closing clock.',
     echoes: 'Choosing the pass as defenders shut the angles (Conviction 3).',
     capacities: ['Cognitive', 'Perceptual'],
-    status: 'soon',
+    status: 'live',
     order: 5,
   },
   {
@@ -90,7 +90,7 @@ export const GAMES: GameMeta[] = [
     trains: 'Anticipation, pattern recognition, and holding back the wrong response.',
     echoes: 'Reading a developing move and sensing when it breaks.',
     capacities: ['Cognitive', 'Adaptive'],
-    status: 'soon',
+    status: 'live',
     order: 6,
   },
   {
@@ -130,7 +130,7 @@ export const GAMES: GameMeta[] = [
     trains: 'Focus under rising arousal (gentle, never punitive).',
     echoes: 'The penalty walk-up.',
     capacities: ['Affective'],
-    status: 'soon',
+    status: 'live',
     order: 10,
   },
 ];
