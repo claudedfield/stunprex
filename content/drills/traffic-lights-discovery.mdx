@@ -15,6 +15,86 @@ difficulty: 1
 maxDifficulty: 5
 playerOperatingPrinciple: "React first (the very first seed of it)"
 convictions: [7, 13, 22, 28, 32]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch the lights
+    caption: 'Each child dribbles freely and reacts to the called colour — green go, red stop, yellow turn. Loops.'
+    entities:
+      - type: player
+        id: P1
+        x: 120
+        'y': 160
+        team: home
+        label: '1'
+      - type: player
+        id: P2
+        x: 270
+        'y': 250
+        team: home
+        label: '2'
+      - type: ball
+        id: b1
+        x: 120
+        'y': 160
+        attachedTo: P1
+        state: static
+      - type: ball
+        id: b2
+        x: 270
+        'y': 250
+        attachedTo: P2
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: Green — dribble freely into space.
+          moves:
+            - id: P1
+              to:
+                x: 175
+                'y': 130
+            - id: P2
+              to:
+                x: 215
+                'y': 270
+        - duration: 1000
+          caption: Red — stop the ball dead.
+          moves: []
+        - duration: 900
+          caption: Yellow — turn and change direction.
+          moves:
+            - id: P1
+              to:
+                x: 130
+                'y': 190
+            - id: P2
+              to:
+                x: 260
+                'y': 210
+        - duration: 900
+          caption: Green — go again.
+          moves:
+            - id: P1
+              to:
+                x: 90
+                'y': 140
+            - id: P2
+              to:
+                x: 300
+                'y': 255
+        - duration: 800
+          caption: Reset.
+          moves:
+            - id: P1
+              to:
+                x: 120
+                'y': 160
+            - id: P2
+              to:
+                x: 270
+                'y': 250
 ---
 
 ## Introduction

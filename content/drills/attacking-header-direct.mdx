@@ -15,6 +15,87 @@ difficulty: 3
 maxDifficulty: 5
 playerOperatingPrinciple: "The header is a tactical decision; direct it down and across the keeper"
 convictions: [4, 9, 21, 27, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'A cross from wide, a late run to the post, and a header directed down into the corner. Loops.'
+    entities:
+      - type: cone
+        id: gp1
+        x: 175
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: gp2
+        x: 225
+        'y': 28
+        color: orange
+        label: G
+      - type: label
+        id: goallbl
+        x: 200
+        'y': 54
+        text: GOAL
+      - type: player
+        id: K
+        x: 200
+        'y': 46
+        team: neutral
+        label: K
+      - type: player
+        id: C
+        x: 320
+        'y': 185
+        team: neutral
+        label: C
+      - type: player
+        id: H
+        x: 180
+        'y': 265
+        team: home
+        label: H
+      - type: ball
+        id: ball
+        x: 320
+        'y': 185
+        attachedTo: C
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 800
+          caption: Crosser delivers from wide; the header starts the run.
+          moves:
+            - id: ball
+              to:
+                x: 205
+                'y': 120
+            - id: H
+              to:
+                x: 200
+                'y': 140
+        - duration: 700
+          caption: Attack the ball at its height — head it down.
+          moves:
+            - id: ball
+              to:
+                x: 170
+                'y': 30
+            - id: H
+              to:
+                x: 200
+                'y': 118
+        - duration: 900
+          caption: 'Reset; run it from both wings, both posts.'
+          moves:
+            - id: ball
+              to: C
+            - id: H
+              to:
+                x: 180
+                'y': 265
 ---
 
 ## Introduction

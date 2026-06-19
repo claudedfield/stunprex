@@ -15,6 +15,96 @@ difficulty: 3
 maxDifficulty: 5
 playerOperatingPrinciple: "Carry intent; protect the ball with the body at speed"
 convictions: [3, 22, 25, 30, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Drive to the target with a defender recovering alongside: body between them and the ball, touches onto the far foot. Loops.'
+    entities:
+      - type: zone
+        id: ch
+        x: 22
+        'y': 140
+        width: 356
+        height: 120
+        label: ''
+      - type: cone
+        id: tg1
+        x: 358
+        'y': 178
+        color: orange
+        label: T
+      - type: cone
+        id: tg2
+        x: 358
+        'y': 222
+        color: orange
+        label: T
+      - type: player
+        id: A
+        x: 45
+        'y': 200
+        team: home
+        label: A
+      - type: player
+        id: D
+        x: 45
+        'y': 250
+        team: opp
+        label: D
+      - type: ball
+        id: ball
+        x: 45
+        'y': 200
+        attachedTo: A
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: A drives to the target; the defender recovers alongside.
+          moves:
+            - id: A
+              to:
+                x: 150
+                'y': 195
+            - id: D
+              to:
+                x: 150
+                'y': 240
+        - duration: 900
+          caption: Body between defender and ball; touch onto the far foot.
+          moves:
+            - id: A
+              to:
+                x: 250
+                'y': 190
+            - id: D
+              to:
+                x: 250
+                'y': 228
+        - duration: 800
+          caption: Protect it all the way to the target.
+          moves:
+            - id: A
+              to:
+                x: 356
+                'y': 200
+            - id: D
+              to:
+                x: 330
+                'y': 232
+        - duration: 900
+          caption: 'Reset; drive on, shield, or release.'
+          moves:
+            - id: A
+              to:
+                x: 45
+                'y': 200
+            - id: D
+              to:
+                x: 45
+                'y': 250
 ---
 
 ## Introduction

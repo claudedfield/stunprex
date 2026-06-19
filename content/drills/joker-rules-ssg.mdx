@@ -15,6 +15,127 @@ difficulty: 4
 maxDifficulty: 5
 playerOperatingPrinciple: "Improvisation under pressure; react first to the changed rule"
 convictions: [13, 22, 30, 31, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a joker
+    caption: A normal game flows; the coach calls a joker rule mid-play; the team that reads and exploits it fastest gains the edge. Loops.
+    entities:
+      - type: cone
+        id: gp1
+        x: 175
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: gp2
+        x: 225
+        'y': 28
+        color: orange
+        label: G
+      - type: label
+        id: goallbl
+        x: 200
+        'y': 54
+        text: GOAL
+      - type: cone
+        id: mb1
+        x: 160
+        'y': 372
+        color: deepblue
+        label: G
+      - type: cone
+        id: mb2
+        x: 240
+        'y': 372
+        color: deepblue
+        label: G
+      - type: player
+        id: A1
+        x: 150
+        'y': 255
+        team: home
+        label: A1
+      - type: player
+        id: A2
+        x: 250
+        'y': 240
+        team: home
+        label: A2
+      - type: player
+        id: B1
+        x: 170
+        'y': 165
+        team: opp
+        label: B1
+      - type: player
+        id: B2
+        x: 255
+        'y': 170
+        team: opp
+        label: B2
+      - type: ball
+        id: ball
+        x: 150
+        'y': 255
+        attachedTo: A1
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: A normal small-sided game flows.
+          moves:
+            - id: ball
+              to: A2
+            - id: B1
+              to:
+                x: 200
+                'y': 185
+        - duration: 1000
+          caption: '"Joker!" — a rule changes mid-play; don''t freeze.'
+          moves: []
+        - duration: 900
+          caption: Read it fastest and exploit the change.
+          moves:
+            - id: ball
+              attachedTo: A2
+            - id: A2
+              to:
+                x: 215
+                'y': 90
+            - id: B2
+              to:
+                x: 240
+                'y': 140
+        - duration: 800
+          caption: Goal — adapt and play on.
+          moves:
+            - id: ball
+              to:
+                x: 200
+                'y': 30
+            - id: A2
+              to:
+                x: 210
+                'y': 75
+        - duration: 900
+          caption: Reset; the next joker comes unannounced.
+          moves:
+            - id: ball
+              to: A1
+            - id: A2
+              to:
+                x: 250
+                'y': 240
+            - id: B1
+              to:
+                x: 170
+                'y': 165
+            - id: B2
+              to:
+                x: 255
+                'y': 170
 ---
 
 ## Introduction

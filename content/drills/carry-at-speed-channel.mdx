@@ -15,6 +15,91 @@ difficulty: 2
 maxDifficulty: 5
 playerOperatingPrinciple: "Advance the attack; carry intent — big touches, head up"
 convictions: [3, 5, 28, 30, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Push the ball into space, stride to catch it, head up — then choose a gate late and drive through. Loops.'
+    entities:
+      - type: zone
+        id: ch
+        x: 22
+        'y': 150
+        width: 356
+        height: 100
+        label: ''
+      - type: label
+        id: startlbl
+        x: 30
+        'y': 140
+        text: START
+      - type: cone
+        id: g1a
+        x: 358
+        'y': 152
+        color: orange
+        label: '1'
+      - type: cone
+        id: g1b
+        x: 358
+        'y': 182
+        color: orange
+        label: '1'
+      - type: cone
+        id: g2a
+        x: 358
+        'y': 222
+        color: orange
+        label: '2'
+      - type: cone
+        id: g2b
+        x: 358
+        'y': 252
+        color: orange
+        label: '2'
+      - type: player
+        id: P
+        x: 42
+        'y': 200
+        team: home
+        label: P
+      - type: ball
+        id: ball
+        x: 42
+        'y': 200
+        attachedTo: P
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: Push the ball into space and stride to catch it.
+          moves:
+            - id: P
+              to:
+                x: 130
+                'y': 200
+        - duration: 900
+          caption: Head up between touches — read the gates ahead.
+          moves:
+            - id: P
+              to:
+                x: 240
+                'y': 195
+        - duration: 800
+          caption: Choose a gate late and drive through under control.
+          moves:
+            - id: P
+              to:
+                x: 356
+                'y': 167
+        - duration: 900
+          caption: Reset; alternate the driving foot.
+          moves:
+            - id: P
+              to:
+                x: 42
+                'y': 200
 ---
 
 ## Introduction

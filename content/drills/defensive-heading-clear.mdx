@@ -15,6 +15,72 @@ difficulty: 3
 maxDifficulty: 5
 playerOperatingPrinciple: "Attack the ball; head it high, far, and wide"
 convictions: [9, 15, 16, 27, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Read the flight, attack the ball, forehead contact — head it high, far, and wide, away from goal. Loops.'
+    entities:
+      - type: player
+        id: S
+        x: 200
+        'y': 320
+        team: neutral
+        label: S
+      - type: player
+        id: P
+        x: 200
+        'y': 185
+        team: home
+        label: P
+      - type: ball
+        id: ball
+        x: 200
+        'y': 320
+        attachedTo: S
+        state: static
+      - type: label
+        id: awaylbl
+        x: 80
+        'y': 330
+        text: AWAY
+    animation:
+      loop: true
+      steps:
+        - duration: 800
+          caption: Server tosses a soft ball up toward the player.
+          moves:
+            - id: ball
+              to:
+                x: 200
+                'y': 150
+        - duration: 700
+          caption: 'Attack it — forehead, neck firm, eyes open.'
+          moves:
+            - id: ball
+              to:
+                x: 200
+                'y': 170
+            - id: P
+              to:
+                x: 200
+                'y': 178
+        - duration: 800
+          caption: 'Head it high, far, and wide — away from goal.'
+          moves:
+            - id: ball
+              to:
+                x: 85
+                'y': 300
+        - duration: 900
+          caption: 'Reset; low volume, full rest.'
+          moves:
+            - id: ball
+              to: S
+            - id: P
+              to:
+                x: 200
+                'y': 185
 ---
 
 ## Introduction

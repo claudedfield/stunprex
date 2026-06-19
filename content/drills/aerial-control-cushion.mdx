@@ -15,6 +15,83 @@ difficulty: 2
 maxDifficulty: 5
 playerOperatingPrinciple: "Body position before reception; cushion and settle the aerial ball"
 convictions: [4, 6, 9, 22, 30]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Read the dropping ball, move behind it, cushion it dead into the control zone, then play it out. Loops.'
+    entities:
+      - type: zone
+        id: cz
+        x: 160
+        'y': 160
+        width: 80
+        height: 80
+        label: CONTROL
+      - type: player
+        id: S
+        x: 200
+        'y': 340
+        team: neutral
+        label: S
+      - type: player
+        id: P
+        x: 200
+        'y': 200
+        team: home
+        label: P
+      - type: ball
+        id: ball
+        x: 200
+        'y': 340
+        attachedTo: S
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 800
+          caption: Server lofts the ball up.
+          moves:
+            - id: ball
+              to:
+                x: 200
+                'y': 115
+        - duration: 800
+          caption: Read the flight; move behind the drop.
+          moves:
+            - id: ball
+              to:
+                x: 200
+                'y': 188
+            - id: P
+              to:
+                x: 200
+                'y': 202
+        - duration: 700
+          caption: Cushion it dead into the control zone.
+          moves:
+            - id: ball
+              attachedTo: P
+        - duration: 800
+          caption: 'Settle, then play it out.'
+          moves:
+            - id: ball
+              to:
+                x: 120
+                'y': 200
+            - id: P
+              to:
+                x: 190
+                'y': 200
+        - duration: 900
+          caption: Reset; vary the side and the surface.
+          moves:
+            - id: ball
+              to: S
+            - id: P
+              to:
+                x: 200
+                'y': 200
 ---
 
 ## Introduction

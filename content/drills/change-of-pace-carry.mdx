@@ -15,6 +15,102 @@ difficulty: 2
 maxDifficulty: 5
 playerOperatingPrinciple: "Carry intent; change the pace to break into space"
 convictions: [13, 16, 22, 28, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Glide through the close gates, head up; burst across the far gap; settle for the next. The gear changes are the point. Loops.'
+    entities:
+      - type: zone
+        id: ch
+        x: 22
+        'y': 160
+        width: 356
+        height: 80
+        label: ''
+      - type: cone
+        id: g1a
+        x: 90
+        'y': 165
+        color: brown
+      - type: cone
+        id: g1b
+        x: 90
+        'y': 200
+        color: brown
+      - type: cone
+        id: g2a
+        x: 140
+        'y': 165
+        color: brown
+      - type: cone
+        id: g2b
+        x: 140
+        'y': 200
+        color: brown
+      - type: cone
+        id: g3a
+        x: 270
+        'y': 165
+        color: brown
+      - type: cone
+        id: g3b
+        x: 270
+        'y': 200
+        color: brown
+      - type: cone
+        id: g4a
+        x: 330
+        'y': 165
+        color: brown
+      - type: cone
+        id: g4b
+        x: 330
+        'y': 200
+        color: brown
+      - type: player
+        id: P
+        x: 42
+        'y': 183
+        team: home
+        label: P
+      - type: ball
+        id: ball
+        x: 42
+        'y': 183
+        attachedTo: P
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1000
+          caption: 'Glide through the close gates — controlled, head up.'
+          moves:
+            - id: P
+              to:
+                x: 140
+                'y': 183
+        - duration: 700
+          caption: Burst across the far gap.
+          moves:
+            - id: P
+              to:
+                x: 270
+                'y': 183
+        - duration: 900
+          caption: Settle for the next close gate.
+          moves:
+            - id: P
+              to:
+                x: 335
+                'y': 183
+        - duration: 900
+          caption: Reset; the quality of the gear changes is the measure.
+          moves:
+            - id: P
+              to:
+                x: 42
+                'y': 183
 ---
 
 ## Introduction

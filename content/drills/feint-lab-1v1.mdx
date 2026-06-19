@@ -15,6 +15,81 @@ difficulty: 3
 maxDifficulty: 5
 playerOperatingPrinciple: "Make the defender move first; commit to the move"
 convictions: [13, 22, 25, 28, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Read the stance, sell a feint to shift the defender the wrong way, then commit and burst through the gap. Loops.'
+    entities:
+      - type: cone
+        id: g1
+        x: 175
+        'y': 40
+        color: orange
+        label: G
+      - type: cone
+        id: g2
+        x: 225
+        'y': 40
+        color: orange
+        label: G
+      - type: player
+        id: D
+        x: 200
+        'y': 145
+        team: opp
+        label: D
+      - type: player
+        id: A
+        x: 200
+        'y': 300
+        team: home
+        label: A
+      - type: ball
+        id: ball
+        x: 200
+        'y': 300
+        attachedTo: A
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: Approach the defender with the ball.
+          moves:
+            - id: A
+              to:
+                x: 200
+                'y': 205
+        - duration: 800
+          caption: Sell a feint — shift the defender's weight the wrong way.
+          moves:
+            - id: A
+              to:
+                x: 168
+                'y': 175
+            - id: D
+              to:
+                x: 232
+                'y': 152
+        - duration: 800
+          caption: Commit and burst through the opening.
+          moves:
+            - id: A
+              to:
+                x: 200
+                'y': 58
+        - duration: 900
+          caption: Reset; pick the right move for this defender.
+          moves:
+            - id: A
+              to:
+                x: 200
+                'y': 300
+            - id: D
+              to:
+                x: 200
+                'y': 145
 ---
 
 ## Introduction

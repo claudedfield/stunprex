@@ -15,6 +15,102 @@ difficulty: 4
 maxDifficulty: 5
 playerOperatingPrinciple: "Sprint into space; compose, then finish the breakaway"
 convictions: [3, 15, 21, 25, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'A long breakaway with a chaser closing — compose at the box, decide, then finish with intent. Loops.'
+    entities:
+      - type: cone
+        id: gp1
+        x: 175
+        'y': 28
+        color: orange
+        label: G
+      - type: cone
+        id: gp2
+        x: 225
+        'y': 28
+        color: orange
+        label: G
+      - type: label
+        id: goallbl
+        x: 200
+        'y': 54
+        text: GOAL
+      - type: player
+        id: K
+        x: 200
+        'y': 46
+        team: neutral
+        label: K
+      - type: player
+        id: A
+        x: 200
+        'y': 340
+        team: home
+        label: A
+      - type: player
+        id: D
+        x: 200
+        'y': 375
+        team: opp
+        label: D
+      - type: ball
+        id: ball
+        x: 200
+        'y': 340
+        attachedTo: A
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1000
+          caption: 'On the trigger, A drives at goal; the chaser closes.'
+          moves:
+            - id: A
+              to:
+                x: 200
+                'y': 205
+            - id: D
+              to:
+                x: 200
+                'y': 250
+        - duration: 900
+          caption: 'At the box, A composes — a glance, then decide.'
+          moves:
+            - id: A
+              to:
+                x: 200
+                'y': 150
+            - id: D
+              to:
+                x: 200
+                'y': 200
+        - duration: 700
+          caption: Execute the chosen finish.
+          moves:
+            - id: ball
+              to:
+                x: 226
+                'y': 30
+            - id: A
+              to:
+                x: 192
+                'y': 120
+        - duration: 900
+          caption: Reset; composure is the whole skill.
+          moves:
+            - id: ball
+              to: A
+            - id: A
+              to:
+                x: 200
+                'y': 340
+            - id: D
+              to:
+                x: 200
+                'y': 375
 ---
 
 ## Introduction

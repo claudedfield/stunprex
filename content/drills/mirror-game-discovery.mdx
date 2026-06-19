@@ -15,6 +15,72 @@ difficulty: 1
 maxDifficulty: 5
 playerOperatingPrinciple: "Read the body, not the feet (the very first seed)"
 convictions: [7, 13, 22, 34]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch the mirror
+    caption: 'One leads with the ball; the other mirrors every move, reversed — then they swap. Loops.'
+    entities:
+      - type: player
+        id: L
+        x: 140
+        'y': 200
+        team: home
+        label: L
+      - type: player
+        id: M
+        x: 260
+        'y': 200
+        team: home
+        label: M
+      - type: ball
+        id: bl
+        x: 140
+        'y': 200
+        attachedTo: L
+        state: static
+      - type: ball
+        id: bm
+        x: 260
+        'y': 200
+        attachedTo: M
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1000
+          caption: The leader moves; the mirror copies — reversed.
+          moves:
+            - id: L
+              to:
+                x: 100
+                'y': 150
+            - id: M
+              to:
+                x: 300
+                'y': 150
+        - duration: 1000
+          caption: 'Every touch, every turn — mirrored.'
+          moves:
+            - id: L
+              to:
+                x: 170
+                'y': 255
+            - id: M
+              to:
+                x: 230
+                'y': 255
+        - duration: 900
+          caption: Swap who leads.
+          moves:
+            - id: L
+              to:
+                x: 140
+                'y': 200
+            - id: M
+              to:
+                x: 260
+                'y': 200
 ---
 
 ## Introduction

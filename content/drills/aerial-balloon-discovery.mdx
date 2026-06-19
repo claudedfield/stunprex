@@ -15,6 +15,66 @@ difficulty: 1
 maxDifficulty: 5
 playerOperatingPrinciple: "Track it and tap it (the first seed of aerial play)"
 convictions: [7, 11, 28, 32, 34]
+diagrams:
+  - id: run
+    pitch: small
+    title: Keep it up
+    caption: 'Tap the balloon up, watch it drop, move under it, tap it up again — keep it off the ground. Loops.'
+    entities:
+      - type: player
+        id: P
+        x: 200
+        'y': 285
+        team: home
+        label: P
+      - type: ball
+        id: ball
+        x: 200
+        'y': 255
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 800
+          caption: Tap it up — light touches.
+          moves:
+            - id: ball
+              to:
+                x: 200
+                'y': 120
+        - duration: 900
+          caption: Watch it drop; move under it.
+          moves:
+            - id: ball
+              to:
+                x: 200
+                'y': 250
+            - id: P
+              to:
+                x: 200
+                'y': 278
+        - duration: 800
+          caption: Tap it up again.
+          moves:
+            - id: ball
+              to:
+                x: 185
+                'y': 120
+            - id: P
+              to:
+                x: 188
+                'y': 285
+        - duration: 900
+          caption: Keep it from landing.
+          moves:
+            - id: ball
+              to:
+                x: 195
+                'y': 250
+            - id: P
+              to:
+                x: 198
+                'y': 282
 ---
 
 ## Introduction

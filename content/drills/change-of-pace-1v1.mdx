@@ -15,6 +15,81 @@ difficulty: 3
 maxDifficulty: 5
 playerOperatingPrinciple: "Read the defender; change pace to beat the duel"
 convictions: [3, 13, 16, 25, 36]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a rep
+    caption: 'Approach slowly to settle the defender, then explode past on the moment they are flat-footed and drive through. Loops.'
+    entities:
+      - type: cone
+        id: g1
+        x: 175
+        'y': 40
+        color: orange
+        label: G
+      - type: cone
+        id: g2
+        x: 225
+        'y': 40
+        color: orange
+        label: G
+      - type: player
+        id: D
+        x: 200
+        'y': 150
+        team: opp
+        label: D
+      - type: player
+        id: A
+        x: 200
+        'y': 300
+        team: home
+        label: A
+      - type: ball
+        id: ball
+        x: 200
+        'y': 300
+        attachedTo: A
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 1100
+          caption: 'Approach slowly — settle the defender, get them flat-footed.'
+          moves:
+            - id: A
+              to:
+                x: 200
+                'y': 225
+        - duration: 600
+          caption: Explode past on the moment they are settled.
+          moves:
+            - id: A
+              to:
+                x: 162
+                'y': 150
+            - id: D
+              to:
+                x: 216
+                'y': 162
+        - duration: 700
+          caption: Drive through the gate under control.
+          moves:
+            - id: A
+              to:
+                x: 200
+                'y': 58
+        - duration: 900
+          caption: Reset; the timing of the burst is the measure.
+          moves:
+            - id: A
+              to:
+                x: 200
+                'y': 300
+            - id: D
+              to:
+                x: 200
+                'y': 150
 ---
 
 ## Introduction

@@ -15,6 +15,65 @@ difficulty: 1
 maxDifficulty: 5
 playerOperatingPrinciple: "Communicate; make yourself an option (the very first seed)"
 convictions: [7, 11, 32, 34]
+diagrams:
+  - id: run
+    pitch: small
+    title: Watch a round
+    caption: 'Call a name, then pass — the ball goes where the voice calls. Loops.'
+    entities:
+      - type: player
+        id: Mia
+        x: 110
+        'y': 120
+        team: home
+        label: Mia
+      - type: player
+        id: Sam
+        x: 290
+        'y': 120
+        team: home
+        label: Sam
+      - type: player
+        id: Leo
+        x: 110
+        'y': 280
+        team: home
+        label: Leo
+      - type: player
+        id: Ada
+        x: 290
+        'y': 280
+        team: home
+        label: Ada
+      - type: ball
+        id: ball
+        x: 110
+        'y': 120
+        attachedTo: Mia
+        state: static
+    animation:
+      loop: true
+      steps:
+        - duration: 900
+          caption: '"Sam!" — then pass.'
+          moves:
+            - id: ball
+              to: Sam
+        - duration: 900
+          caption: '"Ada!" — look up, then play.'
+          moves:
+            - id: ball
+              to: Ada
+        - duration: 900
+          caption: '"Leo!"'
+          moves:
+            - id: ball
+              to: Leo
+        - duration: 900
+          caption: '"Mia!" — the ball follows the voice.'
+          moves:
+            - id: ball
+              to: Mia
 ---
 
 ## Introduction
