@@ -1,36 +1,30 @@
 /**
- * Next.js middleware — Auth.js v5 session handling.
+ * Next.js middleware — intentional NO-OP pass-through.
  *
- * Uses the edge-compatible authConfig (auth.config.ts) — no pg or nodemailer
- * imports. The Edge Runtime cannot load those Node.js-only modules.
+ * WHY THIS DOES NOT RUN NextAuth:
+ * The site uses a DATABASE session strategy (auth.ts: adapter + session.strategy
+ * = 'database'). The edge-compatible config (auth.config.ts) has no adapter, so an
+ * edge NextAuth() handler defaults to the JWT strategy. When such a handler sees the
+ * real session cookie — `__Secure-authjs.session-token`, whose value is a database
+ * session UUID, not a signed JWT — it fails to decode it and emits
+ * `Set-Cookie: __Secure-authjs.session-token=; Max-Age=0`, WIPING the session on
+ * every request that passes through the matcher (/auth/*, /community/*). That is
+ * exactly what broke magic-link sign-in: a new user is redirected to
+ * /community/welcome immediately after the callback and lost the session there.
  *
- * Safety: if AUTH_SECRET is absent the module returns a no-op so the Edge
- * Worker doesn't crash with MissingSecret → MIDDLEWARE_INVOCATION_FAILED.
- *
- * Matcher is intentionally narrow: only routes that actually need a session
- * cookie read (/auth/*, /community/*). Public pages run without middleware
- * involvement — no latency added, no cold-start risk.
- *
- * Auth enforcement for community routes happens inside Server Components and
- * Server Actions via auth() from auth.ts (Node.js runtime, not Edge).
+ * This middleware never provided functional value: its edge `authorized()` callback
+ * always returned true (no route locking). Real auth enforcement lives in Server
+ * Components / Server Actions via auth() from auth.ts (Node.js runtime, database
+ * strategy). So we make the middleware a clean pass-through that touches no cookies.
  */
-import NextAuth from 'next-auth'
-import { authConfig } from '@/auth.config'
+import { NextResponse } from 'next/server'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const middleware: any = (() => {
-  if (!process.env.AUTH_SECRET) {
-    // No-op: pass every request through unchanged.
-    // Public site stays up even if env vars aren't provisioned yet.
-    return () => undefined
-  }
-  return NextAuth(authConfig).auth
-})()
+export function middleware() {
+  return NextResponse.next()
+}
 
 export const config = {
   matcher: [
-    // Only run on routes that need session handling.
-    // Public pages (/, /blog, /about, /training, /games, …) are excluded.
     '/auth/:path*',
     '/community/:path*',
   ],
