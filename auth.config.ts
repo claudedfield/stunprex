@@ -15,6 +15,9 @@
 import type { NextAuthConfig } from 'next-auth'
 
 export const authConfig = {
+  // Trust the forwarded host on Vercel (consistent with auth.ts).
+  trustHost: true,
+
   pages: {
     signIn: '/signin',
     verifyRequest: '/signin',

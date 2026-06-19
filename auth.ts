@@ -23,6 +23,11 @@ import { ensureProfile } from '@/lib/auth/db'
 export const authConfig: NextAuthConfig = {
   adapter: PostgresAdapter(db),
 
+  // Trust the host the request actually arrives on (Vercel terminates TLS and
+  // forwards X-Forwarded-Host). Required so the magic-link callback validates and
+  // sets cookies against the served host instead of throwing UntrustedHost.
+  trustHost: true,
+
   providers: [
     Email({
       /**
@@ -36,7 +41,18 @@ export const authConfig: NextAuthConfig = {
        */
       server: process.env.EMAIL_SERVER ?? 'smtp://localhost:25',
       sendVerificationRequest: async ({ identifier: email, url }) => {
-        await sendMagicLink(email, url)
+        // The site serves on www (apex 307-redirects to www). AUTH_URL is currently
+        // apex, so Auth.js builds the magic link on apex — clicking it 307s to www
+        // mid-callback and the verification cookie/session is dropped. Normalise the
+        // link (and its embedded callbackUrl) to the served host so the click lands
+        // directly on www, no redirect. Harmless no-op once AUTH_URL = www (Needs Dezső).
+        const link = new URL(url)
+        if (link.hostname === 'stunprex.com') link.hostname = 'www.stunprex.com'
+        const cb = link.searchParams.get('callbackUrl')
+        if (cb && cb.includes('://stunprex.com')) {
+          link.searchParams.set('callbackUrl', cb.replace('://stunprex.com', '://www.stunprex.com'))
+        }
+        await sendMagicLink(email, link.toString())
       },
     }),
   ],
