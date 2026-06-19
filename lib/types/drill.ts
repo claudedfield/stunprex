@@ -19,7 +19,7 @@ export type AgeBand =
   | '9-12'
   | '13-16'
   | '17-20'
-  | '20+';
+  | '21+';
 
 export interface DrillFrontmatter {
   /** Human-readable drill title */
