@@ -70,7 +70,7 @@ export default function CapacitiesIndexPage() {
       <Header />
       <main id="main-content">
         <PageHero
-          eyebrow="The Capacities Framework"
+          eyebrow="How we train the whole player"
           title="The six capacities"
           lede="A complete player is not one ability — it is a stack of well-developed ones. StunpreX names six families of human capacity that football draws on at once, and trains all six, deliberately, in combination."
         />

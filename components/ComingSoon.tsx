@@ -23,7 +23,7 @@ export function ComingSoon({ section, blurb, shipsIn }: ComingSoonProps) {
           lede={
             shipsIn ? (
               <>
-                Shipping in <span className="font-semibold text-deepblue">{shipsIn}</span>.
+                Shipping: <span className="font-semibold text-deepblue">{shipsIn}</span>.
               </>
             ) : undefined
           }

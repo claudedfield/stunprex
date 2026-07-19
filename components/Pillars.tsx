@@ -28,7 +28,7 @@ export function Pillars() {
           </p>
           <h2 className="font-heading">Five pillars, five paths in</h2>
           <p className="mt-5 text-brown/80 text-lg">
-            Each pillar gathers the convictions, drills, and articles that build that part of
+            Each pillar gathers the principles, drills, and articles that build that part of
             the player. Designed to be entered from a single search query and read in a single
             sitting.
           </p>

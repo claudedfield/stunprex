@@ -32,7 +32,7 @@ export default function Page() {
               enough that ordinary players become uncommonly good.
             </p>
             <p>
-              The methodology rests on the Capacities Framework, age-band pathways from 5–8
+              The methodology rests on six trained capacities, age-band pathways from 5–8
               to 21+, a set of on-pitch operating principles, and a clear list of the
               patterns we refuse to build around — see <Link href="/methodology">Methodology</Link>
               for the plain-language version.

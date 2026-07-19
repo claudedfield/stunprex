@@ -131,7 +131,7 @@ const CATEGORY_BLURBS: Record<CategorySlug, string> = {
   drills:
     'Multi-capacity drills in full StunpreX format — tagged by capacity family, age band, and equipment.',
   'pro-breakdown':
-    'Pro player and match analysis through the Capacities Framework — what the best players do and why it matters for your development.',
+    'Pro player and match analysis through the six trained capacities — what the best players do and why it matters for your development.',
   'operational-core':
     'High-care topics: the Parent Compact, deselection, sleep, nutrition, goalkeeper development, and the long horizon.',
   reflections:
