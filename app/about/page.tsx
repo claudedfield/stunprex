@@ -32,19 +32,19 @@ export default function Page() {
               enough that ordinary players become uncommonly good.
             </p>
             <p>
-              The methodology is captured in the <Link href="/codex">Codex</Link>: thirty-six
-              convictions, the Capacities Framework, five age-band pathways from 5–8 to 21+,
-              the Player Operating Principles, and an anti-patterns list — all defended in
-              public.
+              The methodology rests on the Capacities Framework, age-band pathways from 5–8
+              to 21+, a set of on-pitch operating principles, and a clear list of the
+              patterns we refuse to build around — see <Link href="/methodology">Methodology</Link>
+              for the plain-language version.
             </p>
             <p>
               StunpreX is gender-neutral by design and serves four audiences distinctly:
-              players (13–24), co-buyer parents, multiplier coaches, and the wider football
-              community. Multilingual: English, Spanish, Mandarin, Hungarian.
+              players at every age band, co-buyer parents, multiplier coaches, and the wider
+              football community. Multilingual: English, Spanish, Mandarin, Hungarian.
             </p>
           </div>
           <div className="mt-12 flex flex-wrap gap-4">
-            <Link href="/codex" className="btn-primary">Read the Codex</Link>
+            <Link href="/methodology" className="btn-primary">See what we believe</Link>
             <Link href="/" className="btn-secondary">Back to home</Link>
           </div>
         </section>

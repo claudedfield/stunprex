@@ -36,16 +36,16 @@ export function Hero() {
           <span className="text-orange">Reach Your Full Potential.</span>
         </h1>
         <p className="mt-7 max-w-2xl text-lg text-brown/85 leading-relaxed">
-          StunpreX is a soccer player development hub built on a public methodology — the
-          Codex. Convictions, drills, and pathways for players, parents, and coaches who
-          want development that compounds.
+          StunpreX is a methodology-first soccer player development hub. Drills, training
+          content, and pathways for players, parents, and coaches who want development that
+          compounds.
         </p>
         <div className="mt-10 flex flex-wrap items-center gap-4">
-          <Link href="/onboarding" className="btn-primary">
+          <Link href="/training" className="btn-primary">
             Find your path
           </Link>
-          <Link href="/codex" className="btn-secondary">
-            Read the Codex
+          <Link href="/methodology" className="btn-secondary">
+            What we believe
           </Link>
         </div>
         <p className="mt-10 max-w-xl text-sm text-brown/70 italic">

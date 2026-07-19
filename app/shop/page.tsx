@@ -7,7 +7,7 @@ export default function Page() {
     <ComingSoon
       section="Shop"
       blurb="The right tools for next-level training."
-      shipsIn="Block 5 (Weeks 9–10 of Wave 2) — Sequence Boards launch"
+      shipsIn="Later this year"
     />
   );
 }

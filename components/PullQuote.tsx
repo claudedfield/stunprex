@@ -1,9 +1,8 @@
 import Image from 'next/image';
 
-// Section divider — full-bleed brand imagery + a single Codex line.
+// Section divider — full-bleed brand imagery + a single StunpreX belief.
 // Uses the painterly silhouette (no faces, brand-coloured) as a calm visual breath
-// between content blocks. Quote sourced from the StunpreX working version (2024) /
-// Codex Conviction 1 in plain language.
+// between content blocks.
 
 export function PullQuote() {
   return (
@@ -36,9 +35,6 @@ export function PullQuote() {
           The trainable component dominates outcomes; genetics is real but never
           determinative. The player who treats themselves as a beginner-with-potential
           outdevelops the one who relies on talent.
-        </p>
-        <p className="mt-6 font-ui uppercase tracking-widest text-xs text-white/55">
-          — Codex Conviction 1
         </p>
       </div>
     </section>

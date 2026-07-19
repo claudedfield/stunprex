@@ -8,7 +8,7 @@ export const revalidate = false;
 const SITE_URL = 'https://stunprex.com';
 const FEED_TITLE = 'StunpreX Blog — Soccer Player Development';
 const FEED_DESCRIPTION =
-  'Methodology-first articles on individual soccer player development. Grounded in the StunpreX Codex.';
+  'Methodology-first articles on individual soccer player development.';
 const FEED_LANGUAGE = 'en';
 const FEED_COPYRIGHT = `Copyright ${new Date().getFullYear()} StunpreX / DField Kft.`;
 

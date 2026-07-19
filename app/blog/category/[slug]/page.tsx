@@ -127,9 +127,9 @@ export default async function CategoryPage({ params, searchParams }: Props) {
 
 const CATEGORY_BLURBS: Record<CategorySlug, string> = {
   methodology:
-    'Deep dives into the StunpreX Codex — the conviction set behind how we develop players at every age.',
+    'Deep dives into what StunpreX believes — the ideas behind how we develop players at every age.',
   drills:
-    'Multi-capacity drills in full StunpreX format — tagged by capacity family, conviction, age band, and equipment.',
+    'Multi-capacity drills in full StunpreX format — tagged by capacity family, age band, and equipment.',
   'pro-breakdown':
     'Pro player and match analysis through the Capacities Framework — what the best players do and why it matters for your development.',
   'operational-core':

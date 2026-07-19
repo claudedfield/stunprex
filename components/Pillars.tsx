@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-// Five priority pillars — Wave-2 ship sequence, Blueprint v2.1 §15.
+// Five priority pillars.
 interface Pillar {
   slug: string;
   title: string;
@@ -11,11 +11,11 @@ interface Pillar {
 }
 
 const PILLARS: Pillar[] = [
-  { slug: 'dribbling',                   title: 'Dribbling',                  blurb: 'Broad search demand. Player-layer entry-point.', status: 'Live', href: '/blog/soccer-dribbling-drills' },
-  { slug: 'speed-and-agility',           title: 'Speed & Agility',            blurb: 'Mid-volume keyword set. Broad audience.',         status: 'Coming soon' },
-  { slug: 'tactical-intelligence',       title: 'Tactical Intelligence',      blurb: 'Distinctive methodology. Coach/parent layer.',    status: 'Coming soon' },
-  { slug: 'first-touch',                 title: 'First Touch',                blurb: 'Codex Conviction 4 made into a pillar.',          status: 'Coming soon' },
-  { slug: 'strength-endurance-recovery', title: 'Strength · Endurance · Recovery', blurb: 'Physical conditioning anchor.',              status: 'Coming soon' },
+  { slug: 'dribbling',                   title: 'Dribbling',                  blurb: 'Tight-space control, weak foot, and beating a defender under pressure.', status: 'Live', href: '/blog/soccer-dribbling-drills' },
+  { slug: 'speed-and-agility',           title: 'Speed & Agility',            blurb: 'Acceleration, change of direction, and the movement that gets a player there first.', status: 'Coming soon' },
+  { slug: 'tactical-intelligence',       title: 'Tactical Intelligence',      blurb: 'Reading the game, scanning, and the decisions that separate good players from great ones.', status: 'Coming soon' },
+  { slug: 'first-touch',                 title: 'First Touch',                blurb: 'The receiving skill that determines whether anything else in possession is possible.', status: 'Coming soon' },
+  { slug: 'strength-endurance-recovery', title: 'Strength · Endurance · Recovery', blurb: 'The physical foundation — built safely, at the right age, without shortcuts.', status: 'Coming soon' },
 ];
 
 export function Pillars() {
@@ -24,7 +24,7 @@ export function Pillars() {
       <div className="container-site">
         <div className="max-w-2xl mb-12">
           <p className="font-ui uppercase tracking-widest text-sm text-orange mb-3">
-            Wave-2 priority pillars
+            Training pillars
           </p>
           <h2 className="font-heading">Five pillars, five paths in</h2>
           <p className="mt-5 text-brown/80 text-lg">

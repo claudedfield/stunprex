@@ -32,8 +32,8 @@ export function ComingSoon({ section, blurb, shipsIn }: ComingSoonProps) {
             <Link href="/" className="btn-primary">
               Back to home
             </Link>
-            <Link href="/codex" className="btn-secondary">
-              Read the Codex while you wait
+            <Link href="/training" className="btn-secondary">
+              Browse the drill library
             </Link>
           </div>
         </PageHero>

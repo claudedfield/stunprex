@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     url: 'https://stunprex.com',
     title: 'StunpreX — Train Smarter. Play Better. Reach Your Full Potential.',
     description:
-      'A soccer player development hub for individual development. Methodology-first. Codex-driven.',
+      'A soccer player development hub for individual development. Methodology-first.',
     siteName: 'StunpreX',
     images: [
       {

@@ -72,7 +72,7 @@ export default function CapacitiesIndexPage() {
         <PageHero
           eyebrow="The Capacities Framework"
           title="The six capacities"
-          lede="A complete player is not one ability — it is a stack of well-developed ones. The Codex names six families of human capacity that football draws on at once. StunpreX trains all six, deliberately, in combination."
+          lede="A complete player is not one ability — it is a stack of well-developed ones. StunpreX names six families of human capacity that football draws on at once, and trains all six, deliberately, in combination."
         />
 
         <section className="container-site py-14 md:py-20">

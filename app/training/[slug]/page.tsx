@@ -264,25 +264,6 @@ export default async function DrillDetailPage({ params }: Props) {
                   </div>
                 </div>
 
-                {/* Convictions */}
-                {frontmatter.convictions.length > 0 && (
-                  <div>
-                    <p className="font-ui text-[9px] uppercase tracking-widest text-brown/50 mb-2">
-                      Codex convictions
-                    </p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {frontmatter.convictions.map((n) => (
-                        <span
-                          key={n}
-                          className="inline-block rounded bg-orange/10 px-2 py-0.5 font-ui text-[11px] text-orange font-semibold"
-                        >
-                          #{n}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
                 {/* Back link */}
                 <Link
                   href="/training"

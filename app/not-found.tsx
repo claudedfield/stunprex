@@ -11,11 +11,11 @@ export default function NotFound() {
         <PageHero
           eyebrow="404"
           title="We couldn&rsquo;t find that page."
-          lede="Try the home page, or dive into the Codex — the methodology is open."
+          lede="Try the home page, or see what StunpreX believes."
         >
           <div className="flex flex-wrap gap-4">
             <Link href="/" className="btn-primary">Back to home</Link>
-            <Link href="/codex" className="btn-secondary">Read the Codex</Link>
+            <Link href="/methodology" className="btn-secondary">What we believe</Link>
           </div>
         </PageHero>
       </main>

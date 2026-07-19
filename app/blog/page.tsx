@@ -12,11 +12,11 @@ import { getAllPostCards, getPublishedCategories } from '@/lib/posts';
 export const metadata: Metadata = {
   title: 'Blog — Soccer Player Development',
   description:
-    'Methodology-first articles on soccer player development — drills, tactical breakdowns, Codex convictions, and the long-horizon approach to building complete players.',
+    'Methodology-first articles on soccer player development — drills, tactical breakdowns, and the long-horizon approach to building complete players.',
   openGraph: {
     title: 'Blog — StunpreX Soccer Development',
     description:
-      'Methodology-first articles on soccer player development. Convictions, drills, and the science behind developing complete players.',
+      'Methodology-first articles on soccer player development. Drills, evidence, and the science behind developing complete players.',
     type: 'website',
     url: 'https://stunprex.com/blog',
   },
@@ -51,7 +51,7 @@ export default async function BlogIndexPage({ searchParams }: Props) {
         <PageHero
           eyebrow="Blog"
           title="Blog"
-          lede="Methodology-first articles on individual soccer player development. Grounded in the Codex. Written for players, parents, coaches, and the broader football development community."
+          lede="Methodology-first articles on individual soccer player development. Written for players, parents, coaches, and the broader football development community."
         />
 
         {/* Filter + content */}

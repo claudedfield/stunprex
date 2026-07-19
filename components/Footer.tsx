@@ -1,19 +1,26 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { PRIMARY_NAV } from '@/lib/nav';
-import { EmailCaptureForm } from './EmailCaptureForm';
 
-const LEGAL = [
-  { href: '/privacy',   label: 'Privacy' },
-  { href: '/terms',     label: 'Terms' },
-  { href: '/cookies',   label: 'Cookies' },
-  { href: '/imprint',   label: 'Imprint' },
+// No newsletter capture in the footer — D8 alignment (see JoinCommunity on the home page
+// for the current community-first CTA). Brand column links to Methodology, About, Sign in.
+const BRAND = [
+  { href: '/methodology', label: 'Methodology' },
+  { href: '/about',       label: 'About' },
+  { href: '/signin',      label: 'Sign in' },
 ];
 
 const AUDIENCE = [
   { href: '/for-players',  label: 'For players' },
   { href: '/for-parents',  label: 'For parents' },
   { href: '/for-coaches',  label: 'For coaches' },
+];
+
+const LEGAL = [
+  { href: '/privacy',   label: 'Privacy' },
+  { href: '/terms',     label: 'Terms' },
+  { href: '/cookies',   label: 'Cookies' },
+  { href: '/imprint',   label: 'Imprint' },
 ];
 
 export function Footer() {
@@ -39,7 +46,7 @@ export function Footer() {
             </div>
             <p className="mt-6 text-sm text-white/75 leading-relaxed max-w-sm">
               A soccer player development hub for individual development.
-              Methodology-first. Codex-driven. Built by DField Kft.
+              Methodology-first. Built by DField Kft.
             </p>
           </div>
 
@@ -58,14 +65,19 @@ export function Footer() {
             </ul>
           </div>
 
-          <div className="col-span-2 lg:col-span-1">
+          <div>
             <h4 className="font-ui uppercase tracking-widest text-sm text-orange mb-4">
-              Newsletter
+              Brand
             </h4>
-            <p className="text-sm text-white/70 mb-3 leading-relaxed">
-              A weekly dispatch on individual development. No hype.
-            </p>
-            <EmailCaptureForm source="footer" variant="inline" />
+            <ul className="space-y-2 text-sm">
+              {BRAND.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="hover:text-orange text-white/85 transition-colors">
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div>
@@ -86,7 +98,7 @@ export function Footer() {
 
         <div className="mt-14 pt-8 border-t border-white/10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-sm">
           <p className="text-white/60">
-            © {new Date().getFullYear()} DField Kft. — Initiative CN-STNPX. All rights reserved.
+            © {new Date().getFullYear()} DField Kft. All rights reserved.
           </p>
           <ul className="flex flex-wrap gap-6">
             {LEGAL.map((item) => (

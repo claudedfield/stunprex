@@ -7,7 +7,7 @@ export default function Page() {
     <ComingSoon
       section="Reviews"
       blurb="Gear up for success."
-      shipsIn="Block 5 (Weeks 9–10 of Wave 2)"
+      shipsIn="Later this year"
     />
   );
 }

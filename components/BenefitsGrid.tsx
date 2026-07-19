@@ -1,4 +1,4 @@
-// Four benefits — rewritten against Codex convictions per Build Plan §A.3.
+// Four benefits — StunpreX's own claims, in plain voice.
 // "Capacity-tagged training" replaces "Personalised Training Plans" until AI personalisation actually ships.
 
 const BENEFITS = [
@@ -10,7 +10,7 @@ const BENEFITS = [
   {
     title: 'A defended methodology',
     body:
-      'Thirty-six convictions, five age-band pathways, and an anti-pattern list — published openly. The brand is its source code.',
+      'A specific, falsifiable set of beliefs about how players develop — age-band pathways, on-pitch operating principles, and a clear list of what we refuse to do.',
   },
   {
     title: 'Process, not promises',
@@ -20,7 +20,7 @@ const BENEFITS = [
   {
     title: 'Built for the long game',
     body:
-      'For 13–24 players, the parents who fund them, and the coaches who multiply them. Designed to compound over years, not impress in weeks.',
+      'For players at every age band, the parents who fund them, and the coaches who multiply them. Designed to compound over years, not impress in weeks.',
   },
 ] as const;
 

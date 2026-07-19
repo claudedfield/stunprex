@@ -122,7 +122,7 @@ const rejects: { title: string; body: string }[] = [
   },
   {
     title: 'Fabricated certainty',
-    body: `The Codex makes claims about how players develop. Every claim carries an obligation: to have evidence for it, or to say plainly where the evidence is weak. Numbers circulate widely in coaching culture — exact session lengths, precise scanning frequencies, guaranteed rep counts — that trace back to nothing. StunpreX names what the evidence supports, acknowledges where it is weak or absent, and refuses to invent confidence it does not have.`,
+    body: `StunpreX makes claims about how players develop. Every claim carries an obligation: to have evidence for it, or to say plainly where the evidence is weak. Numbers circulate widely in coaching culture — exact session lengths, precise scanning frequencies, guaranteed rep counts — that trace back to nothing. StunpreX names what the evidence supports, acknowledges where it is weak or absent, and refuses to invent confidence it does not have.`,
   },
 ];
 
@@ -215,17 +215,16 @@ export default function MethodologyPage() {
               on this platform traces back to it.
             </p>
             <p className="mt-8 text-brown/70 italic leading-relaxed">
-              The full methodology — all thirty-six convictions, the age-band pathways, and the
-              anti-patterns — is documented in the Codex. It is open: the ideas StunpreX defends
-              in public, the evidence grades we assign to our own claims, and the errors we
+              This is the full plain-language methodology — the age-band pathways, the
+              capacities, the evidence grades we assign to our own claims, and the errors we
               refuse to repeat.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
-              <Link href="/codex" className="btn-primary">
-                Read the Codex
-              </Link>
-              <Link href="/training" className="btn-secondary">
+              <Link href="/training" className="btn-primary">
                 See the drills
+              </Link>
+              <Link href="/" className="btn-secondary">
+                Back to home
               </Link>
             </div>
           </div>

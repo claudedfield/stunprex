@@ -5,7 +5,7 @@ const HUBS = [
   {
     href: '/for-players',
     title: 'For players',
-    line: 'Ages 13–24. Daily training, drill library, the Coach.',
+    line: 'Every age band, 5 to 21+. Daily training, drill library, the Coach.',
     accent: 'orange' as const,
   },
   {
