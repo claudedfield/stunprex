@@ -396,7 +396,7 @@ export function RondoRecall() {
             </p>
             <p className="mt-2 max-w-xs font-body text-sm italic text-brown/60">{takeaway}</p>
             <div className="mt-1 max-w-sm">
-              <SavePrompt isBest={isNewBest} />
+              <SavePrompt isBest={isNewBest} game="rondo-recall" />
             </div>
             <button onClick={start} className="btn-primary mt-4">
               Play again

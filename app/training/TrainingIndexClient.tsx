@@ -11,6 +11,7 @@ import {
   DRILL_CATEGORIES,
 } from '@/lib/types/drill';
 import { filterChipClass } from '@/components/ui/filterChip';
+import { trackDrillFilterUsed } from '@/lib/analytics/events';
 
 const PER_PAGE = 12;
 const DIFFICULTIES = [1, 2, 3, 4, 5];
@@ -131,18 +132,23 @@ export function TrainingIndexClient({ drills }: { drills: DrillCard[] }) {
   const [filtersOpen, setFiltersOpen] = useState(false); // mobile disclosure
 
   const makeToggle = useCallback(
-    <T,>(setter: React.Dispatch<React.SetStateAction<T[]>>) =>
+    <T,>(dimension: string, setter: React.Dispatch<React.SetStateAction<T[]>>) =>
       (v: T) => {
-        setter((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]));
+        setter((prev) => {
+          const next = prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v];
+          // Only fires on select, not deselect — that's what tells us what people came looking for.
+          if (next.length > prev.length) trackDrillFilterUsed(dimension, String(v));
+          return next;
+        });
         setPage(1);
       },
     [],
   );
 
-  const toggleCap = useMemo(() => makeToggle(setCaps), [makeToggle]);
-  const toggleAge = useMemo(() => makeToggle(setAges), [makeToggle]);
-  const toggleDiff = useMemo(() => makeToggle(setDiffs), [makeToggle]);
-  const toggleCat = useMemo(() => makeToggle(setCats), [makeToggle]);
+  const toggleCap = useMemo(() => makeToggle('capacity_family', setCaps), [makeToggle]);
+  const toggleAge = useMemo(() => makeToggle('age_band', setAges), [makeToggle]);
+  const toggleDiff = useMemo(() => makeToggle('difficulty', setDiffs), [makeToggle]);
+  const toggleCat = useMemo(() => makeToggle('theme', setCats), [makeToggle]);
 
   const activeCount = caps.length + ages.length + diffs.length + cats.length + (query.trim() ? 1 : 0);
 

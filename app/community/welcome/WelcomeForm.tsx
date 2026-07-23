@@ -7,12 +7,16 @@
  */
 import { useTransition } from 'react'
 import { completeOnboarding } from '@/lib/community/actions'
+import { trackSignupCompleted } from '@/lib/analytics/events'
 
 export default function WelcomeForm() {
   const [isPending, startTransition] = useTransition()
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    // Fired on submit, not after the server action: completeOnboarding() ends in a
+    // redirect(), which throws by design and would skip any code placed after the await.
+    trackSignupCompleted()
     startTransition(async () => {
       await completeOnboarding()
     })

@@ -503,7 +503,7 @@ export function TwoThingsAtOnce() {
                     <p className="mt-3 max-w-sm text-sm italic text-brown/60">{result.takeaway}</p>
                   </div>
                   <div className="max-w-sm">
-                    <SavePrompt isBest={isNewBest} />
+                    <SavePrompt isBest={isNewBest} game="two-things-at-once" />
                   </div>
                   <button onClick={start} className="btn-primary mt-5">
                     Play again

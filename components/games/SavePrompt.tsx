@@ -1,15 +1,28 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useGamesAuth } from './gamesAuth';
+import { trackGameCompleted } from '@/lib/analytics/events';
 
 /**
  * The capture moment — shown on a game's round-over screen, after the player
  * has felt the value. Authed: confirm the score is saved. Unauthed: a calm,
  * non-blocking invitation to a free account. Never a wall: play is always open.
+ *
+ * Every game renders this component exactly once per completed round, which
+ * makes it the single shared hook point for the `game_completed` event —
+ * fired here instead of duplicated across all ten game components.
  */
-export function SavePrompt({ isBest }: { isBest: boolean }) {
+export function SavePrompt({ isBest, game }: { isBest: boolean; game: string }) {
   const { isAuthed } = useGamesAuth();
+  const firedRef = useRef(false);
+
+  useEffect(() => {
+    if (firedRef.current) return;
+    firedRef.current = true;
+    trackGameCompleted(game);
+  }, [game]);
 
   if (isAuthed) {
     return (

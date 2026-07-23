@@ -339,7 +339,7 @@ export function KoiPond() {
                   </p>
                 </div>
                 <div className="max-w-sm">
-                  <SavePrompt isBest={isNewBest} />
+                  <SavePrompt isBest={isNewBest} game="koi-pond" />
                 </div>
                 <button onClick={start} className="btn-primary mt-5">
                   Play again

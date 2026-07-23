@@ -5,11 +5,12 @@
  * Step 2: preview — renders markdown, confirms before submit.
  * Brief §6: posting friction is welcome.
  */
-import { useState, useTransition } from 'react'
+import { useState, useTransition, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import type { QuestionCategory, TagRow } from '@/lib/types/community'
 import { createQuestion } from '@/lib/community/actions'
 import MarkdownBody from '@/components/community/MarkdownBody'
+import { trackCommunityQuestionStarted } from '@/lib/analytics/events'
 
 interface AskFormProps {
   categories: QuestionCategory[]
@@ -29,6 +30,13 @@ export default function AskForm({ categories, categoryLabels, tags }: AskFormPro
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
+  const startedRef = useRef(false)
+
+  function markStarted() {
+    if (startedRef.current) return
+    startedRef.current = true
+    trackCommunityQuestionStarted()
+  }
 
   function toggleTag(id: string) {
     setSelectedTagIds((prev) =>
@@ -138,6 +146,7 @@ export default function AskForm({ categories, categoryLabels, tags }: AskFormPro
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          onFocus={markStarted}
           maxLength={200}
           placeholder="e.g. How do I help a U13 improve scanning before receiving the ball?"
           className="w-full rounded border border-deepblue/20 px-3 py-2 font-body text-sm text-brown placeholder:text-brown/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40"
@@ -177,6 +186,7 @@ export default function AskForm({ categories, categoryLabels, tags }: AskFormPro
           id="body"
           value={body}
           onChange={(e) => setBody(e.target.value)}
+          onFocus={markStarted}
           rows={10}
           placeholder="Describe the situation, what you know, what you've already tried, and what specific answer you're looking for. Markdown is supported."
           className="w-full rounded border border-deepblue/20 px-3 py-2 font-body text-sm text-brown placeholder:text-brown/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40 resize-y min-h-[200px]"

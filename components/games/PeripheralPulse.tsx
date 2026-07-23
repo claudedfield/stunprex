@@ -403,7 +403,7 @@ export function PeripheralPulse() {
             </p>
             <p className="mt-3 max-w-xs font-body text-sm italic text-brown/60">{takeaway}</p>
             <div className="mt-1 max-w-sm">
-              <SavePrompt isBest={isNewBest} />
+              <SavePrompt isBest={isNewBest} game="peripheral-pulse" />
             </div>
             <button onClick={start} className="btn-primary mt-4">
               Play again
