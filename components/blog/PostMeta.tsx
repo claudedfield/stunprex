@@ -15,6 +15,19 @@ const AUDIENCE_COLOUR: Record<AudienceLayer, string> = {
   Halo:    'bg-mint border-deepblue/20 text-brown/70',
 };
 
+/**
+ * Public chip labels. The internal AudienceLayer taxonomy stays in frontmatter and
+ * types; only the rendered label is reader-facing. "Halo" is internal shorthand for
+ * the wider methodology audience and means nothing to a reader, so it renders as
+ * "General" — same class of leak as the audience-layer language removed in D-WEB-05.
+ */
+const AUDIENCE_LABEL: Record<AudienceLayer, string> = {
+  Player: 'Player',
+  Parent: 'Parent',
+  Coach:  'Coach',
+  Halo:   'General',
+};
+
 export function PostMeta({ date, readingTime, audienceLayer, audienceLayerSecondary }: Props) {
   const formatted = new Date(date).toLocaleDateString('en-GB', {
     year: 'numeric', month: 'long', day: 'numeric',
@@ -31,13 +44,13 @@ export function PostMeta({ date, readingTime, audienceLayer, audienceLayerSecond
       <span
         className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold tracking-wide ${AUDIENCE_COLOUR[audienceLayer]}`}
       >
-        {audienceLayer}
+        {AUDIENCE_LABEL[audienceLayer]}
       </span>
       {audienceLayerSecondary && (
         <span
           className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold tracking-wide opacity-70 ${AUDIENCE_COLOUR[audienceLayerSecondary]}`}
         >
-          {audienceLayerSecondary}
+          {AUDIENCE_LABEL[audienceLayerSecondary]}
         </span>
       )}
     </div>
