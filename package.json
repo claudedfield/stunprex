@@ -8,7 +8,9 @@
   },
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/validate-drill-tags.mjs",
     "build": "next build",
+    "validate:drills": "node scripts/validate-drill-tags.mjs",
     "start": "next start",
     "lint": "next lint"
   },

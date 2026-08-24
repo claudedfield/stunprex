@@ -12,6 +12,7 @@ import {
 } from '@/lib/types/drill';
 import { filterChipClass } from '@/components/ui/filterChip';
 import { trackDrillFilterUsed } from '@/lib/analytics/events';
+import { bandLabel, bandsMatchingQuery } from '@/lib/codex/bands';
 
 const PER_PAGE = 12;
 const DIFFICULTIES = [1, 2, 3, 4, 5];
@@ -163,9 +164,17 @@ export function TrainingIndexClient({ drills }: { drills: DrillCard[] }) {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
+    // A query naming a band ("U10", "u12", "Foundation", "B2") filters by that
+    // band rather than by title/description text — the market searches in
+    // U-notation, which appears in no drill title (LA-01).
+    const queryBands = bandsMatchingQuery(query);
     return drills.filter((d) => {
       const fm = d.frontmatter;
-      if (q && !`${fm.title} ${fm.description}`.toLowerCase().includes(q)) return false;
+      if (q) {
+        const textHit = `${fm.title} ${fm.description}`.toLowerCase().includes(q);
+        const bandHit = queryBands.length > 0 && queryBands.some((b) => fm.ageBand.includes(b));
+        if (!textHit && !bandHit) return false;
+      }
       if (caps.length) {
         const all = [...fm.capacities.primary, ...(fm.capacities.secondary ?? [])];
         if (!caps.some((c) => all.includes(c))) return false;
@@ -201,7 +210,7 @@ export function TrainingIndexClient({ drills }: { drills: DrillCard[] }) {
       {/* Facets — open chip rows, unified with /blog */}
       <div className={`${filtersOpen ? 'block' : 'hidden'} sm:block mb-8 space-y-5`}>
         <FacetGroup label="Capacity family" options={CAPACITY_FAMILIES} selected={caps} onToggle={toggleCap} onClear={() => { setCaps([]); setPage(1); }} />
-        <FacetGroup label="Age band" options={AGE_BANDS} selected={ages} onToggle={toggleAge} onClear={() => { setAges([]); setPage(1); }} />
+        <FacetGroup label="Age band" options={AGE_BANDS} selected={ages} onToggle={toggleAge} onClear={() => { setAges([]); setPage(1); }} format={bandLabel} />
         <FacetGroup label="Difficulty" options={DIFFICULTIES} selected={diffs} onToggle={toggleDiff} onClear={() => { setDiffs([]); setPage(1); }} format={(d) => `Level ${d}`} />
         <FacetGroup label="Theme" options={DRILL_CATEGORIES} selected={cats} onToggle={toggleCat} onClear={() => { setCats([]); setPage(1); }} />
       </div>
@@ -221,7 +230,7 @@ export function TrainingIndexClient({ drills }: { drills: DrillCard[] }) {
           type="search"
           value={query}
           onChange={(e) => { setQuery(e.target.value); setPage(1); }}
-          placeholder="Search drills…"
+          placeholder="Search drills — or an age group like U10…"
           className="w-full rounded-lg border border-deepblue/20 bg-white/60 py-2.5 pl-10 pr-4 text-sm text-brown placeholder:text-brown/35 focus:border-deepblue focus:outline-none focus:ring-2 focus:ring-deepblue/20 transition-colors font-body"
           autoComplete="off"
           spellCheck={false}

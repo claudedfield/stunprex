@@ -10,6 +10,7 @@ import { DrillDiagram, AnimatedDrillDiagram } from '@/components/drill-diagrams'
 import type { DiagramSpec } from '@/components/drill-diagrams';
 import { getDrillBySlug, getAllDrillSlugs } from '@/lib/drills';
 import { DrillReadTracker } from '@/components/analytics/DrillReadTracker';
+import { bandMeta } from '@/lib/codex/bands';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -227,7 +228,27 @@ export default async function DrillDetailPage({ params }: Props) {
                 <div className="grid grid-cols-2 gap-x-4 gap-y-4">
                   <Chip label="Players" value={frontmatter.players} />
                   <Chip label="Equipment" value={frontmatter.equipment} />
-                  <Chip label="Age bands" value={frontmatter.ageBand.join(', ')} />
+                  <div className="col-span-2 flex flex-col gap-0.5">
+                    <span className="font-ui text-[9px] uppercase tracking-widest text-brown/50">
+                      Age bands
+                    </span>
+                    <span className="font-ui text-xs text-deepblue font-semibold">
+                      {frontmatter.ageBand
+                        .map((b) => {
+                          const m = bandMeta(b);
+                          return m ? `${m.range} ${m.name}` : b;
+                        })
+                        .join(' · ')}
+                    </span>
+                    {/* U-notation aliases — the market searches "U10"/"U12" (LA-01).
+                        Rendered so the terms are indexable, not just client-matched. */}
+                    <span className="font-ui text-[10px] text-brown/50">
+                      {frontmatter.ageBand
+                        .map((b) => bandMeta(b)?.uRange)
+                        .filter(Boolean)
+                        .join(' · ') || 'Senior'}
+                    </span>
+                  </div>
                   {frontmatter.playerOperatingPrinciple && (
                     <Chip label="POP" value={frontmatter.playerOperatingPrinciple} />
                   )}
