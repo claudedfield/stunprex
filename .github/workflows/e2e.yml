@@ -119,6 +119,56 @@ jobs:
       - name: Summarise
         if: always()
         run: node scripts/e2e-summary.mjs --github-summary
+
+      # ── Nightly red alert ────────────────────────────────────────────────
+      # Production failures only. PR previews are watched by whoever opened the
+      # PR; the nightly is the run nobody is sitting in front of, so it is the
+      # one that has to reach a human. `cancelled()` covers the job timing out
+      # (timeout-minutes above) as well as a manual cancel.
+      #
+      # LIMIT worth knowing: a run that never STARTS cannot email about itself.
+      # This covers failed, timed-out and cancelled runs, not a scheduler that
+      # never fires. Catching that needs an external dead-man's-switch.
+      - name: Build alert body
+        if: failure() || cancelled()
+        run: |
+          node scripts/e2e-summary.mjs --alert-body e2e-alert.txt || true
+          if [ ! -s e2e-alert.txt ]; then
+            # Playwright itself never produced a report: still say something useful.
+            printf 'The nightly e2e run did not complete normally and produced no test report.\nThe job failed, timed out, or was cancelled before results were written.\n' > e2e-alert.txt
+          fi
+          {
+            echo ""
+            echo "Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          } >> e2e-alert.txt
+
+      - name: Check the mail credentials exist
+        id: mailcreds
+        if: failure() || cancelled()
+        env:
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+        run: |
+          if [ -n "$SMTP_PASS" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::SMTP_PASS is not set, so no alert mail was sent. The run still failed; see the job summary."
+          fi
+
+      - name: Email coo@ that the nightly is red
+        if: (failure() || cancelled()) && steps.mailcreds.outputs.ready == 'true'
+        uses: dawidd6/action-send-mail@v4
+        with:
+          server_address: smtp.hostinger.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.SMTP_USER }}
+          password: ${{ secrets.SMTP_PASS }}
+          from: StunpreX CI <coo@stunprex.com>
+          to: coo@stunprex.com
+          subject: '[NIGHTLY RED] stunprex.com e2e failed — ${{ github.run_started_at }}'
+          body: file://e2e-alert.txt
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:

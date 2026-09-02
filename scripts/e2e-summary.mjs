@@ -19,6 +19,9 @@ const REPO = path.resolve(import.meta.dirname, '..');
 const RESULTS = path.join(REPO, 'e2e-results.json');
 const LEDGER = path.resolve(REPO, '../Q1_Status/e2e_log.md');
 const GITHUB_MODE = process.argv.includes('--github-summary');
+// --alert-body <path>: write a plain-text failure summary for the nightly email.
+const ALERT_IDX = process.argv.indexOf('--alert-body');
+const ALERT_PATH = ALERT_IDX > -1 ? process.argv[ALERT_IDX + 1] : null;
 
 if (!fs.existsSync(RESULTS)) {
   console.error(`[e2e-summary] no results at ${RESULTS} — did the suite run?`);
@@ -83,6 +86,23 @@ const entry = `
 **Failures, verbatim:**
 ${failureBlock}
 `;
+
+if (ALERT_PATH) {
+  // Plain text, no markdown: this is read in an email client.
+  const lines = [
+    `The nightly e2e run against ${baseURL} FAILED.`,
+    '',
+    `${failures.length} failed, ${passed} passed, ${skipped} skipped, ${when}.`,
+    '',
+    'Failing tests:',
+    ...(failures.length
+      ? failures.map((f) => `  - ${f.title} [${f.status}]`)
+      : ['  (the run did not report individual test results)']),
+  ];
+  fs.writeFileSync(ALERT_PATH, `${lines.join('\n')}\n`, 'utf8');
+  console.log(`[e2e-summary] alert body written to ${ALERT_PATH}`);
+  process.exit(0);
+}
 
 if (GITHUB_MODE) {
   const out = process.env.GITHUB_STEP_SUMMARY;
