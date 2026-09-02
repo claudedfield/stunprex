@@ -1,22 +1,23 @@
 name: e2e
 
-# D-WEB-10 — the deterministic tester layer.
+# D-WEB-10 / D-WEB-12 — the deterministic tester layer.
 #
-# Two triggers, two jobs:
-#   preview  — runs when Vercel finishes a PREVIEW deploy. Reports a check on the
-#              PR's commit, so branch protection can block merge on failure.
-#   nightly  — runs against PRODUCTION at 05:00 UTC, catching drift that lands
-#              outside a PR (content edits, upstream/platform changes).
+#   e2e (preview)     — runs on every PR. Waits for Vercel's preview deployment,
+#                       then tests it. If no preview ever arrives (build failed,
+#                       deploy skipped), it FAILS with the reason rather than
+#                       leaving the PR stuck "waiting" on a check that will never
+#                       report. This job owns the `e2e (preview)` context, so
+#                       branch protection always gets an answer.
+#   e2e (production)  — nightly against the canonical host.
 #
-# NOTE FOR WHOEVER OWNS THE REPO SETTINGS: making this actually block merges
-# needs one manual step no workflow can do for itself — add the "e2e (preview)"
-# check to the branch protection rule for `main`. Until then it reports, but
-# does not gate.
+# WHY NOT `deployment_status` FOR THE PREVIEW JOB: that event only fires when a
+# deploy succeeds, so a failed build produces no event, no check, and a PR that
+# blocks forever with no visible cause. Polling from a `pull_request` job inverts
+# that — the check always runs and always concludes. It reads Vercel's deploy via
+# GitHub's own deployments API, so no Vercel token is needed in CI.
 
 on:
-  # Vercel emits deployment_status when a deploy finishes; target_url is the
-  # deployment that was just built. This avoids needing a Vercel API token.
-  deployment_status:
+  pull_request:
   schedule:
     - cron: '0 5 * * *'
   workflow_dispatch:
@@ -24,19 +25,18 @@ on:
       base_url:
         description: 'Target URL to test (defaults to production)'
         required: false
-        default: 'https://www.stunprex.com'
+        default: 'https://stunprex.com'
+
+permissions:
+  contents: read
+  deployments: read
 
 jobs:
   preview:
     name: e2e (preview)
-    # Only for successful PREVIEW deploys — production deploys are covered by
-    # the nightly job, and we must not run twice on the same event.
-    if: >
-      github.event_name == 'deployment_status' &&
-      github.event.deployment_status.state == 'success' &&
-      github.event.deployment.environment != 'Production'
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -45,13 +45,51 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx playwright install --with-deps chromium
+
+      - name: Wait for the Vercel preview deployment
+        id: preview
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          echo "Looking for a preview deployment of $SHA"
+          deadline=$(( SECONDS + 900 ))   # 15 minutes
+          url=""
+          state=""
+          while [ $SECONDS -lt $deadline ]; do
+            # Vercel registers each build as a GitHub deployment on the head SHA.
+            ids=$(gh api "/repos/$REPO/deployments?sha=$SHA&per_page=100" \
+                    --jq '.[].id' 2>/dev/null || true)
+            for id in $ids; do
+              read -r state url < <(gh api "/repos/$REPO/deployments/$id/statuses?per_page=100" \
+                --jq '[.[] | select(.state=="success" or .state=="failure" or .state=="error")][0]
+                      | "\(.state // "") \(.environment_url // .target_url // "")"' 2>/dev/null || echo " ")
+              if [ "${state:-}" = "success" ] && [ -n "${url:-}" ]; then
+                echo "found ready preview: $url"
+                echo "url=$url" >> "$GITHUB_OUTPUT"
+                exit 0
+              fi
+              if [ "${state:-}" = "failure" ] || [ "${state:-}" = "error" ]; then
+                echo "::error::Vercel reported the preview deployment as '$state' for $SHA — the build failed, so there is nothing to test."
+                exit 1
+              fi
+            done
+            sleep 15
+          done
+          echo "::error::No Vercel preview deploy — build likely failed, or the deploy was skipped. Waited 15 minutes for a deployment of $SHA and none reached a conclusive state."
+          exit 1
+
       - name: Run e2e against the preview deployment
         env:
-          E2E_BASE_URL: ${{ github.event.deployment_status.target_url }}
+          E2E_BASE_URL: ${{ steps.preview.outputs.url }}
         run: npx playwright test
+
       - name: Summarise
         if: always()
         run: node scripts/e2e-summary.mjs --github-summary
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -76,7 +114,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - name: Run e2e against production
         env:
-          E2E_BASE_URL: ${{ github.event.inputs.base_url || 'https://www.stunprex.com' }}
+          E2E_BASE_URL: ${{ github.event.inputs.base_url || 'https://stunprex.com' }}
         run: npx playwright test
       - name: Summarise
         if: always()
