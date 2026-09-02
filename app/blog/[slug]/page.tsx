@@ -9,6 +9,7 @@ import { PostMeta } from '@/components/blog/PostMeta';
 import { TableOfContents } from '@/components/blog/TableOfContents';
 import { extractHeadings } from '@/lib/toc';
 import { ShareLinks } from '@/components/blog/ShareLinks';
+import { NewsletterCapture } from '@/components/NewsletterCapture';
 import { mdxComponents } from '@/components/blog/MdxComponents';
 import { getPostBySlug, getAllPostSlugs } from '@/lib/posts';
 import { CATEGORY_SLUGS } from '@/lib/types/post';
@@ -200,6 +201,9 @@ export default async function BlogPostPage({ params }: Props) {
                     Join the community
                   </Link>
                 </div>
+
+                {/* End-of-article newsletter capture (D-WEB-13) */}
+                <NewsletterCapture source="article" variant="card" />
 
                 {/* Share links */}
                 <div className="mt-12 border-t border-deepblue/10 pt-8">

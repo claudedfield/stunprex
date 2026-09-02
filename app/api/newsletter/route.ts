@@ -1,75 +1,37 @@
 /**
- * POST /api/newsletter — email capture.
+ * /api/newsletter — RETIRED (D-WEB-13, 2 Sep 2026).
  *
- * Stores submissions to Vercel Postgres (the fallback store until a newsletter
- * provider is chosen — see Needs Dezső). The subscribers table is created
- * idempotently at runtime: migrations are not wired into the Vercel build, and
- * runtime is where POSTGRES_URL is available, so the route ensures its own table.
+ * Newsletter capture now goes to beehiiv, so this route must not accept writes:
+ * anything landing in Postgres here would be a subscriber beehiiv does not know
+ * about, with no confirmation email and no unsubscribe path. It returns 410 Gone.
  *
- * Accepts JSON ({ email, source }) for fetch callers and form-encoded bodies for
- * a no-JS fallback (responds with a redirect in that case). Single opt-in; double
- * opt-in can layer on once an email provider/SMTP is confirmed.
+ * The `newsletter_subscribers` table is deliberately NOT dropped. Its rows are the
+ * record of everyone who opted in while this route was live, and the consent-basis
+ * decision (whether any of them may be imported into beehiiv) is the COO's, not a
+ * Dev call. Nothing here deletes data.
+ *
+ * Every row in that table is an explicit newsletter opt-in by construction: this
+ * route was its only writer, and authentication emails live in the separate
+ * Auth.js `users` table. Export query for whoever runs it:
+ *
+ *   SELECT source, count(*), min(created_at), max(created_at)
+ *   FROM newsletter_subscribers GROUP BY source ORDER BY count(*) DESC;
+ *
+ * Replace this route with a real beehiiv API integration once beehiiv issues an
+ * API key (currently gated behind an identity check the owner has not completed).
  */
-import { NextResponse, type NextRequest } from 'next/server'
-import { sql } from '@/db'
+import { NextResponse } from 'next/server'
 
-export const runtime = 'nodejs'
-export const dynamic = 'force-dynamic'
+const GONE = {
+  ok: false,
+  error: 'gone',
+  detail: 'Newsletter signup moved to beehiiv. This endpoint no longer accepts submissions.',
+} as const
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
-async function ensureTable(): Promise<void> {
-  await sql`
-    CREATE TABLE IF NOT EXISTS newsletter_subscribers (
-      id         text PRIMARY KEY DEFAULT gen_random_uuid()::text,
-      email      text NOT NULL UNIQUE,
-      source     text,
-      created_at timestamptz NOT NULL DEFAULT now()
-    )
-  `
+export async function POST() {
+  return NextResponse.json(GONE, { status: 410 })
 }
 
-export async function POST(req: NextRequest) {
-  const ctype = req.headers.get('content-type') ?? ''
-  const isForm =
-    ctype.includes('application/x-www-form-urlencoded') || ctype.includes('multipart/form-data')
-
-  let email = ''
-  let source = 'site'
-  try {
-    if (isForm) {
-      const fd = await req.formData()
-      email = String(fd.get('email') ?? '').trim().toLowerCase()
-      source = String(fd.get('source') ?? 'site').slice(0, 40)
-    } else {
-      const body = await req.json()
-      email = String(body?.email ?? '').trim().toLowerCase()
-      source = String(body?.source ?? 'site').slice(0, 40)
-    }
-  } catch {
-    return NextResponse.json({ ok: false, error: 'bad request' }, { status: 400 })
-  }
-
-  if (!EMAIL_RE.test(email) || email.length > 254) {
-    if (isForm) return NextResponse.redirect(new URL('/?newsletter=error', req.url), 303)
-    return NextResponse.json({ ok: false, error: 'invalid email' }, { status: 422 })
-  }
-
-  if (!process.env.POSTGRES_URL) {
-    return NextResponse.json({ ok: false, error: 'storage unavailable' }, { status: 503 })
-  }
-
-  try {
-    await ensureTable()
-    await sql`
-      INSERT INTO newsletter_subscribers (email, source)
-      VALUES (${email}, ${source})
-      ON CONFLICT (email) DO NOTHING
-    `
-  } catch {
-    return NextResponse.json({ ok: false, error: 'storage error' }, { status: 500 })
-  }
-
-  if (isForm) return NextResponse.redirect(new URL('/?newsletter=thanks', req.url), 303)
-  return NextResponse.json({ ok: true })
+export async function GET() {
+  return NextResponse.json(GONE, { status: 410 })
 }

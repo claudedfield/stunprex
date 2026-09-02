@@ -6,6 +6,7 @@ import { Pillars } from '@/components/Pillars';
 import { Methodology } from '@/components/Methodology';
 import { AudienceHubs } from '@/components/AudienceHubs';
 import { JoinCommunity } from '@/components/JoinCommunity';
+import { NewsletterCapture } from '@/components/NewsletterCapture';
 import { Footer } from '@/components/Footer';
 
 export default function HomePage() {
@@ -20,6 +21,7 @@ export default function HomePage() {
         <Methodology />
         <AudienceHubs />
         <JoinCommunity />
+        <NewsletterCapture source="home" />
       </main>
       <Footer />
     </>

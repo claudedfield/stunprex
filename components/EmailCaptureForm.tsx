@@ -1,84 +1,48 @@
-'use client'
 /**
- * EmailCaptureForm — working newsletter capture (posts to /api/newsletter, stored
- * in Postgres). Two variants:
- *   - 'block'  : large centred form (home newsletter section)
- *   - 'inline' : compact form (footer, end-of-article CTA)
- * Progressive enhancement: also works as a plain POST form if JS is disabled
- * (the API redirects in that case); with JS it submits via fetch and shows an
- * inline confirmation without a page reload.
+ * EmailCaptureForm — newsletter capture, wired to beehiiv (D-WEB-13).
+ *
+ * PATTERN B, and the reason matters. The beehiiv embed script was measured before
+ * any UI was written: loading it drops third-party cookies on our origin. Its form
+ * iframe sets `_subscribe_forms_session` plus Cloudflare's `__cf_bm`
+ * (Domain=beehiiv.com, SameSite=None), so shipping the embed would have made
+ * /cookies false, which our e2e legal spec fails on by design.
+ *
+ * So there is no beehiiv script on any StunpreX page. This is a plain first-party
+ * form that GETs to beehiiv's own hosted subscribe page, carrying the address the
+ * visitor typed. A cookie is only ever set once the visitor is on beehiiv's site,
+ * where beehiiv is first party and its own policy applies.
+ *
+ * No JavaScript is required: it is a native GET form, so it works with scripting
+ * disabled. Swap this for the API route once beehiiv issues an API key.
  */
-import { useState, type FormEvent } from 'react'
+
+const BEEHIIV_SUBSCRIBE = 'https://stunprex.beehiiv.com/subscribe';
 
 interface Props {
-  source?: string
-  variant?: 'block' | 'inline'
-  className?: string
+  /** Placement, forwarded to beehiiv as utm_medium for attribution. */
+  source?: string;
+  /** 'block' = large centred; 'inline' = compact. */
+  variant?: 'block' | 'inline';
+  className?: string;
 }
 
 export function EmailCaptureForm({ source = 'site', variant = 'block', className = '' }: Props) {
-  const [email, setEmail] = useState('')
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
-  const [message, setMessage] = useState('')
-
-  async function onSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    if (status === 'submitting') return
-    setStatus('submitting')
-    setMessage('')
-    try {
-      const res = await fetch('/api/newsletter', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, source }),
-      })
-      const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string }
-      if (res.ok && data.ok) {
-        setStatus('success')
-        setMessage("You're on the list. The first issue lands when it's ready, not before.")
-      } else {
-        setStatus('error')
-        setMessage(
-          data.error === 'invalid email'
-            ? 'Please enter a valid email address.'
-            : 'Something went wrong — please try again.'
-        )
-      }
-    } catch {
-      setStatus('error')
-      setMessage('Something went wrong — please try again.')
-    }
-  }
-
-  const isInline = variant === 'inline'
-
-  if (status === 'success') {
-    return (
-      <p
-        role="status"
-        className={
-          isInline
-            ? `text-sm ${className}`
-            : `font-body text-deepblue ${className}`
-        }
-      >
-        ✓ {message}
-      </p>
-    )
-  }
+  const isInline = variant === 'inline';
 
   return (
     <form
-      onSubmit={onSubmit}
-      action="/api/newsletter"
-      method="post"
+      action={BEEHIIV_SUBSCRIBE}
+      method="get"
       className={
         isInline
           ? `flex flex-col gap-2 ${className}`
           : `flex flex-col sm:flex-row gap-3 justify-center ${className}`
       }
     >
-      <input type="hidden" name="source" value={source} />
+      {/* Attribution without beehiiv's attribution.js, which is another third-party script. */}
+      <input type="hidden" name="utm_source" value="stunprex.com" />
+      <input type="hidden" name="utm_medium" value={source} />
+
       <label htmlFor={`nl-email-${source}`} className="sr-only">
         Email address
       </label>
@@ -88,10 +52,7 @@ export function EmailCaptureForm({ source = 'site', variant = 'block', className
         name="email"
         required
         autoComplete="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
         placeholder="your@email.com"
-        aria-invalid={status === 'error'}
         className={
           isInline
             ? 'w-full rounded-md border border-white/25 bg-white/10 px-3 py-2 text-sm text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-orange/50'
@@ -100,20 +61,14 @@ export function EmailCaptureForm({ source = 'site', variant = 'block', className
       />
       <button
         type="submit"
-        disabled={status === 'submitting'}
         className={
           isInline
-            ? 'rounded-md bg-orange px-4 py-2 text-sm font-ui font-medium text-white transition-colors hover:bg-orange/90 disabled:opacity-60'
-            : 'btn-primary disabled:opacity-60'
+            ? 'rounded-md bg-orange px-4 py-2 text-sm font-ui font-medium text-white transition-colors hover:bg-orange/90'
+            : 'btn-primary'
         }
       >
-        {status === 'submitting' ? 'Subscribing…' : 'Subscribe'}
+        Subscribe
       </button>
-      {status === 'error' && (
-        <p role="alert" className={isInline ? 'text-xs text-orange-200' : 'sm:basis-full text-sm text-orange'}>
-          {message}
-        </p>
-      )}
     </form>
-  )
+  );
 }

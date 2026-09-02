@@ -1,76 +1,96 @@
 import { test, expect } from '@playwright/test';
 
 /**
- * Item 4 — newsletter form.
+ * Newsletter capture — beehiiv wiring (D-WEB-13).
  *
- * SCOPE NOTE FOR THE COO — the brief asks for a test that the newsletter form
- * "renders and submits against a mocked endpoint". No newsletter form currently
- * renders anywhere on the site, so that test has nothing to bind to.
+ * Flipped from the D-WEB-10 absence-assertion now that beehiiv is live. Capture is
+ * PATTERN B: a first-party GET form to beehiiv's hosted subscribe page, with no
+ * beehiiv script on any StunpreX page. That choice came from measurement, and
+ * these tests hold the line on it.
  *
- * This is the recorded state, not a defect: D-WEB-05 replaced both capture
- * points per the D2/D8 "newsletter deferred" decision — the home-page section
- * became <JoinCommunity>, and the end-of-article block on blog posts became a
- * community CTA. `NewsletterCapture` and `EmailCaptureForm` still exist in the
- * repo but are imported by nothing; `/api/newsletter` still exists and still
- * writes to Postgres. LIVE_STATE §5 confirms the Beehiiv stand-up has not
- * happened, so the form is expected back only when distribution starts.
- *
- * The brief forbids production changes, so no form was added. Instead:
- *   1. an ACTIVE test pins the current decided state, and will fail the moment
- *      a capture form appears — which is either the Beehiiv work landing (good,
- *      flip the test below on) or an undecided regression (bad, catch it now);
- *   2. the real render-and-submit test is written in full and skipped, so it
- *      activates by deleting one `.skip` once a form ships.
+ * SAFETY: every beehiiv host is intercepted, so a test run can never create a real
+ * subscription. Nothing here submits to a live capture backend.
  */
 
-const CAPTURE_ROUTES = ['/', '/blog/soccer-dribbling-drills', '/community'];
+const CAPTURE_PAGES = [
+  { route: '/', where: 'home' },
+  { route: '/blog/soccer-dribbling-drills', where: 'end of a blog post' },
+];
 
-test('newsletter capture is absent sitewide (D2/D8 deferred — remove when Beehiiv lands)', async ({
-  page,
-}) => {
-  for (const route of CAPTURE_ROUTES) {
+/** Block every beehiiv host so no test can reach the real service. */
+async function sealBeehiiv(page: import('@playwright/test').Page) {
+  const seen: string[] = [];
+  for (const pattern of ['**://*.beehiiv.com/**', '**://beehiiv.com/**']) {
+    await page.route(pattern, async (route) => {
+      seen.push(route.request().url());
+      await route.fulfill({
+        status: 200,
+        contentType: 'text/html',
+        body: '<!doctype html><title>intercepted</title><p>beehiiv intercepted by e2e</p>',
+      });
+    });
+  }
+  return seen;
+}
+
+for (const { route, where } of CAPTURE_PAGES) {
+  test(`newsletter capture renders at ${where}`, async ({ page }) => {
+    await sealBeehiiv(page);
+    await page.goto(route, { waitUntil: 'domcontentloaded' });
+
+    const email = page.locator('input[type="email"]').first();
+    await expect(email, `no capture field at ${where}`).toBeVisible();
+
+    // Pattern B: the form must GET to beehiiv's hosted page, not to our own API.
+    const form = page.locator('form[action*="beehiiv.com"]').first();
+    await expect(form).toHaveAttribute('method', /get/i);
+    await expect(form).toHaveAttribute('action', /stunprex\.beehiiv\.com\/subscribe/);
+
+    await expect(page.getByRole('button', { name: /subscribe/i }).first()).toBeVisible();
+  });
+}
+
+test('no beehiiv script is loaded on our pages', async ({ page }) => {
+  // The embed drops third-party cookies (see EmailCaptureForm). If a script tag
+  // for beehiiv ever appears, /cookies has silently become false.
+  for (const { route } of CAPTURE_PAGES) {
+    await sealBeehiiv(page);
     await page.goto(route, { waitUntil: 'domcontentloaded' });
     await expect(
-      page.locator('input[type="email"]'),
-      `${route} now renders an email capture field. If the Beehiiv newsletter has ` +
-        `been stood up, enable the skipped submit test below and delete this one. ` +
-        `If not, a capture form has appeared without a decision.`,
+      page.locator('script[src*="beehiiv"]'),
+      'a beehiiv script was added: this drops third-party cookies and breaks the /cookies claim',
     ).toHaveCount(0);
   }
 });
 
-test('the community CTA stands in place of the old newsletter block', async ({ page }) => {
-  // What actually replaced the capture form — worth pinning so the swap is not
-  // silently undone.
-  await page.goto('/');
-  await expect(page.getByRole('link', { name: /join the community/i }).first()).toBeVisible();
-});
+test('capture submits to beehiiv with the address, and never to our own API', async ({ page }) => {
+  const reached = await sealBeehiiv(page);
 
-// ---------------------------------------------------------------------------
-// Ready to activate: delete `.skip` when a newsletter form ships.
-// The endpoint is intercepted, so this NEVER reaches the real Postgres-backed
-// /api/newsletter route from CI.
-// ---------------------------------------------------------------------------
-test.skip('newsletter form renders and submits against a mocked endpoint', async ({ page }) => {
-  let submitted: { email?: string } | null = null;
-
+  let ownApiHit = false;
   await page.route('**/api/newsletter', async (route) => {
-    submitted = route.request().postDataJSON?.() ?? null;
-    await route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify({ ok: true }),
-    });
+    ownApiHit = true;
+    await route.fulfill({ status: 410, body: '{"ok":false}' });
   });
 
-  await page.goto('/');
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  await page.locator('input[type="email"]').first().fill('e2e@example.invalid');
+  await page.getByRole('button', { name: /subscribe/i }).first().click();
+  await page.waitForLoadState('domcontentloaded');
 
-  const email = page.locator('input[type="email"]').first();
-  await expect(email).toBeVisible();
-  await email.fill('e2e@example.invalid');
-  await page.getByRole('button', { name: /subscribe|sign up|join/i }).first().click();
+  const target = reached.find((u) => u.includes('/subscribe'));
+  expect(target, 'submitting did not reach the beehiiv subscribe page').toBeTruthy();
 
-  // The request was intercepted — the real capture backend was never touched.
-  await expect.poll(() => submitted?.email).toBe('e2e@example.invalid');
-  await expect(page.getByText(/you.re on the list|thank|confirm/i).first()).toBeVisible();
+  const params = new URL(target!).searchParams;
+  expect(params.get('email'), 'the typed address must be carried to beehiiv').toBe(
+    'e2e@example.invalid',
+  );
+  // Attribution without beehiiv's third-party attribution.js.
+  expect(params.get('utm_source')).toBe('stunprex.com');
+
+  expect(ownApiHit, 'capture must not post to the retired /api/newsletter').toBe(false);
+});
+
+test('/api/newsletter is retired and accepts no writes', async ({ request }) => {
+  const res = await request.post('/api/newsletter', { data: { email: 'e2e@example.invalid' } });
+  expect(res.status(), '/api/newsletter must not accept submissions').toBe(410);
 });
