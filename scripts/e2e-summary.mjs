@@ -22,6 +22,8 @@ const GITHUB_MODE = process.argv.includes('--github-summary');
 // --alert-body <path>: write a plain-text failure summary for the nightly email.
 const ALERT_IDX = process.argv.indexOf('--alert-body');
 const ALERT_PATH = ALERT_IDX > -1 ? process.argv[ALERT_IDX + 1] : null;
+// --gh-output: emit run facts as GitHub step outputs, for the alert subjects.
+const GH_OUTPUT = process.argv.includes('--gh-output');
 
 if (!fs.existsSync(RESULTS)) {
   console.error(`[e2e-summary] no results at ${RESULTS} — did the suite run?`);
@@ -86,6 +88,25 @@ const entry = `
 **Failures, verbatim:**
 ${failureBlock}
 `;
+
+if (GH_OUTPUT) {
+  // Info mode for the workflow: never fails, so a red run's gating stays driven
+  // by the test step rather than by this script's exit code.
+  const out = process.env.GITHUB_OUTPUT;
+  const facts = {
+    passed: String(passed),
+    failed: String(failures.length),
+    skipped: String(skipped),
+    total: String(rows.length),
+    date: when,
+  };
+  const text = Object.entries(facts)
+    .map(([k, v]) => `${k}=${v}`)
+    .join('\n');
+  if (out) fs.appendFileSync(out, `${text}\n`, 'utf8');
+  console.log(`[e2e-summary] run facts: ${text.replace(/\n/g, ' ')}`);
+  process.exit(0);
+}
 
 if (ALERT_PATH) {
   // Plain text, no markdown: this is read in an email client.
