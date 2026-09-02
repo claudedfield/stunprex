@@ -130,8 +130,17 @@ jobs:
       # This covers failed, timed-out and cancelled runs, not a scheduler that
       # never fires. Catching that needs an external dead-man's-switch.
       - name: Build alert body
+        id: alertbody
         if: failure() || cancelled()
+        env:
+          # Must match the target the tests actually ran against, or the mail
+          # names the wrong site. Without this the summary falls back to the
+          # config default and would always claim production.
+          E2E_BASE_URL: ${{ github.event.inputs.base_url || 'https://stunprex.com' }}
         run: |
+          # github.run_started_at is empty in this context, so the subject date is
+          # computed here rather than templated from the github context.
+          echo "date=$(date -u '+%Y-%m-%d %H:%M UTC')" >> "$GITHUB_OUTPUT"
           node scripts/e2e-summary.mjs --alert-body e2e-alert.txt || true
           if [ ! -s e2e-alert.txt ]; then
             # Playwright itself never produced a report: still say something useful.
@@ -166,7 +175,7 @@ jobs:
           password: ${{ secrets.SMTP_PASS }}
           from: StunpreX CI <coo@stunprex.com>
           to: coo@stunprex.com
-          subject: '[NIGHTLY RED] stunprex.com e2e failed — ${{ github.run_started_at }}'
+          subject: '[NIGHTLY RED] stunprex.com e2e failed — ${{ steps.alertbody.outputs.date }}'
           body: file://e2e-alert.txt
 
       - uses: actions/upload-artifact@v4
