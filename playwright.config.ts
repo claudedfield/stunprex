@@ -8,11 +8,10 @@ import { defineConfig, devices } from '@playwright/test';
  *   PR runs      → the Vercel preview deployment
  *   nightly runs → production
  *
- * Default is the current canonical host. D-WEB-11 (edge 301, www → non-www) will
- * flip that; when it lands, change this one default. Redirects are followed
- * either way, so the suite keeps passing across the switch.
+ * Default is the canonical host: the apex. D-WEB-12 flipped the Vercel primary
+ * domain, so www now 308s here. Redirects are followed either way.
  */
-const baseURL = process.env.E2E_BASE_URL ?? 'https://www.stunprex.com';
+const baseURL = process.env.E2E_BASE_URL ?? 'https://stunprex.com';
 
 export default defineConfig({
   testDir: './e2e',

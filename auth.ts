@@ -41,18 +41,18 @@ export const authConfig: NextAuthConfig = {
        */
       server: process.env.EMAIL_SERVER ?? 'smtp://localhost:25',
       sendVerificationRequest: async ({ identifier: email, url }) => {
-        // The site serves on www (apex 307-redirects to www). AUTH_URL is currently
-        // apex, so Auth.js builds the magic link on apex — clicking it 307s to www
-        // mid-callback and the verification cookie/session is dropped. Normalise the
-        // link (and its embedded callbackUrl) to the served host so the click lands
-        // directly on www, no redirect. Harmless no-op once AUTH_URL = www (Needs Dezső).
-        const link = new URL(url)
-        if (link.hostname === 'stunprex.com') link.hostname = 'www.stunprex.com'
-        const cb = link.searchParams.get('callbackUrl')
-        if (cb && cb.includes('://stunprex.com')) {
-          link.searchParams.set('callbackUrl', cb.replace('://stunprex.com', '://www.stunprex.com'))
-        }
-        await sendMagicLink(email, link.toString())
+        // The magic link is sent exactly as Auth.js builds it — on the apex, which
+        // is the canonical served host since D-WEB-12 flipped the Vercel primary
+        // domain (www now 308s to the apex).
+        //
+        // This previously rewrote the link apex -> www, because the redirect ran the
+        // other way and a cross-host hop mid-callback dropped the session. After the
+        // flip that rewrite inverted: it sent the link to www and put a 308 back into
+        // the callback path — reintroducing the very hop it existed to remove. The
+        // rule it encoded still holds, so keep it in mind if the canonical host ever
+        // moves again: the link host must equal the served host, with no redirect
+        // between the click and the callback.
+        await sendMagicLink(email, url)
       },
     }),
   ],
