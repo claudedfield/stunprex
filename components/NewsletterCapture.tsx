@@ -12,6 +12,7 @@
  * Copy rule: no invented social proof. We have one subscriber, and manufactured
  * numbers are a refused pattern.
  */
+import type { ReactNode } from 'react';
 import { EmailCaptureForm } from './EmailCaptureForm';
 
 interface Props {
@@ -19,6 +20,13 @@ interface Props {
   source?: string;
   /** 'section' = full-width band (home); 'card' = boxed (end of an article). */
   variant?: 'section' | 'card';
+  /**
+   * Optional secondary action under the card, rendered as quiet text rather than
+   * a second button. Used at the end of an article to keep the community
+   * reachable (D-WEB-05's intent) without giving it equal visual weight to the
+   * newsletter, which is now the primary distribution action (D-WEB-13-FU).
+   */
+  footer?: ReactNode;
 }
 
 const HEADING = 'A weekly dispatch on individual development';
@@ -26,7 +34,7 @@ const LINE =
   'Methodology pieces and a drill of the week. No hype, and you can unsubscribe anytime.';
 const CONFIRM_NOTE = 'Double opt-in: beehiiv sends a confirmation email before anything else.';
 
-export function NewsletterCapture({ source = 'home', variant = 'section' }: Props) {
+export function NewsletterCapture({ source = 'home', variant = 'section', footer }: Props) {
   if (variant === 'card') {
     return (
       <div className="mt-12 rounded-xl border border-deepblue/15 bg-deepblue/[0.03] p-6 sm:p-8 text-center">
@@ -35,6 +43,11 @@ export function NewsletterCapture({ source = 'home', variant = 'section' }: Prop
         <p className="text-brown/75 font-body text-sm mb-5 max-w-md mx-auto">{LINE}</p>
         <EmailCaptureForm source={source} variant="block" />
         <p className="mt-3 text-xs text-brown/60 italic">{CONFIRM_NOTE}</p>
+        {footer ? (
+          <p className="mt-5 border-t border-deepblue/10 pt-4 font-ui text-sm text-brown/70">
+            {footer}
+          </p>
+        ) : null}
       </div>
     );
   }

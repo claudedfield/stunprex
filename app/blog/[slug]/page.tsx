@@ -186,24 +186,20 @@ export default async function BlogPostPage({ params }: Props) {
                   <MDXRemote source={source} components={mdxComponents} />
                 </div>
 
-                {/* End-of-article community CTA */}
-                <div className="mt-12 rounded-xl border border-deepblue/15 bg-deepblue/[0.03] p-6 sm:p-8 text-center">
-                  <p className="font-ui text-xs uppercase tracking-widest text-orange mb-2">
-                    Community
-                  </p>
-                  <h2 className="font-heading text-deepblue text-xl mb-2">
-                    Talk it through with other players, parents, and coaches
-                  </h2>
-                  <p className="text-brown/75 font-body text-sm mb-5 max-w-md mx-auto">
-                    Free membership. Ask a question, post an answer, no engagement-bait.
-                  </p>
-                  <Link href="/community" className="btn-primary">
-                    Join the community
-                  </Link>
-                </div>
-
-                {/* End-of-article newsletter capture (D-WEB-13) */}
-                <NewsletterCapture source="article" variant="card" />
+                {/* End-of-article block (D-WEB-13-FU): one card, not two. The
+                    newsletter is the primary distribution action; the community
+                    stays reachable from every article as a quiet text link,
+                    which preserves D-WEB-05's intent without competing for
+                    visual weight. */}
+                <NewsletterCapture
+                  source="article"
+                  variant="card"
+                  footer={
+                    <Link href="/community" className="underline underline-offset-2 hover:text-orange">
+                      Or bring a question to the community
+                    </Link>
+                  }
+                />
 
                 {/* Share links */}
                 <div className="mt-12 border-t border-deepblue/10 pt-8">
