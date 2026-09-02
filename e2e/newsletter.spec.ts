@@ -90,6 +90,28 @@ test('capture submits to beehiiv with the address, and never to our own API', as
   expect(ownApiHit, 'capture must not post to the retired /api/newsletter').toBe(false);
 });
 
+test('end of a blog post is ONE card, with community as a text link', async ({ page }) => {
+  // COO decision, D-WEB-13-FU: two stacked cards was clutter. The newsletter is
+  // the primary distribution action; the community stays reachable from every
+  // article (D-WEB-05's intent) but as quiet text, not a competing button.
+  await sealBeehiiv(page);
+  await page.goto('/blog/soccer-dribbling-drills', { waitUntil: 'domcontentloaded' });
+
+  const cards = page.locator('article > div.rounded-xl');
+  await expect(cards, 'the end-of-article block must be a single card').toHaveCount(1);
+
+  // Exactly one primary action inside it, and it is the newsletter.
+  await expect(cards.first().getByRole('button', { name: /subscribe/i })).toBeVisible();
+  await expect(
+    page.locator('a[href="/community"].btn-primary'),
+    'the community link must not be a second primary button',
+  ).toHaveCount(0);
+
+  await expect(cards.first().locator('a[href="/community"]')).toHaveText(
+    /bring a question to the community/i,
+  );
+});
+
 test('/api/newsletter is retired and accepts no writes', async ({ request }) => {
   const res = await request.post('/api/newsletter', { data: { email: 'e2e@example.invalid' } });
   expect(res.status(), '/api/newsletter must not accept submissions').toBe(410);
