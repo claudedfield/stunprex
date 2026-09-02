@@ -1,0 +1,91 @@
+name: e2e
+
+# D-WEB-10 — the deterministic tester layer.
+#
+# Two triggers, two jobs:
+#   preview  — runs when Vercel finishes a PREVIEW deploy. Reports a check on the
+#              PR's commit, so branch protection can block merge on failure.
+#   nightly  — runs against PRODUCTION at 05:00 UTC, catching drift that lands
+#              outside a PR (content edits, upstream/platform changes).
+#
+# NOTE FOR WHOEVER OWNS THE REPO SETTINGS: making this actually block merges
+# needs one manual step no workflow can do for itself — add the "e2e (preview)"
+# check to the branch protection rule for `main`. Until then it reports, but
+# does not gate.
+
+on:
+  # Vercel emits deployment_status when a deploy finishes; target_url is the
+  # deployment that was just built. This avoids needing a Vercel API token.
+  deployment_status:
+  schedule:
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: 'Target URL to test (defaults to production)'
+        required: false
+        default: 'https://www.stunprex.com'
+
+jobs:
+  preview:
+    name: e2e (preview)
+    # Only for successful PREVIEW deploys — production deploys are covered by
+    # the nightly job, and we must not run twice on the same event.
+    if: >
+      github.event_name == 'deployment_status' &&
+      github.event.deployment_status.state == 'success' &&
+      github.event.deployment.environment != 'Production'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Run e2e against the preview deployment
+        env:
+          E2E_BASE_URL: ${{ github.event.deployment_status.target_url }}
+        run: npx playwright test
+      - name: Summarise
+        if: always()
+        run: node scripts/e2e-summary.mjs --github-summary
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report-preview
+          path: |
+            playwright-report/
+            e2e-results.json
+          retention-days: 14
+
+  nightly:
+    name: e2e (production)
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Run e2e against production
+        env:
+          E2E_BASE_URL: ${{ github.event.inputs.base_url || 'https://www.stunprex.com' }}
+        run: npx playwright test
+      - name: Summarise
+        if: always()
+        run: node scripts/e2e-summary.mjs --github-summary
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report-production
+          path: |
+            playwright-report/
+            e2e-results.json
+          retention-days: 30
