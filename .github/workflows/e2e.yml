@@ -120,17 +120,27 @@ jobs:
         if: always()
         run: node scripts/e2e-summary.mjs --github-summary
 
-      # ── Nightly red alert ────────────────────────────────────────────────
-      # Production failures only. PR previews are watched by whoever opened the
-      # PR; the nightly is the run nobody is sitting in front of, so it is the
-      # one that has to reach a human. `cancelled()` covers the job timing out
-      # (timeout-minutes above) as well as a manual cancel.
+      # ── Nightly mail to coo@ ─────────────────────────────────────────────
+      # Production runs only. PR previews are watched by whoever opened the PR;
+      # the nightly is the run nobody is sitting in front of, so it is the one
+      # that has to reach a human.
       #
-      # LIMIT worth knowing: a run that never STARTS cannot email about itself.
-      # This covers failed, timed-out and cancelled runs, not a scheduler that
-      # never fires. Catching that needs an external dead-man's-switch.
+      # RED on failure, timeout or cancellation (`cancelled()` covers the
+      # timeout-minutes above as well as a manual cancel). OK heartbeat on
+      # green, so that silence itself becomes the alarm: a run that never
+      # STARTS cannot email about itself, but its missing heartbeat is
+      # visible. The COO cycle treats no OK and no RED within 30h as
+      # scheduler-dead. That also covers GitHub disabling scheduled workflows
+      # after 60 days without commits.
+
+      # Run facts for both subjects, from the same parser the ledger uses so the
+      # numbers cannot disagree. Info mode: never fails the job.
+      - name: Collect run facts
+        id: facts
+        if: always()
+        run: node scripts/e2e-summary.mjs --gh-output || true
+
       - name: Build alert body
-        id: alertbody
         if: failure() || cancelled()
         env:
           # Must match the target the tests actually ran against, or the mail
@@ -138,9 +148,6 @@ jobs:
           # config default and would always claim production.
           E2E_BASE_URL: ${{ github.event.inputs.base_url || 'https://stunprex.com' }}
         run: |
-          # github.run_started_at is empty in this context, so the subject date is
-          # computed here rather than templated from the github context.
-          echo "date=$(date -u '+%Y-%m-%d %H:%M UTC')" >> "$GITHUB_OUTPUT"
           node scripts/e2e-summary.mjs --alert-body e2e-alert.txt || true
           if [ ! -s e2e-alert.txt ]; then
             # Playwright itself never produced a report: still say something useful.
@@ -153,7 +160,7 @@ jobs:
 
       - name: Check the mail credentials exist
         id: mailcreds
-        if: failure() || cancelled()
+        if: always()
         env:
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
         run: |
@@ -161,7 +168,7 @@ jobs:
             echo "ready=true" >> "$GITHUB_OUTPUT"
           else
             echo "ready=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::SMTP_PASS is not set, so no alert mail was sent. The run still failed; see the job summary."
+            echo "::warning::SMTP_PASS is not set, so no alert mail was sent. See the job summary for the run outcome."
           fi
 
       - name: Email coo@ that the nightly is red
@@ -175,8 +182,28 @@ jobs:
           password: ${{ secrets.SMTP_PASS }}
           from: StunpreX CI <coo@stunprex.com>
           to: coo@stunprex.com
-          subject: '[NIGHTLY RED] stunprex.com e2e failed — ${{ steps.alertbody.outputs.date }}'
+          subject: '[NIGHTLY RED] stunprex.com e2e failed — ${{ steps.facts.outputs.date }}'
           body: file://e2e-alert.txt
+
+      # Heartbeat (D-WEB-14-FU). A scheduler that silently stops firing cannot
+      # alert about itself, so silence is made meaningful instead: one line on
+      # every green nightly. The COO cycle treats no [NIGHTLY OK] and no
+      # [NIGHTLY RED] within 30h as scheduler-dead. No new infrastructure, and
+      # it also covers GitHub disabling scheduled workflows after 60 days of no
+      # commits on a quiet repo.
+      - name: Email coo@ the nightly heartbeat
+        if: success() && steps.mailcreds.outputs.ready == 'true'
+        uses: dawidd6/action-send-mail@v4
+        with:
+          server_address: smtp.hostinger.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.SMTP_USER }}
+          password: ${{ secrets.SMTP_PASS }}
+          from: StunpreX CI <coo@stunprex.com>
+          to: coo@stunprex.com
+          subject: '[NIGHTLY OK] stunprex.com ${{ steps.facts.outputs.date }} ${{ steps.facts.outputs.passed }}/${{ steps.facts.outputs.total }}'
+          body: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
       - uses: actions/upload-artifact@v4
         if: always()
