@@ -64,6 +64,9 @@ components/           Composable React components
   AudienceHubs.tsx NewsletterCapture.tsx Footer.tsx ComingSoon.tsx
 lib/
   nav.ts                Locked eight-section nav + utility nav
+content/drills/       Drill MDX library (see docs/drill-authoring.md)
+docs/
+  drill-authoring.md    Drill frontmatter template and the build gate it must satisfy
 public/               Static assets
 tailwind.config.ts    Locked palette + typography variables
 ```
@@ -106,6 +109,9 @@ plan.
 - No fake testimonials
 - Affordability is a stance — Free tier is genuinely usable, cancel path always visible
 - Capacity-first content design — every Article/Drill must carry at least one capacity tag
+- Codex provenance on drills: every drill declares `codex_release: R1`, so a drill still
+  carrying legacy conviction numbering cannot pass as valid. Enforced at build time by
+  `scripts/validate-drill-tags.mjs`; see [docs/drill-authoring.md](docs/drill-authoring.md)
 
 ## Licence
 
