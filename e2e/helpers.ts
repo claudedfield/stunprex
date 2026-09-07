@@ -59,6 +59,9 @@ export const GOLDEN_ROUTES = [
   '/pricing',
   '/training/yes-rondo',
   '/blog/soccer-dribbling-drills',
+  // D-WEB-19, published 7 Sep 2026.
+  '/blog/what-the-scoreboard-leaves-out-young-soccer-player',
+  '/blog/sleep-is-training-what-soccer-parents-can-protect',
 ] as const;
 
 /** Live game slugs — mirrors lib/games/registry.ts. */

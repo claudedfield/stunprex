@@ -110,9 +110,26 @@ for (const file of files) {
 }
 
 // ── Blog posts: codexAnchors.convictions use the same identifier space ───────
+// Plus the em-dash rule (owner rule, 6 September 2026). It is dated on purpose:
+// the eleven posts published before that date carry 279 em-dashes between them
+// and are a separate copy-hygiene sweep, not this gate's business. Gating only
+// posts dated on or after the rule stops new copy from regressing without
+// failing the build on history.
+const EMDASH_RULE_FROM = '2026-09-06';
 const POSTS = path.resolve(REPO, 'content/posts');
 for (const file of FIXTURE_MODE ? [] :  fs.readdirSync(POSTS).filter((f) => f.endsWith('.mdx')).sort()) {
   const text = fs.readFileSync(path.join(POSTS, file), 'utf8');
+  const date = text.match(/^date:[ \t]*"?([0-9]{4}-[0-9]{2}-[0-9]{2})"?/m)?.[1];
+  if (date && date >= EMDASH_RULE_FROM) {
+    const body = text.split(/^---$/m)[2] ?? '';
+    const n = (body.match(/\u2014/g) ?? []).length;
+    if (n) {
+      problems.push(
+        `posts/${file}: ${n} em-dash(es) in the body; the owner rule of ${EMDASH_RULE_FROM} allows none`,
+      );
+    }
+  }
+
   const m = text.match(/^codexAnchors:\s*\n\s*convictions:[ \t]*\[([^\]]*)\]/m);
   if (!m) continue;
   const bad = m[1]
