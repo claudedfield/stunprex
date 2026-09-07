@@ -23,6 +23,7 @@ export const metadata: Metadata = {
     description: 'A calm, methodology-grounded Q&A community for football development.',
     url: 'https://stunprex.com/community',
   },
+  alternates: { canonical: 'https://stunprex.com/community' },
 }
 
 interface CommunityPageProps {

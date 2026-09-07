@@ -11,6 +11,7 @@ export const metadata = {
   title: 'The Commit Window — Cognitive Games',
   description:
     'A defender approaches. A window opens briefly — tap inside it. Train the timing and impulse control that separates a committed dribble from a reckless lunge. Free to play; sign in to save your score.',
+  alternates: { canonical: 'https://stunprex.com/games/commit-window' },
 };
 
 export default async function Page() {

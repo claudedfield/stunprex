@@ -3,6 +3,7 @@ import { ComingSoon } from '@/components/ComingSoon';
 export const metadata = {
   title: 'Pricing',
   description: 'StunpreX pricing — coming soon. No paid tiers yet.',
+  alternates: { canonical: 'https://stunprex.com/pricing' },
 };
 
 export default function Page() {

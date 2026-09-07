@@ -11,6 +11,7 @@ export const metadata = {
   title: 'Pattern Break — Cognitive Games',
   description:
     'Read the repeating pattern, then catch the moment it changes — without over-calling. A signal-detection game that trains anticipation and inhibition. Free to play; sign in to save your score.',
+  alternates: { canonical: 'https://stunprex.com/games/pattern-break' },
 };
 
 export default async function Page() {

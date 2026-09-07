@@ -11,6 +11,7 @@ export const metadata = {
   title: 'Hold Your Nerve — Cognitive Games',
   description:
     'A gentle precision task while the atmosphere builds — never punitive. Trains focus and composure under rising pressure. Free to play; sign in to save your score.',
+  alternates: { canonical: 'https://stunprex.com/games/hold-your-nerve' },
 };
 
 export default async function Page() {

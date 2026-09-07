@@ -11,6 +11,7 @@ export const metadata = {
   title: 'Koi Pond — Cognitive Games',
   description:
     'Feed every fish once while the pond moves. A tracking-and-memory game that trains selective attention. Free to play; sign in to save your score.',
+  alternates: { canonical: 'https://stunprex.com/games/koi-pond' },
 };
 
 export default async function Page() {

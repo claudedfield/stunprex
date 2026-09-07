@@ -11,6 +11,7 @@ export const metadata = {
   title: 'Peripheral Pulse — Cognitive Games',
   description:
     'Eyes on the centre digit. Catch what flickers at the edge. A dual-task game that trains peripheral detection while holding central focus — the awareness that lets you sense the run you never turned to look at. Free to play; sign in to save your score.',
+  alternates: { canonical: 'https://stunprex.com/games/peripheral-pulse' },
 };
 
 export default async function Page() {

@@ -11,6 +11,7 @@ export const metadata = {
   title: 'Two Things at Once — Cognitive Games',
   description:
     'Keep the ball under your finger while you answer the call. A divided-attention game that shows you the cost of doing two things at once. Free to play; sign in to save your score.',
+  alternates: { canonical: 'https://stunprex.com/games/two-things-at-once' },
 };
 
 export default async function Page() {

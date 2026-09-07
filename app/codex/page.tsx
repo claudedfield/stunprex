@@ -3,6 +3,7 @@ import { ComingSoon } from '@/components/ComingSoon';
 export const metadata = {
   title: 'Codex',
   description: 'The StunpreX Codex — the methodology of individual football development.',
+  alternates: { canonical: 'https://stunprex.com/codex' },
 };
 
 export default function Page() {

@@ -8,6 +8,7 @@ export const metadata = {
   title: 'Cognitive Games',
   description:
     'Small games that train the perception, decision-making and attention a footballer leans on. Honestly scored — no inflated promises of on-pitch transfer.',
+  alternates: { canonical: 'https://stunprex.com/games' },
 };
 
 export default function Page() {

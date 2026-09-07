@@ -11,6 +11,7 @@ export const metadata = {
   title: 'Shoulder Check — Cognitive Games',
   description:
     'Markers flash at the edges as the ball approaches. Then tell us what you saw. A scanning game that trains the habit of gathering information before you act. Free to play; sign in to save your score.',
+  alternates: { canonical: 'https://stunprex.com/games/shoulder-check' },
 };
 
 export default async function Page() {
