@@ -11,6 +11,7 @@ export const metadata = {
   title: 'Pass Lanes — Cognitive Games',
   description:
     'Pick the best pass before the lane closes. A decision-under-pressure game that trains reading options fast. Free to play; sign in to save your score.',
+  alternates: { canonical: 'https://stunprex.com/games/pass-lanes' },
 };
 
 export default async function Page() {

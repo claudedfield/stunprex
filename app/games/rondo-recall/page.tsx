@@ -11,6 +11,7 @@ export const metadata = {
   title: 'Rondo Recall — Cognitive Games',
   description:
     'Players flash positions, then vanish — recall where they were. A spatial working-memory game that trains knowing the picture without a second glance. Free to play; sign in to save your score.',
+  alternates: { canonical: 'https://stunprex.com/games/rondo-recall' },
 };
 
 export default async function Page() {

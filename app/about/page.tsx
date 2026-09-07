@@ -7,6 +7,7 @@ export const metadata = {
   title: 'About',
   description:
     'What StunpreX is — a methodology-first hub for individual football development, built for the player doing the work, the parent funding it, and the coach multiplying it across a squad.',
+  alternates: { canonical: 'https://stunprex.com/about' },
 };
 
 export default function Page() {

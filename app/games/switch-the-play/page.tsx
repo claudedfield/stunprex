@@ -11,6 +11,7 @@ export const metadata = {
   title: 'Switch the Play — Cognitive Games',
   description:
     'The rule just changed — route by colour, now by direction. A task-switching game that trains cognitive flexibility and shows your switch-cost. Free to play; sign in to save your score.',
+  alternates: { canonical: 'https://stunprex.com/games/switch-the-play' },
 };
 
 export default async function Page() {
