@@ -39,6 +39,12 @@ export interface CodexAnchors {
 
 export interface PostFrontmatter {
   title: string;
+  /**
+   * Optional search-snippet title. An H1 may run longer than a search result
+   * wants, so a post can carry a shorter title for the <title>, Open Graph and
+   * Twitter tags while the H1 keeps the full headline. Falls back to `title`.
+   */
+  metaTitle?: string;
   slug: string;
   date: string;              // ISO date string
   lastModified?: string;     // ISO date string; falls back to date

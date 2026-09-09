@@ -37,16 +37,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { frontmatter } = post;
   const canonicalUrl = frontmatter.canonical ?? `https://stunprex.com/blog/${slug}`;
   const ogImage = frontmatter.ogImage ?? '/og-image.jpg';
+  // The H1 keeps the full headline; the snippet title is shorter where a post
+  // sets one. Image alt stays the H1, which is what describes the article.
+  const metaTitle = frontmatter.metaTitle ?? frontmatter.title;
 
   return {
-    title: frontmatter.title,
+    title: metaTitle,
     description: frontmatter.description,
     keywords: [frontmatter.keywords.primary, ...frontmatter.keywords.secondary],
     alternates: {
       canonical: canonicalUrl,
     },
     openGraph: {
-      title: frontmatter.title,
+      title: metaTitle,
       description: frontmatter.description,
       type: 'article',
       url: canonicalUrl,
@@ -65,7 +68,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: frontmatter.title,
+      title: metaTitle,
       description: frontmatter.description,
       images: [ogImage],
     },

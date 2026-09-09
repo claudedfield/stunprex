@@ -39,28 +39,28 @@ const CAPACITY_DESCRIPTION: Record<CapacityFamily, string> = {
 // develop or illustrate this capacity. Keeps the topic cluster interlinked.
 const RELATED_READING: Record<string, { href: string; label: string }[]> = {
   perceptual: [
-    { href: '/blog/perceptual-capacity', label: 'Perceptual Capacity: What the Game Asks You to See' },
+    { href: '/blog/perceptual-capacity', label: 'Perceptual capacity: what the game asks you to see' },
     { href: '/blog/rodri-spatial-intelligence', label: 'Pro Breakdown: Rodri’s positional intelligence' },
-    { href: '/blog/scanning-while-dribbling', label: 'When scanning is the dribble — Xavi’s habit' },
+    { href: '/blog/scanning-while-dribbling', label: 'When scanning is the dribble: Xavi’s habit' },
   ],
   cognitive: [
-    { href: '/blog/cognitive-capacity', label: 'The Cognitive Capacity: How Players Think in Football' },
-    { href: '/blog/how-to-dribble-in-tight-spaces', label: 'How to dribble in tight spaces — the 1v1 commit window' },
+    { href: '/blog/cognitive-capacity', label: 'The cognitive capacity: how players think in football' },
+    { href: '/blog/how-to-dribble-in-tight-spaces', label: 'How to dribble in tight spaces: the 1v1 commit window' },
     { href: '/blog/rodri-spatial-intelligence', label: 'Pro Breakdown: Rodri’s decision-making' },
   ],
   motor: [
-    { href: '/blog/soccer-dribbling-drills', label: 'Soccer dribbling drills — the complete guide' },
-    { href: '/blog/weak-foot-dribbling-drills', label: 'Both feet, or half a player — the weak-foot drill' },
+    { href: '/blog/soccer-dribbling-drills', label: 'Soccer dribbling drills: the complete training guide' },
+    { href: '/blog/weak-foot-dribbling-drills', label: 'Weak foot dribbling drills: a progression that holds up under pressure' },
   ],
   communication: [
-    { href: '/blog/xhaka-communication-composure', label: 'Pro Breakdown: What Xhaka rebuilt — communication & composure' },
+    { href: '/blog/xhaka-communication-composure', label: 'Pro Breakdown: What Xhaka rebuilt, communication & composure' },
   ],
   affective: [
     { href: '/blog/xhaka-communication-composure', label: 'Pro Breakdown: Xhaka on composure under pressure' },
-    { href: '/blog/on-deselection-next-ten-minutes-days-months', label: 'On deselection — the next ten minutes, ten days, ten months' },
+    { href: '/blog/on-deselection-next-ten-minutes-days-months', label: 'On deselection: the next ten minutes, ten days, ten months' },
   ],
   adaptive: [
-    { href: '/blog/creative-dribbling-drills', label: 'Creative dribbling drills — how constraints train creativity' },
+    { href: '/blog/creative-dribbling-drills', label: 'Creative dribbling drills: how constraints train creativity' },
   ],
 };
 
