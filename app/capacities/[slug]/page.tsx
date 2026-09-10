@@ -1,4 +1,4 @@
-// /capacities/[slug] — Capacity family cross-linking page.
+// /capacities/[slug]: capacity family cross-linking page.
 // Lists all drills that train a given primary capacity family.
 // Required by §7 verification: /capacities/perceptual must show both drill titles.
 import { notFound } from 'next/navigation';
@@ -26,7 +26,7 @@ const CAPACITY_DESCRIPTION: Record<CapacityFamily, string> = {
   Cognitive:
     'Decision-making, working memory, attention management, and the ability to plan and adapt under time pressure.',
   Motor:
-    'Technical execution — first touch quality, footwork, body mechanics, and movement efficiency in all conditions.',
+    'Technical execution: first touch quality, footwork, body mechanics, and movement efficiency in all conditions.',
   Communication:
     'Verbal and non-verbal communication with teammates, anticipating movement, and co-ordinating collective action.',
   Affective:
@@ -35,7 +35,7 @@ const CAPACITY_DESCRIPTION: Record<CapacityFamily, string> = {
     'Reading environmental change, adjusting tactics and technique on the fly, and building flexible response repertoires.',
 };
 
-// Curated related reading per capacity family — essays + Pro Breakdowns that
+// Curated related reading per capacity family: essays + Pro Breakdowns that
 // develop or illustrate this capacity. Keeps the topic cluster interlinked.
 const RELATED_READING: Record<string, { href: string; label: string }[]> = {
   perceptual: [
@@ -79,7 +79,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!cap) return {};
 
   return {
-    title: `${cap} Capacity — StunpreX Drills`,
+    title: `${cap} Capacity: StunpreX Drills`,
     description: `Football drills that develop the ${cap} capacity: ${CAPACITY_DESCRIPTION[cap]}`,
     alternates: { canonical: `https://stunprex.com/capacities/${slug}` },
   };
@@ -130,7 +130,7 @@ export default async function CapacityPage({ params }: Props) {
           ) : (
             <>
               <p className="font-ui text-xs uppercase tracking-widest text-brown/40 mb-6">
-                {drills.length} drill{drills.length !== 1 ? 's' : ''} — {cap} as primary capacity
+                {drills.length} drill{drills.length !== 1 ? 's' : ''}, {cap} as primary capacity
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {drills.map(({ frontmatter, slug: drillSlug }) => (
