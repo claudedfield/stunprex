@@ -42,3 +42,21 @@ test('404 page renders and is not a soft-200', async ({ page }) => {
   await expect(page.locator('h1')).toHaveCount(1);
   await expect(page.locator('footer')).toContainText('DField Kft.');
 });
+
+/**
+ * D-WEB-20: a post may carry a shorter `metaTitle` for the search snippet while
+ * the H1 keeps the full headline. This asserts the two are actually different on
+ * the weak-foot post, so a regression that dropped the field back to `title`
+ * would fail rather than pass quietly.
+ */
+test('metaTitle is read into <title> and the H1 keeps the full headline', async ({ page }) => {
+  const H1 = 'Weak foot dribbling drills: a progression that holds up under pressure';
+  const META = 'Weak foot dribbling drills that hold up under pressure';
+
+  await page.goto('/blog/weak-foot-dribbling-drills', { waitUntil: 'domcontentloaded' });
+
+  await expect(page.locator('h1')).toHaveText(H1);
+  const title = await page.title();
+  expect(title, 'the <title> must come from metaTitle').toContain(META);
+  expect(title, 'the <title> must not be the longer H1').not.toContain(H1);
+});
