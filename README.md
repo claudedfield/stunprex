@@ -67,6 +67,7 @@ lib/
 content/drills/       Drill MDX library (see docs/drill-authoring.md)
 docs/
   drill-authoring.md    Drill frontmatter template and the build gate it must satisfy
+  mechanical-copy-passes.md  How a scripted pass over content broke, and what to do instead
 public/               Static assets
 tailwind.config.ts    Locked palette + typography variables
 ```
