@@ -10,19 +10,46 @@
  * The pattern list lives in content-lint-patterns.mjs so a future mechanical
  * pass can extend it in the same commit that risks a new defect shape.
  *
- *   node scripts/content-lint.mjs                 → the real corpus
- *   node scripts/content-lint.mjs --dir <path>    → a fixture directory
+ *   node scripts/content-lint.mjs                 → the real corpus and UI scope
+ *   node scripts/content-lint.mjs --dir <path>    → one MDX fixture directory only
+ *   node scripts/content-lint.mjs --ui <file>     → one UI source fixture only (D-WEB-23)
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { PATTERNS, unmatchedBold } from './content-lint-patterns.mjs';
+import { PATTERNS, unmatchedBold, UI_SCOPE, emDashesInStrings } from './content-lint-patterns.mjs';
 
 const REPO = path.resolve(import.meta.dirname, '..');
+// A fixture flag narrows the run to that fixture alone, so fixture tests never
+// depend on the state of the real corpus or the real UI files.
 const flag = process.argv.indexOf('--dir');
+const uiFlag = process.argv.indexOf('--ui');
+const FIXTURE = flag > -1 || uiFlag > -1;
 const DIRS =
   flag > -1
     ? [path.resolve(process.argv[flag + 1])]
-    : [path.join(REPO, 'content/posts'), path.join(REPO, 'content/drills')];
+    : FIXTURE
+      ? []
+      : [path.join(REPO, 'content/posts'), path.join(REPO, 'content/drills')];
+
+/** Expand UI_SCOPE; a trailing slash means every .ts or .tsx file under it. */
+function uiFiles() {
+  if (uiFlag > -1) return [path.resolve(process.argv[uiFlag + 1])];
+  if (FIXTURE) return [];
+  const out = [];
+  const walk = (dir) => {
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, e.name);
+      if (e.isDirectory()) walk(full);
+      else if (/\.tsx?$/.test(e.name)) out.push(full);
+    }
+  };
+  for (const entry of UI_SCOPE) {
+    const full = path.join(REPO, entry);
+    if (entry.endsWith('/')) walk(full);
+    else out.push(full);
+  }
+  return out.sort();
+}
 
 const problems = [];
 let files = 0;
@@ -53,8 +80,32 @@ for (const dir of DIRS) {
   }
 }
 
+// UI source (D-WEB-23): em-dashes in user-visible strings. Comments are skipped.
+for (const full of uiFiles()) {
+  const rel = path.relative(REPO, full);
+  if (!fs.existsSync(full)) {
+    problems.push({
+      file: rel,
+      line: 0,
+      label: 'UI scope file missing',
+      why: 'A path in UI_SCOPE does not exist. Fix the scope; a missing file must not pass silently.',
+    });
+    continue;
+  }
+  const text = fs.readFileSync(full, 'utf8');
+  files += 1;
+  for (const { line, text: snippet } of emDashesInStrings(text)) {
+    problems.push({
+      file: rel,
+      line,
+      label: 'em-dash in a user-visible string',
+      why: `The house rule allows no em-dashes in anything the site shows; use a colon, comma, full stop or restructure: "${snippet}"`,
+    });
+  }
+}
+
 if (problems.length) {
-  console.error(`\n[content-lint] BUILD FAILED — ${problems.length} copy defect(s):\n`);
+  console.error(`\n[content-lint] BUILD FAILED: ${problems.length} copy defect(s):\n`);
   const seen = new Set();
   for (const p of problems) {
     console.error(`  ✗ ${p.file}:${p.line}  ${p.label}`);
@@ -70,4 +121,4 @@ if (problems.length) {
   process.exit(1);
 }
 
-console.log(`[content-lint] OK — ${files} file(s) clean against ${PATTERNS.length + 1} defect patterns.`);
+console.log(`[content-lint] OK: ${files} file(s) clean against ${PATTERNS.length + 2} checks.`);

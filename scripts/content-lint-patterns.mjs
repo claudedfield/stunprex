@@ -69,3 +69,62 @@ export function unmatchedBold(source) {
   });
   return out;
 }
+
+/**
+ * D-WEB-23 · UI source files checked for em-dashes in user-visible strings.
+ *
+ * THIS IS THE UI SCOPE TO EXTEND. Part B of D-WEB-23 widens it to app/ and
+ * components/ once its reviewed diff has merged. Paths are repo-relative; a
+ * trailing slash means every .ts or .tsx file under that directory.
+ *
+ * LIMITATION, read before widening: only string literals are checked. JSX text
+ * between tags is not, and an apostrophe in JSX text ("don't") would be misread
+ * as the start of a string. layout.tsx has neither, which is why it is safe to
+ * gate now. Part B must add JSX text handling before this list reaches
+ * components/.
+ */
+export const UI_SCOPE = ['app/layout.tsx'];
+
+/**
+ * Em-dashes inside string literals ('...', "...", `...`), skipping line and
+ * block comments, because a comment is not output. A "//" inside a string such
+ * as a URL is string content, not the start of a comment.
+ * Returns [{ line, text }], one entry per em-dash.
+ */
+export function emDashesInStrings(source) {
+  const hits = [];
+  let state = 'code'; // code | line | block | sq | dq | tpl
+  let line = 1;
+  let lineStart = 0;
+  for (let i = 0; i < source.length; i++) {
+    const c = source[i];
+    const n = source[i + 1];
+    if (c === '\n') {
+      line += 1;
+      lineStart = i + 1;
+      if (state === 'line') state = 'code';
+      continue;
+    }
+    if (state === 'code') {
+      if (c === '/' && n === '/') { state = 'line'; i++; }
+      else if (c === '/' && n === '*') { state = 'block'; i++; }
+      else if (c === "'") state = 'sq';
+      else if (c === '"') state = 'dq';
+      else if (c === '`') state = 'tpl';
+    } else if (state === 'block') {
+      if (c === '*' && n === '/') { state = 'code'; i++; }
+    } else if (state !== 'line') {
+      if (c === '\\') {
+        if (n === '\n') { line += 1; lineStart = i + 2; }
+        i++;
+      } else if ((state === 'sq' && c === "'") || (state === 'dq' && c === '"') || (state === 'tpl' && c === '`')) {
+        state = 'code';
+      } else if (c === '—') {
+        const end = source.indexOf('\n', i);
+        hits.push({ line, text: source.slice(lineStart, end === -1 ? undefined : end).trim().slice(0, 90) });
+      }
+    }
+  }
+  return hits;
+}
+

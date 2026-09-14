@@ -62,3 +62,38 @@ test('every defect pattern is caught, and all in one run', () => {
     expect(out, `pattern not caught: ${label}`).toContain(label);
   }
 });
+
+/**
+ * D-WEB-23: the UI scope. layout.tsx carried the site default title and Open
+ * Graph string with an em-dash, which put one on the share preview of every page
+ * that does not set its own. The lint now reads string literals in UI files.
+ */
+function lintUi(file: string): { code: number; out: string } {
+  try {
+    return {
+      code: 0,
+      out: execFileSync('node', ['scripts/content-lint.mjs', '--ui', file], { cwd: REPO, encoding: 'utf8' }),
+    };
+  } catch (err) {
+    const e = err as { status?: number; stdout?: string; stderr?: string };
+    return { code: e.status ?? 1, out: `${e.stdout ?? ''}${e.stderr ?? ''}` };
+  }
+}
+
+test('an em-dash in a user-visible UI string fails the lint, naming file and line', () => {
+  const { code, out } = lintUi(path.join(REPO, 'e2e/fixtures/content-lint-ui/dirty.tsx'));
+  expect(code).toBe(1);
+  expect(out).toContain('em-dash in a user-visible string');
+  expect(out).toContain('dirty.tsx:3');
+  // Line 4 opens with a URL string. If its "//" were read as a comment, the
+  // em-dash in the next string on that line would be hidden and this would fail.
+  expect(out).toContain('dirty.tsx:4');
+  // Line 2 is a comment; a comment is not output.
+  expect(out).not.toContain('dirty.tsx:2');
+});
+
+test('em-dashes in comments are ignored, and clean strings pass', () => {
+  const { code, out } = lintUi(path.join(REPO, 'e2e/fixtures/content-lint-ui/clean.tsx'));
+  expect(code, out).toBe(0);
+});
+
