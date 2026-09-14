@@ -5,7 +5,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Check your email — StunpreX',
+  title: 'Check your email · StunpreX',
   robots: { index: false, follow: false },
 }
 

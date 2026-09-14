@@ -178,10 +178,10 @@ export function ShoulderCheck() {
       setAccuracy(acc);
       setTakeaway(
         s >= 8
-          ? 'Strong scanning — you encoded the margins clearly.'
+          ? 'Strong scanning: you encoded the margins clearly.'
           : s >= 5
-          ? 'Decent scan — try to hold each marker a moment longer before the next appears.'
-          : 'The information was there — keep the habit of scanning before the ball arrives.',
+          ? 'Decent scan. Try to hold each marker a moment longer before the next appears.'
+          : 'The information was there. Keep the habit of scanning before the ball arrives.',
       );
       setPhase('over');
       if (isAuthed) {
@@ -355,11 +355,11 @@ export function ShoulderCheck() {
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#EAF4F2]/95 p-6 text-center">
             <h3 className="font-heading text-2xl text-deepblue">Shoulder Check</h3>
             <p className="mt-2 max-w-md font-body text-sm leading-relaxed text-brown/80">
-              Markers flash at the edges as the ball approaches — then you answer a question
+              Markers flash at the edges as the ball approaches. Then you answer a question
               about what you saw. Blue&nbsp;=&nbsp;teammate · Red&nbsp;=&nbsp;opponent.
             </p>
             <button onClick={start} className="btn-primary mt-5">
-              Start — {REPS} reps
+              Start ({REPS} reps)
             </button>
           </div>
         )}

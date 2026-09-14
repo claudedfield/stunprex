@@ -27,7 +27,7 @@ export function SavePrompt({ isBest, game }: { isBest: boolean; game: string }) 
   if (isAuthed) {
     return (
       <p className="mt-3 text-sm text-deepblue">
-        {isBest ? 'New personal best — saved to your profile.' : 'Saved to your profile.'}
+        {isBest ? 'New personal best, saved to your profile.' : 'Saved to your profile.'}
       </p>
     );
   }
@@ -35,8 +35,8 @@ export function SavePrompt({ isBest, game }: { isBest: boolean; game: string }) 
   return (
     <div className="mt-4 rounded-lg border border-deepblue/12 bg-deepblue/[0.03] p-4">
       <p className="text-sm text-brown/80 font-body">
-        Want to keep your score and track progress over time? Create a free account —
-        it takes a minute and the free tier stays genuinely usable.
+        Want to keep your score and track progress over time? Create a free account.
+        It takes a minute and the free tier stays genuinely usable.
       </p>
       <div className="mt-3 flex items-center justify-center gap-4">
         <Link href="/signin" className="btn-primary">

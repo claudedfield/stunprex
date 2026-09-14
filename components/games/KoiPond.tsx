@@ -314,11 +314,11 @@ export function KoiPond() {
                 <h3 className="font-heading text-deepblue text-2xl">Koi Pond</h3>
                 <p className="mt-2 max-w-md text-brown/80 font-body">
                   Feed every fish once. Wait for the feed timer between feeds. Don’t
-                  feed any fish twice — track them by colour as they swim. Clear the
+                  feed any fish twice: track them by colour as they swim. Clear the
                   pond and it grows.
                 </p>
                 <button onClick={start} className="btn-primary mt-5">
-                  Start — 60 seconds
+                  Start (60 seconds)
                 </button>
               </>
             ) : (
@@ -334,8 +334,8 @@ export function KoiPond() {
                   <p className="mt-1 text-sm text-brown/70">Accuracy {accuracy}%.</p>
                   <p className="mt-3 max-w-sm text-sm text-brown/60 italic">
                     {stats.doubles > 2
-                      ? 'You re-fed a few — lock each fish to its colour before you feed.'
-                      : 'Clean tracking — next round, feed the pond a little faster.'}
+                      ? 'You re-fed a few. Lock each fish to its colour before you feed.'
+                      : 'Clean tracking. Next round, feed the pond a little faster.'}
                   </p>
                 </div>
                 <div className="max-w-sm">

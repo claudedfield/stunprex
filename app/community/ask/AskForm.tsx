@@ -86,7 +86,7 @@ export default function AskForm({ categories, categoryLabels, tags }: AskFormPro
       <div className="space-y-6">
         <div className="rounded-lg border border-deepblue/20 bg-white p-6">
           <p className="text-xs font-ui font-medium text-deepblue/50 uppercase tracking-wide mb-4">
-            Preview — review before posting
+            Preview: review before posting
           </p>
 
           <h2 className="font-display text-xl font-bold text-deepblue mb-2">{title}</h2>
@@ -179,7 +179,7 @@ export default function AskForm({ categories, categoryLabels, tags }: AskFormPro
         <label htmlFor="body" className="block font-ui text-sm font-medium text-deepblue mb-1">
           Question body{' '}
           <span className="text-brown/40 font-normal text-xs">
-            — context, what you&rsquo;ve tried, what you&rsquo;re specifically asking
+            (context, what you&rsquo;ve tried, what you&rsquo;re specifically asking)
           </span>
         </label>
         <textarea
@@ -199,7 +199,7 @@ export default function AskForm({ categories, categoryLabels, tags }: AskFormPro
         <p className="font-ui text-sm font-medium text-deepblue mb-1.5">
           Tags{' '}
           <span className="text-brown/40 font-normal text-xs">
-            — up to 5, optional
+            (up to 5, optional)
           </span>
         </p>
         <div className="flex flex-wrap gap-1.5">

@@ -105,7 +105,7 @@ export default function EditQuestionForm({
       </div>
 
       <div>
-        <p className="font-ui text-sm font-medium text-deepblue mb-1.5">Tags <span className="text-brown/40 font-normal text-xs">— up to 5</span></p>
+        <p className="font-ui text-sm font-medium text-deepblue mb-1.5">Tags <span className="text-brown/40 font-normal text-xs">(up to 5)</span></p>
         <div className="flex flex-wrap gap-1.5">
           {tags.map((tag) => {
             const selected = selectedTagIds.includes(tag.id)

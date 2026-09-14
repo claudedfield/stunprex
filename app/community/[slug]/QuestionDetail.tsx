@@ -212,7 +212,7 @@ export default function QuestionDetail({
               value={answerBody}
               onChange={(e) => setAnswerBody(e.target.value)}
               rows={8}
-              placeholder="Share your answer. Markdown is supported — code blocks, links, images from approved hosts."
+              placeholder="Share your answer. Markdown is supported: code blocks, links, images from approved hosts."
               className="w-full rounded-lg border border-deepblue/20 px-4 py-3 font-body text-sm text-brown placeholder:text-brown/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40 resize-y min-h-[180px]"
               aria-label="Your answer"
             />

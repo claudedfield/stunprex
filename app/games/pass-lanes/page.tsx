@@ -8,7 +8,7 @@ import { auth } from '@/auth';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'Pass Lanes — Cognitive Games',
+  title: 'Pass Lanes · Cognitive Games',
   description:
     'Pick the best pass before the lane closes. A decision-under-pressure game that trains reading options fast. Free to play; sign in to save your score.',
   alternates: { canonical: 'https://stunprex.com/games/pass-lanes' },
@@ -33,7 +33,7 @@ export default async function Page() {
           howToPlay={
             <>
               <p>You’re on the ball at the bottom. Teammates wait up the pitch, each in a lane a defender is shutting.</p>
-              <p>Before the clock runs out, tap the teammate whose lane is most open — the best pass available right now.</p>
+              <p>Before the clock runs out, tap the teammate whose lane is most open: the best pass available right now.</p>
               <p>Lanes close fast and the gap between options narrows as you go. Quick, correct reads score best.</p>
             </>
           }

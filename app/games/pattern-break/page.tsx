@@ -8,9 +8,9 @@ import { auth } from '@/auth';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'Pattern Break — Cognitive Games',
+  title: 'Pattern Break · Cognitive Games',
   description:
-    'Read the repeating pattern, then catch the moment it changes — without over-calling. A signal-detection game that trains anticipation and inhibition. Free to play; sign in to save your score.',
+    'Read the repeating pattern, then catch the moment it changes, without over-calling. A signal-detection game that trains anticipation and inhibition. Free to play; sign in to save your score.',
   alternates: { canonical: 'https://stunprex.com/games/pattern-break' },
 };
 
@@ -32,7 +32,7 @@ export default async function Page() {
           isAuthed={isAuthed}
           howToPlay={
             <>
-              <p>A short sequence of tiles repeats in a loop — learn the pattern as it runs.</p>
+              <p>A short sequence of tiles repeats in a loop: learn the pattern as it runs.</p>
               <p>Most steps follow it, but sometimes a step breaks the pattern. Hit “Break!” the moment you spot the deviation.</p>
               <p>Don’t over-call: tapping when it actually followed is a false alarm. Catch the real breaks, ignore the rest.</p>
             </>

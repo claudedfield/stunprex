@@ -200,11 +200,11 @@ export function TwoThingsAtOnce() {
     let takeaway: string;
     if (cost <= 4) {
       takeaway =
-        `Your tracking barely moved (${cost}%) once the second task started — rare, and a sign you ` +
+        `Your tracking barely moved (${cost}%) once the second task started: rare, and a sign you ` +
         `left real attention to spare. Most players drop more.`;
     } else {
       takeaway =
-        `Your tracking dipped ${cost}% once the second task started — that's the cost of divided ` +
+        `Your tracking dipped ${cost}% once the second task started. That's the cost of divided ` +
         `attention, and everyone pays it. The skill isn't avoiding the tax, it's keeping it small.`;
     }
 
@@ -462,13 +462,13 @@ export function TwoThingsAtOnce() {
                 <h3 className="font-heading text-2xl text-deepblue">Two Things at Once</h3>
                 <p className="mt-2 max-w-md font-body text-brown/80">
                   Keep your finger on the moving ball. First you only track it. Then,
-                  while still tracking, a chip flashes at the top — tap <strong>Now!</strong>{' '}
+                  while still tracking, a chip flashes at the top: tap <strong>Now!</strong>{' '}
                   only when it&rsquo;s <span className="font-semibold text-orange">orange</span>,
                   ignore every other colour. The point is what happens to your tracking once the
                   second job starts.
                 </p>
                 <button onClick={start} className="btn-primary mt-5">
-                  Start — track only, then both
+                  Start (track only, then both)
                 </button>
               </>
             ) : (
@@ -495,7 +495,7 @@ export function TwoThingsAtOnce() {
                       Dual-task cost <strong>−{result.cost}%</strong> tracking
                     </p>
                     <p className="mt-1 text-sm">
-                      Cues — hits <strong>{result.hits}</strong> · misses{' '}
+                      Cues: hits <strong>{result.hits}</strong> · misses{' '}
                       <strong>{result.misses}</strong> · false alarms{' '}
                       <strong>{result.falseAlarms}</strong>
                     </p>

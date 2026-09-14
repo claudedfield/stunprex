@@ -14,7 +14,7 @@ import { ALL_CATEGORIES, CATEGORY_LABELS } from '@/lib/types/community'
 import WelcomeForm from './WelcomeForm'
 
 export const metadata: Metadata = {
-  title: 'Welcome — StunpreX Community',
+  title: 'Welcome · StunpreX Community',
   robots: { index: false, follow: false },
 }
 
@@ -41,7 +41,7 @@ export default async function WelcomePage() {
           <p className="font-body text-base text-brown/80 leading-relaxed max-w-lg">
             This is a place for players, parents, coaches, and everyone who takes the game seriously
             on a long horizon. Ask questions, share what you&rsquo;ve learned, and engage with others
-            who are building the same things you are — with patience and without shortcuts.
+            who are building the same things you are, with patience and without shortcuts.
           </p>
           <p className="font-body text-sm text-brown/60 mt-3 leading-relaxed">
             Read anything without signing in. Post, answer, and upvote as a member.
@@ -55,7 +55,7 @@ export default async function WelcomePage() {
             Your first move
           </h2>
           <p className="font-body text-sm text-brown/70 mb-4">
-            Drop a line in the welcome thread — where you&rsquo;re at, who you&rsquo;re developing,
+            Drop a line in the welcome thread: where you&rsquo;re at, who you&rsquo;re developing,
             what question you came here with.
           </p>
           <Link

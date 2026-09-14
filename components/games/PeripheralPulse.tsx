@@ -263,12 +263,12 @@ export function PeripheralPulse() {
 
   const takeaway =
     centralHitPct < 40
-      ? "Your central focus drifted — don't abandon the centre digit task to chase pulses."
+      ? "Your central focus drifted. Don't abandon the centre digit task to chase pulses."
       : periphHitPct < 40
-      ? 'You held the centre well but missed many pulses — keep the wide view active.'
+      ? 'You held the centre well but missed many pulses. Keep the wide view active.'
       : combined >= 65
-      ? 'Strong dual-task — you held both the centre and the edges.'
-      : 'Decent run — the training effect builds with repetition.';
+      ? 'Strong dual-task: you held both the centre and the edges.'
+      : 'Decent run: the training effect builds with repetition.';
 
   return (
     <div className="max-w-[640px]">
@@ -328,7 +328,7 @@ export function PeripheralPulse() {
 
             {/* CENTRE ZONE */}
             <button
-              aria-label={`Tap centre — target is ${targetDigit}`}
+              aria-label={`Tap centre, target is ${targetDigit}`}
               onClick={handleCenterTap}
               className="flex h-full flex-1 flex-col items-center justify-center gap-2 border-x border-deepblue/10 focus:outline-none"
             >
@@ -378,7 +378,7 @@ export function PeripheralPulse() {
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#EAF4F2]/95 p-6 text-center">
             <h3 className="font-heading text-2xl text-deepblue">Peripheral Pulse</h3>
             <p className="mt-2 max-w-md font-body text-sm leading-relaxed text-brown/80">
-              Eyes centre. The big digit changes every few seconds — tap the centre area
+              Eyes centre. The big digit changes every few seconds. Tap the centre area
               when it matches your target. Orange pulses appear left or right: tap that side
               to register them. You can't win by ignoring the centre.
             </p>

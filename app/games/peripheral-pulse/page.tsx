@@ -8,9 +8,9 @@ import { auth } from '@/auth';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'Peripheral Pulse — Cognitive Games',
+  title: 'Peripheral Pulse · Cognitive Games',
   description:
-    'Eyes on the centre digit. Catch what flickers at the edge. A dual-task game that trains peripheral detection while holding central focus — the awareness that lets you sense the run you never turned to look at. Free to play; sign in to save your score.',
+    'Eyes on the centre digit. Catch what flickers at the edge. A dual-task game that trains peripheral detection while holding central focus: the awareness that lets you sense the run you never turned to look at. Free to play; sign in to save your score.',
   alternates: { canonical: 'https://stunprex.com/games/peripheral-pulse' },
 };
 
@@ -35,14 +35,14 @@ export default async function Page() {
               <p>
                 The centre zone shows a large digit that changes every few seconds. Your
                 target digit is shown in the header. Tap the centre whenever the digit
-                matches your target — and only then.
+                matches your target, and only then.
               </p>
               <p>
                 While you hold that central focus, orange pulses appear briefly in the left
                 or right zone. Tap that side to register each pulse before it fades.
               </p>
               <p>
-                Your score combines peripheral accuracy with central accuracy — abandoning
+                Your score combines peripheral accuracy with central accuracy. Abandoning
                 the centre digit task to chase pulses drags the combined score down. 60
                 seconds, continuous difficulty ramp.
               </p>

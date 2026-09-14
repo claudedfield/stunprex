@@ -222,13 +222,13 @@ export function SwitchThePlay() {
 
     let line: string;
     if (acc < 60) {
-      line = 'The rule kept moving and the routes slipped — slow down and read the banner first; the matching gets cleaner with reps.';
+      line = 'The rule kept moving and the routes slipped. Slow down and read the banner first; the matching gets cleaner with reps.';
     } else if (sw.length === 0 || rp.length === 0) {
       line = 'Clean routing. Play again for a longer read on how switches land for you.';
     } else if (cost <= 80) {
-      line = 'You adapted fast — a small switch-cost. The rule changed and you barely slowed.';
+      line = 'You adapted fast: a small switch-cost. The rule changed and you barely slowed.';
     } else {
-      line = `The switches cost you about ${cost}ms — that lag is the adapt tax, and it shrinks with reps.`;
+      line = `The switches cost you about ${cost}ms. That lag is the adapt tax, and it shrinks with reps.`;
     }
     setTakeaway(line);
 
@@ -460,11 +460,11 @@ export function SwitchThePlay() {
             <h3 className="font-heading text-2xl text-deepblue">Switch the Play</h3>
             <p className="mt-2 max-w-md font-body text-sm leading-relaxed text-brown/80">
               A token appears in the centre with a <b>colour</b> and an <b>arrow</b>. The banner at
-              the top tells you which one to route by — tap the matching corner. The rule holds for
+              the top tells you which one to route by: tap the matching corner. The rule holds for
               a few trials, then <b>switches</b>. We track how fast you adjust after each switch.
             </p>
             <button onClick={start} className="btn-primary mt-5">
-              Start — {TRIALS} trials
+              Start ({TRIALS} trials)
             </button>
           </div>
         )}

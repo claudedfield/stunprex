@@ -5,12 +5,12 @@ const BENEFITS = [
   {
     title: 'Capacity-tagged training',
     body:
-      'Every drill names the human capacities it builds — perceptual, cognitive, motor, communication, affective, adaptive. Train what you actually need.',
+      'Every drill names the human capacities it builds: perceptual, cognitive, motor, communication, affective, adaptive. Train what you actually need.',
   },
   {
     title: 'A defended methodology',
     body:
-      'A specific, falsifiable set of beliefs about how players develop — age-band pathways, on-pitch operating principles, and a clear list of what we refuse to do.',
+      'A specific, falsifiable set of beliefs about how players develop: age-band pathways, on-pitch operating principles, and a clear list of what we refuse to do.',
   },
   {
     title: 'Process, not promises',

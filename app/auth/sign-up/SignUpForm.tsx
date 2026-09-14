@@ -85,7 +85,7 @@ export default function SignUpForm() {
             className="mt-0.5 h-4 w-4 rounded border-deepblue/30 text-deepblue accent-deepblue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40"
           />
           <label htmlFor="newsletter" className="text-xs font-body text-brown/60 leading-relaxed">
-            Email me occasional updates from StunpreX — methodology notes, new content,
+            Email me occasional updates from StunpreX: methodology notes, new content,
             and community highlights. You can unsubscribe any time.
           </label>
         </div>

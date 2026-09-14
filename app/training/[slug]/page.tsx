@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const canonicalUrl = `https://stunprex.com/training/${slug}`;
 
   return {
-    title: `${frontmatter.title} — StunpreX Drill Library`,
+    title: `${frontmatter.title} · StunpreX Drill Library`,
     description: frontmatter.description,
     alternates: { canonical: canonicalUrl },
     openGraph: {
@@ -125,7 +125,7 @@ export default async function DrillDetailPage({ params }: Props) {
             </nav>
 
             <p className="font-ui text-xs uppercase tracking-widest text-orange mb-2">
-              Drill — {frontmatter.drillId}
+              Drill {frontmatter.drillId}
             </p>
             <h1 className="font-heading text-deepblue mb-3 max-w-3xl">{frontmatter.title}</h1>
             <p className="max-w-2xl text-lg text-brown/70 font-body leading-relaxed">

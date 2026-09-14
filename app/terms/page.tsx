@@ -3,7 +3,7 @@ import { LegalPage } from '@/components/LegalPage';
 export const metadata = {
   title: 'Terms of Use',
   description:
-    'The terms that apply when you use StunpreX — what the platform is, what it is not, acceptable use, intellectual property, and liability.',
+    'The terms that apply when you use StunpreX: what the platform is, what it is not, acceptable use, intellectual property, and liability.',
 };
 
 export default function Page() {
@@ -13,7 +13,7 @@ export default function Page() {
 
       <ul>
         <li>
-          <strong>What StunpreX is:</strong> an educational football-development platform —
+          <strong>What StunpreX is:</strong> an educational football-development platform:
           methodology, articles, drills, and games. Content is for general developmental and
           informational purposes; it is <strong>not</strong> medical, physiotherapeutic, or
           professional coaching advice for an individual. Train sensibly and consult a

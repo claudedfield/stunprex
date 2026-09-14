@@ -13,15 +13,15 @@ export default function Page() {
 
       <ul>
         <li>
-          <strong>Essential cookies</strong> — sign-in/session and security. These are
+          <strong>Essential cookies</strong>: sign-in/session and security. These are
           required for the site to function and don&rsquo;t need consent.
         </li>
         <li>
-          <strong>Preference cookies</strong> — remember choices (e.g. reduced-motion,
+          <strong>Preference cookies</strong>: remember choices (e.g. reduced-motion,
           filters), stored locally where possible.
         </li>
         <li>
-          <strong>Analytics</strong> — we use Vercel Analytics, which is cookieless and
+          <strong>Analytics</strong>: we use Vercel Analytics, which is cookieless and
           collects no personal data; it sets no cookies and requires no consent banner. If we
           ever adopt analytics that use cookies, this policy and a consent mechanism will be
           updated first.

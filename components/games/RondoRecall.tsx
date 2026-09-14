@@ -129,12 +129,12 @@ export function RondoRecall() {
     setTotalMis(misSum);
     setTakeaway(
       span >= 7
-        ? `Your spatial span held to ${span} — that is map-in-the-head territory; the picture stayed whole as it filled.`
+        ? `Your spatial span held to ${span}. That is map-in-the-head territory; the picture stayed whole as it filled.`
         : span >= 5
-        ? `Your span held honestly to ${span}. Most rondo scans live around four to five — you held the shape past that.`
+        ? `Your span held honestly to ${span}. Most rondo scans live around four to five. You held the shape past that.`
         : span >= START_N
         ? `Your span held to ${span}. That is a clean working-memory snapshot; the next cell is where it gets harder.`
-        : `The picture held for a moment — building the habit of reading the whole board at once is the work.`,
+        : `The picture held for a moment. Building the habit of reading the whole board at once is the work.`,
     );
     setPhase('over');
     if (isAuthed) {
@@ -278,7 +278,7 @@ export function RondoRecall() {
               {phase === 'showing' && <span className="text-orange">Read the board…</span>}
               {phase === 'recall' && (
                 <span className="text-deepblue">
-                  Place {n} — {remainingTaps} to go
+                  Place {n} · {remainingTaps} to go
                 </span>
               )}
               {phase === 'feedback' && (
@@ -362,11 +362,11 @@ export function RondoRecall() {
             <h3 className="font-heading text-2xl text-deepblue">Rondo Recall</h3>
             <p className="mt-2 max-w-md font-body text-sm leading-relaxed text-brown/80">
               A handful of cells light up as “players”, then vanish. Tap the cells where they
-              were. Get them all and the next round adds one — the view window shrinks as the
+              were. Get them all and the next round adds one. The view window shrinks as the
               span deepens. Two missed rounds ends it.
             </p>
             <button onClick={start} className="btn-primary mt-5">
-              Start — span {START_N}
+              Start (span {START_N})
             </button>
           </div>
         )}

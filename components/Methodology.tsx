@@ -31,7 +31,7 @@ export function Methodology() {
             <h2 className="font-heading text-white">A methodology, not a marketing line</h2>
             <p className="mt-6 text-white/85 text-lg leading-relaxed">
               Most platforms sell a promise. StunpreX trains on a set of specific,
-              falsifiable beliefs about how players actually develop — the ones players
+              falsifiable beliefs about how players actually develop: the ones players
               love, the ones parents argue with, and the ones academies don&rsquo;t want to
               hear.
             </p>

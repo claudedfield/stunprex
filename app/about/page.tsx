@@ -6,7 +6,7 @@ import { PageHero } from '@/components/PageHero';
 export const metadata = {
   title: 'About',
   description:
-    'What StunpreX is — a methodology-first hub for individual football development, built for the player doing the work, the parent funding it, and the coach multiplying it across a squad.',
+    'What StunpreX is: a methodology-first hub for individual football development, built for the player doing the work, the parent funding it, and the coach multiplying it across a squad.',
   alternates: { canonical: 'https://stunprex.com/about' },
 };
 
@@ -18,7 +18,7 @@ export default function Page() {
         <PageHero
           eyebrow="About"
           title="What StunpreX is"
-          lede="A methodology-first hub for individual football development — built for the player doing the work, the parent funding it, and the coach multiplying it across a squad."
+          lede="A methodology-first hub for individual football development, built for the player doing the work, the parent funding it, and the coach multiplying it across a squad."
         />
 
         {/* Opening */}
@@ -40,8 +40,8 @@ export default function Page() {
           </h2>
           <div className="max-w-3xl space-y-6 text-brown/85 text-lg leading-relaxed">
             <p>
-              <strong className="font-semibold text-brown">Six trained capacities</strong> — perceptual,
-              cognitive, motor, communication, affective, adaptive — name what a drill actually
+              <strong className="font-semibold text-brown">Six trained capacities</strong> (perceptual,
+              cognitive, motor, communication, affective, adaptive) name what a drill actually
               exercises. Every drill here is tagged with the ones it builds, so training can be
               aimed instead of accumulated.
             </p>
@@ -57,7 +57,7 @@ export default function Page() {
             </p>
             <p>
               <strong className="font-semibold text-brown">A published list of what we refuse to build
-              around</strong> — because a methodology unwilling to say what it rejects is not
+              around</strong>, because a methodology unwilling to say what it rejects is not
               saying very much.
             </p>
           </div>
@@ -69,8 +69,8 @@ export default function Page() {
           <div className="max-w-3xl space-y-6 text-brown/85 text-lg leading-relaxed">
             <p>
               We do not lock a child into a position. Specialisation before the body has
-              finished arriving costs more than it returns, so positions rotate — including
-              inside matches — and the foundations stay universal.
+              finished arriving costs more than it returns, so positions rotate, including
+              inside matches, and the foundations stay universal.
             </p>
             <p>
               We do not run talent identification. Sorting children by how they look at eleven
@@ -96,7 +96,7 @@ export default function Page() {
           <h2 className="font-heading text-deepblue mb-8">Who it is for</h2>
           <div className="max-w-3xl space-y-6 text-brown/85 text-lg leading-relaxed">
             <p>
-              <strong className="font-semibold text-brown">Players</strong>, at every age band — from
+              <strong className="font-semibold text-brown">Players</strong>, at every age band, from
               first touches to the edge of the professional game.
             </p>
             <p>
@@ -124,7 +124,7 @@ export default function Page() {
           <div className="max-w-3xl space-y-6 text-brown/85 text-lg leading-relaxed">
             <p>
               Early, and openly so. The drill library and the training games are live and free
-              to use, the community is open, and the methodology itself is in revision — the
+              to use, the community is open, and the methodology itself is in revision. The
               current pass will be published when it is finished, not before.
             </p>
             <p>

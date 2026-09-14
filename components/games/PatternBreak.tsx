@@ -374,12 +374,12 @@ export function PatternBreak() {
             <h3 className="font-heading text-2xl text-deepblue">Pattern Break</h3>
             <p className="mt-2 max-w-md font-body text-sm leading-relaxed text-brown/80">
               A fixed sequence of tiles cycles one step at a time. Learn the order from the
-              faint history. Most steps follow it — but a few <em>break</em> the pattern and
+              faint history. Most steps follow it, but a few <em>break</em> the pattern and
               show the wrong tile. Tap <strong>Break!</strong> the instant you spot a
-              deviation. Wait for the real one — calling it early counts against you.
+              deviation. Wait for the real one: calling it early counts against you.
             </p>
             <button onClick={start} className="btn-primary mt-5">
-              Start — {STEPS} steps
+              Start ({STEPS} steps)
             </button>
           </div>
         )}
@@ -435,16 +435,16 @@ function hitRate(s: Stats): number {
 function buildTakeaway(s: Stats): string {
   const hr = s.breaks > 0 ? s.hits / s.breaks : 0;
   if (s.falseAlarms >= 4) {
-    return 'You called break too often — wait for the real deviation, not the expectation of one.';
+    return 'You called break too often. Wait for the real deviation, not the expectation of one.';
   }
   if (hr >= 0.7 && s.falseAlarms <= 1) {
-    return 'Sharp sensitivity — you caught the breaks without over-calling.';
+    return 'Sharp sensitivity: you caught the breaks without over-calling.';
   }
   if (hr >= 0.7) {
-    return 'You caught most breaks, but a few false calls slipped in — hold until you actually see the wrong tile.';
+    return 'You caught most breaks, but a few false calls slipped in. Hold until you actually see the wrong tile.';
   }
   if (hr >= 0.4) {
-    return 'A solid read on the pattern — anticipate the next tile so a break jumps out the moment it lands.';
+    return 'A solid read on the pattern. Anticipate the next tile so a break jumps out the moment it lands.';
   }
-  return 'The pattern was there to learn — track the cycle a beat ahead so the wrong tile is obvious.';
+  return 'The pattern was there to learn. Track the cycle a beat ahead so the wrong tile is obvious.';
 }
