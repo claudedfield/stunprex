@@ -40,11 +40,11 @@ const notoSans = Noto_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL('https://stunprex.com'),
   title: {
-    default: 'StunpreX — Train Smarter. Play Better. Reach Your Full Potential.',
+    default: 'StunpreX: Train Smarter. Play Better. Reach Your Full Potential.',
     template: '%s · StunpreX',
   },
   description:
-    'StunpreX is a soccer player development hub for individual development — methodology, drills, analysis, and a community for players, parents, and coaches.',
+    'StunpreX is a soccer player development hub for individual development: methodology, drills, analysis, and a community for players, parents, and coaches.',
   keywords: [
     'soccer development',
     'football training',
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_GB',
     url: 'https://stunprex.com',
-    title: 'StunpreX — Train Smarter. Play Better. Reach Your Full Potential.',
+    title: 'StunpreX: Train Smarter. Play Better. Reach Your Full Potential.',
     description:
       'A soccer player development hub for individual development. Methodology-first.',
     siteName: 'StunpreX',
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'StunpreX — Train Smarter. Play Better. Reach your potential.',
+        alt: 'StunpreX: Train Smarter. Play Better. Reach your potential.',
       },
     ],
   },
