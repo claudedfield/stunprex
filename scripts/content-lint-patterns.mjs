@@ -83,7 +83,7 @@ export function unmatchedBold(source) {
  * gate now. Part B must add JSX text handling before this list reaches
  * components/.
  */
-export const UI_SCOPE = ['app/layout.tsx'];
+export const UI_SCOPE = ['app/layout.tsx', 'app/methodology/page.tsx'];
 
 /**
  * Em-dashes inside string literals ('...', "...", `...`), skipping line and

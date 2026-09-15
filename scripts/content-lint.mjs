@@ -13,6 +13,7 @@
  *   node scripts/content-lint.mjs                 → the real corpus and UI scope
  *   node scripts/content-lint.mjs --dir <path>    → one MDX fixture directory only
  *   node scripts/content-lint.mjs --ui <file>     → one UI source fixture only (D-WEB-23)
+ *   node scripts/content-lint.mjs --pages <path>  → one page-content fixture directory only (D-WEB-24)
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -23,13 +24,16 @@ const REPO = path.resolve(import.meta.dirname, '..');
 // depend on the state of the real corpus or the real UI files.
 const flag = process.argv.indexOf('--dir');
 const uiFlag = process.argv.indexOf('--ui');
-const FIXTURE = flag > -1 || uiFlag > -1;
+const pagesFlag = process.argv.indexOf('--pages');
+const FIXTURE = flag > -1 || uiFlag > -1 || pagesFlag > -1;
 const DIRS =
   flag > -1
     ? [path.resolve(process.argv[flag + 1])]
     : FIXTURE
       ? []
-      : [path.join(REPO, 'content/posts'), path.join(REPO, 'content/drills')];
+      : [path.join(REPO, 'content/posts'), path.join(REPO, 'content/drills'), path.join(REPO, 'content/pages')];
+// Pages built from a text of record (D-WEB-24) carry no em-dash anywhere, body included.
+const PAGE_DIRS = pagesFlag > -1 ? [path.resolve(process.argv[pagesFlag + 1])] : FIXTURE ? [] : [path.join(REPO, 'content/pages')];
 
 /** Expand UI_SCOPE; a trailing slash means every .ts or .tsx file under it. */
 function uiFiles() {
@@ -80,6 +84,23 @@ for (const dir of DIRS) {
   }
 }
 
+for (const dir of PAGE_DIRS) {
+  if (!fs.existsSync(dir)) continue;
+  for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.mdx')).sort()) {
+    fs.readFileSync(path.join(dir, file), 'utf8')
+      .split('\n')
+      .forEach((text, i) => {
+        if (!text.includes('\u2014')) return;
+        problems.push({
+          file,
+          line: i + 1,
+          label: 'em-dash in page content',
+          why: 'A page built from a text of record shows every character; fix the text of record, then sync again.',
+        });
+      });
+  }
+}
+
 // UI source (D-WEB-23): em-dashes in user-visible strings. Comments are skipped.
 for (const full of uiFiles()) {
   const rel = path.relative(REPO, full);
@@ -121,4 +142,4 @@ if (problems.length) {
   process.exit(1);
 }
 
-console.log(`[content-lint] OK: ${files} file(s) clean against ${PATTERNS.length + 2} checks.`);
+console.log(`[content-lint] OK: ${files} file(s) clean against ${PATTERNS.length + 3} checks.`);

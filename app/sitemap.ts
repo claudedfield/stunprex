@@ -15,7 +15,6 @@ const STATIC_ROUTES = [
   '/capacities',
   '/pricing',
   '/about',
-  '/codex',
   '/methodology',
   // Blog category pages
   '/blog/category/methodology',
