@@ -12,7 +12,7 @@ import { getOpenReports } from '@/lib/community/queries'
 import { resolveReport, banUser, unbanUser } from '@/lib/community/actions'
 
 export const metadata: Metadata = {
-  title: 'Moderation — StunpreX Community',
+  title: 'Moderation · StunpreX Community',
   robots: { index: false, follow: false },
 }
 

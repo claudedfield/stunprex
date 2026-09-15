@@ -8,9 +8,9 @@ import { auth } from '@/auth';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'The Commit Window — Cognitive Games',
+  title: 'The Commit Window · Cognitive Games',
   description:
-    'A defender approaches. A window opens briefly — tap inside it. Train the timing and impulse control that separates a committed dribble from a reckless lunge. Free to play; sign in to save your score.',
+    'A defender approaches. A window opens briefly: tap inside it. Train the timing and impulse control that separates a committed dribble from a reckless lunge. Free to play; sign in to save your score.',
   alternates: { canonical: 'https://stunprex.com/games/commit-window' },
 };
 
@@ -34,12 +34,12 @@ export default async function Page() {
             <>
               <p>
                 A red defender approaches you on a horizontal track. A green window opens
-                briefly as the defender gets close — tap anywhere on the track during that
+                briefly as the defender gets close. Tap anywhere on the track during that
                 window to commit.
               </p>
               <p>
                 Tap too early and the defender adjusts. Wait too long and the window closes.
-                Some reps include an orange feint flash before the real window — hold back
+                Some reps include an orange feint flash before the real window. Hold back
                 through it, then commit when green appears.
               </p>
               <p>

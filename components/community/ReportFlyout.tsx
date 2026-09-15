@@ -70,7 +70,7 @@ export default function ReportFlyout({ targetType, targetId }: ReportFlyoutProps
       {result === 'success' ? (
         <div className="text-sm font-body text-brown/70">
           <p className="font-medium text-deepblue mb-1">Report received</p>
-          <p>Thank you — a moderator will review this.</p>
+          <p>Thank you. A moderator will review this.</p>
           <button
             type="button"
             onClick={() => { setOpen(false); setResult('idle') }}

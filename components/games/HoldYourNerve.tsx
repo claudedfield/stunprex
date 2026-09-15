@@ -144,11 +144,11 @@ export function HoldYourNerve() {
 
     // Supportive takeaway — never a verdict, never shaming.
     if (lateA >= earlyA - 3) {
-      setTakeaway('Your precision held as the pressure built — that is composure.');
+      setTakeaway('Your precision held as the pressure built. That is composure.');
     } else if (lateA >= earlyA - 12) {
-      setTakeaway('It eased a little under the noise, but you stayed close — solid nerve.');
+      setTakeaway('It eased a little under the noise, but you stayed close. Solid nerve.');
     } else {
-      setTakeaway('It dipped as the noise rose — that is the rep, not a verdict. Keep walking up.');
+      setTakeaway('It dipped as the noise rose. That is the rep, not a verdict. Keep walking up.');
     }
 
     setPressure(0);
@@ -442,12 +442,12 @@ export function HoldYourNerve() {
           <div className="pointer-events-none absolute inset-x-0 top-3 flex justify-center">
             <span className="rounded-full bg-deepblue/85 px-4 py-1 font-ui text-sm text-white">
               {lastPrecision >= 85
-                ? `Composed — ${lastPrecision}`
+                ? `Composed: ${lastPrecision}`
                 : lastPrecision >= 55
-                ? `Steady — ${lastPrecision}`
+                ? `Steady: ${lastPrecision}`
                 : lastPrecision > 0
-                ? `Noted — ${lastPrecision}`
-                : `Held — let the next ring guide you`}
+                ? `Noted: ${lastPrecision}`
+                : `Held: let the next ring guide you`}
             </span>
           </div>
         )}
@@ -467,15 +467,15 @@ export function HoldYourNerve() {
             <h3 className="font-heading text-2xl text-deepblue">Hold Your Nerve</h3>
             <p className="mt-2 max-w-md font-body text-sm leading-relaxed text-brown/80">
               Twelve spot kicks. Each one, a target appears and a ring closes toward its
-              centre. Tap as close to the bullseye as you can — ideally as the ring reaches
+              centre. Tap as close to the bullseye as you can, ideally as the ring reaches
               the sweet-spot. The room gets a little louder as you go, but the only job is to
-              stay precise. There is no miss here — every tap is a rep.
+              stay precise. There is no miss here: every tap is a rep.
             </p>
             <p className="mt-2 font-ui text-xs text-brown/55">
               You can ease the pressure any time with “Calm it down”.
             </p>
             <button onClick={start} className="btn-primary mt-5">
-              Step up — {KICKS} kicks
+              Step up ({KICKS} kicks)
             </button>
           </div>
         )}

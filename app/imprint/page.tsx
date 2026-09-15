@@ -3,7 +3,7 @@ import { LegalPage } from '@/components/LegalPage';
 export const metadata = {
   title: 'Imprint',
   description:
-    'Imprint / Impressum for StunpreX — a project operated by DField Kft., Dunakeszi, Hungary.',
+    'Imprint / Impressum for StunpreX, a project operated by DField Kft., Dunakeszi, Hungary.',
 };
 
 export default function Page() {

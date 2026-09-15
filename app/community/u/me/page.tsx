@@ -14,7 +14,7 @@ import { CATEGORY_LABELS } from '@/lib/types/community'
 import type { QuestionCategory } from '@/lib/types/community'
 
 export const metadata: Metadata = {
-  title: 'My profile — StunpreX Community',
+  title: 'My profile · StunpreX Community',
   robots: { index: false, follow: false },
 }
 
@@ -35,7 +35,7 @@ function EditProfileForm({
           className="block font-ui text-xs font-medium text-deepblue mb-1"
         >
           Bio{' '}
-          <span className="text-brown/40 font-normal">— up to 280 characters</span>
+          <span className="text-brown/40 font-normal">(up to 280 characters)</span>
         </label>
         <textarea
           id="me-bio"
@@ -54,7 +54,7 @@ function EditProfileForm({
           className="block font-ui text-xs font-medium text-deepblue mb-1"
         >
           Avatar URL{' '}
-          <span className="text-brown/40 font-normal">— HTTPS only</span>
+          <span className="text-brown/40 font-normal">(HTTPS only)</span>
         </label>
         <input
           id="me-avatar"

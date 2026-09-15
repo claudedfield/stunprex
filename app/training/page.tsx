@@ -8,12 +8,12 @@ import { TrainingIndexClient } from './TrainingIndexClient';
 import { getAllDrillCards } from '@/lib/drills';
 
 export const metadata: Metadata = {
-  title: 'Drill Library — StunpreX Training',
+  title: 'Drill Library · StunpreX Training',
   description:
-    'Methodology-aligned football drills for individual player development. Filter by capacity family, age band, difficulty, and theme — each drill trains multiple capacities at once.',
+    'Methodology-aligned football drills for individual player development. Filter by capacity family, age band, difficulty, and theme. Each drill trains multiple capacities at once.',
   alternates: { canonical: 'https://stunprex.com/training' },
   openGraph: {
-    title: 'Drill Library — StunpreX Training',
+    title: 'Drill Library · StunpreX Training',
     description:
       'Methodology-aligned football drills for individual player development.',
     type: 'website',

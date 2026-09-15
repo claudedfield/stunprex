@@ -8,7 +8,7 @@ import { auth } from '@/auth';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'Shoulder Check — Cognitive Games',
+  title: 'Shoulder Check · Cognitive Games',
   description:
     'Markers flash at the edges as the ball approaches. Then tell us what you saw. A scanning game that trains the habit of gathering information before you act. Free to play; sign in to save your score.',
   alternates: { canonical: 'https://stunprex.com/games/shoulder-check' },
@@ -35,14 +35,14 @@ export default async function Page() {
               <p>
                 Markers flash briefly at the left and right edges while the ball is on its
                 way to you. Blue circles are teammates; red circles are opponents. You
-                don&rsquo;t need to do anything during the scan — just look.
+                don&rsquo;t need to do anything during the scan. Just look.
               </p>
               <p>
                 When the ball arrives, a question appears about what you saw: how many of
                 each type, or which side had more opponents. Tap your answer.
               </p>
               <p>
-                Ten reps. Difficulty increases each rep — markers flash faster and more
+                Ten reps. Difficulty increases each rep: markers flash faster and more
                 appear at once. Your score is the number of correct answers.
               </p>
             </>

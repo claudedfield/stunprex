@@ -144,10 +144,10 @@ function drawFrame(ctx: CanvasRenderingContext2D, args: DrawArgs, rep: RepConfig
     ctx.fillText('Good timing', W / 2, 30);
   } else if (result === 'early') {
     ctx.fillStyle = '#DC2626';
-    ctx.fillText('Too early — wait for the window', W / 2, 30);
+    ctx.fillText('Too early: wait for the window', W / 2, 30);
   } else if (result === 'passive') {
     ctx.fillStyle = '#DC2626';
-    ctx.fillText('Too passive — go when the window opens', W / 2, 30);
+    ctx.fillText('Too passive: go when the window opens', W / 2, 30);
   } else if (isIntro) {
     ctx.fillStyle = 'rgba(16,112,153,0.55)';
     ctx.fillText('Incoming…', W / 2, 30);
@@ -364,11 +364,11 @@ export function CommitWindow() {
 
   const takeaway =
     earlyCount > passiveCount && earlyCount > 1
-      ? `You tend to commit early (${earlyCount}×) — hold back and wait for the window to open.`
+      ? `You tend to commit early (${earlyCount}×). Hold back and wait for the window to open.`
       : passiveCount > earlyCount && passiveCount > 1
-      ? `You tend to be too passive (${passiveCount}×) — trust your read and commit when the window opens.`
+      ? `You tend to be too passive (${passiveCount}×). Trust your read and commit when the window opens.`
       : successes >= 8
-      ? "Clean timing — you're reading the approach well."
+      ? "Clean timing: you're reading the approach well."
       : 'Focus on the exact moment the green zone appears.';
 
   return (
@@ -405,7 +405,7 @@ export function CommitWindow() {
           onPointerDown={gamePhase === 'playing' ? handleTap : undefined}
           className="block w-full touch-none"
           style={{ aspectRatio: `${W} / ${H}` }}
-          aria-label="The Commit Window — tap when the green zone appears"
+          aria-label="The Commit Window: tap when the green zone appears"
           role="img"
         />
 
@@ -414,11 +414,11 @@ export function CommitWindow() {
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#EAF4F2]/95 p-6 text-center">
             <h3 className="font-heading text-2xl text-deepblue">The Commit Window</h3>
             <p className="mt-2 max-w-md font-body text-sm leading-relaxed text-brown/80">
-              A defender approaches. Tap when the green window opens — not before, not after.
+              A defender approaches. Tap when the green window opens, not before, not after.
               Orange flash means feint: hold back, the real window follows.
             </p>
             <button onClick={start} className="btn-primary mt-5">
-              Start — {REPS} reps
+              Start ({REPS} reps)
             </button>
           </div>
         )}

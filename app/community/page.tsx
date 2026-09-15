@@ -15,11 +15,11 @@ import CommunityIndex from './CommunityIndex'
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: 'Community — StunpreX',
+  title: 'Community · StunpreX',
   description:
-    'Questions, answers, and observations on football player development. Ask anything — methodology, coaching, player progress, parent corner.',
+    'Questions, answers, and observations on football player development. Ask anything: methodology, coaching, player progress, parent corner.',
   openGraph: {
-    title: 'Community — StunpreX',
+    title: 'Community · StunpreX',
     description: 'A calm, methodology-grounded Q&A community for football development.',
     url: 'https://stunprex.com/community',
   },
@@ -59,7 +59,7 @@ export default async function CommunityPage({ searchParams }: CommunityPageProps
         <PageHero
           eyebrow="Community"
           title="Questions, answered"
-          lede="Real developmental questions, answered in the StunpreX Coach voice — calm, evidence-grounded, and methodology-first. Browse by category, or ask your own."
+          lede="Real developmental questions, answered in the StunpreX Coach voice: calm, evidence-grounded, and methodology-first. Browse by category, or ask your own."
         >
           <a
             href="/community/ask"

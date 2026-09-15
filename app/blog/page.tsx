@@ -10,11 +10,11 @@ import { BlogIndexClient } from './BlogIndexClient';
 import { getAllPostCards, getPublishedCategories } from '@/lib/posts';
 
 export const metadata: Metadata = {
-  title: 'Blog — Soccer Player Development',
+  title: 'Blog: Soccer Player Development',
   description:
-    'Methodology-first articles on soccer player development — drills, tactical breakdowns, and the long-horizon approach to building complete players.',
+    'Methodology-first articles on soccer player development: drills, tactical breakdowns, and the long-horizon approach to building complete players.',
   openGraph: {
-    title: 'Blog — StunpreX Soccer Development',
+    title: 'Blog: StunpreX Soccer Development',
     description:
       'Methodology-first articles on soccer player development. Drills, evidence, and the science behind developing complete players.',
     type: 'website',

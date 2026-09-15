@@ -189,11 +189,11 @@ export function PassLanes() {
     setSlowCount(slowRef.current);
     setTakeaway(
       slowRef.current >= 3
-        ? 'Several lanes shut before you chose — decide a beat earlier; the best lane rarely stays best.'
+        ? 'Several lanes shut before you chose. Decide a beat earlier; the best lane rarely stays best.'
         : worsePicksRef.current > b
-        ? 'You committed, but often to a tighter lane — scan all lanes before you pick the most open one.'
+        ? 'You committed, but often to a tighter lane. Scan all lanes before you pick the most open one.'
         : b >= 9
-        ? 'Sharp reads — you found the open lane while it was still open. That is the pass.'
+        ? 'Sharp reads: you found the open lane while it was still open. That is the pass.'
         : 'Solid reads. Keep scanning every lane each rep; the openness order changes as defenders close.',
     );
     setPhase('over');
@@ -503,7 +503,7 @@ export function PassLanes() {
                     ? 'Best lane'
                     : lastOutcome === 'worse'
                     ? 'A better lane was open'
-                    : 'Too slow — lane shut'}
+                    : 'Too slow: lane shut'}
                 </span>
               </div>
             )}
@@ -517,11 +517,11 @@ export function PassLanes() {
             <p className="mt-2 max-w-md font-body text-sm leading-relaxed text-brown/80">
               You have the ball at the bottom. Each teammate up top sits in a lane, and a
               defender is closing every lane down. Before the timer runs out, tap the
-              teammate whose lane is <strong>most open right now</strong> — the best pass.
+              teammate whose lane is <strong>most open right now</strong>, the best pass.
               The order changes as defenders close, so read all the lanes each rep.
             </p>
             <button onClick={start} className="btn-primary mt-5">
-              Start — {REPS} reps
+              Start ({REPS} reps)
             </button>
           </div>
         )}

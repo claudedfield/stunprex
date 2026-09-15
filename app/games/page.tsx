@@ -7,7 +7,7 @@ import { GAMES } from '@/lib/games/registry';
 export const metadata = {
   title: 'Cognitive Games',
   description:
-    'Small games that train the perception, decision-making and attention a footballer leans on. Honestly scored — no inflated promises of on-pitch transfer.',
+    'Small games that train the perception, decision-making and attention a footballer leans on. Honestly scored, with no inflated promises of on-pitch transfer.',
   alternates: { canonical: 'https://stunprex.com/games' },
 };
 
@@ -20,7 +20,7 @@ export default function Page() {
         <PageHero
           eyebrow="Games"
           title="Train the mind your game leans on"
-          lede="Small games for perception, decision-making and attention — the cognition behind good football. Honestly scored. We don’t claim they make you a better player; we claim they train the capacity, and they’re worth ten minutes."
+          lede="Small games for perception, decision-making and attention: the cognition behind good football. Honestly scored. We don’t claim they make you a better player; we claim they train the capacity, and they’re worth ten minutes."
         />
 
         <section className="container-site py-10 md:py-14">

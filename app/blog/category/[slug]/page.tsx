@@ -37,8 +37,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!category) return {};
 
   return {
-    title: `${category} — Blog`,
-    description: `StunpreX blog posts in the ${category} category — methodology-first soccer player development.`,
+    title: `${category} · Blog`,
+    description: `StunpreX blog posts in the ${category} category: methodology-first soccer player development.`,
     alternates: {
       canonical: `https://stunprex.com/blog/category/${catSlug}`,
     },
@@ -127,11 +127,11 @@ export default async function CategoryPage({ params, searchParams }: Props) {
 
 const CATEGORY_BLURBS: Record<CategorySlug, string> = {
   methodology:
-    'Deep dives into what StunpreX believes — the ideas behind how we develop players at every age.',
+    'Deep dives into what StunpreX believes: the ideas behind how we develop players at every age.',
   drills:
-    'Multi-capacity drills in full StunpreX format — tagged by capacity family, age band, and equipment.',
+    'Multi-capacity drills in full StunpreX format, tagged by capacity family, age band, and equipment.',
   'pro-breakdown':
-    'Pro player and match analysis through the six trained capacities — what the best players do and why it matters for your development.',
+    'Pro player and match analysis through the six trained capacities: what the best players do and why it matters for your development.',
   'operational-core':
     'High-care topics: the Parent Compact, deselection, sleep, nutrition, goalkeeper development, and the long horizon.',
   reflections:

@@ -12,7 +12,7 @@ import QuestionCard from '@/components/community/QuestionCard'
 import { Pagination } from '@/components/blog/Pagination'
 
 export const metadata: Metadata = {
-  title: 'Search — StunpreX Community',
+  title: 'Search · StunpreX Community',
   robots: { index: false, follow: false },
 }
 

@@ -8,9 +8,9 @@ import { auth } from '@/auth';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'Rondo Recall — Cognitive Games',
+  title: 'Rondo Recall · Cognitive Games',
   description:
-    'Players flash positions, then vanish — recall where they were. A spatial working-memory game that trains knowing the picture without a second glance. Free to play; sign in to save your score.',
+    'Players flash positions, then vanish: recall where they were. A spatial working-memory game that trains knowing the picture without a second glance. Free to play; sign in to save your score.',
   alternates: { canonical: 'https://stunprex.com/games/rondo-recall' },
 };
 
@@ -34,7 +34,7 @@ export default async function Page() {
             <>
               <p>A handful of players light up on the grid, then vanish. Click the cells where they were.</p>
               <p>Get them all and the next round adds one more to hold in mind. Miss twice and the round ends.</p>
-              <p>Your score is how deep your spatial memory held — no second glance allowed.</p>
+              <p>Your score is how deep your spatial memory held, no second glance allowed.</p>
             </>
           }
           related={[

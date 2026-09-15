@@ -17,9 +17,9 @@ interface ProfilePageProps {
 export async function generateMetadata({ params }: ProfilePageProps): Promise<Metadata> {
   const { display_name } = await params
   const profile = await getMemberProfile(decodeURIComponent(display_name))
-  if (!profile) return { title: 'Member not found — StunpreX Community' }
+  if (!profile) return { title: 'Member not found · StunpreX Community' }
   return {
-    title: `${profile.display_name} — StunpreX Community`,
+    title: `${profile.display_name} · StunpreX Community`,
     description:
       profile.bio ??
       `${profile.display_name} is a member of the StunpreX football development community.`,

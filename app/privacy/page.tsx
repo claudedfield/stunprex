@@ -3,7 +3,7 @@ import { LegalPage } from '@/components/LegalPage';
 export const metadata = {
   title: 'Privacy Policy',
   description:
-    'How StunpreX handles personal data — what we collect, why, who processes it, how long we keep it, and your rights under the GDPR.',
+    'How StunpreX handles personal data: what we collect, why, who processes it, how long we keep it, and your rights under the GDPR.',
 };
 
 export default function Page() {
@@ -17,19 +17,19 @@ export default function Page() {
       <h2>What we collect and why</h2>
       <ul>
         <li>
-          <strong>Email address</strong> — when you join the newsletter or sign in. Purpose:
+          <strong>Email address</strong>: when you join the newsletter or sign in. Purpose:
           send the sign-in link and (with your consent) occasional updates.{' '}
           <strong>Legal basis:</strong> consent (Art. 6(1)(a) GDPR) for marketing email;
           performance of the service (Art. 6(1)(b)) for authentication.
         </li>
         <li>
-          <strong>Account data</strong> — if you create an account (email + your activity on
+          <strong>Account data</strong>: if you create an account (email + your activity on
           the site, e.g. saved game scores, questions). <strong>Legal basis:</strong>{' '}
           performance of the service.
         </li>
         <li>
-          <strong>Basic technical/usage data</strong> — standard server logs and
-          privacy-respecting, cookieless analytics (Vercel Analytics — no personal data
+          <strong>Basic technical/usage data</strong>: standard server logs and
+          privacy-respecting, cookieless analytics (Vercel Analytics: no personal data
           collected, no cross-site tracking), to keep the site secure and working and to
           understand what content helps. <strong>Legal basis:</strong> legitimate interest
           (Art. 6(1)(f)).

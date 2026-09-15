@@ -15,7 +15,7 @@ const PILLARS: Pillar[] = [
   { slug: 'speed-and-agility',           title: 'Speed & Agility',            blurb: 'Acceleration, change of direction, and the movement that gets a player there first.', status: 'Coming soon' },
   { slug: 'tactical-intelligence',       title: 'Tactical Intelligence',      blurb: 'Reading the game, scanning, and the decisions that separate good players from great ones.', status: 'Coming soon' },
   { slug: 'first-touch',                 title: 'First Touch',                blurb: 'The receiving skill that determines whether anything else in possession is possible.', status: 'Coming soon' },
-  { slug: 'strength-endurance-recovery', title: 'Strength · Endurance · Recovery', blurb: 'The physical foundation — built safely, at the right age, without shortcuts.', status: 'Coming soon' },
+  { slug: 'strength-endurance-recovery', title: 'Strength · Endurance · Recovery', blurb: 'The physical foundation, built safely, at the right age, without shortcuts.', status: 'Coming soon' },
 ];
 
 export function Pillars() {

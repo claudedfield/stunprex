@@ -8,7 +8,7 @@ import { auth } from '@/auth';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'Koi Pond — Cognitive Games',
+  title: 'Koi Pond · Cognitive Games',
   description:
     'Feed every fish once while the pond moves. A tracking-and-memory game that trains selective attention. Free to play; sign in to save your score.',
   alternates: { canonical: 'https://stunprex.com/games/koi-pond' },
@@ -32,9 +32,9 @@ export default async function Page() {
           isAuthed={isAuthed}
           howToPlay={
             <>
-              <p>Feed every fish once by tapping or clicking it. Nothing marks who needs feeding — that’s the point.</p>
+              <p>Feed every fish once by tapping or clicking it. Nothing marks who needs feeding. That’s the point.</p>
               <p>After each feed a feed timer counts down; you can’t feed again until it’s full. Use the wait to keep track of who you’ve fed (their colour helps).</p>
-              <p>Don’t feed the same fish twice — re-feeding is the mistake. Clear the whole pond and it grows by a fish.</p>
+              <p>Don’t feed the same fish twice: re-feeding is the mistake. Clear the whole pond and it grows by a fish.</p>
             </>
           }
           related={[

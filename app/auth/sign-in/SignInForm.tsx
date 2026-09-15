@@ -76,7 +76,7 @@ export default function SignInForm() {
       </form>
 
       <p className="text-center text-xs text-brown/40 font-body">
-        No account? Just enter your email — we&rsquo;ll create one.{' '}
+        No account? Just enter your email and we&rsquo;ll create one.{' '}
         <a
           href="/auth/sign-up"
           className="text-deepblue underline underline-offset-2 hover:text-deepblue/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40 focus-visible:rounded"
