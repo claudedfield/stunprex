@@ -79,7 +79,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!cap) return {};
 
   return {
-    title: `${cap} Capacity: StunpreX Drills`,
+    title: { absolute: `${cap} Capacity: StunpreX Drills` },
     description: `Football drills that develop the ${cap} capacity: ${CAPACITY_DESCRIPTION[cap]}`,
     alternates: { canonical: `https://stunprex.com/capacities/${slug}` },
   };

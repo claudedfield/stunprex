@@ -14,7 +14,7 @@ import { ALL_CATEGORIES, CATEGORY_LABELS } from '@/lib/types/community'
 import WelcomeForm from './WelcomeForm'
 
 export const metadata: Metadata = {
-  title: 'Welcome · StunpreX Community',
+  title: { absolute: 'Welcome · StunpreX Community' },
   robots: { index: false, follow: false },
 }
 

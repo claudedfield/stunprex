@@ -14,7 +14,7 @@ import { CATEGORY_LABELS } from '@/lib/types/community'
 import type { QuestionCategory } from '@/lib/types/community'
 
 export const metadata: Metadata = {
-  title: 'My profile · StunpreX Community',
+  title: { absolute: 'My profile · StunpreX Community' },
   robots: { index: false, follow: false },
 }
 

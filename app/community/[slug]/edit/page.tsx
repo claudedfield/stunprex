@@ -10,7 +10,7 @@ import { ALL_CATEGORIES, CATEGORY_LABELS } from '@/lib/types/community'
 import EditQuestionForm from './EditQuestionForm'
 
 export const metadata: Metadata = {
-  title: 'Edit question · StunpreX Community',
+  title: { absolute: 'Edit question · StunpreX Community' },
   robots: { index: false, follow: false },
 }
 

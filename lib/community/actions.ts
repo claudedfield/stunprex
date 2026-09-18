@@ -140,7 +140,7 @@ export async function signInWithMagicLink(
     await signIn('email', { email, redirect: false })
     return {
       success: true,
-      data: { message: "Check your email — we've sent you a sign-in link." },
+      data: { message: "Check your email: we've sent you a sign-in link." },
     }
   } catch (err) {
     console.error('[signInWithMagicLink]', err)

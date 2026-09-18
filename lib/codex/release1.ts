@@ -24,7 +24,9 @@ export const CONVICTION_TITLES: Readonly<Record<number, string>> = {
   10: "Both feet, or half a player",
   11: "Ball mastery is irreplaceable",
   12: "Individual tactics are taught, not absorbed",
-  13: "Position-fluid through age 14 — including within matches",
+  // Row 13 of id_crosswalk.md since D-BAND-BOUNDARY-01 (6 Sep, ruling 38). No generator is in this
+  // repository, so this line was edited by hand to match the crosswalk (D-WEB-25).
+  13: "Position-fluid through age 16 \u2014 including within matches",
   14: "The goalkeeper is a complete footballer",
   15: "Holism is non-negotiable",
   16: "Strength before speed; mobility before strength",

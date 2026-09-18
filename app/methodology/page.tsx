@@ -56,10 +56,10 @@ const beliefs: { title: string; body: string[] }[] = [
   {
     title: 'Develop the player, not the position',
     body: [
-      `Until around age 14, no player should be locked into a defined position. Not the goalkeeper who "can't play outfield." Not the centre-back who "isn't technical enough" for midfield. Not the striker who "doesn't need to defend."`,
+      `Through age 16, no player should be locked into a defined position. Not the goalkeeper who "can't play outfield." Not the centre-back who "isn't technical enough" for midfield. Not the striker who "doesn't need to defend."`,
       `Position specialisation before the foundations are universal produces narrow players. A player who has only ever played right back has not developed: they have practised a limited subset of football. They will encounter situations their position has not prepared them for, and they will be exposed.`,
       `Rotate positions through training. Rotate through matches where possible. Let players experience the whole game from multiple vantage points before settling into one. Preferences emerge naturally, and they are more honest when they emerge from experience rather than early designation.`,
-      `Specialisation from around age 14 is appropriate, when universal foundations are in place. Before that, the position is a cage the player doesn't need yet.`,
+      `Specialisation from around age 17 is appropriate, when universal foundations are in place. Before that, the position is a cage the player doesn't need yet.`,
     ],
   },
   {

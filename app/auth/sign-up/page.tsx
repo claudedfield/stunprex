@@ -9,7 +9,7 @@ import { Footer } from '@/components/Footer'
 import SignUpForm from './SignUpForm'
 
 export const metadata: Metadata = {
-  title: 'Join the community · StunpreX',
+  title: { absolute: 'Join the community · StunpreX' },
   description: 'Create a free StunpreX account to ask questions, share observations, and connect with players, parents, and coaches.',
   robots: { index: false, follow: false },
 }

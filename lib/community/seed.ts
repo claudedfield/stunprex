@@ -71,7 +71,7 @@ const DEFS: SeedDef[] = [
     category: 'parent-corner',
     audience_layer: 'Parent',
     tags: [T.parent, T.weakFoot, T.u10],
-    answer: `Not worried — but it's worth gently widening. At nine, almost every player favours one foot; that's normal, not a flaw. The goal isn't to force the weak foot in matches, where the instinct to use the strong one is strong. It's to make weak-foot touches *ordinary* in calm, low-pressure moments: in the garden, against a wall, in the warm-up. A right-foot-only player eventually becomes predictable — defenders learn to show them one way. A player comfortable both sides has more answers. Keep it playful, keep it frequent, and let it grow over years rather than weeks. The long horizon does the work.`,
+    answer: `Not worried, but it's worth gently widening. At nine, almost every player favours one foot; that's normal, not a flaw. The goal isn't to force the weak foot in matches, where the instinct to use the strong one is strong. It's to make weak-foot touches *ordinary* in calm, low-pressure moments: in the garden, against a wall, in the warm-up. A right-foot-only player eventually becomes predictable: defenders learn to show them one way. A player comfortable both sides has more answers. Keep it playful, keep it frequent, and let it grow over years rather than weeks. The long horizon does the work.`,
   },
   {
     slug: 'my-child-was-just-deselected-how-do-i-handle-the-next-few-days',
@@ -79,7 +79,7 @@ const DEFS: SeedDef[] = [
     category: 'parent-corner',
     audience_layer: 'Parent',
     tags: [T.parent, T.deselection, T.mental],
-    answer: `First, this is hard, and it's okay that it stings — for them and for you. A deselection is information about one moment and one coach's view, not a verdict on your child's future. The research on junior-to-senior football is humbling: where a player stands at 12 or 14 tells you very little about where they'll be at 20. In the next ten minutes, listen more than you fix. In the next ten days, keep the ball at their feet for the joy of it, not as a response. In the next ten months, the players who keep developing are rarely the ones who were ahead early — they're the ones who kept going. Your steadiness now matters more than any drill.`,
+    answer: `First, this is hard, and it's okay that it stings, for them and for you. A deselection is information about one moment and one coach's view, not a verdict on your child's future. The research on junior-to-senior football is humbling: where a player stands at 12 or 14 tells you very little about where they'll be at 20. In the next ten minutes, listen more than you fix. In the next ten days, keep the ball at their feet for the joy of it, not as a response. In the next ten months, the players who keep developing are rarely the ones who were ahead early. They're the ones who kept going. Your steadiness now matters more than any drill.`,
   },
   {
     slug: 'in-games-im-always-a-second-too-late-to-decide-how-do-i-fix-that',
@@ -87,7 +87,7 @@ const DEFS: SeedDef[] = [
     category: 'player-development',
     audience_layer: 'Player',
     tags: [T.player, T.scanning, T.tactical],
-    answer: `Good news: this is the most trainable thing in football, and it isn't about thinking faster — it's about *seeing earlier*. The players who decide quickly have already gathered the information before the ball arrives. Watch where Xavi or a top midfielder looks: their heads are moving constantly, scanning the space *before* they receive, so the decision is half-made by the time the ball gets there. Train the scan, not the speed. Before every reception in practice, take a look over each shoulder. It feels mechanical at first; within weeks it becomes a habit you don't notice. The decision gets faster because the picture is already in your head.`,
+    answer: `Good news: this is the most trainable thing in football, and it isn't about thinking faster. It's about *seeing earlier*. The players who decide quickly have already gathered the information before the ball arrives. Watch where Xavi or a top midfielder looks: their heads are moving constantly, scanning the space *before* they receive, so the decision is half-made by the time the ball gets there. Train the scan, not the speed. Before every reception in practice, take a look over each shoulder. It feels mechanical at first; within weeks it becomes a habit you don't notice. The decision gets faster because the picture is already in your head.`,
   },
   {
     slug: 'i-practise-dribbling-moves-for-hours-but-they-never-work-in-matches',
@@ -95,7 +95,7 @@ const DEFS: SeedDef[] = [
     category: 'player-development',
     audience_layer: 'Player',
     tags: [T.player, T.dribbling, T.smallSided],
-    answer: `Because cones don't defend. A move drilled against a static marker lives in a different world from a move under a real opponent who's reading you. The skill isn't the move — it's *when* to use it, against *whom*, in *what* space, and that only develops against live, unpredictable pressure. Keep some isolated repetition to own the mechanics, but spend most of your time in small-sided games and 1v1s where the move has to survive a real defender. You'll do fewer reps and feel messier — that messiness is the learning. The goal isn't a perfect move in an empty space; it's a good-enough move at the right moment.`,
+    answer: `Because cones don't defend. A move drilled against a static marker lives in a different world from a move under a real opponent who's reading you. The skill isn't the move. It's *when* to use it, against *whom*, in *what* space, and that only develops against live, unpredictable pressure. Keep some isolated repetition to own the mechanics, but spend most of your time in small-sided games and 1v1s where the move has to survive a real defender. You'll do fewer reps and feel messier, and that messiness is the learning. The goal isn't a perfect move in an empty space; it's a good-enough move at the right moment.`,
   },
   {
     slug: 'how-should-i-structure-a-u10-session-that-actually-develops-players',
@@ -103,7 +103,7 @@ const DEFS: SeedDef[] = [
     category: 'coaching',
     audience_layer: 'Coach',
     tags: [T.coach, T.drillDesign, T.u10],
-    answer: `At this age, more ball-touches and more decisions beat more drills. A simple shape that works: a free, playful warm-up with a ball each (let them explore); one constraint-based game that quietly forces the theme you want — want more scanning? add a rule that rewards it — then small-sided games where they make hundreds of real decisions; finish with free play. Talk less than feels natural; let the game teach. Rotate positions every session — don't lock a ten-year-old into "defender." And protect the joy: a child who loves it at ten is still playing at sixteen, and that's the whole game.`,
+    answer: `At this age, more ball-touches and more decisions beat more drills. A simple shape that works: a free, playful warm-up with a ball each (let them explore); one constraint-based game that quietly forces the theme you want (want more scanning? add a rule that rewards it); then small-sided games where they make hundreds of real decisions; finish with free play. Talk less than feels natural; let the game teach. Rotate positions every session. Don't lock a ten-year-old into "defender." And protect the joy: a child who loves it at ten is still playing at sixteen, and that's the whole game.`,
   },
   {
     slug: 'what-do-you-mean-by-develop-the-player-not-the-position',
@@ -111,7 +111,7 @@ const DEFS: SeedDef[] = [
     category: 'methodology',
     audience_layer: 'Halo',
     tags: [T.tactical, T.academy],
-    answer: `It means we don't decide at eleven that a child *is* a defender and train only what defenders need. Early position-locking is one of the most common quiet harms in youth football: it narrows a player before they've discovered what they could become, and it usually reflects how big or fast they are *now*, not who they'll be. So through the early years we rotate positions, including within matches, and we build universal foundations — perception, first touch, decision-making, both feet, character — that serve any role. Specialisation is real and it matters, but it should emerge *from* the player as they mature, not get stamped on them by an adult in a hurry.`,
+    answer: `It means we don't decide at eleven that a child *is* a defender and train only what defenders need. Early position-locking is one of the most common quiet harms in youth football: it narrows a player before they've discovered what they could become, and it usually reflects how big or fast they are *now*, not who they'll be. So through the early years we rotate positions, including within matches, and we build universal foundations (perception, first touch, decision-making, both feet, character) that serve any role. Specialisation is real and it matters, but it should emerge *from* the player as they mature, not get stamped on them by an adult in a hurry.`,
   },
   {
     slug: 'is-it-bad-that-i-get-bored-doing-the-same-drill-over-and-over',
@@ -119,7 +119,7 @@ const DEFS: SeedDef[] = [
     category: 'player-development',
     audience_layer: 'Player',
     tags: [T.player, T.mental, T.soloPractice],
-    answer: `The boredom isn't the problem — losing focus is. Real improvement does ask you to do familiar things many times, and that can feel dull. But the rep only teaches you something if you're fully *in* it: same drill, full attention, trying to do it a little better than last time. A bored, automatic rep teaches almost nothing; a focused one on the five-hundredth touch is what separates players over years. So the answer isn't to chase novelty every session — it's to bring intention to the repetition. If you genuinely can't hold focus, that's a sign to change the *challenge* (add pressure, speed, a constraint), not to abandon the work.`,
+    answer: `The boredom isn't the problem. Losing focus is. Real improvement does ask you to do familiar things many times, and that can feel dull. But the rep only teaches you something if you're fully *in* it: same drill, full attention, trying to do it a little better than last time. A bored, automatic rep teaches almost nothing; a focused one on the five-hundredth touch is what separates players over years. So the answer isn't to chase novelty every session. It's to bring intention to the repetition. If you genuinely can't hold focus, that's a sign to change the *challenge* (add pressure, speed, a constraint), not to abandon the work.`,
   },
   {
     slug: 'how-much-should-my-child-train-each-week-to-keep-up',
@@ -127,7 +127,7 @@ const DEFS: SeedDef[] = [
     category: 'parent-corner',
     audience_layer: 'Parent',
     tags: [T.parent, T.recovery, T.nutrition],
-    answer: `"Keeping up" is the wrong frame, and it's worth letting go of — it leads to doing too much, too young, which is how kids get injured and burn out. What matters more than total hours is the quality of the hours, sleep, and recovery. A young player who loves the game and gets enough rest will outlast one who's drilled to exhaustion to stay "ahead." Free play counts — backyard, street, futsal — often more than another structured session. Watch for the warning signs that matter: dread before sessions, nagging soreness, joy draining away. Protect the sleep and the fun, and the development takes care of itself over the long run.`,
+    answer: `"Keeping up" is the wrong frame, and it's worth letting go of: it leads to doing too much, too young, which is how kids get injured and burn out. What matters more than total hours is the quality of the hours, sleep, and recovery. A young player who loves the game and gets enough rest will outlast one who's drilled to exhaustion to stay "ahead." Free play counts (backyard, street, futsal), often more than another structured session. Watch for the warning signs that matter: dread before sessions, nagging soreness, joy draining away. Protect the sleep and the fun, and the development takes care of itself over the long run.`,
   },
 ]
 
@@ -238,7 +238,7 @@ export function getCoachProfile(): MemberProfile {
   return {
     user_id: COACH_USER_ID,
     display_name: COACH_DISPLAY_NAME,
-    bio: 'The StunpreX Coach voice — calm, evidence-grounded, methodology-first answers to real development questions, drawn from the Codex.',
+    bio: 'The StunpreX Coach voice: calm, evidence-grounded, methodology-first answers to real development questions, drawn from the Codex.',
     avatar_url: null,
     role: 'admin',
     is_banned: false,

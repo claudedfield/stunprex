@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   if (!ALL_CATEGORIES.includes(slug as QuestionCategory)) return { title: 'Not found' }
   const label = CATEGORY_LABELS[slug as QuestionCategory]
   return {
-    title: `${label} · StunpreX Community`,
+    title: { absolute: `${label} · StunpreX Community` },
     description: `Questions and answers on ${label.toLowerCase()} in football player development.`,
     alternates: { canonical: `https://stunprex.com/community/category/${slug}` },
   }

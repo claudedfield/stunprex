@@ -9,7 +9,7 @@ import { Footer } from '@/components/Footer'
 import SignInForm from '../auth/sign-in/SignInForm'
 
 export const metadata: Metadata = {
-  title: 'Sign in · StunpreX',
+  title: { absolute: 'Sign in · StunpreX' },
   description: 'Sign in to the StunpreX community with a magic link. No password required.',
   robots: { index: false, follow: false },
 }
