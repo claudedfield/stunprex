@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const canonicalUrl = `https://stunprex.com/training/${slug}`;
 
   return {
-    title: `${frontmatter.title} · StunpreX Drill Library`,
+    title: { absolute: `${frontmatter.title} · StunpreX Drill Library` },
     description: frontmatter.description,
     alternates: { canonical: canonicalUrl },
     openGraph: {

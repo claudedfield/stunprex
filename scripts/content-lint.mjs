@@ -16,7 +16,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { PATTERNS, unmatchedBold, UI_SCOPE, emDashesInStrings } from './content-lint-patterns.mjs';
+import { PATTERNS, unmatchedBold, UI_SCOPE, UI_EXCLUDE, emDashesInStrings } from './content-lint-patterns.mjs';
 
 const REPO = path.resolve(import.meta.dirname, '..');
 // A fixture flag narrows the run to that fixture alone, so fixture tests never
@@ -48,7 +48,8 @@ function uiFiles() {
     if (entry.endsWith('/')) walk(full);
     else out.push(full);
   }
-  return out.sort();
+  const skip = new Set(UI_EXCLUDE.map((e) => path.join(REPO, e)));
+  return out.filter((f) => !skip.has(f)).sort();
 }
 
 const problems = [];

@@ -10,7 +10,7 @@ import { ALL_CATEGORIES, CATEGORY_LABELS } from '@/lib/types/community'
 import AskForm from './AskForm'
 
 export const metadata: Metadata = {
-  title: 'Ask a question · StunpreX Community',
+  title: { absolute: 'Ask a question · StunpreX Community' },
   description: 'Ask a question about football player development.',
   robots: { index: false, follow: false },
 }

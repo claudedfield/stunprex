@@ -15,7 +15,7 @@ import CommunityIndex from './CommunityIndex'
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: 'Community · StunpreX',
+  title: { absolute: 'Community · StunpreX' },
   description:
     'Questions, answers, and observations on football player development. Ask anything: methodology, coaching, player progress, parent corner.',
   openGraph: {

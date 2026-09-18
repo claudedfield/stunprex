@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: TagPageProps): Promise<Metada
   const tag = await getTagBySlug(slug)
   if (!tag) return { title: 'Not found' }
   return {
-    title: `#${tag.label} · StunpreX Community`,
+    title: { absolute: `#${tag.label} · StunpreX Community` },
     description:
       tag.description ??
       `Questions tagged ${tag.label} in the StunpreX football development community.`,
