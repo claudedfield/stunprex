@@ -3,12 +3,12 @@ import { LegalPage } from '@/components/LegalPage';
 export const metadata = {
   title: 'Cookie Policy',
   description:
-    'StunpreX keeps cookies to the minimum needed to run the site. Our analytics are cookieless, set no cookies, and require no consent banner.',
+    'StunpreX keeps cookies to the minimum needed to run the site, and uses no analytics or tracking at present.',
 };
 
 export default function Page() {
   return (
-    <LegalPage title="Cookie Policy" lastUpdated="2026-08-23">
+    <LegalPage title="Cookie Policy" lastUpdated="2026-09-24">
       <p>We keep cookies to the minimum needed to run the site.</p>
 
       <ul>
@@ -21,10 +21,7 @@ export default function Page() {
           filters), stored locally where possible.
         </li>
         <li>
-          <strong>Analytics</strong>: we use Vercel Analytics, which is cookieless and
-          collects no personal data; it sets no cookies and requires no consent banner. If we
-          ever adopt analytics that use cookies, this policy and a consent mechanism will be
-          updated first.
+          <strong>Analytics</strong>: We use no analytics or tracking at present.
         </li>
       </ul>
 
