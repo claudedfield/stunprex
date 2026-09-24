@@ -1,59 +1,58 @@
-// db/migrate.mjs — runs all SQL migration files on every Vercel build.
-// Idempotent: each migration uses CREATE TABLE IF NOT EXISTS / CREATE EXTENSION IF NOT EXISTS.
-// Reads *.sql files in db/migrations/ in lexicographic order (001_, 002_, …).
-// Uses raw pg client (not @vercel/postgres) — pg's client.query() accepts
-// multi-statement SQL strings; @vercel/postgres uses prepared statements which break on them.
+// db/migrate.mjs: applies db/migrations/*.sql in name order, each file once, and records it.
 //
-// Graceful degradation:
-//   - No POSTGRES_URL_NON_POOLING or POSTGRES_URL → logs warning, exits 0 (safe for preview deploys)
-//   - No db/migrations/ directory → logs warning, exits 0
-//   - Migration failure → logs error, exits 1 (fails the Vercel build — good: bad schema = no deploy)
+// D-WEB-27, decision M: this runs on every deploy, before the new version starts serving, so it
+// must be safe to run again and again. Each file runs inside its own transaction and is recorded
+// in schema_migrations; a recorded file is never run again. A failing file rolls back and exits 1,
+// which stops the deploy while the old version keeps serving. Migrations must stay additive and
+// backward compatible with the code still serving (new columns nullable or defaulted; no renames
+// or drops in the release that stops using them), and reach a Neon branch on staging first.
+//
+// 001 and 002 predate the record and are written with IF NOT EXISTS, so their first recorded run
+// changes nothing. Uses the raw pg client over the direct (non-pooling) connection: pg accepts
+// multi-statement SQL, which prepared statements do not.
 
 import { readdir, readFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
 import pg from 'pg'
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
-const migrationsDir = join(__dirname, 'migrations')
-
-// Prefer the non-pooling connection for multi-statement migrations
-const connectionString = process.env.POSTGRES_URL_NON_POOLING ?? process.env.POSTGRES_URL
+const migrationsDir = join(dirname(fileURLToPath(import.meta.url)), 'migrations')
+const connectionString = process.env.POSTGRES_URL_NON_POOLING
 
 if (!connectionString) {
-  console.warn('[migrate] No POSTGRES_URL_NON_POOLING or POSTGRES_URL found — skipping migrations.')
-  process.exit(0)
+  console.error('[migrate] POSTGRES_URL_NON_POOLING is not set; refusing to deploy without a database.')
+  process.exit(1)
 }
 
-// Check migrations directory exists
-let files
-try {
-  files = (await readdir(migrationsDir))
-    .filter((f) => f.endsWith('.sql'))
-    .sort()
-} catch {
-  console.warn('[migrate] No db/migrations/ directory found — skipping migrations.')
-  process.exit(0)
-}
-
-if (files.length === 0) {
-  console.log('[migrate] No SQL files in db/migrations/ — nothing to run.')
-  process.exit(0)
-}
-
+const files = (await readdir(migrationsDir)).filter((f) => f.endsWith('.sql')).sort()
 const client = new pg.Client({ connectionString })
 await client.connect()
 
 try {
+  await client.query(`CREATE TABLE IF NOT EXISTS schema_migrations (
+    name text PRIMARY KEY,
+    applied_at timestamptz NOT NULL DEFAULT now()
+  )`)
+  const done = new Set((await client.query('SELECT name FROM schema_migrations')).rows.map((r) => r.name))
+  let applied = 0
   for (const file of files) {
-    console.log(`[migrate] Running ${file}…`)
+    if (done.has(file)) continue
     const sql = await readFile(join(migrationsDir, file), 'utf8')
-    await client.query(sql)
-    console.log(`[migrate] ✓ ${file}`)
+    console.log(`[migrate] applying ${file}`)
+    await client.query('BEGIN')
+    try {
+      await client.query(sql)
+      await client.query('INSERT INTO schema_migrations (name) VALUES ($1)', [file])
+      await client.query('COMMIT')
+    } catch (err) {
+      await client.query('ROLLBACK')
+      throw new Error(`${file}: ${err.message}`)
+    }
+    applied += 1
   }
-  console.log(`[migrate] Done — ${files.length} migration file(s) applied.`)
+  console.log(`[migrate] done: ${applied} applied, ${files.length - applied} already recorded`)
 } catch (err) {
-  console.error('[migrate] FAILED:', err.message)
+  console.error('[migrate] FAILED, nothing from the failing file was kept:', err.message)
   process.exitCode = 1
 } finally {
   await client.end()

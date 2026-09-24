@@ -1,0 +1,35 @@
+# D-WEB-27: deploy to the Hostinger VPS over SSH.
+# Push to `staging` deploys staging.stunprex.com; push to `main` deploys production once the
+# repository variable VPS_PRODUCTION_ENABLED is true. The deploy key can do one thing only: its
+# forced command accepts "<production|staging> <commit>" and reads this commit's source tarball.
+# The server builds, runs migrations, and switches traffic only after both succeed.
+name: deploy
+
+on:
+  push:
+    branches: [main, staging]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref_name == 'staging' || vars.VPS_PRODUCTION_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Send this commit to the server
+        env:
+          VPS_DEPLOY_KEY: ${{ secrets.VPS_DEPLOY_KEY }}
+          VPS_KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$VPS_DEPLOY_KEY" > ~/.ssh/deploy && chmod 600 ~/.ssh/deploy
+          printf '%s\n' "$VPS_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          target=$([ "$GITHUB_REF_NAME" = main ] && echo production || echo staging)
+          git archive --format=tar.gz HEAD \
+            | ssh -i ~/.ssh/deploy -o IdentitiesOnly=yes -o BatchMode=yes deploy@"$VPS_HOST" "$target $GITHUB_SHA"
