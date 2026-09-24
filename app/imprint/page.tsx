@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <LegalPage title="Imprint / Impressum" lastUpdated="2026-08-23">
+    <LegalPage title="Imprint / Impressum" lastUpdated="2026-09-24">
       <p>
         <strong>StunpreX</strong> is a project operated by DField Kft.
       </p>
