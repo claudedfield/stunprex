@@ -15,6 +15,7 @@
 import NextAuth from 'next-auth'
 import type { NextAuthConfig } from 'next-auth'
 import Email from 'next-auth/providers/email'
+import { MAGIC_LINK_MAX_AGE_SECONDS } from './lib/auth-constants'
 import PostgresAdapter from '@auth/pg-adapter'
 import { db } from '@vercel/postgres'
 import { sendMagicLink } from '@/lib/email'
@@ -39,6 +40,7 @@ export const authConfig: NextAuthConfig = {
        * goes through sendMagicLink (lib/email.ts) which reads env vars at
        * call time — it will throw a clear error if vars are missing at runtime.
        */
+      maxAge: MAGIC_LINK_MAX_AGE_SECONDS, // LEGAL-01i: 15 minutes, as every page and email says
       server: process.env.EMAIL_SERVER ?? 'smtp://localhost:25',
       sendVerificationRequest: async ({ identifier: email, url }) => {
         // The magic link is sent exactly as Auth.js builds it — on the apex, which
