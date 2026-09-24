@@ -97,6 +97,14 @@ export default function SignUpForm() {
         >
           {isPending ? 'Sending…' : 'Continue with email'}
         </button>
+        {/* LEGAL-01d: the privacy link beside the action. */}
+        <p className="text-center text-xs text-brown/50 font-body">
+          How we use your data:{' '}
+          <a href="/privacy" className="text-deepblue underline underline-offset-2">
+            Privacy Notice
+          </a>
+          .
+        </p>
       </form>
 
       <p className="text-xs text-brown/40 font-body text-center">
