@@ -100,7 +100,7 @@ export default function SignUpForm() {
       </form>
 
       <p className="text-xs text-brown/40 font-body text-center">
-        We&rsquo;ll send a one-click sign-in link. No password, no tracking.
+        We&rsquo;ll send a one-click sign-in link. No password.
       </p>
     </div>
   )
