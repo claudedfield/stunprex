@@ -2,19 +2,13 @@ name: e2e
 
 # D-WEB-10 / D-WEB-12 — the deterministic tester layer.
 #
-#   e2e (preview)     — runs on every PR. Waits for Vercel's preview deployment,
-#                       then tests it. If no preview ever arrives (build failed,
-#                       deploy skipped), it FAILS with the reason rather than
-#                       leaving the PR stuck "waiting" on a check that will never
-#                       report. This job owns the `e2e (preview)` context, so
+#   e2e (preview)     - runs on every PR. Deploys the PR's merge commit to
+#                       staging.stunprex.com over SSH (D-WEB-27, D-WEB-28), then
+#                       tests it, signed-in paths included. A failed build or
+#                       migration fails the deploy step, so the check always
+#                       concludes. This job owns the `e2e (preview)` context, so
 #                       branch protection always gets an answer.
-#   e2e (production)  — nightly against the canonical host.
-#
-# WHY NOT `deployment_status` FOR THE PREVIEW JOB: that event only fires when a
-# deploy succeeds, so a failed build produces no event, no check, and a PR that
-# blocks forever with no visible cause. Polling from a `pull_request` job inverts
-# that — the check always runs and always concludes. It reads Vercel's deploy via
-# GitHub's own deployments API, so no Vercel token is needed in CI.
+#   e2e (production)  - nightly against the canonical host; never signed in.
 
 on:
   pull_request:
@@ -29,14 +23,17 @@ on:
 
 permissions:
   contents: read
-  deployments: read
 
 jobs:
   preview:
     name: e2e (preview)
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
+    # One pull request on staging at a time; shared with deploy.yml's staging pushes.
+    concurrency:
+      group: deploy-staging
+      cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -46,44 +43,28 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
 
-      - name: Wait for the Vercel preview deployment
-        id: preview
+      # D-WEB-27 / D-WEB-28: the PR is tested on staging.stunprex.com, not on a
+      # Vercel preview. This job deploys the PR's merge commit to staging with the
+      # same one-command deploy key as deploy.yml; the server runs the migrations
+      # on staging's Neon branch first (decision M) and switches only when both the
+      # build and the migrations succeed, so a failed deploy fails this check.
+      - name: Deploy this pull request to staging
         env:
-          GH_TOKEN: ${{ github.token }}
-          SHA: ${{ github.event.pull_request.head.sha }}
-          REPO: ${{ github.repository }}
+          VPS_DEPLOY_KEY: ${{ secrets.VPS_DEPLOY_KEY }}
+          VPS_KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
         run: |
-          set -euo pipefail
-          echo "Looking for a preview deployment of $SHA"
-          deadline=$(( SECONDS + 900 ))   # 15 minutes
-          url=""
-          state=""
-          while [ $SECONDS -lt $deadline ]; do
-            # Vercel registers each build as a GitHub deployment on the head SHA.
-            ids=$(gh api "/repos/$REPO/deployments?sha=$SHA&per_page=100" \
-                    --jq '.[].id' 2>/dev/null || true)
-            for id in $ids; do
-              read -r state url < <(gh api "/repos/$REPO/deployments/$id/statuses?per_page=100" \
-                --jq '[.[] | select(.state=="success" or .state=="failure" or .state=="error")][0]
-                      | "\(.state // "") \(.environment_url // .target_url // "")"' 2>/dev/null || echo " ")
-              if [ "${state:-}" = "success" ] && [ -n "${url:-}" ]; then
-                echo "found ready preview: $url"
-                echo "url=$url" >> "$GITHUB_OUTPUT"
-                exit 0
-              fi
-              if [ "${state:-}" = "failure" ] || [ "${state:-}" = "error" ]; then
-                echo "::error::Vercel reported the preview deployment as '$state' for $SHA — the build failed, so there is nothing to test."
-                exit 1
-              fi
-            done
-            sleep 15
-          done
-          echo "::error::No Vercel preview deploy — build likely failed, or the deploy was skipped. Waited 15 minutes for a deployment of $SHA and none reached a conclusive state."
-          exit 1
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$VPS_DEPLOY_KEY" > ~/.ssh/deploy && chmod 600 ~/.ssh/deploy
+          printf '%s\n' "$VPS_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          git archive --format=tar.gz HEAD \
+            | ssh -i ~/.ssh/deploy -o IdentitiesOnly=yes -o BatchMode=yes deploy@"$VPS_HOST" "staging $GITHUB_SHA"
 
-      - name: Run e2e against the preview deployment
+      - name: Run e2e against staging
         env:
-          E2E_BASE_URL: ${{ steps.preview.outputs.url }}
+          E2E_BASE_URL: https://staging.stunprex.com
+          # Enables the signed-in tests; staging's server holds the same secret.
+          E2E_SIGNIN_SECRET: ${{ secrets.E2E_SIGNIN_SECRET }}
         run: npx playwright test
 
       - name: Summarise
