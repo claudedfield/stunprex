@@ -12,7 +12,7 @@
  */
 import { sql } from '@/db'
 import {
-  CONFIRM_DAYS, CONFIRM_PER_HOUR, confirmationMail, newToken, normaliseEmail, normaliseName, sendOne,
+  CONFIRM_DAYS, CONFIRM_PER_24H, CONFIRM_PER_HOUR, MAILBOX_BUDGET_24H, confirmationMail, mailboxUsage, newToken, normaliseEmail, normaliseName, sendOne,
 } from './core.mjs'
 
 type Row = {
@@ -36,9 +36,8 @@ export async function subscribe(rawName: unknown, rawEmail: unknown, source: str
   if (row?.confirm_sent_at && Date.now() - new Date(row.confirm_sent_at).getTime() < 24 * 3600 * 1000) {
     return 'check_email' // one confirmation per address per 24 hours
   }
-  const { rows: recent } = await sql<{ n: number }>`
-    SELECT count(*)::int AS n FROM newsletter_subscribers WHERE confirm_sent_at > now() - interval '1 hour'`
-  if (recent[0].n >= CONFIRM_PER_HOUR) return 'busy'
+  const use = await mailboxUsage(query)
+  if (use.confirm1 >= CONFIRM_PER_HOUR || use.confirm24 >= CONFIRM_PER_24H || use.total24 >= MAILBOX_BUDGET_24H) return 'busy'
 
   const token = newToken()
   const days = `${CONFIRM_DAYS} days`
