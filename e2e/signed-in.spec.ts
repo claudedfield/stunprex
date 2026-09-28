@@ -52,7 +52,8 @@ test.describe('the terms step (LEGAL-01a, 01b)', () => {
   };
 
   const tryToPost = async (page: import('@playwright/test').Page) => {
-    await page.goto('/community/ask');
+    // The form is what matters, not every late resource: one run waited 30 s for a load event.
+    await page.goto('/community/ask', { waitUntil: 'domcontentloaded' });
     await page.locator('#title').fill('Terms gate check from the e2e suite, never posted');
     await page.locator('#category').selectOption({ index: 1 });
     await page.locator('#body').fill('This checks that the terms step blocks a post.');
