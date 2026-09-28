@@ -38,7 +38,11 @@ test('/imprint carries the verified entity fields exactly', async ({ page }) => 
 
   // Registered seat and hosting disclosure.
   await expect(main).toContainText('2120 Dunakeszi, Torony köz 5. 1. ajtó');
-  await expect(main).toContainText('Vercel Inc.');
+  // Since 26 Sep the site is served from the Hostinger VPS (LEGAL-00b): the host named is the
+  // one that serves it, and no placeholder reaches production.
+  await expect(main).toContainText('Our server is in the Netherlands.');
+  await expect(main).not.toContainText('Vercel');
+  await expect(main).not.toContainText(/HOSTINGER_[A-Z_]+/);
 
   // Contact is a real mailto link, not plain text.
   await expect(page.locator('a[href="mailto:hello@stunprex.com"]').first()).toBeVisible();
@@ -51,6 +55,11 @@ test('/privacy names the controller, sub-processors and GDPR rights', async ({ p
   const main = page.locator('main');
   await expect(main).toContainText('DField Kft.');
   await expect(main).toContainText('Beehiiv');
+  // LEGAL-00b: the sub-processors are the ones in use since the move.
+  await expect(main).toContainText('Hostinger (hosting on our server in the Netherlands');
+  await expect(main).toContainText('Neon (Databricks, Inc.) (our database, in Frankfurt, Germany).');
+  await expect(main).not.toContainText('Vercel');
+  await expect(main).not.toContainText(/saved game scores/i);
   await expect(main).toContainText(/Art\. 6\(1\)\(a\) GDPR/);
   await expect(main).toContainText(/NAIH/);
   await expect(page.locator('a[href="mailto:hello@stunprex.com"]').first()).toBeVisible();
@@ -61,6 +70,9 @@ test('/cookies says the site uses no analytics or tracking (LEGAL-00)', async ({
   const main = page.locator('main');
   await expect(main).toContainText('We use no analytics or tracking at present.');
   await expect(main).not.toContainText(/cookieless/i);
+  // LEGAL-00b: no preference is stored; only game scores, in local storage.
+  await expect(main).toContainText('each game keeps your best score in your browser');
+  await expect(main).not.toContainText(/Preference cookies/i);
 });
 
 test('the age passages read as LEGAL-00 set them', async ({ page }) => {

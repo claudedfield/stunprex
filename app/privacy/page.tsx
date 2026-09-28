@@ -23,8 +23,8 @@ export default function Page() {
           performance of the service (Art. 6(1)(b)) for authentication.
         </li>
         <li>
-          <strong>Account data</strong>: if you create an account (email + your activity on
-          the site, e.g. saved game scores, questions). <strong>Legal basis:</strong>{' '}
+          <strong>Account data</strong>: if you create an account (email, your display name
+          and profile, and your questions, answers and comments). <strong>Legal basis:</strong>{' '}
           performance of the service.
         </li>
         <li>
@@ -40,11 +40,8 @@ export default function Page() {
 
       <h2>Who processes it (sub-processors)</h2>
       <ul>
-        <li>
-          Vercel Inc. (hosting, database; data may be processed in the
-          EU/USA under appropriate safeguards).
-        </li>
-        <li>Our email/SMTP provider (to deliver sign-in links).</li>
+        <li>Hostinger (hosting on our server in the Netherlands, sign-in emails, our mailbox).</li>
+        <li>Neon (Databricks, Inc.) (our database, in Frankfurt, Germany).</li>
         <li>Beehiiv Inc. (newsletter delivery), for newsletter subscribers.</li>
       </ul>
 

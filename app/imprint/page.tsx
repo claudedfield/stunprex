@@ -35,8 +35,8 @@ export default function Page() {
           <a href="mailto:hello@stunprex.com">hello@stunprex.com</a>
         </li>
         <li>
-          <strong>Hosting provider:</strong> Vercel Inc., 340 S Lemon Ave #4133, Walnut,
-          CA 91789, USA.
+          <strong>Hosting provider:</strong> HOSTINGER_COMPANY_FROM_INVOICE,
+          HOSTINGER_REGISTERED_ADDRESS; HOSTINGER_CONTACT_EMAIL. Our server is in the Netherlands.
         </li>
       </ul>
 

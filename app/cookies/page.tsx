@@ -17,8 +17,8 @@ export default function Page() {
           required for the site to function and don&rsquo;t need consent.
         </li>
         <li>
-          <strong>Preference cookies</strong>: remember choices (e.g. reduced-motion,
-          filters), stored locally where possible.
+          <strong>Game scores</strong>: each game keeps your best score in your browser&rsquo;s
+          local storage. It stays on your device and is never sent to us.
         </li>
         <li>
           <strong>Analytics</strong>: We use no analytics or tracking at present.
