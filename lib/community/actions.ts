@@ -13,6 +13,7 @@ import { sql } from '@/db'
 import { z } from 'zod'
 import { generateSlugFromTitle, sanitizeImageUrl, isEffectivelyEmpty, countExternalLinks } from '@/lib/community/utils'
 import type { QuestionCategory } from '@/lib/types/community'
+import { redactError } from '@/lib/log-redact'
 
 // ─── Shared result type ───────────────────────────────────────────────────────
 
@@ -143,7 +144,7 @@ export async function signInWithMagicLink(
       data: { message: "Check your email: we've sent you a sign-in link." },
     }
   } catch (err) {
-    console.error('[signInWithMagicLink]', err)
+    console.error('[signInWithMagicLink]', redactError(err))
     return { success: false, error: 'Could not send sign-in link. Please try again.' }
   }
 }
@@ -666,7 +667,7 @@ export async function updateProfile(formData: FormData): Promise<ActionResult> {
     if (typeof err === 'object' && err !== null && 'code' in err && (err as { code: string }).code === '23505') {
       return { success: false, error: 'That display name is already taken. Please choose another.' }
     }
-    console.error('[updateProfile]', err)
+    console.error('[updateProfile]', redactError(err))
     return { success: false, error: 'Could not update profile. Please try again.' }
   }
 
