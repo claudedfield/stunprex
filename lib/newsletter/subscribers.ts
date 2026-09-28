@@ -7,11 +7,12 @@
  * - An unsubscribed address that subscribes again starts a fresh double opt-in; its row keeps the
  *   earlier unsubscribe time until it confirms again.
  * - A bounced address is never mailed.
- * - The consent record is the timestamps plus the confirmation token used. No IP address is stored.
+ * - The consent record is the name given, the timestamps and the confirmation token used (Grt. 6. § (2)).
+ *   No IP address is stored. The name is used only in the confirmation mail and the issues.
  */
 import { sql } from '@/db'
 import {
-  CONFIRM_DAYS, CONFIRM_PER_HOUR, confirmationMail, newToken, normaliseEmail, sendOne,
+  CONFIRM_DAYS, CONFIRM_PER_HOUR, confirmationMail, newToken, normaliseEmail, normaliseName, sendOne,
 } from './core.mjs'
 
 type Row = {
@@ -19,11 +20,13 @@ type Row = {
   confirm_token: string | null; confirm_token_expires_at: string | null; confirm_sent_at: string | null
 }
 
-export type SubscribeOutcome = 'check_email' | 'already_confirmed' | 'invalid_email' | 'busy'
+export type SubscribeOutcome = 'check_email' | 'already_confirmed' | 'invalid_email' | 'invalid_name' | 'busy'
 
 const query = (text: string, values: unknown[]) => sql.query(text, values)
 
-export async function subscribe(rawEmail: unknown, source: string): Promise<SubscribeOutcome> {
+export async function subscribe(rawName: unknown, rawEmail: unknown, source: string): Promise<SubscribeOutcome> {
+  const name = normaliseName(rawName)
+  if (!name) return 'invalid_name'
   const email = normaliseEmail(rawEmail)
   if (!email) return 'invalid_email'
   const { rows } = await sql<Row>`SELECT * FROM newsletter_subscribers WHERE email = ${email}`
@@ -43,17 +46,17 @@ export async function subscribe(rawEmail: unknown, source: string): Promise<Subs
     await sql`
       UPDATE newsletter_subscribers
       SET status = 'pending', confirm_token = ${token}, confirm_token_expires_at = now() + ${days}::interval,
-          confirm_sent_at = now(), consent_requested_at = now(), source = ${source},
+          confirm_sent_at = now(), consent_requested_at = now(), source = ${source}, name = ${name},
           unsubscribe_token = COALESCE(unsubscribe_token, ${newToken()})
       WHERE id = ${row.id}`
   } else {
     await sql`
       INSERT INTO newsletter_subscribers
-        (email, source, status, confirm_token, confirm_token_expires_at, confirm_sent_at, consent_requested_at, unsubscribe_token)
-      VALUES (${email}, ${source}, 'pending', ${token}, now() + ${days}::interval, now(), now(), ${newToken()})
+        (email, name, source, status, confirm_token, confirm_token_expires_at, confirm_sent_at, consent_requested_at, unsubscribe_token)
+      VALUES (${email}, ${name}, ${source}, 'pending', ${token}, now() + ${days}::interval, now(), now(), ${newToken()})
       ON CONFLICT (email) DO NOTHING`
   }
-  await sendOne(query, { to: email, ...confirmationMail(token) })
+  await sendOne(query, { to: email, ...confirmationMail(token, name) })
   return 'check_email'
 }
 

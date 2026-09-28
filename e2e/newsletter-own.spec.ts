@@ -17,6 +17,7 @@ test('/newsletter takes an address by POST only, with the privacy and age lines 
   await page.goto('/newsletter');
   const form = page.locator('[data-newsletter-form]');
   await expect(form.locator('input[type="email"]')).toBeVisible();
+  await expect(form.locator('#newsletter-name'), 'the consent record carries a name (Grt. 6. § (2))').toBeVisible();
   await expect(form.locator('a[href="/privacy"]')).toBeVisible();
   await expect(form).toContainText('For readers 16 and over');
 });
@@ -34,6 +35,7 @@ test.describe('subscribe, confirm, unsubscribe (staging)', () => {
     subject: string; headers: Record<string, string>; text_body: string; html_body: string }>;
   const subscribeOnPage = async (page: Page) => {
     await page.goto('/newsletter');
+    await page.locator('#newsletter-name').fill('E2E Tester');
     await page.locator('#newsletter-email').fill(ADDRESS);
     await page.getByRole('button', { name: 'Subscribe' }).click();
     // Wait for the answer, so the row exists before the next step reads or changes it.
@@ -45,6 +47,14 @@ test.describe('subscribe, confirm, unsubscribe (staging)', () => {
     return new URL(m![0]).pathname + new URL(m![0]).search;
   };
 
+  test('a sign-up without a name is refused and writes nothing', async ({ request }) => {
+    await helper(request, 'reset');
+    const res = await request.post('/api/newsletter/subscribe', { data: { email: ADDRESS, name: '  ' } });
+    expect(res.status()).toBe(400);
+    expect((await helper(request, 'state')).subscriber).toBeNull();
+    expect(await outbox(request)).toHaveLength(0);
+  });
+
   test('subscribing writes a pending row and sends one confirmation', async ({ page, request }) => {
     await helper(request, 'reset');
     await subscribeOnPage(page);
@@ -52,11 +62,14 @@ test.describe('subscribe, confirm, unsubscribe (staging)', () => {
     const { subscriber } = await helper(request, 'state');
     expect(subscriber.status).toBe('pending');
     expect(subscriber.consent_requested_at).toBeTruthy();
+    expect(subscriber.name).toBe('E2E Tester');
     const mail = await outbox(request);
     expect(mail).toHaveLength(1);
     expect(mail[0].subject).toContain('Confirm');
     expect(mail[0].headers.From).toContain('news@stunprex.com');
+    expect(mail[0].text_body).toContain('Hello E2E Tester,');
   });
+
 
   test('subscribing again within 24 hours sends nothing more', async ({ page, request }) => {
     await subscribeOnPage(page);
@@ -86,6 +99,7 @@ test.describe('subscribe, confirm, unsubscribe (staging)', () => {
     expect(issue.html_body, 'no script').not.toMatch(/<script/i);
     expect(issue.html_body, 'links are not rewritten').toContain('href="https://stunprex.com/training"');
     expect(issue.text_body).toContain('/newsletter/unsubscribe?token=');
+    expect(issue.text_body, 'the name given is used in the greeting').toContain('Hello E2E Tester,');
   });
 
   test('the unsubscribe link unsubscribes with one click', async ({ page, request }) => {

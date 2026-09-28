@@ -37,14 +37,14 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true })
   }
   if (action === 'state') {
-    const { rows } = await sql`SELECT status, consent_requested_at, confirmed_at, unsubscribed_at,
+    const { rows } = await sql`SELECT status, name, consent_requested_at, confirmed_at, unsubscribed_at,
                                       (SELECT count(*)::int FROM newsletter_subscribers WHERE email = ${TEST_ADDRESS}) AS rows
                                FROM newsletter_subscribers WHERE email = ${TEST_ADDRESS}`
     return NextResponse.json({ subscriber: rows[0] ?? null })
   }
   if (action === 'send_issue') {
-    const { rows } = await sql<{ id: string; email: string; unsubscribe_token: string }>`
-      SELECT id, email, unsubscribe_token FROM newsletter_subscribers WHERE email = ${TEST_ADDRESS} AND status = 'confirmed'`
+    const { rows } = await sql<{ id: string; email: string; name: string | null; unsubscribe_token: string }>`
+      SELECT id, email, name, unsubscribe_token FROM newsletter_subscribers WHERE email = ${TEST_ADDRESS} AND status = 'confirmed'`
     if (!rows[0]) return NextResponse.json({ result: 'not confirmed; nothing sent' })
     const query = (text: string, values: unknown[]) => sql.query(text, values)
     const issueId = await ensureIssueRow(query, TEST_ISSUE.meta)
