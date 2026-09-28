@@ -14,6 +14,7 @@ import { z } from 'zod'
 import { generateSlugFromTitle, sanitizeImageUrl, isEffectivelyEmpty, countExternalLinks } from '@/lib/community/utils'
 import type { QuestionCategory } from '@/lib/types/community'
 import { redactError } from '@/lib/log-redact'
+import { TERMS_VERSION } from '@/lib/legal'
 
 // ─── Shared result type ───────────────────────────────────────────────────────
 
@@ -86,14 +87,29 @@ const ProfileSchema = z.object({
 // ─── Auth helpers ─────────────────────────────────────────────────────────────
 
 /** Get session and verify user is authenticated + not banned. Returns error string or null. */
-async function requireAuth(): Promise<
-  { ok: true; userId: string; role: string } | { ok: false; error: string }
+async function requireSignedIn(): Promise<
+  { ok: true; userId: string; role: string; termsOk: boolean } | { ok: false; error: string }
 > {
   const session = await auth()
   if (!session?.user?.id) return { ok: false, error: 'You must be signed in.' }
-  const u = session.user as typeof session.user & { is_banned?: boolean; role?: string }
+  const u = session.user as typeof session.user & { is_banned?: boolean; role?: string; terms_ok?: boolean }
   if (u.is_banned) return { ok: false, error: 'Your account cannot perform this action.' }
-  return { ok: true, userId: session.user.id, role: u.role ?? 'user' }
+  return { ok: true, userId: session.user.id, role: u.role ?? 'user', termsOk: u.terms_ok === true }
+}
+
+/**
+ * Every write action. LEGAL-01a and 01b: a member who has not accepted the current Terms of Use
+ * version, or not confirmed they are 16 or older, is sent to the terms step (/community/welcome)
+ * instead of writing. This covers accounts created by the sign-in route as well as sign-up, and
+ * existing members after a terms change.
+ */
+async function requireAuth(): Promise<
+  { ok: true; userId: string; role: string } | { ok: false; error: string }
+> {
+  const result = await requireSignedIn()
+  if (!result.ok) return result
+  if (!result.termsOk) redirect('/community/welcome')
+  return { ok: true, userId: result.userId, role: result.role }
 }
 
 /** Require moderator or admin role. */
@@ -155,13 +171,23 @@ export async function signOut() {
   redirect('/')
 }
 
-/** Mark the current user's profile as onboarded (called from /community/welcome). */
-export async function completeOnboarding(): Promise<ActionResult> {
-  const result = await requireAuth()
+/**
+ * The terms step on /community/welcome (LEGAL-01a, 01b). Both boxes are required and checked here,
+ * not only in the form: the Terms of Use version accepted and the time, the time the member
+ * confirmed they are 16 or older, then onboarded.
+ */
+export async function completeOnboarding(formData: FormData): Promise<ActionResult> {
+  const result = await requireSignedIn()
   if (!result.ok) return { success: false, error: result.error }
+  if (formData.get('accept_terms') !== 'on' || formData.get('confirm_age') !== 'on') {
+    return { success: false, error: 'Please tick both boxes to continue.' }
+  }
 
   await sql`
-    UPDATE profiles SET onboarded = true WHERE user_id = ${result.userId}
+    UPDATE profiles
+    SET terms_version = ${TERMS_VERSION}, terms_accepted_at = now(),
+        age_confirmed_at = COALESCE(age_confirmed_at, now()), onboarded = true
+    WHERE user_id = ${result.userId}
   `
 
   revalidatePath('/community')

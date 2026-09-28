@@ -21,6 +21,7 @@ import { db } from '@/db'
 import { sendMagicLink } from '@/lib/email'
 import { ensureProfile } from '@/lib/auth/db'
 import { redactError } from '@/lib/log-redact'
+import { TERMS_VERSION } from './lib/legal'
 
 export const authConfig: NextAuthConfig = {
   adapter: PostgresAdapter(db),
@@ -73,6 +74,9 @@ export const authConfig: NextAuthConfig = {
         ;(session.user as typeof session.user & { role: string; is_banned: boolean; onboarded: boolean }).role = profile.role
         ;(session.user as typeof session.user & { role: string; is_banned: boolean; onboarded: boolean }).is_banned = profile.is_banned
         ;(session.user as typeof session.user & { role: string; is_banned: boolean; onboarded: boolean }).onboarded = profile.onboarded
+        // LEGAL-01a, 01b: writes need the current terms accepted and the age confirmed.
+        ;(session.user as typeof session.user & { terms_ok: boolean }).terms_ok =
+          profile.terms_version === TERMS_VERSION && profile.age_confirmed_at != null
       }
       return session
     },

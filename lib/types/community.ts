@@ -59,6 +59,9 @@ export interface ProfileRow {
   is_banned: boolean
   wants_newsletter: boolean
   onboarded: boolean         // false until /community/welcome is visited
+  terms_version: string | null     // LEGAL-01a: the Terms of Use version accepted
+  terms_accepted_at: string | null // LEGAL-01a
+  age_confirmed_at: string | null  // LEGAL-01b: confirmed 16 or older
   created_at: string         // ISO
 }
 

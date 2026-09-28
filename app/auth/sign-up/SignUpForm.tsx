@@ -1,25 +1,19 @@
 'use client'
 /**
- * Sign-up form — same magic-link mechanism as sign-in.
- * Newsletter opt-in checkbox (default unchecked) stored in cookie for
- * the welcome page to pick up and save to the profile.
+ * Sign-up form: same magic-link mechanism as sign-in.
+ * LEGAL-01a: no newsletter box here. The old box set a cookie nothing read, so a consent was
+ * collected and never acted on; the newsletter is a link to its own page instead.
  */
 import { useState, useTransition } from 'react'
 import { signInWithMagicLink } from '@/lib/community/actions'
 
 export default function SignUpForm() {
   const [email, setEmail] = useState('')
-  const [newsletter, setNewsletter] = useState(false)
   const [result, setResult] = useState<{ success?: boolean; message?: string; error?: string } | null>(null)
   const [isPending, startTransition] = useTransition()
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-
-    // Store newsletter pref in a short-lived cookie for the welcome page to pick up
-    if (newsletter) {
-      document.cookie = `signup_newsletter=1; path=/; max-age=3600; SameSite=Lax`
-    }
 
     const fd = new FormData()
     fd.append('email', email)
@@ -75,21 +69,6 @@ export default function SignUpForm() {
           />
         </div>
 
-        {/* Newsletter opt-in — default unchecked (brief §3) */}
-        <div className="flex items-start gap-2.5">
-          <input
-            id="newsletter"
-            type="checkbox"
-            checked={newsletter}
-            onChange={(e) => setNewsletter(e.target.checked)}
-            className="mt-0.5 h-4 w-4 rounded border-deepblue/30 text-deepblue accent-deepblue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40"
-          />
-          <label htmlFor="newsletter" className="text-xs font-body text-brown/60 leading-relaxed">
-            Email me occasional updates from StunpreX: methodology notes, new content,
-            and community highlights. You can unsubscribe any time.
-          </label>
-        </div>
-
         <button
           type="submit"
           disabled={isPending || !email.includes('@')}
@@ -97,9 +76,13 @@ export default function SignUpForm() {
         >
           {isPending ? 'Sending…' : 'Continue with email'}
         </button>
-        {/* LEGAL-01d: the privacy link beside the action. */}
+        {/* LEGAL-01a: creating an account means accepting the terms; LEGAL-01d: the privacy link beside the action. */}
         <p className="text-center text-xs text-brown/50 font-body">
-          How we use your data:{' '}
+          Creating an account means accepting our{' '}
+          <a href="/terms" className="text-deepblue underline underline-offset-2">
+            Terms of Use
+          </a>
+          . See our{' '}
           <a href="/privacy" className="text-deepblue underline underline-offset-2">
             Privacy Notice
           </a>
@@ -108,7 +91,14 @@ export default function SignUpForm() {
       </form>
 
       <p className="text-xs text-brown/40 font-body text-center">
-        We&rsquo;ll send a one-click sign-in link. No password.
+        No password. We send a one-time sign-in link.
+      </p>
+      <p className="text-xs text-brown/50 font-body text-center">
+        Want the newsletter?{' '}
+        <a href="/#newsletter" className="text-deepblue underline underline-offset-2">
+          Subscribe here
+        </a>
+        .
       </p>
     </div>
   )

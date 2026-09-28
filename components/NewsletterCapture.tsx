@@ -53,7 +53,7 @@ export function NewsletterCapture({ source = 'home', variant = 'section', footer
   }
 
   return (
-    <section className="py-20 md:py-24 bg-mint">
+    <section id="newsletter" className="py-20 md:py-24 bg-mint">
       <div className="container-site">
         <div className="max-w-2xl mx-auto text-center">
           <p className="font-ui uppercase tracking-widest text-sm text-orange mb-3">Newsletter</p>
