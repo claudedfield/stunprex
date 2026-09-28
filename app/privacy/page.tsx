@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <LegalPage title="Privacy Policy" lastUpdated="2026-09-24">
+    <LegalPage title="Privacy Policy" lastUpdated="2026-09-28">
       <p>
         <strong>Controller:</strong> DField Kft., 2120 Dunakeszi, Torony köz 5. 1. ajtó,
         Hungary · <a href="mailto:hello@stunprex.com">hello@stunprex.com</a>.

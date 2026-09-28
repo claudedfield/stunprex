@@ -11,14 +11,21 @@ import { CONSENT_PATTERNS, watchConsole } from './helpers';
 
 const LEGAL_ROUTES = ['/imprint', '/privacy', '/cookies', '/terms'] as const;
 
+// LEGAL-00 dated all four pages 24 Sep; LEGAL-00b changed three of them on 28 Sep.
+const LAST_UPDATED: Record<(typeof LEGAL_ROUTES)[number], string> = {
+  '/imprint': '2026-09-28',
+  '/privacy': '2026-09-28',
+  '/cookies': '2026-09-28',
+  '/terms': '2026-09-24',
+};
+
 for (const route of LEGAL_ROUTES) {
   test(`${route} carries a last-updated date`, async ({ page }) => {
     await page.goto(route);
     await expect(page.getByText(/Last updated/i)).toBeVisible();
     // Rendered as a semantic <time> so the date is machine-readable.
     await expect(page.locator('time[datetime]')).toHaveCount(1);
-    // LEGAL-00: the hotfix date on all four pages.
-    await expect(page.locator('time[datetime]')).toHaveAttribute('datetime', '2026-09-24');
+    await expect(page.locator('time[datetime]')).toHaveAttribute('datetime', LAST_UPDATED[route]);
   });
 }
 
