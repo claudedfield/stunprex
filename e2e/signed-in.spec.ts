@@ -10,6 +10,10 @@ import { test, expect } from '@playwright/test';
  */
 const secret = process.env.E2E_SIGNIN_SECRET ?? '';
 
+// Every test here signs in as the one test account, and the terms tests change its state, so the
+// file runs one test at a time: no test sees the account while another is changing it.
+test.describe.configure({ mode: 'serial' });
+
 test('the test sign-in route does not answer without its secret', async ({ request }) => {
   const res = await request.post('/api/test/sign-in', { maxRedirects: 0 });
   expect(res.status()).toBe(404);
@@ -41,7 +45,6 @@ test.describe('signed in as the test account', () => {
  * instead; the write is refused before anything is stored.
  */
 test.describe('the terms step (LEGAL-01a, 01b)', () => {
-  test.describe.configure({ mode: 'serial' });
   test.skip(!secret, 'signed-in tests run on staging only');
 
   const signIn = async (page: import('@playwright/test').Page, terms?: 'none' | 'stale' | 'current') => {
