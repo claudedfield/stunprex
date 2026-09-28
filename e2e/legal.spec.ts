@@ -11,14 +11,21 @@ import { CONSENT_PATTERNS, watchConsole } from './helpers';
 
 const LEGAL_ROUTES = ['/imprint', '/privacy', '/cookies', '/terms'] as const;
 
+// LEGAL-00 dated all four pages 24 Sep; LEGAL-00b changed three of them on 28 Sep.
+const LAST_UPDATED: Record<(typeof LEGAL_ROUTES)[number], string> = {
+  '/imprint': '2026-09-28',
+  '/privacy': '2026-09-28',
+  '/cookies': '2026-09-28',
+  '/terms': '2026-09-24',
+};
+
 for (const route of LEGAL_ROUTES) {
   test(`${route} carries a last-updated date`, async ({ page }) => {
     await page.goto(route);
     await expect(page.getByText(/Last updated/i)).toBeVisible();
     // Rendered as a semantic <time> so the date is machine-readable.
     await expect(page.locator('time[datetime]')).toHaveCount(1);
-    // LEGAL-00: the hotfix date on all four pages.
-    await expect(page.locator('time[datetime]')).toHaveAttribute('datetime', '2026-09-24');
+    await expect(page.locator('time[datetime]')).toHaveAttribute('datetime', LAST_UPDATED[route]);
   });
 }
 
@@ -38,7 +45,11 @@ test('/imprint carries the verified entity fields exactly', async ({ page }) => 
 
   // Registered seat and hosting disclosure.
   await expect(main).toContainText('2120 Dunakeszi, Torony köz 5. 1. ajtó');
-  await expect(main).toContainText('Vercel Inc.');
+  // Since 26 Sep the site is served from the Hostinger VPS (LEGAL-00b): the host named is the
+  // one that serves it, and no placeholder reaches production.
+  await expect(main).toContainText('Our server is in the Netherlands.');
+  await expect(main).not.toContainText('Vercel');
+  await expect(main).not.toContainText(/HOSTINGER_[A-Z_]+/);
 
   // Contact is a real mailto link, not plain text.
   await expect(page.locator('a[href="mailto:hello@stunprex.com"]').first()).toBeVisible();
@@ -51,6 +62,11 @@ test('/privacy names the controller, sub-processors and GDPR rights', async ({ p
   const main = page.locator('main');
   await expect(main).toContainText('DField Kft.');
   await expect(main).toContainText('Beehiiv');
+  // LEGAL-00b: the sub-processors are the ones in use since the move.
+  await expect(main).toContainText('Hostinger (hosting on our server in the Netherlands');
+  await expect(main).toContainText('Neon (Databricks, Inc.) (our database, in Frankfurt, Germany).');
+  await expect(main).not.toContainText('Vercel');
+  await expect(main).not.toContainText(/saved game scores/i);
   await expect(main).toContainText(/Art\. 6\(1\)\(a\) GDPR/);
   await expect(main).toContainText(/NAIH/);
   await expect(page.locator('a[href="mailto:hello@stunprex.com"]').first()).toBeVisible();
@@ -61,6 +77,9 @@ test('/cookies says the site uses no analytics or tracking (LEGAL-00)', async ({
   const main = page.locator('main');
   await expect(main).toContainText('We use no analytics or tracking at present.');
   await expect(main).not.toContainText(/cookieless/i);
+  // LEGAL-00b: no preference is stored; only game scores, in local storage.
+  await expect(main).toContainText('each game keeps your best score in your browser');
+  await expect(main).not.toContainText(/Preference cookies/i);
 });
 
 test('the age passages read as LEGAL-00 set them', async ({ page }) => {
