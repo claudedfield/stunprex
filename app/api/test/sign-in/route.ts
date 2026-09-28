@@ -21,26 +21,20 @@
  * always carries the account's terms state as stored.
  */
 import { NextResponse } from 'next/server'
-import { randomUUID, timingSafeEqual } from 'node:crypto'
+import { randomUUID } from 'node:crypto'
 import { sql } from '@/db'
 import { ensureProfile } from '@/lib/auth/db'
 import { TERMS_VERSION } from '@/lib/legal'
+import { testRoutesEnabled } from '@/lib/test-guard'
 
 export const dynamic = 'force-dynamic'
 
 const E2E_TEST_EMAIL = 'e2e@stunprex.test'
 const SESSION_SECONDS = 60 * 60
 
-function enabled(req: Request): boolean {
-  const secret = process.env.E2E_SIGNIN_SECRET ?? ''
-  if (process.env.STAGING !== '1' || secret.length < 32) return false
-  const given = Buffer.from(req.headers.get('x-e2e-secret') ?? '')
-  const want = Buffer.from(secret)
-  return given.length === want.length && timingSafeEqual(given, want)
-}
 
 export async function POST(req: Request) {
-  if (!enabled(req)) return new NextResponse('Not Found', { status: 404 })
+  if (!testRoutesEnabled(req)) return new NextResponse('Not Found', { status: 404 })
 
   const { rows } = await sql<{ id: string }>`
     INSERT INTO users (email, "emailVerified") VALUES (${E2E_TEST_EMAIL}, now())
