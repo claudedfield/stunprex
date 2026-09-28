@@ -36,6 +36,8 @@ test.describe('subscribe, confirm, unsubscribe (staging)', () => {
     await page.goto('/newsletter');
     await page.locator('#newsletter-email').fill(ADDRESS);
     await page.getByRole('button', { name: 'Subscribe' }).click();
+    // Wait for the answer, so the row exists before the next step reads or changes it.
+    await expect(page.locator('[data-newsletter-result], [role="alert"]').first()).toBeVisible();
   };
   const linkIn = (text: string, path: string) => {
     const m = text.match(new RegExp(`https?://[^\\s]+${path}\\?token=[^\\s]+`));
