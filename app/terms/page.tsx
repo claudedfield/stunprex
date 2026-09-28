@@ -1,4 +1,5 @@
 import { LegalPage } from '@/components/LegalPage';
+import { TERMS_VERSION } from '@/lib/legal'
 
 export const metadata = {
   title: 'Terms of Use',
@@ -8,7 +9,7 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <LegalPage title="Terms of Use" lastUpdated="2026-09-24">
+    <LegalPage title="Terms of Use" lastUpdated={TERMS_VERSION}>
       <p>By using StunpreX you agree to these terms.</p>
 
       <ul>

@@ -22,9 +22,12 @@ export default async function WelcomePage() {
   const session = await auth()
   if (!session?.user?.id) redirect('/auth/sign-in?next=/community/welcome')
 
-  // If already onboarded, send straight to the community
-  const onboarded = (session.user as typeof session.user & { onboarded?: boolean }).onboarded
-  if (onboarded) redirect('/community')
+  // Onboarded, with the current terms accepted and the age confirmed: straight to the community.
+  // An onboarded member without them (a terms change, or an account from before LEGAL-01a) stays
+  // here for the terms step.
+  const u = session.user as typeof session.user & { onboarded?: boolean; terms_ok?: boolean }
+  if (u.onboarded && u.terms_ok) redirect('/community')
+  const returning = u.onboarded === true
 
   return (
     <main className="min-h-screen bg-mint">
@@ -84,7 +87,12 @@ export default async function WelcomePage() {
           </div>
         </section>
 
-        {/* Dismiss — marks onboarded in DB */}
+        {/* LEGAL-01a, 01b: the terms step; finishing it marks the profile onboarded. */}
+        {returning ? (
+          <p className="font-body text-sm text-brown/70 mb-4">
+            Before you post again, please read and accept our Terms of Use as they stand today.
+          </p>
+        ) : null}
         <WelcomeForm />
 
       </div>
