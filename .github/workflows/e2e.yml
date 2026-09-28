@@ -65,6 +65,8 @@ jobs:
           E2E_BASE_URL: https://staging.stunprex.com
           # Enables the signed-in tests; staging's server holds the same secret.
           E2E_SIGNIN_SECRET: ${{ secrets.E2E_SIGNIN_SECRET }}
+          # Staging is behind basic authentication (LEGAL-01m); sent to the staging origin only.
+          E2E_STAGING_AUTH: ${{ secrets.E2E_STAGING_AUTH }}
         run: npx playwright test
 
       - name: Summarise

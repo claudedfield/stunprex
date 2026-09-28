@@ -9,6 +9,7 @@
  */
 import { NextResponse } from 'next/server'
 import { getSearchIndexData } from '@/lib/community/queries'
+import { redactError } from '@/lib/log-redact'
 
 // Never pre-render at build time — requires live DB. Edge-cached via Cache-Control.
 export const dynamic = 'force-dynamic'
@@ -22,7 +23,7 @@ export async function GET() {
       },
     })
   } catch (err) {
-    console.error('[search-index] failed:', err)
+    console.error('[search-index] failed:', redactError(err))
     return NextResponse.json([], { status: 500 })
   }
 }

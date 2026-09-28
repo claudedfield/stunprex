@@ -20,6 +20,7 @@ import PostgresAdapter from '@auth/pg-adapter'
 import { db } from '@vercel/postgres'
 import { sendMagicLink } from '@/lib/email'
 import { ensureProfile } from '@/lib/auth/db'
+import { redactError } from '@/lib/log-redact'
 
 export const authConfig: NextAuthConfig = {
   adapter: PostgresAdapter(db),
@@ -84,6 +85,18 @@ export const authConfig: NextAuthConfig = {
     newUser: '/community/welcome',  // first-time onboarding redirect
   },
 
+  // LEGAL-01m: Auth.js's own error and warning lines pass through the same redaction as ours,
+  // so no email address or magic-link URL reaches the server log.
+  logger: {
+    error(error: Error) {
+      console.error('[auth][error]', redactError(error))
+    },
+    warn(code: string) {
+      console.warn('[auth][warn]', code)
+    },
+    debug() {},
+  },
+
   session: {
     strategy: 'database',    // persist sessions in DB, not JWT
     maxAge: 30 * 24 * 60 * 60, // 30 days
@@ -99,7 +112,7 @@ const _auth: any = (() => {
   try {
     return NextAuth(authConfig)
   } catch (err) {
-    console.error('[auth] NextAuth init failed (AUTH_SECRET missing?):', err)
+    console.error('[auth] NextAuth init failed (AUTH_SECRET missing?):', redactError(err))
     return null
   }
 })()

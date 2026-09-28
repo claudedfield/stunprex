@@ -13,6 +13,17 @@ import { defineConfig, devices } from '@playwright/test';
  */
 const baseURL = process.env.E2E_BASE_URL ?? 'https://stunprex.com';
 
+/**
+ * LEGAL-01m: staging.stunprex.com sits behind HTTP basic authentication. CI passes the
+ * credentials as E2E_STAGING_AUTH ("user:password"); they are sent to the staging origin only,
+ * never to production (the host tests request www and the apex directly).
+ */
+const stagingAuth = process.env.E2E_STAGING_AUTH ?? '';
+const [stagingUser, ...stagingPass] = stagingAuth.split(':');
+const httpCredentials = stagingAuth
+  ? { username: stagingUser, password: stagingPass.join(':'), origin: 'https://staging.stunprex.com', send: 'always' as const }
+  : undefined;
+
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
@@ -26,6 +37,7 @@ export default defineConfig({
   expect: { timeout: 10_000 },
   use: {
     baseURL,
+    httpCredentials,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     // Production is a real deploy behind a CDN; give navigation room without
