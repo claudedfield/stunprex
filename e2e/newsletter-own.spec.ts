@@ -72,8 +72,10 @@ test.describe('subscribe, confirm, unsubscribe (staging)', () => {
     await page.locator('#newsletter-name').fill('E2E Tester');
     await page.locator('#newsletter-email').fill(ADDRESS);
     await page.getByRole('button', { name: 'Subscribe' }).click();
-    // Wait for the answer, so the row exists before the next step reads or changes it.
-    await expect(page.locator('[data-newsletter-result], [role="alert"]').first()).toBeVisible();
+    // Wait for the form's own answer, so the row exists before the next step reads or changes it.
+    // Only the form's elements count: Next.js puts an invisible role="alert" route announcer on every
+    // page, and waiting on any alert let the test run ahead of the sign-up.
+    await expect(page.locator('[data-newsletter-result], [data-newsletter-form] [role="alert"]').first()).toBeVisible();
   };
   const linkIn = (text: string, path: string) => {
     const m = text.match(new RegExp(`https?://[^\\s]+${path}\\?token=[^\\s]+`));
@@ -118,7 +120,7 @@ test.describe('subscribe, confirm, unsubscribe (staging)', () => {
     expect(subscriber.status).toBe('confirmed');
     expect(subscriber.confirmed_at).toBeTruthy();
     await subscribeOnPage(page);
-    await expect(page.locator('[role="alert"], [data-newsletter-result]').first()).toContainText('already subscribed');
+    await expect(page.locator('[data-newsletter-result]')).toContainText('already subscribed');
     expect((await helper(request, 'state')).subscriber.rows).toBe(1);
   });
 
