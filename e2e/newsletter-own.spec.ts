@@ -12,10 +12,18 @@ test('the newsletter test route does not answer without its secret', async ({ re
   expect((await request.post('/api/test/newsletter', { data: { action: 'state' } })).status()).toBe(404);
 });
 
-test('/newsletter takes an address by POST only, with the privacy and age lines beside it', async ({ page, request }) => {
+test('/newsletter is either closed honestly or takes an address by POST with its lines beside it', async ({ page, request }) => {
   expect((await request.get('/api/newsletter/subscribe')).status()).toBe(405);
   await page.goto('/newsletter');
   const form = page.locator('[data-newsletter-form]');
+  // Production stays closed until NEWSLETTER_OPEN=1 (D-NEWS-01): then there is no form, and the API
+  // refuses before writing anything. Staging, and production once opened, show the form.
+  if (await page.getByText('Sign-ups open here soon.').isVisible()) {
+    await expect(form).toHaveCount(0);
+    const res = await request.post('/api/newsletter/subscribe', { data: { name: 'Nobody', email: 'nobody@example.invalid' } });
+    expect(res.status(), 'a closed newsletter refuses and writes nothing').toBe(503);
+    return;
+  }
   await expect(form.locator('input[type="email"]')).toBeVisible();
   await expect(form.locator('#newsletter-name'), 'the consent record carries a name (Grt. 6. § (2))').toBeVisible();
   await expect(form.locator('a[href="/privacy"]')).toBeVisible();
