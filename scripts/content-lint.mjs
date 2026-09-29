@@ -29,7 +29,11 @@ const DIRS =
     ? [path.resolve(process.argv[flag + 1])]
     : FIXTURE
       ? []
-      : [path.join(REPO, 'content/posts'), path.join(REPO, 'content/drills')];
+      : [path.join(REPO, 'content/posts'), path.join(REPO, 'content/drills'), path.join(REPO, 'content/newsletter')];
+
+// D-NEWS-01: newsletter issues are .md files named issue-NN-<slug>.md; their __evaluator files are not copy.
+const ISSUE = /^issue-\d{2,}-[a-z0-9-]+\.md$/;
+const isCopy = (f) => f.endsWith('.mdx') || ISSUE.test(f);
 
 /** Expand UI_SCOPE; a trailing slash means every .ts or .tsx file under it. */
 function uiFiles() {
@@ -57,7 +61,7 @@ let files = 0;
 
 for (const dir of DIRS) {
   if (!fs.existsSync(dir)) continue;
-  for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.mdx')).sort()) {
+  for (const file of fs.readdirSync(dir).filter(isCopy).sort()) {
     const full = path.join(dir, file);
     const text = fs.readFileSync(full, 'utf8');
     files += 1;
@@ -68,6 +72,21 @@ for (const dir of DIRS) {
       while ((m = re.exec(text)) !== null) {
         const line = text.slice(0, m.index).split('\n').length;
         problems.push({ file, line, label, why });
+      }
+    }
+    if (ISSUE.test(file)) {
+      // D-NEWS-01 requirement 4: an issue merges only with its front matter and the Evaluator's PASS beside it.
+      const fm = text.match(/^---\n([\s\S]*?)\n---\n/);
+      for (const key of ['number', 'subject', 'preview', 'slug', 'send_date']) {
+        if (!fm || !new RegExp(`^${key}:\\s*\\S`, 'm').test(fm[1])) {
+          problems.push({ file, line: 1, label: 'newsletter front matter', why: `The issue has no "${key}" in its front matter.` });
+        }
+      }
+      const subject = fm?.[1].match(/^subject:\s*"?(.*?)"?\s*$/m)?.[1] ?? '';
+      if (subject.length > 60) problems.push({ file, line: 1, label: 'newsletter subject', why: `The subject is ${subject.length} characters; keep it within 60.` });
+      const ev = path.join(dir, file.replace(/\.md$/, '__evaluator.md'));
+      if (!fs.existsSync(ev) || !/\bverdict\b[^\n]*\bPASS\b/i.test(fs.readFileSync(ev, 'utf8'))) {
+        problems.push({ file, line: 1, label: 'newsletter without an Evaluator PASS', why: `An issue merges only with ${path.basename(ev)} beside it carrying a PASS verdict.` });
       }
     }
     for (const { line, text: snippet } of unmatchedBold(text)) {

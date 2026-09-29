@@ -30,6 +30,32 @@ test('/newsletter is either closed honestly or takes an address by POST with its
   await expect(form).toContainText('For readers 16 and over');
 });
 
+test('the archive lists issues 1 to 3, and an issue reads as sent, without the old footer', async ({ page }) => {
+  await page.goto('/newsletter');
+  for (const n of [1, 2, 3]) await expect(page.locator('main')).toContainText(`#${n}:`);
+  await page.goto('/newsletter/first-touch');
+  await expect(page.locator('h1')).toHaveText('The first touch and the next action');
+  const main = page.locator('main');
+  await expect(main).toContainText('Picture a pass arriving with a defender close behind.');
+  await expect(main, 'beehiiv\'s footer is not part of the issue').not.toContainText('You are receiving this because');
+  await expect(main, 'no Markdown left in the page').not.toContainText('**');
+});
+
+test('the content lint refuses an issue without an Evaluator PASS', async () => {
+  const fs = await import('node:fs'); const os = await import('node:os'); const path = await import('node:path');
+  const { execFileSync } = await import('node:child_process');
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'nl-'));
+  fs.writeFileSync(path.join(dir, 'issue-99-test.md'),
+    '---\nnumber: 99\nsubject: "A test"\npreview: "A preview"\nslug: "test"\nsend_date: "2026-10-01"\n---\n\nText.\n');
+  let code = 0, out = '';
+  try { out = execFileSync('node', ['scripts/content-lint.mjs', '--dir', dir], { encoding: 'utf8' }); }
+  catch (e) { const x = e as { status?: number; stdout?: string; stderr?: string }; code = x.status ?? 1; out = `${x.stdout ?? ''}${x.stderr ?? ''}`; }
+  expect(code, out).not.toBe(0);
+  expect(out).toContain('newsletter without an Evaluator PASS');
+  fs.writeFileSync(path.join(dir, 'issue-99-test__evaluator.md'), '**Verdict: PASS.**\n');
+  expect(execFileSync('node', ['scripts/content-lint.mjs', '--dir', dir], { encoding: 'utf8' })).toContain('[content-lint] OK');
+});
+
 test.describe('subscribe, confirm, unsubscribe (staging)', () => {
   test.describe.configure({ mode: 'serial' });
   test.skip(!secret, 'runs on staging only');

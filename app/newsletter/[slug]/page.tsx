@@ -15,7 +15,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const issue = findIssue((await params).slug)
   if (!issue) return {}
-  return { title: issue.meta.subject, description: issue.meta.preview, alternates: { canonical: `/newsletter/${issue.meta.slug}` } }
+  return { title: issue.meta.title, description: issue.meta.preview, alternates: { canonical: `/newsletter/${issue.meta.slug}` } }
 }
 
 export default async function IssuePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -27,7 +27,7 @@ export default async function IssuePage({ params }: { params: Promise<{ slug: st
       <main id="main-content" className="min-h-screen py-16">
         <article className="container-site max-w-2xl">
           <p className="font-ui text-xs uppercase tracking-widest text-orange mb-2">Newsletter #{issue.meta.number}{issue.meta.send_date ? ` · ${issue.meta.send_date}` : ''}</p>
-          <h1 className="font-heading text-deepblue text-3xl mb-8">{issue.meta.subject}</h1>
+          <h1 className="font-heading text-deepblue text-3xl mb-8">{issue.meta.title}</h1>
           <div className="prose-site font-body text-brown leading-relaxed space-y-4">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{issue.body}</ReactMarkdown>
           </div>
