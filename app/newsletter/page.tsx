@@ -38,7 +38,7 @@ export default function NewsletterPage() {
                 {issues.map((i) => (
                   <li key={i.meta.slug}>
                     <Link href={`/newsletter/${i.meta.slug}`} className="font-body text-deepblue underline underline-offset-2">
-                      #{i.meta.number}: {i.meta.subject}
+                      #{i.meta.number}: {i.meta.title}
                     </Link>
                     {i.meta.send_date ? <span className="ml-2 text-sm text-brown/60">{i.meta.send_date}</span> : null}
                   </li>
