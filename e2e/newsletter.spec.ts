@@ -1,14 +1,13 @@
 import { test, expect } from '@playwright/test';
 
 /**
- * Newsletter capture: beehiiv wiring (D-WEB-13, LEGAL-01c).
+ * Newsletter capture on the site's pages (D-WEB-13, LEGAL-01c; D-NEWS-01).
  *
- * No beehiiv script on any StunpreX page (the embed drops third-party cookies), and since
- * LEGAL-01c no email address in any URL: the reader follows a link to beehiiv's own
- * subscribe page and types the address there. These tests hold both lines.
+ * Since D-NEWS-01 (28 Sep 2026) the newsletter is our own and beehiiv is retired: each block's
+ * button leads to /newsletter, and nothing on our pages reaches beehiiv. No email address in any URL
+ * (LEGAL-01c). The sign-up itself is tested in newsletter-own.spec.ts.
  *
- * SAFETY: every beehiiv host is intercepted, so a test run can never create a real
- * subscription. Nothing here submits to a live capture backend.
+ * SAFETY: every beehiiv host is still intercepted, so a stray link could never reach the old service.
  */
 
 const CAPTURE_PAGES = [
@@ -40,7 +39,7 @@ for (const { route, where } of CAPTURE_PAGES) {
     const block = page.locator('[data-newsletter]').first();
     await expect(block, `no newsletter block at ${where}`).toBeVisible();
     const link = block.getByRole('link', { name: /subscribe/i });
-    await expect(link).toHaveAttribute('href', /^https:\/\/stunprex\.beehiiv\.com\/subscribe\?/);
+    await expect(link, 'D-NEWS-01: our own page, not beehiiv').toHaveAttribute('href', /^\/newsletter\?from=/);
     await expect(link, 'LEGAL-01c: no email in the URL').not.toHaveAttribute('href', /email=/);
     await expect(page.locator('form[action*="beehiiv"]'), 'LEGAL-01c: no form posts an address').toHaveCount(0);
     await expect(block.locator('input'), 'LEGAL-01c: the address is typed on beehiiv, not here').toHaveCount(0);
@@ -64,28 +63,13 @@ test('no beehiiv script is loaded on our pages', async ({ page }) => {
   }
 });
 
-test('the subscribe link reaches beehiiv with attribution only, never our own API', async ({ page }) => {
+test('the subscribe button leads to our own /newsletter page and nothing reaches beehiiv', async ({ page }) => {
   const reached = await sealBeehiiv(page);
-
-  let ownApiHit = false;
-  await page.route('**/api/newsletter', async (route) => {
-    ownApiHit = true;
-    await route.fulfill({ status: 410, body: '{"ok":false}' });
-  });
-
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   await page.locator('[data-newsletter]').first().getByRole('link', { name: /subscribe/i }).click();
-  await page.waitForLoadState('domcontentloaded');
-
-  const target = reached.find((u) => u.includes('/subscribe'));
-  expect(target, 'the link did not reach the beehiiv subscribe page').toBeTruthy();
-
-  const params = new URL(target!).searchParams;
-  expect(params.get('email'), 'LEGAL-01c: no address in the URL').toBeNull();
-  // Attribution without beehiiv's third-party attribution.js.
-  expect(params.get('utm_source')).toBe('stunprex.com');
-
-  expect(ownApiHit, 'capture must not post to the retired /api/newsletter').toBe(false);
+  await page.waitForURL('**/newsletter?from=*');
+  expect(new URL(page.url()).searchParams.get('email'), 'LEGAL-01c: no address in the URL').toBeNull();
+  expect(reached, 'D-NEWS-01: beehiiv is retired; nothing may reach it').toEqual([]);
 });
 
 test('end of a blog post is ONE card, with community as a text link', async ({ page }) => {

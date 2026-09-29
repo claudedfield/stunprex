@@ -1,21 +1,15 @@
 /**
- * EmailCaptureForm: the newsletter's way in, to beehiiv (D-WEB-13, LEGAL-01c, 01d, 01b).
+ * EmailCaptureForm: the newsletter's way in (D-WEB-13, LEGAL-01c, 01d, 01b; D-NEWS-01).
  *
- * No beehiiv script runs on any StunpreX page: the embed was measured to drop third-party
- * cookies on our origin (D-WEB-13), which would make /cookies false.
- *
- * LEGAL-01c: no email in any URL. Until 24 Sep this was a GET form, so the typed address
- * travelled in the query string and sat in browser history and logs. beehiiv's hosted page
- * answers any non-browser client with a Cloudflare challenge (HTTP 403, GET and POST alike),
- * so a cross-site POST could not be verified without a real subscription. The reader now types
- * the address on beehiiv's own page, where beehiiv is first party. Attribution stays in the
- * link and carries no personal data. The API route replaces this when beehiiv issues a key.
+ * Since D-NEWS-01 (28 Sep 2026) the newsletter is our own: the button leads to /newsletter, where
+ * the reader gives a name and an email by POST (never in a URL, LEGAL-01c) and confirms by email.
+ * beehiiv is retired. This block is built ahead of time, so it links to the page rather than holding
+ * the form: /newsletter is rendered per request and shows the form once sign-ups are open.
+ * No third-party script, no tracking.
  */
 
-const BEEHIIV_SUBSCRIBE = 'https://stunprex.beehiiv.com/subscribe';
-
 interface Props {
-  /** Placement, forwarded to beehiiv as utm_medium for attribution. */
+  /** Placement, passed as ?from= so the sign-up records which block it came from. */
   source?: string;
   /** 'block' = large centred; 'inline' = compact. */
   variant?: 'block' | 'inline';
@@ -24,7 +18,7 @@ interface Props {
 
 export function EmailCaptureForm({ source = 'site', variant = 'block', className = '' }: Props) {
   const isInline = variant === 'inline';
-  const href = `${BEEHIIV_SUBSCRIBE}?${new URLSearchParams({ utm_source: 'stunprex.com', utm_medium: source })}`;
+  const href = `/newsletter?${new URLSearchParams({ from: source })}`;
   const small = isInline ? 'text-xs text-white/70' : 'text-xs text-brown/60';
 
   return (
@@ -37,7 +31,7 @@ export function EmailCaptureForm({ source = 'site', variant = 'block', className
             : 'btn-primary'
         }
       >
-        Subscribe on beehiiv
+        Subscribe
       </a>
       {/* LEGAL-01b: the newsletter is for readers 16 and over. */}
       <p className={small}>For readers 16 and over. Parents are welcome to subscribe with their own address.</p>

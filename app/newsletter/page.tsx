@@ -17,7 +17,9 @@ export const metadata: Metadata = {
   alternates: { canonical: '/newsletter' },
 }
 
-export default function NewsletterPage() {
+export default async function NewsletterPage({ searchParams }: { searchParams: Promise<{ from?: string }> }) {
+  const { from } = await searchParams
+  const source = /^[a-z0-9-]{1,40}$/.test(from ?? '') ? `block-${from}` : 'newsletter-page'
   const issues = listIssues()
   return (
     <>
@@ -27,7 +29,7 @@ export default function NewsletterPage() {
           lede="Methodology pieces and a drill of the week, from stunprex.com. No hype, no tracking, and one click to unsubscribe." />
         <section className="py-12">
           <div className="container-site max-w-2xl">
-            {newsletterReady() ? <SignupForm source="newsletter-page" /> : (
+            {newsletterReady() ? <SignupForm source={source} /> : (
               <p className="font-body text-brown/80">Sign-ups open here soon.</p>
             )}
             <h2 className="font-heading text-deepblue text-2xl mt-14 mb-4">Past issues</h2>
