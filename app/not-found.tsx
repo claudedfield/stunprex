@@ -7,7 +7,7 @@ export default function NotFound() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content">
         <PageHero
           eyebrow="404"
           title="We couldn&rsquo;t find that page."
