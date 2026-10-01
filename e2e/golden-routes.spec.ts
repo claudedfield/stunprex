@@ -60,3 +60,19 @@ test('metaTitle is read into <title> and the H1 keeps the full headline', async 
   expect(title, 'the <title> must come from metaTitle').toContain(META);
   expect(title, 'the <title> must not be the longer H1').not.toContain(H1);
 });
+
+// WCAG 2.4.1 and the owner's report of 1 Oct 2026: one skip link per page, in the layout, hidden until
+// keyboard focus, and the first thing Tab reaches.
+test('the skip link is hidden until keyboard focus, and Tab reaches it first', async ({ page }) => {
+  for (const route of ['/', '/signin', '/community']) {
+    await page.goto(route);
+    const skip = page.getByRole('link', { name: 'Skip to content' });
+    await expect(skip).toHaveCount(1);
+    const box = await skip.boundingBox();
+    expect(box === null || (box.width <= 1 && box.height <= 1), `${route}: the skip link shows without keyboard focus`).toBe(true);
+    await page.keyboard.press('Tab');
+    await expect(skip).toBeFocused();
+    expect((await skip.boundingBox())!.width, `${route}: the skip link must show on keyboard focus`).toBeGreaterThan(40);
+    await expect(page.locator('#main-content')).toHaveCount(1);
+  }
+});

@@ -33,6 +33,19 @@ test.describe('signed in as the test account', () => {
     expect(body?.user?.email).toBe('e2e@stunprex.test');
   });
 
+  // 1 Oct 2026: the owner's sign-in succeeded and sent him back to the sign-in form, which showed
+  // the form again and looked like a failure. A signed-in visitor never stays on the form.
+  test('a signed-in visitor is sent on from the sign-in pages, only ever to this site', async ({ page }) => {
+    await page.goto('/signin');
+    await expect(page).toHaveURL(/\/community$/);
+    await page.goto('/signin?next=/community/ask');
+    await expect(page).toHaveURL(/\/community\/ask$/);
+    await page.goto('/signin?next=//example.com/x');
+    await expect(page).toHaveURL(/stunprex\.com\/community$/);
+    await page.goto('/auth/sign-up');
+    await expect(page).toHaveURL(/\/community$/);
+  });
+
   test('a member reaches the ask form instead of the sign-in page', async ({ page }) => {
     await page.goto('/community/ask');
     expect(new URL(page.url()).pathname).toBe('/community/ask');

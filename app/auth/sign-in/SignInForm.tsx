@@ -16,6 +16,8 @@ export default function SignInForm() {
     e.preventDefault()
     const fd = new FormData()
     fd.append('email', email)
+    // Where to land after signing in (?next=), checked on the server.
+    fd.append('next', new URLSearchParams(window.location.search).get('next') ?? '')
     startTransition(async () => {
       const r = await signInWithMagicLink(fd)
       if (r.success && r.data) {

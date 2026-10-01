@@ -15,6 +15,7 @@ import { generateSlugFromTitle, sanitizeImageUrl, isEffectivelyEmpty, countExter
 import type { QuestionCategory } from '@/lib/types/community'
 import { redactError } from '@/lib/log-redact'
 import { TERMS_VERSION } from '@/lib/legal'
+import { safeNext } from '@/lib/auth/next'
 
 // ─── Shared result type ───────────────────────────────────────────────────────
 
@@ -154,7 +155,8 @@ export async function signInWithMagicLink(
   }
 
   try {
-    await signIn('email', { email, redirect: false })
+    // After the link is used, land on the page asked for or the community: never back on the sign-in form.
+    await signIn('email', { email, redirect: false, redirectTo: safeNext(formData.get('next')) })
     return {
       success: true,
       data: { message: "Check your email: we've sent you a sign-in link." },

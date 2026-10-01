@@ -30,7 +30,7 @@ export default async function WelcomePage() {
   const returning = u.onboarded === true
 
   return (
-    <main className="min-h-screen bg-mint">
+    <main id="main-content" className="min-h-screen bg-mint">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 lg:px-8">
 
         {/* Header */}
