@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function VerifyPage() {
   return (
-    <main className="min-h-screen bg-mint flex items-center justify-center px-4 py-16">
+    <main id="main-content" className="min-h-screen bg-mint flex items-center justify-center px-4 py-16">
       <div className="w-full max-w-md text-center">
         <div className="rounded-lg border border-deepblue/20 bg-white p-8">
           {/* Envelope icon */}

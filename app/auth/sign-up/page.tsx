@@ -7,6 +7,9 @@ import type { Metadata } from 'next'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import SignUpForm from './SignUpForm'
+import { redirect } from 'next/navigation'
+import { auth } from '@/auth'
+import { safeNext } from '@/lib/auth/next'
 
 export const metadata: Metadata = {
   title: { absolute: 'Join the community · StunpreX' },
@@ -14,7 +17,10 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
-export default function SignUpPage() {
+export default async function SignUpPage({ searchParams }: { searchParams: Promise<{ next?: string }> }) {
+  // A signed-in visitor has no use for this form: on to where they were going.
+  const session = await auth()
+  if (session?.user?.id) redirect(safeNext((await searchParams).next))
   return (
     <>
       <Header />
