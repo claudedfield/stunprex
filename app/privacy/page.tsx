@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <LegalPage title="Privacy Policy" lastUpdated="2026-09-28">
+    <LegalPage title="Privacy Policy" lastUpdated="2026-10-02">
       <p>
         <strong>Controller:</strong> DField Kft., 2120 Dunakeszi, Torony köz 5. 1. ajtó,
         Hungary · <a href="mailto:hello@stunprex.com">hello@stunprex.com</a>.
@@ -17,7 +17,8 @@ export default function Page() {
       <h2>What we collect and why</h2>
       <ul>
         <li>
-          <strong>Email address</strong>: when you join the newsletter or sign in. Purpose:
+          <strong>Email address</strong>: when you sign in; your name and email address when you join
+          the newsletter. Purpose:
           send the sign-in link and (with your consent) occasional updates.{' '}
           <strong>Legal basis:</strong> consent (Art. 6(1)(a) GDPR) for marketing email;
           performance of the service (Art. 6(1)(b)) for authentication.
@@ -40,14 +41,22 @@ export default function Page() {
 
       <h2>Who processes it (sub-processors)</h2>
       <ul>
-        <li>Hostinger (hosting on our server in the Netherlands, sign-in emails, our mailbox).</li>
-        <li>Neon (Databricks, Inc.) (our database, in Frankfurt, Germany).</li>
-        <li>Beehiiv Inc. (newsletter delivery), for newsletter subscribers.</li>
+        <li>
+          Hostinger International Ltd. (our server in the Netherlands, which holds the website and
+          its database; sign-in and newsletter emails; our mailboxes).
+        </li>
+        <li>
+          Neon (Databricks, Inc.): until we delete it in October 2026, a copy of our database as it
+          stood on 1 October 2026, in Frankfurt, Germany.
+        </li>
       </ul>
 
       <h2>Retention</h2>
       <ul>
-        <li>Newsletter email: until you unsubscribe.</li>
+        <li>
+          Newsletter: until you unsubscribe; we then keep your address and name, marked as
+          unsubscribed, so that we do not email you again.
+        </li>
         <li>Account data: until you delete your account.</li>
         <li>Logs: a limited period for security/diagnostics.</li>
       </ul>
