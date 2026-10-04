@@ -47,6 +47,11 @@ export async function POST(req: Request) {
 
   const body = await req.json().catch(() => ({}))
   const terms = (body as { terms?: string }).terms
+  // LEGAL-02.3: `{ "avatar": true }` gives the test account a picture address on another host, as an
+  // old profile may have, so the suite can prove it is never loaded; false clears it.
+  const avatar = (body as { avatar?: boolean }).avatar
+  if (avatar === true) await sql`UPDATE profiles SET avatar_url = 'https://avatars.example.invalid/e2e.png' WHERE user_id = ${userId}`
+  if (avatar === false) await sql`UPDATE profiles SET avatar_url = NULL WHERE user_id = ${userId}`
   if (terms === 'none') {
     await sql`UPDATE profiles SET terms_version = NULL, terms_accepted_at = NULL, age_confirmed_at = NULL
               WHERE user_id = ${userId}`

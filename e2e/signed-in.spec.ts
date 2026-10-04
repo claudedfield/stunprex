@@ -60,6 +60,22 @@ test.describe('signed in as the test account', () => {
     expect((await (await page.request.get('/api/auth/session')).json())?.user ?? null).toBeNull();
   });
 
+  // LEGAL-02.3: a profile picture address on another host is never loaded, and the form has no field for one.
+  test('a stored picture address is never loaded; the profile shows the initial and no picture field', async ({ page }) => {
+    await page.request.post('/api/test/sign-in', { headers: { 'x-e2e-secret': secret }, data: { avatar: true } });
+    const other: string[] = [];
+    const own = new URL(page.url() === 'about:blank' ? (process.env.E2E_BASE_URL ?? 'https://stunprex.com') : page.url()).host;
+    page.on('request', (r) => { const h = new URL(r.url()).host; if (h !== own) other.push(h); });
+    await page.goto('/community/u/me');
+    const name = (await (await page.request.get('/api/auth/session')).json()).user.display_name as string;
+    await expect(page.locator('main img')).toHaveCount(0);
+    await expect(page.locator('input[name="avatar_url"]')).toHaveCount(0);
+    await page.goto(`/community/u/${encodeURIComponent(name)}`);
+    await expect(page.locator('main img')).toHaveCount(0);
+    expect(other, 'a request left for another host').toEqual([]);
+    await page.request.post('/api/test/sign-in', { headers: { 'x-e2e-secret': secret }, data: { avatar: false } });
+  });
+
   test('a member reaches the ask form instead of the sign-in page', async ({ page }) => {
     await page.goto('/community/ask');
     expect(new URL(page.url()).pathname).toBe('/community/ask');
