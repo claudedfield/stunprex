@@ -12,10 +12,10 @@ import { CONSENT_PATTERNS, watchConsole } from './helpers';
 const LEGAL_ROUTES = ['/imprint', '/privacy', '/cookies', '/terms'] as const;
 
 // LEGAL-00 dated all four pages 24 Sep; LEGAL-00b changed three of them on 28 Sep; LEGAL-00c
-// changed /privacy on 2 Oct.
+// changed /privacy on 4 Oct.
 const LAST_UPDATED: Record<(typeof LEGAL_ROUTES)[number], string> = {
   '/imprint': '2026-09-28',
-  '/privacy': '2026-10-02',
+  '/privacy': '2026-10-04',
   '/cookies': '2026-09-28',
   '/terms': '2026-09-24',
 };
@@ -68,8 +68,9 @@ test('/privacy names the controller, sub-processors and GDPR rights', async ({ p
   await expect(main).toContainText('marked as unsubscribed, so that we do not email you again');
   // LEGAL-00b: the sub-processors are the ones in use since the move.
   await expect(main).toContainText('Hostinger International Ltd. (our server in the Netherlands, which holds the website and its database');
-  // Since 1 Oct the database is on our own server; Neon keeps the cutover copy until it is deleted.
-  await expect(main).toContainText('Neon (Databricks, Inc.): until we delete it in October 2026, a copy of our database');
+  // Since 1 Oct the database is on our own server; the owner deleted the Neon project on 4 Oct, so
+  // Hostinger is the only sub-processor named.
+  await expect(main).not.toContainText(/Neon|Databricks/);
   await expect(main).not.toContainText('Vercel');
   await expect(main).not.toContainText(/saved game scores/i);
   await expect(main).toContainText(/Art\. 6\(1\)\(a\) GDPR/);

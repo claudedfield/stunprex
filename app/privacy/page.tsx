@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <LegalPage title="Privacy Policy" lastUpdated="2026-10-02">
+    <LegalPage title="Privacy Policy" lastUpdated="2026-10-04">
       <p>
         <strong>Controller:</strong> DField Kft., 2120 Dunakeszi, Torony köz 5. 1. ajtó,
         Hungary · <a href="mailto:hello@stunprex.com">hello@stunprex.com</a>.
@@ -44,10 +44,6 @@ export default function Page() {
         <li>
           Hostinger International Ltd. (our server in the Netherlands, which holds the website and
           its database; sign-in and newsletter emails; our mailboxes).
-        </li>
-        <li>
-          Neon (Databricks, Inc.): until we delete it in October 2026, a copy of our database as it
-          stood on 1 October 2026, in Frankfurt, Germany.
         </li>
       </ul>
 
