@@ -45,10 +45,6 @@ export default function Page() {
           Hostinger International Ltd. (our server in the Netherlands, which holds the website and
           its database; sign-in and newsletter emails; our mailboxes).
         </li>
-        <li>
-          Neon (Databricks, Inc.): until we delete it in October 2026, a copy of our database as it
-          stood on 1 October 2026, in Frankfurt, Germany.
-        </li>
       </ul>
 
       <h2>Retention</h2>
