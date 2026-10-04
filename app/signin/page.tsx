@@ -7,9 +7,9 @@ import type { Metadata } from 'next'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import SignInForm from '../auth/sign-in/SignInForm'
-import { redirect } from 'next/navigation'
 import { auth } from '@/auth'
 import { safeNext } from '@/lib/auth/next'
+import { SignedInNotice } from '@/components/SignedInNotice'
 
 export const metadata: Metadata = {
   title: { absolute: 'Sign in · StunpreX' },
@@ -18,9 +18,13 @@ export const metadata: Metadata = {
 }
 
 export default async function SignInPage({ searchParams }: { searchParams: Promise<{ next?: string }> }) {
-  // A signed-in visitor has no use for this form: on to where they were going.
+  // A signed-in visitor sees who they are and what they can do, not the form and not a silent
+  // redirect (owner report, 4 Oct 2026).
   const session = await auth()
-  if (session?.user?.id) redirect(safeNext((await searchParams).next))
+  const signedInAs = session?.user?.id
+    ? ((session.user as { display_name?: string }).display_name ?? 'a member')
+    : null
+  const next = safeNext((await searchParams).next)
   return (
     <>
       <Header />
@@ -38,7 +42,7 @@ export default async function SignInPage({ searchParams }: { searchParams: Promi
               No password required.
             </p>
           </div>
-          <SignInForm />
+          {signedInAs ? <SignedInNotice name={signedInAs} next={next} /> : <SignInForm />}
         </div>
       </main>
       <Footer />

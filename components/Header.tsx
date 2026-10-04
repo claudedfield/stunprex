@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { PRIMARY_NAV } from '@/lib/nav';
 import { Logo } from './Logo';
 import { MobileNav } from './MobileNav';
+import { AuthNav } from './AuthNav';
 
 export function Header() {
   return (
@@ -20,13 +21,8 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          {/* Sign in — desktop only */}
-          <Link
-            href="/signin"
-            className="hidden lg:inline font-ui text-sm text-brown/70 hover:text-deepblue transition-colors"
-          >
-            Sign in
-          </Link>
+          {/* Sign in, or the member's name and Sign out; desktop only (the mobile menu has its own). */}
+          <AuthNav variant="desktop" />
           {/* Primary CTA — always visible */}
           <Link href="/signup" className="btn-primary text-sm py-2 px-5">
             Start training
