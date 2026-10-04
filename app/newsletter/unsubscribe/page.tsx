@@ -16,8 +16,8 @@ export default async function UnsubscribePage({ searchParams }: { searchParams: 
         <div className="container-site max-w-xl space-y-4">
           <h1 className="font-heading text-deepblue text-3xl">Newsletter</h1>
           <LinkLanding action="unsubscribe" token={token}
-            done={<p className="font-body text-brown">You are unsubscribed. We will not send you the newsletter again.</p>}
-            invalid={<p className="font-body text-brown">This unsubscribe link is not valid. If you still receive the newsletter, reply to any issue and we remove you by hand.</p>} />
+            done={<p className="font-body text-brown">You are unsubscribed, and we have deleted your name and address from our list.</p>}
+            invalid={<p className="font-body text-brown">This address is not on our list. If you used this link before, you are already unsubscribed and your details are deleted. If you still receive the newsletter, write to hello@stunprex.com and we remove you by hand.</p>} />
         </div>
       </main>
       <Footer />

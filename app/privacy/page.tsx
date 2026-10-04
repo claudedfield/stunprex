@@ -50,8 +50,9 @@ export default function Page() {
       <h2>Retention</h2>
       <ul>
         <li>
-          Newsletter: until you unsubscribe; we then keep your address and name, marked as
-          unsubscribed, so that we do not email you again.
+          Newsletter: until you unsubscribe. We then delete your name and address from our list
+          without delay. If you never confirm, we delete your request within 7 days; an address
+          that cannot be delivered to is deleted after 90 days.
         </li>
         <li>Account data: until you delete your account.</li>
         <li>Logs: a limited period for security/diagnostics.</li>

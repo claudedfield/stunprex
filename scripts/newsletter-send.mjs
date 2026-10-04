@@ -6,6 +6,8 @@
  *   node scripts/newsletter-send.mjs preview <issue number>   to NEWSLETTER_PREVIEW_TO (comma list)
  *   node scripts/newsletter-send.mjs list <issue number>      to every confirmed subscriber not yet sent it
  *   node scripts/newsletter-send.mjs counts <issue number>    sent, failed, bounced
+ *   node scripts/newsletter-send.mjs cleanup                  LEGAL-02.6: unconfirmed sign-ups past their
+ *                                                             link, and bounces older than 90 days
  *
  * An issue is sent only if its file is in content/newsletter/ with an Evaluator PASS beside it. The
  * list send stays within the rolling 24-hour budget (core.mjs) and resumes where it stopped when run
@@ -15,6 +17,18 @@
 import pg from 'pg'
 import { listIssues } from '../lib/newsletter/issues.mjs'
 import { sendPreview, sendList, ensureIssueRow, issueCounts } from '../lib/newsletter/send.mjs'
+import { cleanup } from '../lib/newsletter/cleanup.mjs'
+
+if (process.argv[2] === 'cleanup') {
+  const pool = new pg.Pool({ connectionString: process.env.POSTGRES_URL, max: 1 })
+  try {
+    const r = await cleanup((text, values) => pool.query(text, values))
+    console.log(`${new Date().toISOString()} newsletter cleanup: ${r.pending_deleted} unconfirmed sign-up(s) and ${r.bounced_deleted} old bounce(s) deleted`)
+  } catch (err) {
+    console.log(`${new Date().toISOString()} newsletter cleanup FAILED: ${String(err?.message ?? err).replace(/[^\s@<>]+@[^\s@<>]+/g, '<email>')}`); process.exitCode = 1
+  } finally { await pool.end() }
+  process.exit()
+}
 
 const [mode, numArg] = process.argv.slice(2)
 const number = Number(numArg)

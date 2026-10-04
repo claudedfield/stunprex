@@ -65,7 +65,9 @@ test('/privacy names the controller, sub-processors and GDPR rights', async ({ p
   // LEGAL-00c: the newsletter is our own since 30 Sep; beehiiv no longer receives sign-ups.
   await expect(main).not.toContainText(/beehiiv/i);
   await expect(main).toContainText('your name and email address when you join');
-  await expect(main).toContainText('marked as unsubscribed, so that we do not email you again');
+  // LEGAL-02.6: unsubscribing deletes the row; the sentence changed with the behaviour.
+  await expect(main).toContainText('We then delete your name and address from our list without delay.');
+  await expect(main).not.toContainText('marked as unsubscribed');
   // LEGAL-00b: the sub-processors are the ones in use since the move.
   await expect(main).toContainText('Hostinger International Ltd. (our server in the Netherlands, which holds the website and its database');
   // Since 1 Oct the database is on our own server. The owner deleted the Neon project on 4 Oct

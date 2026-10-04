@@ -4,9 +4,9 @@
  * - A new address gets a `pending` row and one confirmation mail. Nothing else is ever sent to a
  *   pending address, and never a second confirmation within 24 hours.
  * - A confirmed address that subscribes again gets no mail and no second row.
- * - An unsubscribed address that subscribes again starts a fresh double opt-in; its row keeps the
- *   earlier unsubscribe time until it confirms again.
- * - A bounced address is never mailed.
+ * - Unsubscribing deletes the row (LEGAL-02.6), so a later sign-up from that address is a new one.
+ * - A bounced address is never mailed, and its row is deleted 90 days after the bounce.
+ * - A sign-up never confirmed is deleted when its link expires (cleanup.mjs).
  * - The consent record is the name given, the timestamps and the confirmation token used (Grt. 6. § (2)).
  *   No IP address is stored. The name is used only in the confirmation mail and the issues.
  */
@@ -75,13 +75,12 @@ export async function confirm(token: unknown): Promise<ConfirmOutcome> {
   return 'confirmed'
 }
 
-/** One click, no question asked. The row stays as the suppression record. */
+/**
+ * One click, no question asked. LEGAL-02.6: the row is deleted at once, name and address with it; the
+ * send records keep their counts without the person. A second use of the same link finds nothing.
+ */
 export async function unsubscribe(token: unknown): Promise<'unsubscribed' | 'invalid'> {
   if (typeof token !== 'string' || token.length < 16) return 'invalid'
-  const { rowCount } = await sql`
-    UPDATE newsletter_subscribers
-    SET status = CASE WHEN status = 'bounced' THEN 'bounced' ELSE 'unsubscribed' END,
-        unsubscribed_at = COALESCE(unsubscribed_at, now())
-    WHERE unsubscribe_token = ${token}`
+  const { rowCount } = await sql`DELETE FROM newsletter_subscribers WHERE unsubscribe_token = ${token}`
   return rowCount ? 'unsubscribed' : 'invalid'
 }

@@ -28,6 +28,9 @@ test('/newsletter is either closed honestly or takes an address by POST with its
   await expect(form.locator('#newsletter-name'), 'the consent record carries a name (Grt. 6. § (2))').toBeVisible();
   await expect(form.locator('a[href="/privacy"]')).toBeVisible();
   await expect(form).toContainText('For readers 16 and over');
+  // LEGAL-02.6: what subscribing means, and why the name is kept.
+  await expect(form).toContainText('By subscribing you agree that DField Kft. (StunpreX) emails you its newsletter');
+  await expect(form).toContainText('We keep your name with the record of your consent, as Hungarian law requires');
 });
 
 test('the archive lists issues 1 to 3, and an issue reads as sent, without the old footer', async ({ page }) => {
@@ -135,16 +138,21 @@ test.describe('subscribe, confirm, unsubscribe (staging)', () => {
     expect(issue.html_body, 'no script').not.toMatch(/<script/i);
     expect(issue.html_body, 'links are not rewritten').toContain('href="https://stunprex.com/training"');
     expect(issue.text_body).toContain('/newsletter/unsubscribe?token=');
+    // LEGAL-02.6: the three footer parts, in the text and the HTML version.
+    for (const body of [issue.text_body, issue.html_body]) {
+      expect(body).toContain('or write to');
+      expect(body).toContain('hello@stunprex.com');
+      expect(body).toContain('DField Kft., 2120 Dunakeszi, Torony köz 5. 1. ajtó, Hungary');
+    }
     expect(issue.text_body, 'the name given is used in the greeting').toContain('Hello E2E Tester,');
   });
 
   test('the unsubscribe link unsubscribes with one click', async ({ page, request }) => {
     const issue = (await outbox(request))[0];
     await page.goto(linkIn(issue.text_body, '/newsletter/unsubscribe'));
-    await expect(page.locator('[data-landing="done"]')).toContainText('You are unsubscribed');
-    const { subscriber } = await helper(request, 'state');
-    expect(subscriber.status).toBe('unsubscribed');
-    expect(subscriber.unsubscribed_at).toBeTruthy();
+    await expect(page.locator('[data-landing="done"]')).toContainText('we have deleted your name and address');
+    // LEGAL-02.6: unsubscribing deletes the row at once; no row holds the address.
+    expect((await helper(request, 'state')).subscriber, 'the row is deleted on unsubscribe').toBeNull();
     expect((await helper(request, 'send_issue')).result, 'an unsubscribed address is not mailed').toMatch(/nothing sent/);
   });
 
@@ -158,7 +166,15 @@ test.describe('subscribe, confirm, unsubscribe (staging)', () => {
     const res = await request.post(new URL(target).pathname + new URL(target).search, {
       headers: { 'content-type': 'application/x-www-form-urlencoded' }, data: 'List-Unsubscribe=One-Click' });
     expect(res.status()).toBe(200);
-    expect((await helper(request, 'state')).subscriber.status).toBe('unsubscribed');
+    expect((await helper(request, 'state')).subscriber, 'the row is deleted on unsubscribe').toBeNull();
+  });
+
+  test('the clean-ups delete an unconfirmed sign-up past its link and a bounce older than 90 days', async ({ request }) => {
+    await helper(request, 'seed_old');
+    const r = await helper(request, 'cleanup');
+    expect(r.pending_deleted).toBeGreaterThanOrEqual(1);
+    expect(r.bounced_deleted).toBeGreaterThanOrEqual(1);
+    expect(r.test_rows_left, 'no row holds either test address').toBe(0);
   });
 
   test('an expired confirmation link shows the form again', async ({ page, request }) => {
