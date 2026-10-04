@@ -20,13 +20,7 @@ export const metadata: Metadata = {
 
 // ─── Inline edit form (server action bound) ───────────────────────────────────
 
-function EditProfileForm({
-  bio,
-  avatarUrl,
-}: {
-  bio: string | null
-  avatarUrl: string | null
-}) {
+function EditProfileForm({ bio }: { bio: string | null }) {
   return (
     <form action={async (fd) => { await updateProfile(fd) }} className="space-y-4">
       <div>
@@ -48,23 +42,7 @@ function EditProfileForm({
         />
       </div>
 
-      <div>
-        <label
-          htmlFor="me-avatar"
-          className="block font-ui text-xs font-medium text-deepblue mb-1"
-        >
-          Avatar URL{' '}
-          <span className="text-brown/40 font-normal">(HTTPS only)</span>
-        </label>
-        <input
-          id="me-avatar"
-          name="avatar_url"
-          type="url"
-          defaultValue={avatarUrl ?? ''}
-          placeholder="https://…"
-          className="w-full rounded border border-deepblue/20 px-3 py-2 font-body text-sm text-brown placeholder:text-brown/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40"
-        />
-      </div>
+      {/* LEGAL-02.3: no picture field. Pictures come back through our own site with LEGAL-01g. */}
 
       <div className="flex items-center justify-end">
         <button
@@ -120,14 +98,8 @@ export default async function MyProfilePage() {
           </nav>
 
           <div className="flex items-start gap-4 mt-4">
-            {profile.avatar_url ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={profile.avatar_url}
-                alt=""
-                className="h-14 w-14 rounded-full object-cover border border-deepblue/15 flex-shrink-0"
-              />
-            ) : (
+            {/* LEGAL-02.3: no picture from another host; the initial letter only. */}
+            {(
               <div
                 aria-hidden="true"
                 className="h-14 w-14 rounded-full bg-deepblue/10 flex items-center justify-center flex-shrink-0"
@@ -171,7 +143,7 @@ export default async function MyProfilePage() {
           <h2 className="font-ui text-sm font-semibold text-deepblue mb-4">
             Edit profile
           </h2>
-          <EditProfileForm bio={profile.bio} avatarUrl={profile.avatar_url} />
+          <EditProfileForm bio={profile.bio} />
         </section>
 
         {/* Recent questions */}

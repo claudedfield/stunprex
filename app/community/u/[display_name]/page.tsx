@@ -56,14 +56,8 @@ export default async function MemberProfilePage({ params }: ProfilePageProps) {
 
           <div className="flex items-start gap-4 mt-4">
             {/* Avatar */}
-            {profile.avatar_url ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={profile.avatar_url}
-                alt=""
-                className="h-14 w-14 rounded-full object-cover border border-deepblue/15 flex-shrink-0"
-              />
-            ) : (
+            {/* LEGAL-02.3: no picture from another host; the initial letter only. */}
+            {(
               <div
                 aria-hidden="true"
                 className="h-14 w-14 rounded-full bg-deepblue/10 flex items-center justify-center flex-shrink-0"

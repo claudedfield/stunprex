@@ -11,7 +11,7 @@ import { redirect } from 'next/navigation'
 import { signIn, signOut as authSignOut, auth } from '@/auth'
 import { sql } from '@/db'
 import { z } from 'zod'
-import { generateSlugFromTitle, sanitizeImageUrl, isEffectivelyEmpty, countExternalLinks } from '@/lib/community/utils'
+import { generateSlugFromTitle, isEffectivelyEmpty, countExternalLinks } from '@/lib/community/utils'
 import type { QuestionCategory } from '@/lib/types/community'
 import { redactError } from '@/lib/log-redact'
 import { TERMS_VERSION } from '@/lib/legal'
@@ -653,11 +653,10 @@ export async function updateProfile(formData: FormData): Promise<ActionResult> {
   const authResult = await requireAuth()
   if (!authResult.ok) return { success: false, error: authResult.error }
 
-  const avatarUrlRaw = (formData.get('avatar_url') as string) || ''
+  // LEGAL-02.3: the profile form has no picture field; a stored address is neither accepted nor changed.
   const raw = {
     display_name: formData.get('display_name') as string,
     bio: (formData.get('bio') as string) || undefined,
-    avatar_url: avatarUrlRaw || undefined,
   }
 
   const parsed = ProfileSchema.safeParse(raw)
@@ -669,25 +668,12 @@ export async function updateProfile(formData: FormData): Promise<ActionResult> {
     }
   }
 
-  // Sanitize avatar URL if provided
-  let avatarUrl: string | null = null
-  if (parsed.data.avatar_url) {
-    avatarUrl = sanitizeImageUrl(parsed.data.avatar_url)
-    if (!avatarUrl) {
-      return {
-        success: false,
-        error: 'Avatar URL must be HTTPS and from an allowed hosting service.',
-      }
-    }
-  }
-
   try {
     await sql`
       UPDATE profiles
       SET
         display_name = ${parsed.data.display_name},
-        bio          = ${parsed.data.bio ?? null},
-        avatar_url   = ${avatarUrl}
+        bio          = ${parsed.data.bio ?? null}
       WHERE user_id = ${authResult.userId}
     `
   } catch (err: unknown) {

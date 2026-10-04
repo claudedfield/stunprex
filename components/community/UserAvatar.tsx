@@ -1,9 +1,9 @@
 /**
- * UserAvatar — consistent identity display across community pages.
- * Shows avatar image if available; falls back to initials.
- * No external fetch for fallback — CSS-only initials avatar.
+ * UserAvatar: consistent identity display across community pages.
+ * LEGAL-02.3 (2 Oct 2026): initials only. A stored `avatar_url` points at another host, and loading
+ * it would send every viewer's address there, so it is never rendered. LEGAL-01g later brings
+ * pictures back through our own site. The prop stays so callers do not change.
  */
-import Image from 'next/image'
 
 interface UserAvatarProps {
   displayName: string
@@ -17,11 +17,8 @@ const SIZE_CLASSES = {
   lg: { container: 'h-14 w-14', text: 'text-base' },
 }
 
-const SIZE_PX = { sm: 32, md: 40, lg: 56 }
-
-export default function UserAvatar({ displayName, avatarUrl, size = 'md' }: UserAvatarProps) {
+export default function UserAvatar({ displayName, size = 'md' }: UserAvatarProps) {
   const { container, text } = SIZE_CLASSES[size]
-  const px = SIZE_PX[size]
 
   // Initials: first char of each word, max 2 chars
   const initials = displayName
@@ -29,20 +26,6 @@ export default function UserAvatar({ displayName, avatarUrl, size = 'md' }: User
     .slice(0, 2)
     .map((w) => w[0]?.toUpperCase() ?? '')
     .join('')
-
-  if (avatarUrl) {
-    return (
-      <div className={`${container} rounded-full overflow-hidden flex-shrink-0 bg-deepblue/10`}>
-        <Image
-          src={avatarUrl}
-          alt={displayName}
-          width={px}
-          height={px}
-          className="h-full w-full object-cover"
-        />
-      </div>
-    )
-  }
 
   return (
     <div
