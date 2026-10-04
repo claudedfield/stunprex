@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useGamesAuth } from './gamesAuth';
 import { SavePrompt } from './SavePrompt';
+import { pageBest } from '@/lib/games/page-best';
 
 /**
  * Pattern Break — anticipation, pattern recognition, inhibition.
@@ -148,7 +149,7 @@ export function PatternBreak() {
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (isAuthed) {
       try {
-        const v = window.localStorage.getItem(BEST_KEY);
+        const v = pageBest.getItem(BEST_KEY);
         if (v) setBest(Number(v));
       } catch {
         /* ignore */
@@ -179,9 +180,9 @@ export function PatternBreak() {
     setPhase('over');
     if (isAuthed) {
       try {
-        const prev = Number(window.localStorage.getItem(BEST_KEY) ?? '0');
+        const prev = Number(pageBest.getItem(BEST_KEY) ?? '0');
         if (sc > prev) {
-          window.localStorage.setItem(BEST_KEY, String(sc));
+          pageBest.setItem(BEST_KEY, String(sc));
           setBest(sc);
           setIsNewBest(true);
         }

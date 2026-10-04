@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useGamesAuth } from './gamesAuth';
 import { SavePrompt } from './SavePrompt';
+import { pageBest } from '@/lib/games/page-best';
 
 /**
  * The Commit Window — timing and impulse control.
@@ -201,7 +202,7 @@ export function CommitWindow() {
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (isAuthed) {
       try {
-        const v = window.localStorage.getItem(BEST_KEY);
+        const v = pageBest.getItem(BEST_KEY);
         if (v) setBest(Number(v));
       } catch { /* ignore */ }
     }
@@ -237,9 +238,9 @@ export function CommitWindow() {
       const successes = results.filter((r) => r === 'success').length;
       if (isAuthed) {
         try {
-          const prev = Number(window.localStorage.getItem(BEST_KEY) ?? '0');
+          const prev = Number(pageBest.getItem(BEST_KEY) ?? '0');
           if (successes > prev) {
-            window.localStorage.setItem(BEST_KEY, String(successes));
+            pageBest.setItem(BEST_KEY, String(successes));
             setBest(successes);
             setIsNewBest(true);
           }
