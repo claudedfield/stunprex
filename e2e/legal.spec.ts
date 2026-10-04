@@ -68,9 +68,9 @@ test('/privacy names the controller, sub-processors and GDPR rights', async ({ p
   await expect(main).toContainText('marked as unsubscribed, so that we do not email you again');
   // LEGAL-00b: the sub-processors are the ones in use since the move.
   await expect(main).toContainText('Hostinger International Ltd. (our server in the Netherlands, which holds the website and its database');
-  // Since 1 Oct the database is on our own server; the owner deleted the Neon project on 4 Oct, so
-  // Hostinger is the only sub-processor named.
-  await expect(main).not.toContainText(/Neon|Databricks/);
+  // Since 1 Oct the database is on our own server; Neon keeps the cutover copy until it is deleted
+  // (still answering on 4 Oct 06:25 UTC). The line goes the day the copy is gone.
+  await expect(main).toContainText('Neon (Databricks, Inc.): until we delete it in October 2026, a copy of our database');
   await expect(main).not.toContainText('Vercel');
   await expect(main).not.toContainText(/saved game scores/i);
   await expect(main).toContainText(/Art\. 6\(1\)\(a\) GDPR/);
