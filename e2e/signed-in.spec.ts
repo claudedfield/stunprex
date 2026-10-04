@@ -33,17 +33,31 @@ test.describe('signed in as the test account', () => {
     expect(body?.user?.email).toBe('e2e@stunprex.test');
   });
 
-  // 1 Oct 2026: the owner's sign-in succeeded and sent him back to the sign-in form, which showed
-  // the form again and looked like a failure. A signed-in visitor never stays on the form.
-  test('a signed-in visitor is sent on from the sign-in pages, only ever to this site', async ({ page }) => {
+  // 1 and 4 Oct 2026, the owner's two reports: a signed-in visitor on the sign-in pages sees who they
+  // are and the two things they can do: no form, no silent redirect, and only ever a link to this site.
+  test('the sign-in pages tell a signed-in visitor so, with a way on and a way out', async ({ page }) => {
     await page.goto('/signin');
-    await expect(page).toHaveURL(/\/community$/);
+    const notice = page.locator('[data-signed-in-notice]');
+    await expect(notice).toContainText('You are signed in as');
+    await expect(page.locator('input[type="email"]')).toHaveCount(0);
+    await expect(notice.getByRole('link', { name: 'Go to the community' })).toHaveAttribute('href', '/community');
+    await expect(notice.getByRole('button', { name: 'Sign out' })).toBeVisible();
     await page.goto('/signin?next=/community/ask');
-    await expect(page).toHaveURL(/\/community\/ask$/);
+    await expect(notice.getByRole('link', { name: 'Continue' })).toHaveAttribute('href', '/community/ask');
     await page.goto('/signin?next=//example.com/x');
-    await expect(page).toHaveURL(/stunprex\.com\/community$/);
+    await expect(notice.getByRole('link')).toHaveAttribute('href', '/community');
     await page.goto('/auth/sign-up');
-    await expect(page).toHaveURL(/\/community$/);
+    await expect(notice).toContainText('You are signed in as');
+  });
+
+  test('the header shows the member and Sign out, and signing out ends the session', async ({ page }) => {
+    await page.goto('/');
+    const nav = page.locator('header [data-auth-nav="signed-in"]');
+    await expect(nav.getByRole('link')).toHaveAttribute('href', '/community/u/me');
+    await expect(page.locator('header').getByRole('link', { name: 'Sign in' })).toHaveCount(0);
+    await nav.getByRole('button', { name: 'Sign out' }).click();
+    await expect(page.locator('header [data-auth-nav="signed-out"]').getByRole('link', { name: 'Sign in' })).toBeVisible();
+    expect((await (await page.request.get('/api/auth/session')).json())?.user ?? null).toBeNull();
   });
 
   test('a member reaches the ask form instead of the sign-in page', async ({ page }) => {

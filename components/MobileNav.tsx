@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { PRIMARY_NAV } from '@/lib/nav';
+import { AuthNav } from './AuthNav';
 
 /**
  * MobileNav — hamburger button + full-height slide-in panel for screens < lg.
@@ -82,13 +83,7 @@ export function MobileNav() {
           </ul>
 
           <div className="flex flex-col gap-3 pt-4 border-t border-deepblue/10">
-            <Link
-              href="/signin"
-              className="block text-center py-3 font-ui text-base text-brown/70 hover:text-deepblue border border-deepblue/20 rounded-lg hover:border-deepblue/40 transition-colors"
-              onClick={close}
-            >
-              Sign in
-            </Link>
+            <AuthNav variant="mobile" onNavigate={close} />
             <Link
               href="/signup"
               className="btn-primary block text-center py-3 text-base"

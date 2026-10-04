@@ -7,9 +7,9 @@ import type { Metadata } from 'next'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import SignUpForm from './SignUpForm'
-import { redirect } from 'next/navigation'
 import { auth } from '@/auth'
 import { safeNext } from '@/lib/auth/next'
+import { SignedInNotice } from '@/components/SignedInNotice'
 
 export const metadata: Metadata = {
   title: { absolute: 'Join the community · StunpreX' },
@@ -18,9 +18,12 @@ export const metadata: Metadata = {
 }
 
 export default async function SignUpPage({ searchParams }: { searchParams: Promise<{ next?: string }> }) {
-  // A signed-in visitor has no use for this form: on to where they were going.
+  // A signed-in visitor sees who they are and what they can do, not the form (owner report, 4 Oct 2026).
   const session = await auth()
-  if (session?.user?.id) redirect(safeNext((await searchParams).next))
+  const signedInAs = session?.user?.id
+    ? ((session.user as { display_name?: string }).display_name ?? 'a member')
+    : null
+  const next = safeNext((await searchParams).next)
   return (
     <>
       <Header />
@@ -38,7 +41,7 @@ export default async function SignUpPage({ searchParams }: { searchParams: Promi
               long-horizon football development.
             </p>
           </div>
-          <SignUpForm />
+          {signedInAs ? <SignedInNotice name={signedInAs} next={next} /> : <SignUpForm />}
           <p className="mt-4 text-center text-xs text-brown/40 font-body">
             Already a member?{' '}
             <a

@@ -76,3 +76,12 @@ test('the skip link is hidden until keyboard focus, and Tab reaches it first', a
     await expect(page.locator('#main-content')).toHaveCount(1);
   }
 });
+
+// Owner report, 4 Oct 2026: the header states the sign-in state truthfully. Signed out, it says
+// "Sign in" (the signed-in half runs on staging, in signed-in.spec.ts).
+test('signed out, the header says Sign in and nothing about signing out', async ({ page }) => {
+  await page.goto('/');
+  const nav = page.locator('header [data-auth-nav="signed-out"]');
+  await expect(nav.getByRole('link', { name: 'Sign in' })).toHaveAttribute('href', '/signin');
+  await expect(page.locator('header').getByRole('button', { name: 'Sign out' })).toHaveCount(0);
+});
