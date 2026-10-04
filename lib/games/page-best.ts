@@ -8,7 +8,8 @@
  * choice.)
  *
  * It also removes the keys earlier visits left behind, once per page load, so a returning visitor's
- * browser no longer holds what the Cookie Policy will say we do not keep.
+ * browser no longer holds what the Cookie Policy will say we do not keep. (The games stored a best
+ * score only for signed-in members.)
  */
 const memory = new Map<string, string>()
 let cleared = false
@@ -26,6 +27,10 @@ function clearLegacy() {
     // Storage blocked or unavailable: nothing was stored, nothing to clear.
   }
 }
+
+// The games only read or write a best score for a signed-in member, so the clean-up cannot wait for
+// those calls: it runs as soon as a game's code loads in the browser, whoever is playing.
+clearLegacy()
 
 export const pageBest = {
   getItem(key: string): string | null {
