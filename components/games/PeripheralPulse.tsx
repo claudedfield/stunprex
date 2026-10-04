@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useGamesAuth } from './gamesAuth';
 import { SavePrompt } from './SavePrompt';
+import { pageBest } from '@/lib/games/page-best';
 
 /**
  * Peripheral Pulse — dual-task: peripheral detection while holding central focus.
@@ -89,7 +90,7 @@ export function PeripheralPulse() {
   useEffect(() => {
     if (isAuthed) {
       try {
-        const v = window.localStorage.getItem(BEST_KEY);
+        const v = pageBest.getItem(BEST_KEY);
         if (v) setBest(Number(v));
       } catch { /* ignore */ }
     }
@@ -119,9 +120,9 @@ export function PeripheralPulse() {
       s.totalPulses > 0 ? Math.round((s.periphHits / s.totalPulses) * 100) : 0;
     if (isAuthed) {
       try {
-        const prev = Number(window.localStorage.getItem(BEST_KEY) ?? '0');
+        const prev = Number(pageBest.getItem(BEST_KEY) ?? '0');
         if (periphPct > prev) {
-          window.localStorage.setItem(BEST_KEY, String(periphPct));
+          pageBest.setItem(BEST_KEY, String(periphPct));
           setBest(periphPct);
           setIsNewBest(true);
         }

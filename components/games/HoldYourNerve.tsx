@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useGamesAuth } from './gamesAuth';
 import { SavePrompt } from './SavePrompt';
+import { pageBest } from '@/lib/games/page-best';
 
 /**
  * Hold Your Nerve — focus under rising arousal (Affective). Echoes the penalty
@@ -97,7 +98,7 @@ export function HoldYourNerve() {
     if (reducedMotion.current) setCalmMode(true); // auto-calm: no pulsing
     if (isAuthed) {
       try {
-        const v = window.localStorage.getItem(BEST_KEY);
+        const v = pageBest.getItem(BEST_KEY);
         if (v) setBest(Number(v));
       } catch {
         /* ignore */
@@ -156,9 +157,9 @@ export function HoldYourNerve() {
 
     if (isAuthed) {
       try {
-        const prev = Number(window.localStorage.getItem(BEST_KEY) ?? '0');
+        const prev = Number(pageBest.getItem(BEST_KEY) ?? '0');
         if (avg > prev) {
-          window.localStorage.setItem(BEST_KEY, String(avg));
+          pageBest.setItem(BEST_KEY, String(avg));
           setBest(avg);
           setIsNewBest(true);
         }
