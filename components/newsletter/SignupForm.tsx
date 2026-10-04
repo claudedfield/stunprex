@@ -35,6 +35,8 @@ export function SignupForm({ source = 'site' }: { source?: string }) {
   return (
     <form onSubmit={submit} data-newsletter-form className="space-y-3" noValidate>
       {state?.message ? <p role="alert" className="rounded bg-orange/10 px-3 py-2 text-sm text-orange font-body">{state.message}</p> : null}
+      {/* LEGAL-02.6: what subscribing means, above the button. */}
+      <p className="text-sm text-brown/80 font-body">By subscribing you agree that DField Kft. (StunpreX) emails you its newsletter, which also presents StunpreX content and services, until you unsubscribe.</p>
       <label htmlFor="newsletter-name" className="block font-ui text-sm font-medium text-deepblue">Your name</label>
       <input id="newsletter-name" type="text" name="name" autoComplete="name" required maxLength={80} value={name}
         onChange={(e) => setName(e.target.value)}
@@ -52,7 +54,7 @@ export function SignupForm({ source = 'site' }: { source?: string }) {
         <label htmlFor="newsletter-website">Leave this empty</label>
         <input id="newsletter-website" type="text" name="website" tabIndex={-1} autoComplete="off" />
       </div>
-      <p className="text-xs text-brown/60 font-body">We use your name only to greet you in our emails.</p>
+      <p className="text-xs text-brown/60 font-body">We keep your name with the record of your consent, as Hungarian law requires, and use it to greet you.</p>
       <p className="text-xs text-brown/60 font-body">We send a link to confirm first. Unsubscribe with one click in every issue. No tracking.</p>
       <p className="text-xs text-brown/60 font-body">For readers 16 and over. Parents are welcome to subscribe with their own address.</p>
       <p className="text-xs text-brown/60 font-body">
