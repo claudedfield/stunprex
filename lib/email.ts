@@ -68,6 +68,9 @@ If you did not request this, ignore this email.`
 
   await transport.sendMail({
     from: `"StunpreX" <${process.env.SMTP_FROM!}>`,
+    // D-MAIL-01: sign-in mail goes out from its own mailbox (signin@), which nobody reads;
+    // a reply reaches hello@.
+    replyTo: 'hello@stunprex.com',
     to,
     subject: 'Your StunpreX sign-in link',
     text: textBody,

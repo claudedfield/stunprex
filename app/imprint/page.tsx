@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <LegalPage title="Imprint / Impressum" lastUpdated="2026-09-28">
+    <LegalPage title="Imprint / Impressum" lastUpdated="2026-10-06">
       <p>
         <strong>StunpreX</strong> is a project operated by DField Kft.
       </p>
@@ -21,8 +21,8 @@ export default function Page() {
           <strong>Registered seat:</strong> 2120 Dunakeszi, Torony köz 5. 1. ajtó, Hungary
         </li>
         <li>
-          <strong>Company registration number:</strong> 13-09-242182 (registered at the
-          Registry Court of the Pest County Court)
+          <strong>Company registration number:</strong> 13-09-242182, registered by
+          the Court of Registration of the Budapest Region Tribunal
         </li>
         <li>
           <strong>Tax number:</strong> 32876217-2-13 · <strong>EU VAT:</strong> HU32876217

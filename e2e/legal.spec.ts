@@ -12,9 +12,9 @@ import { CONSENT_PATTERNS, watchConsole } from './helpers';
 const LEGAL_ROUTES = ['/imprint', '/privacy', '/cookies', '/terms'] as const;
 
 // LEGAL-00 dated all four pages 24 Sep; LEGAL-00b changed three of them on 28 Sep; LEGAL-00c
-// changed /privacy on 4 Oct.
+// changed /privacy on 4 Oct; the registering court on /imprint was corrected on 6 Oct (D-LEGAL-14).
 const LAST_UPDATED: Record<(typeof LEGAL_ROUTES)[number], string> = {
-  '/imprint': '2026-09-28',
+  '/imprint': '2026-10-06',
   '/privacy': '2026-10-04',
   '/cookies': '2026-09-28',
   '/terms': '2026-09-24',
@@ -37,6 +37,9 @@ test('/imprint carries the verified entity fields exactly', async ({ page }) => 
   const main = page.locator('main');
   // Company registration, tax and VAT numbers — NAV-verified, owner-confirmed.
   await expect(main, 'company registration number').toContainText('13-09-242182');
+  // The register extract's wording (effective 16 May 2026); "Pest County Court" was wrong.
+  await expect(main, 'registering court').toContainText('registered by the Court of Registration of the Budapest Region Tribunal');
+  await expect(main).not.toContainText('Pest County Court');
   await expect(main, 'tax number').toContainText('32876217-2-13');
   await expect(main, 'EU VAT number').toContainText('HU32876217');
 
