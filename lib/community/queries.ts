@@ -401,6 +401,9 @@ export async function getMemberProfile(displayName: string): Promise<MemberProfi
       (SELECT COUNT(*) FROM answers a WHERE a.author_id = p.user_id AND a.status = 'published')::int AS answer_count
     FROM profiles p
     WHERE p.display_name = ${displayName}
+      -- LEGAL-03.14: an unfinished sign-up (terms never accepted, age never confirmed) has no profile page.
+      AND p.terms_accepted_at IS NOT NULL
+      AND p.age_confirmed_at IS NOT NULL
     LIMIT 1
   `
 
