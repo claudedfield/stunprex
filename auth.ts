@@ -15,10 +15,13 @@
 import NextAuth from 'next-auth'
 import type { NextAuthConfig } from 'next-auth'
 import Email from 'next-auth/providers/email'
+import { MAGIC_LINK_MAX_AGE_SECONDS } from './lib/auth-constants'
 import PostgresAdapter from '@auth/pg-adapter'
-import { db } from '@vercel/postgres'
+import { db } from '@/db'
 import { sendMagicLink } from '@/lib/email'
 import { ensureProfile } from '@/lib/auth/db'
+import { redactError } from '@/lib/log-redact'
+import { TERMS_VERSION } from './lib/legal'
 
 export const authConfig: NextAuthConfig = {
   adapter: PostgresAdapter(db),
@@ -39,6 +42,7 @@ export const authConfig: NextAuthConfig = {
        * goes through sendMagicLink (lib/email.ts) which reads env vars at
        * call time — it will throw a clear error if vars are missing at runtime.
        */
+      maxAge: MAGIC_LINK_MAX_AGE_SECONDS, // LEGAL-01i: 15 minutes, as every page and email says
       server: process.env.EMAIL_SERVER ?? 'smtp://localhost:25',
       sendVerificationRequest: async ({ identifier: email, url }) => {
         // The magic link is sent exactly as Auth.js builds it — on the apex, which
@@ -70,6 +74,11 @@ export const authConfig: NextAuthConfig = {
         ;(session.user as typeof session.user & { role: string; is_banned: boolean; onboarded: boolean }).role = profile.role
         ;(session.user as typeof session.user & { role: string; is_banned: boolean; onboarded: boolean }).is_banned = profile.is_banned
         ;(session.user as typeof session.user & { role: string; is_banned: boolean; onboarded: boolean }).onboarded = profile.onboarded
+        // The header shows who is signed in (AuthNav).
+        ;(session.user as typeof session.user & { display_name: string }).display_name = profile.display_name
+        // LEGAL-01a, 01b: writes need the current terms accepted and the age confirmed.
+        ;(session.user as typeof session.user & { terms_ok: boolean }).terms_ok =
+          profile.terms_version === TERMS_VERSION && profile.age_confirmed_at != null
       }
       return session
     },
@@ -80,6 +89,18 @@ export const authConfig: NextAuthConfig = {
     verifyRequest: '/signin',
     error: '/signin',          // query ?error= for errors
     newUser: '/community/welcome',  // first-time onboarding redirect
+  },
+
+  // LEGAL-01m: Auth.js's own error and warning lines pass through the same redaction as ours,
+  // so no email address or magic-link URL reaches the server log.
+  logger: {
+    error(error: Error) {
+      console.error('[auth][error]', redactError(error))
+    },
+    warn(code: string) {
+      console.warn('[auth][warn]', code)
+    },
+    debug() {},
   },
 
   session: {
@@ -97,7 +118,7 @@ const _auth: any = (() => {
   try {
     return NextAuth(authConfig)
   } catch (err) {
-    console.error('[auth] NextAuth init failed (AUTH_SECRET missing?):', err)
+    console.error('[auth] NextAuth init failed (AUTH_SECRET missing?):', redactError(err))
     return null
   }
 })()

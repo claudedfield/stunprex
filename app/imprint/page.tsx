@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <LegalPage title="Imprint / Impressum" lastUpdated="2026-08-23">
+    <LegalPage title="Imprint / Impressum" lastUpdated="2026-09-28">
       <p>
         <strong>StunpreX</strong> is a project operated by DField Kft.
       </p>
@@ -35,8 +35,10 @@ export default function Page() {
           <a href="mailto:hello@stunprex.com">hello@stunprex.com</a>
         </li>
         <li>
-          <strong>Hosting provider:</strong> Vercel Inc., 340 S Lemon Ave #4133, Walnut,
-          CA 91789, USA.
+          <strong>Hosting provider:</strong> Hostinger International Ltd., 61 Lordou Vironos
+          Street, 6023 Larnaca, Cyprus;{' '}
+          <a href="mailto:compliance@hostinger.com">compliance@hostinger.com</a>. Our server is in the
+          Netherlands.
         </li>
       </ul>
 

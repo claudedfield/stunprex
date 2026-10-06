@@ -16,6 +16,8 @@ export default function SignInForm() {
     e.preventDefault()
     const fd = new FormData()
     fd.append('email', email)
+    // Where to land after signing in (?next=), checked on the server.
+    fd.append('next', new URLSearchParams(window.location.search).get('next') ?? '')
     startTransition(async () => {
       const r = await signInWithMagicLink(fd)
       if (r.success && r.data) {
@@ -73,6 +75,18 @@ export default function SignInForm() {
         >
           {isPending ? 'Sending…' : 'Send sign-in link'}
         </button>
+        {/* LEGAL-01a: creating an account means accepting the terms; LEGAL-01d: the privacy link beside the action. */}
+        <p className="text-center text-xs text-brown/50 font-body">
+          Creating an account means accepting our{' '}
+          <a href="/terms" className="text-deepblue underline underline-offset-2">
+            Terms of Use
+          </a>
+          . See our{' '}
+          <a href="/privacy" className="text-deepblue underline underline-offset-2">
+            Privacy Notice
+          </a>
+          .
+        </p>
       </form>
 
       <p className="text-center text-xs text-brown/40 font-body">

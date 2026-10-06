@@ -10,7 +10,7 @@ import { ALL_CATEGORIES, CATEGORY_LABELS } from '@/lib/types/community'
 import AskForm from './AskForm'
 
 export const metadata: Metadata = {
-  title: 'Ask a question · StunpreX Community',
+  title: { absolute: 'Ask a question · StunpreX Community' },
   description: 'Ask a question about football player development.',
   robots: { index: false, follow: false },
 }
@@ -24,7 +24,7 @@ export default async function AskPage() {
   const tags = await getAllTags()
 
   return (
-    <main className="min-h-screen bg-mint">
+    <main id="main-content" className="min-h-screen bg-mint">
       <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
         <header className="mb-8">
           <nav className="mb-3 text-xs font-ui text-brown/45" aria-label="Breadcrumb">

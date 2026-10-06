@@ -5,9 +5,8 @@
  * points under the D2/D8 deferral, when there was nowhere for an address to go.
  * Keeping placement and copy here means the two capture points cannot drift apart.
  *
- * The field itself is EmailCaptureForm, which posts to beehiiv's hosted page
- * rather than loading beehiiv's embed script. See that file for the cookie
- * measurement behind that choice.
+ * The button is EmailCaptureForm, which leads to our own /newsletter page
+ * (D-NEWS-01: beehiiv retired 28 Sep 2026).
  *
  * Copy rule: no invented social proof. We have one subscriber, and manufactured
  * numbers are a refused pattern.
@@ -16,7 +15,7 @@ import type { ReactNode } from 'react';
 import { EmailCaptureForm } from './EmailCaptureForm';
 
 interface Props {
-  /** Placement label, forwarded to beehiiv for attribution. */
+  /** Placement label, passed to /newsletter so the sign-up records which block it came from. */
   source?: string;
   /** 'section' = full-width band (home); 'card' = boxed (end of an article). */
   variant?: 'section' | 'card';
@@ -32,7 +31,7 @@ interface Props {
 const HEADING = 'A weekly dispatch on individual development';
 const LINE =
   'Methodology pieces and a drill of the week. No hype, and you can unsubscribe anytime.';
-const CONFIRM_NOTE = 'Double opt-in: beehiiv sends a confirmation email before anything else.';
+const CONFIRM_NOTE = 'Double opt-in: we send a link to confirm first. No tracking, and one-click unsubscribe.';
 
 export function NewsletterCapture({ source = 'home', variant = 'section', footer }: Props) {
   if (variant === 'card') {
@@ -53,7 +52,7 @@ export function NewsletterCapture({ source = 'home', variant = 'section', footer
   }
 
   return (
-    <section className="py-20 md:py-24 bg-mint">
+    <section id="newsletter" className="py-20 md:py-24 bg-mint">
       <div className="container-site">
         <div className="max-w-2xl mx-auto text-center">
           <p className="font-ui uppercase tracking-widest text-sm text-orange mb-3">Newsletter</p>

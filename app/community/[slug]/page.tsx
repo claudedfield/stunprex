@@ -23,11 +23,11 @@ interface QuestionPageProps {
 export async function generateMetadata({ params }: QuestionPageProps): Promise<Metadata> {
   const { slug } = await params
   const question = await getQuestionBySlug(slug)
-  if (!question) return { title: 'Not found · StunpreX Community' }
+  if (!question) return { title: { absolute: 'Not found · StunpreX Community' } }
 
   const description = truncateToWords(stripMarkdown(question.body), 155)
   return {
-    title: `${question.title} · StunpreX Community`,
+    title: { absolute: `${question.title} · StunpreX Community` },
     description,
     openGraph: {
       title: question.title,

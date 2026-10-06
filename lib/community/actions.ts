@@ -11,8 +11,11 @@ import { redirect } from 'next/navigation'
 import { signIn, signOut as authSignOut, auth } from '@/auth'
 import { sql } from '@/db'
 import { z } from 'zod'
-import { generateSlugFromTitle, sanitizeImageUrl, isEffectivelyEmpty, countExternalLinks } from '@/lib/community/utils'
+import { generateSlugFromTitle, isEffectivelyEmpty, countExternalLinks } from '@/lib/community/utils'
 import type { QuestionCategory } from '@/lib/types/community'
+import { redactError } from '@/lib/log-redact'
+import { TERMS_VERSION } from '@/lib/legal'
+import { safeNext } from '@/lib/auth/next'
 
 // ─── Shared result type ───────────────────────────────────────────────────────
 
@@ -85,14 +88,29 @@ const ProfileSchema = z.object({
 // ─── Auth helpers ─────────────────────────────────────────────────────────────
 
 /** Get session and verify user is authenticated + not banned. Returns error string or null. */
-async function requireAuth(): Promise<
-  { ok: true; userId: string; role: string } | { ok: false; error: string }
+async function requireSignedIn(): Promise<
+  { ok: true; userId: string; role: string; termsOk: boolean } | { ok: false; error: string }
 > {
   const session = await auth()
   if (!session?.user?.id) return { ok: false, error: 'You must be signed in.' }
-  const u = session.user as typeof session.user & { is_banned?: boolean; role?: string }
+  const u = session.user as typeof session.user & { is_banned?: boolean; role?: string; terms_ok?: boolean }
   if (u.is_banned) return { ok: false, error: 'Your account cannot perform this action.' }
-  return { ok: true, userId: session.user.id, role: u.role ?? 'user' }
+  return { ok: true, userId: session.user.id, role: u.role ?? 'user', termsOk: u.terms_ok === true }
+}
+
+/**
+ * Every write action. LEGAL-01a and 01b: a member who has not accepted the current Terms of Use
+ * version, or not confirmed they are 16 or older, is sent to the terms step (/community/welcome)
+ * instead of writing. This covers accounts created by the sign-in route as well as sign-up, and
+ * existing members after a terms change.
+ */
+async function requireAuth(): Promise<
+  { ok: true; userId: string; role: string } | { ok: false; error: string }
+> {
+  const result = await requireSignedIn()
+  if (!result.ok) return result
+  if (!result.termsOk) redirect('/community/welcome')
+  return { ok: true, userId: result.userId, role: result.role }
 }
 
 /** Require moderator or admin role. */
@@ -137,13 +155,14 @@ export async function signInWithMagicLink(
   }
 
   try {
-    await signIn('email', { email, redirect: false })
+    // After the link is used, land on the page asked for or the community: never back on the sign-in form.
+    await signIn('email', { email, redirect: false, redirectTo: safeNext(formData.get('next')) })
     return {
       success: true,
-      data: { message: "Check your email — we've sent you a sign-in link." },
+      data: { message: "Check your email: we've sent you a sign-in link." },
     }
   } catch (err) {
-    console.error('[signInWithMagicLink]', err)
+    console.error('[signInWithMagicLink]', redactError(err))
     return { success: false, error: 'Could not send sign-in link. Please try again.' }
   }
 }
@@ -154,13 +173,23 @@ export async function signOut() {
   redirect('/')
 }
 
-/** Mark the current user's profile as onboarded (called from /community/welcome). */
-export async function completeOnboarding(): Promise<ActionResult> {
-  const result = await requireAuth()
+/**
+ * The terms step on /community/welcome (LEGAL-01a, 01b). Both boxes are required and checked here,
+ * not only in the form: the Terms of Use version accepted and the time, the time the member
+ * confirmed they are 16 or older, then onboarded.
+ */
+export async function completeOnboarding(formData: FormData): Promise<ActionResult> {
+  const result = await requireSignedIn()
   if (!result.ok) return { success: false, error: result.error }
+  if (formData.get('accept_terms') !== 'on' || formData.get('confirm_age') !== 'on') {
+    return { success: false, error: 'Please tick both boxes to continue.' }
+  }
 
   await sql`
-    UPDATE profiles SET onboarded = true WHERE user_id = ${result.userId}
+    UPDATE profiles
+    SET terms_version = ${TERMS_VERSION}, terms_accepted_at = now(),
+        age_confirmed_at = COALESCE(age_confirmed_at, now()), onboarded = true
+    WHERE user_id = ${result.userId}
   `
 
   revalidatePath('/community')
@@ -624,11 +653,10 @@ export async function updateProfile(formData: FormData): Promise<ActionResult> {
   const authResult = await requireAuth()
   if (!authResult.ok) return { success: false, error: authResult.error }
 
-  const avatarUrlRaw = (formData.get('avatar_url') as string) || ''
+  // LEGAL-02.3: the profile form has no picture field; a stored address is neither accepted nor changed.
   const raw = {
     display_name: formData.get('display_name') as string,
     bio: (formData.get('bio') as string) || undefined,
-    avatar_url: avatarUrlRaw || undefined,
   }
 
   const parsed = ProfileSchema.safeParse(raw)
@@ -640,25 +668,12 @@ export async function updateProfile(formData: FormData): Promise<ActionResult> {
     }
   }
 
-  // Sanitize avatar URL if provided
-  let avatarUrl: string | null = null
-  if (parsed.data.avatar_url) {
-    avatarUrl = sanitizeImageUrl(parsed.data.avatar_url)
-    if (!avatarUrl) {
-      return {
-        success: false,
-        error: 'Avatar URL must be HTTPS and from an allowed hosting service.',
-      }
-    }
-  }
-
   try {
     await sql`
       UPDATE profiles
       SET
         display_name = ${parsed.data.display_name},
-        bio          = ${parsed.data.bio ?? null},
-        avatar_url   = ${avatarUrl}
+        bio          = ${parsed.data.bio ?? null}
       WHERE user_id = ${authResult.userId}
     `
   } catch (err: unknown) {
@@ -666,7 +681,29 @@ export async function updateProfile(formData: FormData): Promise<ActionResult> {
     if (typeof err === 'object' && err !== null && 'code' in err && (err as { code: string }).code === '23505') {
       return { success: false, error: 'That display name is already taken. Please choose another.' }
     }
-    console.error('[updateProfile]', err)
+    console.error('[updateProfile]', redactError(err))
+    return { success: false, error: 'Could not update profile. Please try again.' }
+  }
+
+  revalidatePath('/community/u/me')
+  return { success: true }
+}
+
+/**
+ * The profile form's action: it saves the bio only. The form has no display-name field, so it must
+ * not go through updateProfile, which requires one (every save was refused, COO-DEV-0037).
+ */
+export async function updateBio(_prev: ActionResult | null, formData: FormData): Promise<ActionResult> {
+  const authResult = await requireAuth()
+  if (!authResult.ok) return { success: false, error: authResult.error }
+
+  const bio = ((formData.get('bio') as string | null) ?? '').trim()
+  if (bio.length > 280) return { success: false, error: 'The bio can be up to 280 characters.' }
+
+  try {
+    await sql`UPDATE profiles SET bio = ${bio || null} WHERE user_id = ${authResult.userId}`
+  } catch (err: unknown) {
+    console.error('[updateBio]', redactError(err))
     return { success: false, error: 'Could not update profile. Please try again.' }
   }
 

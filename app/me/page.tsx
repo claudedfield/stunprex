@@ -1,6 +1,6 @@
 import { ComingSoon } from '@/components/ComingSoon';
 
-export const metadata = { title: 'MyStunpreX' };
+export const metadata = { title: { absolute: 'MyStunpreX' } };
 
 export default function Page() {
   return (

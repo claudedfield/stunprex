@@ -30,14 +30,14 @@ export interface GameMeta {
  * Required by the KB C8 evidence flag (screen→pitch transfer is Weak-to-Absent).
  */
 export const HONEST_TRANSFER_NOTE =
-  'This game trains the underlying capacity your game leans on. Direct transfer from screen to pitch is limited and debated — we don’t claim it makes you a better player. We claim it trains the capacity, scores you honestly, and is worth your ten minutes.';
+  'This game trains the underlying capacity your game leans on. Direct transfer from screen to pitch is limited and debated. We don’t claim it makes you a better player. We claim it trains the capacity, scores you honestly, and is worth your ten minutes.';
 
 export const GAMES: GameMeta[] = [
   {
     slug: 'koi-pond',
     name: 'Koi Pond',
-    tagline: 'Feed the whole pond — once each. Remember who you’ve fed.',
-    trains: 'Selective attention, multiple-object tracking, and working memory — holding which fish you’ve already fed as they move and mix.',
+    tagline: 'Feed the whole pond, once each. Remember who you’ve fed.',
+    trains: 'Selective attention, multiple-object tracking, and working memory: holding which fish you’ve already fed as they move and mix.',
     echoes: 'Tracking bodies in motion when nothing labels who’s who.',
     capacities: ['Perceptual', 'Cognitive'],
     status: 'live',
@@ -47,7 +47,7 @@ export const GAMES: GameMeta[] = [
     slug: 'shoulder-check',
     name: 'Shoulder Check',
     tagline: 'Look around before the ball arrives. Then tell us what you saw.',
-    trains: 'Scanning — gathering information from the edges before you act.',
+    trains: 'Scanning: gathering information from the edges before you act.',
     echoes: 'Xavi’s habit: the scan before the first touch (Conviction 9).',
     capacities: ['Perceptual'],
     status: 'live',
@@ -57,7 +57,7 @@ export const GAMES: GameMeta[] = [
     slug: 'commit-window',
     name: 'The Commit Window',
     tagline: 'Not too early, not too late. Go in the window.',
-    trains: 'Timing and impulse control — acting at the right moment, not the first.',
+    trains: 'Timing and impulse control: acting at the right moment, not the first.',
     echoes: 'The 1v1 commit window.',
     capacities: ['Cognitive', 'Adaptive'],
     status: 'live',
@@ -96,7 +96,7 @@ export const GAMES: GameMeta[] = [
   {
     slug: 'two-things-at-once',
     name: 'Two Things at Once',
-    tagline: 'Keep the ball moving — and still answer the call.',
+    tagline: 'Keep the ball moving, and still answer the call.',
     trains: 'Divided attention: a tracking task and a decision task at the same time.',
     echoes: 'Dribbling while you scan (Conviction 22, cognitive load).',
     capacities: ['Cognitive', 'Motor'],
@@ -117,7 +117,7 @@ export const GAMES: GameMeta[] = [
     slug: 'switch-the-play',
     name: 'Switch the Play',
     tagline: 'The rule just changed. Adapt now.',
-    trains: 'Cognitive flexibility — switching rules without losing the thread.',
+    trains: 'Cognitive flexibility: switching rules without losing the thread.',
     echoes: 'The space or instruction changes and you adjust instantly.',
     capacities: ['Adaptive', 'Cognitive'],
     status: 'live',

@@ -4,6 +4,7 @@ import { getAllDrillSlugs } from '@/lib/drills';
 import { getQuestions } from '@/lib/community/queries';
 import { SEED_QUESTIONS } from '@/lib/community/seed';
 import { GAMES } from '@/lib/games/registry';
+import { listIssues } from '@/lib/newsletter/issues.mjs';
 import { ALL_CATEGORIES } from '@/lib/types/community';
 
 const STATIC_ROUTES = [
@@ -59,6 +60,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: 'monthly',
     priority: 0.6,
   }));
+
+  // D-NEWS-01: the newsletter page and every issue in the archive.
+  const newsletterEntries: MetadataRoute.Sitemap = [
+    { url: 'https://stunprex.com/newsletter', lastModified: now, changeFrequency: 'weekly', priority: 0.6 },
+    ...listIssues().map((i: { meta: { slug: string; send_date: string } }) => ({
+      url: `https://stunprex.com/newsletter/${i.meta.slug}`,
+      lastModified: i.meta.send_date ? new Date(i.meta.send_date) : now,
+      changeFrequency: 'yearly' as const,
+      priority: 0.5,
+    })),
+  ];
 
   // Drill detail pages
   const drillEntries: MetadataRoute.Sitemap = getAllDrillSlugs().map((slug) => ({
@@ -116,6 +128,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...staticEntries,
     ...capacityEntries,
     ...gameEntries,
+    ...newsletterEntries,
     ...drillEntries,
     ...communityCategoryEntries,
     ...postEntries,

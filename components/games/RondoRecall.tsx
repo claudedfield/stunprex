@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useGamesAuth } from './gamesAuth';
 import { SavePrompt } from './SavePrompt';
+import { pageBest } from '@/lib/games/page-best';
 
 /**
  * Rondo Recall — spatial working memory under a shrinking view window.
@@ -94,7 +95,7 @@ export function RondoRecall() {
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (isAuthed) {
       try {
-        const v = window.localStorage.getItem(BEST_KEY);
+        const v = pageBest.getItem(BEST_KEY);
         if (v) setBest(Number(v));
       } catch {
         /* ignore */
@@ -139,9 +140,9 @@ export function RondoRecall() {
     setPhase('over');
     if (isAuthed) {
       try {
-        const prev = Number(window.localStorage.getItem(BEST_KEY) ?? '0');
+        const prev = Number(pageBest.getItem(BEST_KEY) ?? '0');
         if (span > prev) {
-          window.localStorage.setItem(BEST_KEY, String(span));
+          pageBest.setItem(BEST_KEY, String(span));
           setBest(span);
           setIsNewBest(true);
         }

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useGamesAuth } from './gamesAuth';
 import { SavePrompt } from './SavePrompt';
+import { pageBest } from '@/lib/games/page-best';
 
 /**
  * Koi Pond v2 — selective attention, multiple-object tracking, working memory.
@@ -73,7 +74,7 @@ export function KoiPond() {
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!isAuthed) return; // saved progress is for account holders
     try {
-      const v = window.localStorage.getItem(BEST_KEY);
+      const v = pageBest.getItem(BEST_KEY);
       if (v) setBest(Number(v));
     } catch {
       /* ignore */
@@ -159,9 +160,9 @@ export function KoiPond() {
       return; // play is open; saving requires a free account (SavePrompt handles the invite)
     }
     try {
-      const prev = Number(window.localStorage.getItem(BEST_KEY) ?? '0');
+      const prev = Number(pageBest.getItem(BEST_KEY) ?? '0');
       if (score > prev) {
-        window.localStorage.setItem(BEST_KEY, String(score));
+        pageBest.setItem(BEST_KEY, String(score));
         setBest(score);
         setIsNewBest(true);
       } else {

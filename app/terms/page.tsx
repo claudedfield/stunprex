@@ -1,4 +1,5 @@
 import { LegalPage } from '@/components/LegalPage';
+import { TERMS_VERSION } from '@/lib/legal'
 
 export const metadata = {
   title: 'Terms of Use',
@@ -8,7 +9,7 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <LegalPage title="Terms of Use" lastUpdated="2026-08-23">
+    <LegalPage title="Terms of Use" lastUpdated={TERMS_VERSION}>
       <p>By using StunpreX you agree to these terms.</p>
 
       <ul>
@@ -25,7 +26,9 @@ export default function Page() {
         </li>
         <li>
           <strong>Accounts:</strong> keep your sign-in email secure; you&rsquo;re responsible
-          for activity under your account. Minors require parental consent.
+          for activity under your account. You may create an account if you are 16 or older; a
+          parent or guardian may use their own account to seek guidance about a younger player,
+          and the account may not be used by a person under 16.
         </li>
         <li>
           <strong>Acceptable use:</strong> no unlawful, abusive, or disruptive use; community

@@ -9,7 +9,7 @@ import { getDrillCardsByCapacity } from '@/lib/drills';
 import type { CapacityFamily } from '@/lib/types/drill';
 
 export const metadata: Metadata = {
-  title: 'The Six Capacities: How StunpreX Develops the Whole Player',
+  title: { absolute: 'The Six Capacities: How StunpreX Develops the Whole Player' },
   description:
     'Perceptual, Cognitive, Motor, Communication, Affective, Adaptive: the six families of human capacity every StunpreX drill develops. The substrate of a complete player.',
   alternates: { canonical: 'https://stunprex.com/capacities' },

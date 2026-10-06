@@ -17,9 +17,9 @@ interface ProfilePageProps {
 export async function generateMetadata({ params }: ProfilePageProps): Promise<Metadata> {
   const { display_name } = await params
   const profile = await getMemberProfile(decodeURIComponent(display_name))
-  if (!profile) return { title: 'Member not found · StunpreX Community' }
+  if (!profile) return { title: { absolute: 'Member not found · StunpreX Community' } }
   return {
-    title: `${profile.display_name} · StunpreX Community`,
+    title: { absolute: `${profile.display_name} · StunpreX Community` },
     description:
       profile.bio ??
       `${profile.display_name} is a member of the StunpreX football development community.`,
@@ -40,7 +40,7 @@ export default async function MemberProfilePage({ params }: ProfilePageProps) {
   })
 
   return (
-    <main className="min-h-screen bg-mint">
+    <main id="main-content" className="min-h-screen bg-mint">
       <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
         <header className="mb-8">
           <nav className="mb-2 text-xs font-ui text-brown/45" aria-label="Breadcrumb">
@@ -56,14 +56,8 @@ export default async function MemberProfilePage({ params }: ProfilePageProps) {
 
           <div className="flex items-start gap-4 mt-4">
             {/* Avatar */}
-            {profile.avatar_url ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={profile.avatar_url}
-                alt=""
-                className="h-14 w-14 rounded-full object-cover border border-deepblue/15 flex-shrink-0"
-              />
-            ) : (
+            {/* LEGAL-02.3: no picture from another host; the initial letter only. */}
+            {(
               <div
                 aria-hidden="true"
                 className="h-14 w-14 rounded-full bg-deepblue/10 flex items-center justify-center flex-shrink-0"

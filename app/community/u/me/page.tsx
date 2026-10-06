@@ -1,6 +1,6 @@
 /**
  * /community/u/me — Authenticated user's own profile page.
- * Auth-gated. Shows their Q&A activity + inline profile edit form.
+ * Auth-gated. Shows their Q&A activity + the bio form (a client component with a server action).
  * Redirects to sign-in if not authenticated.
  * robots: noindex (personal account page).
  */
@@ -9,73 +9,13 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { auth } from '@/auth'
 import { getMemberProfile } from '@/lib/community/queries'
-import { updateProfile } from '@/lib/community/actions'
+import { ProfileBioForm } from '@/components/community/ProfileBioForm'
 import { CATEGORY_LABELS } from '@/lib/types/community'
 import type { QuestionCategory } from '@/lib/types/community'
 
 export const metadata: Metadata = {
-  title: 'My profile · StunpreX Community',
+  title: { absolute: 'My profile · StunpreX Community' },
   robots: { index: false, follow: false },
-}
-
-// ─── Inline edit form (server action bound) ───────────────────────────────────
-
-function EditProfileForm({
-  bio,
-  avatarUrl,
-}: {
-  bio: string | null
-  avatarUrl: string | null
-}) {
-  return (
-    <form action={async (fd) => { await updateProfile(fd) }} className="space-y-4">
-      <div>
-        <label
-          htmlFor="me-bio"
-          className="block font-ui text-xs font-medium text-deepblue mb-1"
-        >
-          Bio{' '}
-          <span className="text-brown/40 font-normal">(up to 280 characters)</span>
-        </label>
-        <textarea
-          id="me-bio"
-          name="bio"
-          defaultValue={bio ?? ''}
-          maxLength={280}
-          rows={3}
-          placeholder="A few words about you or your work with the game…"
-          className="w-full rounded border border-deepblue/20 px-3 py-2 font-body text-sm text-brown placeholder:text-brown/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40 resize-none"
-        />
-      </div>
-
-      <div>
-        <label
-          htmlFor="me-avatar"
-          className="block font-ui text-xs font-medium text-deepblue mb-1"
-        >
-          Avatar URL{' '}
-          <span className="text-brown/40 font-normal">(HTTPS only)</span>
-        </label>
-        <input
-          id="me-avatar"
-          name="avatar_url"
-          type="url"
-          defaultValue={avatarUrl ?? ''}
-          placeholder="https://…"
-          className="w-full rounded border border-deepblue/20 px-3 py-2 font-body text-sm text-brown placeholder:text-brown/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40"
-        />
-      </div>
-
-      <div className="flex items-center justify-end">
-        <button
-          type="submit"
-          className="rounded bg-deepblue px-4 py-2 text-sm font-ui font-medium text-white transition-colors hover:bg-deepblue/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40"
-        >
-          Save changes
-        </button>
-      </div>
-    </form>
-  )
 }
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
@@ -105,7 +45,7 @@ export default async function MyProfilePage() {
   })
 
   return (
-    <main className="min-h-screen bg-mint">
+    <main id="main-content" className="min-h-screen bg-mint">
       <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
         <header className="mb-8">
           <nav className="mb-2 text-xs font-ui text-brown/45" aria-label="Breadcrumb">
@@ -120,14 +60,8 @@ export default async function MyProfilePage() {
           </nav>
 
           <div className="flex items-start gap-4 mt-4">
-            {profile.avatar_url ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={profile.avatar_url}
-                alt=""
-                className="h-14 w-14 rounded-full object-cover border border-deepblue/15 flex-shrink-0"
-              />
-            ) : (
+            {/* LEGAL-02.3: no picture from another host; the initial letter only. */}
+            {(
               <div
                 aria-hidden="true"
                 className="h-14 w-14 rounded-full bg-deepblue/10 flex items-center justify-center flex-shrink-0"
@@ -171,7 +105,7 @@ export default async function MyProfilePage() {
           <h2 className="font-ui text-sm font-semibold text-deepblue mb-4">
             Edit profile
           </h2>
-          <EditProfileForm bio={profile.bio} avatarUrl={profile.avatar_url} />
+          <ProfileBioForm bio={profile.bio} />
         </section>
 
         {/* Recent questions */}

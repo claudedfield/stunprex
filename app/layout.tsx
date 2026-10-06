@@ -1,7 +1,5 @@
 import type { Metadata, Viewport } from 'next';
 import { Mate, Play, Dosis, Noto_Sans } from 'next/font/google';
-import { Analytics } from '@vercel/analytics/next';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 
 // StunpreX visual identity — Blueprint v2.1 §7.
@@ -106,9 +104,16 @@ export default function RootLayout({
       className={`${mate.variable} ${play.variable} ${dosis.variable} ${notoSans.variable}`}
     >
       <body>
+        {/* Skip to content: WCAG 2.4.1 Bypass Blocks. Visible only on keyboard focus (:focus-visible).
+            It lives here, not in each page: Next.js moves focus to the first element of a page after a
+            navigation, and as that first element it showed itself after a sign-in redirect (1 Oct 2026). */}
+        <a
+          href="#main-content"
+          className="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:left-4 focus-visible:top-3 focus-visible:z-50 focus-visible:rounded focus-visible:bg-deepblue focus-visible:px-4 focus-visible:py-2 focus-visible:font-ui focus-visible:text-sm focus-visible:text-mint focus-visible:shadow-lg"
+        >
+          Skip to content
+        </a>
         {children}
-        <Analytics />
-        <SpeedInsights />
       </body>
     </html>
   );

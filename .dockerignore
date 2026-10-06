@@ -1,0 +1,8 @@
+# Never in an image: secrets, local builds, dependencies (installed fresh), test output.
+.env*
+.git
+.next
+node_modules
+test-results
+playwright-report
+*.log
