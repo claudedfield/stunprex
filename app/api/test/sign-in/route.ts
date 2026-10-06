@@ -38,7 +38,7 @@ export async function POST(req: Request) {
 
   const { rows } = await sql<{ id: string }>`
     INSERT INTO users (email, "emailVerified") VALUES (${E2E_TEST_EMAIL}, now())
-    ON CONFLICT (email) DO UPDATE SET email = EXCLUDED.email
+    ON CONFLICT (email) DO UPDATE SET "emailVerified" = now()
     RETURNING id`
   const userId = rows[0].id
   const profile = await ensureProfile(userId, E2E_TEST_EMAIL)

@@ -18,12 +18,23 @@ import pg from 'pg'
 import { listIssues } from '../lib/newsletter/issues.mjs'
 import { sendPreview, sendList, ensureIssueRow, issueCounts } from '../lib/newsletter/send.mjs'
 import { cleanup } from '../lib/newsletter/cleanup.mjs'
+import { cleanupUnfinishedAccounts, countUnfinishedDue } from '../lib/accounts/cleanup.mjs'
 
 if (process.argv[2] === 'cleanup') {
   const pool = new pg.Pool({ connectionString: process.env.POSTGRES_URL, max: 1 })
   try {
     const r = await cleanup((text, values) => pool.query(text, values))
     console.log(`${new Date().toISOString()} newsletter cleanup: ${r.pending_deleted} unconfirmed sign-up(s) and ${r.bounced_deleted} old bounce(s) deleted`)
+    // LEGAL-03.14: the same daily run deletes unfinished account sign-ups 30 days after their last sign-in.
+    // It deletes only where ACCOUNT_CLEANUP_OPEN=1. Until the owner's blank start (his word, 6 Oct:
+    // the nine old accounts go when the new sign-in is ready) production only counts what is due.
+    if (process.env.ACCOUNT_CLEANUP_OPEN === '1') {
+      const a = await cleanupUnfinishedAccounts((text, values) => pool.query(text, values))
+      console.log(`${new Date().toISOString()} account cleanup: ${a.unfinished_deleted} unfinished sign-up(s) deleted`)
+    } else {
+      const due = await countUnfinishedDue((text, values) => pool.query(text, values))
+      console.log(`${new Date().toISOString()} account cleanup is off (ACCOUNT_CLEANUP_OPEN is not 1): ${due} unfinished sign-up(s) due, none deleted`)
+    }
   } catch (err) {
     console.log(`${new Date().toISOString()} newsletter cleanup FAILED: ${String(err?.message ?? err).replace(/[^\s@<>]+@[^\s@<>]+/g, '<email>')}`); process.exitCode = 1
   } finally { await pool.end() }

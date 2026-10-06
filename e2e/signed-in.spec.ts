@@ -154,6 +154,33 @@ test.describe('the terms step (LEGAL-01a, 01b)', () => {
     expect(state.age_confirmed_at).toBeTruthy();
   });
 
+  // LEGAL-03.14: an unfinished sign-up (link opened, the two boxes never ticked) is not a member.
+  test('an unfinished sign-up has no public profile page and is sent to the terms step', async ({ page }) => {
+    await signIn(page, 'none');
+    const name = (await (await page.request.get('/api/auth/session')).json()).user.display_name as string;
+    const res = await page.goto(`/community/u/${encodeURIComponent(name)}`);
+    expect(res?.status(), 'the profile address of an unfinished sign-up').toBe(404);
+    await page.goto('/community/u/me');
+    await page.waitForURL('**/community/welcome', { timeout: 15_000 });
+    // Once the two boxes are ticked, the same address answers.
+    await signIn(page, 'current');
+    expect((await page.goto(`/community/u/${encodeURIComponent(name)}`))?.status()).toBe(200);
+  });
+
+  test('the daily job deletes an unfinished sign-up 30 days after its last sign-in, and keeps a younger one', async ({ request }) => {
+    const helper = async (action: string) => {
+      const res = await request.post('/api/test/newsletter', { headers: { 'x-e2e-secret': secret }, data: { action } });
+      expect(res.status()).toBe(200);
+      return res.json();
+    };
+    await helper('seed_unfinished');
+    const r = await helper('cleanup_accounts');
+    expect(r.unfinished_deleted).toBeGreaterThanOrEqual(1);
+    expect(r.old_left, 'the account aged 31 days is gone').toBe(0);
+    expect(r.sessions_left, 'its session went with it').toBe(0);
+    expect(r.young_left, 'the account aged 29 days stays').toBe(1);
+  });
+
   test('a member who accepted an older terms version meets the terms step on the next post', async ({ page }) => {
     await signIn(page, 'stale');
     await tryToPost(page);

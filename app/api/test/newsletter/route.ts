@@ -1,7 +1,8 @@
 /**
  * /api/test/newsletter: test-only helpers for the newsletter e2e on staging (D-NEWS-01). Same guard
  * as /api/test/sign-in: 404 everywhere but staging. Every action touches only the test address's
- * own rows. Body: { action: 'reset' | 'outbox' | 'expire' | 'state' | 'send_issue' | 'seed_old' | 'cleanup' }. `send_issue` sends a
+ * own rows. Body: { action: 'reset' | 'outbox' | 'expire' | 'state' | 'send_issue' | 'seed_old' | 'cleanup' |
+ * 'seed_unfinished' }. `send_issue` sends a
  * built-in test issue through the real list-send path to the test address only, and only when it is
  * confirmed; on staging the message is captured, never sent.
  */
@@ -11,9 +12,13 @@ import { testRoutesEnabled } from '@/lib/test-guard'
 import { TEST_ADDRESS } from '@/lib/newsletter/core.mjs'
 import { ensureIssueRow, sendToSubscriber } from '@/lib/newsletter/send.mjs'
 import { cleanup } from '@/lib/newsletter/cleanup.mjs'
+import { cleanupUnfinishedAccounts } from '@/lib/accounts/cleanup.mjs'
 
 // A second reserved test address, for a seeded old bounce (never mailed: `.test` cannot be delivered).
 const TEST_ADDRESS_2 = 'e2e-bounced@stunprex.test'
+// LEGAL-03.14: two made-up unfinished account sign-ups, one past the 30 days and one a day short.
+const UNFINISHED_OLD = 'e2e-unfinished-old@stunprex.test'
+const UNFINISHED_YOUNG = 'e2e-unfinished-young@stunprex.test'
 
 const TEST_ISSUE = {
   meta: { number: 0, slug: 'e2e-test-issue', subject: 'E2E test issue', preview: 'A test issue.', send_date: '', byline: 'StunpreX' },
@@ -63,6 +68,27 @@ export async function POST(req: Request) {
     await sql`INSERT INTO newsletter_subscribers (email, name, status, bounced_at, unsubscribe_token)
               VALUES (${TEST_ADDRESS_2}, 'E2E Bounced', 'bounced', now() - interval '91 days', 'e2e-old-bounced-unsub-000')`
     return NextResponse.json({ ok: true })
+  }
+  if (action === 'seed_unfinished') {
+    await sql`DELETE FROM users WHERE email IN (${UNFINISHED_OLD}, ${UNFINISHED_YOUNG})`
+    for (const [email, name, days] of [[UNFINISHED_OLD, 'e2e-unfinished-old', 31], [UNFINISHED_YOUNG, 'e2e-unfinished-young', 29]] as const) {
+      const { rows } = await sql<{ id: string }>`
+        INSERT INTO users (email, "emailVerified") VALUES (${email}, now() - make_interval(days => ${days})) RETURNING id`
+      await sql`INSERT INTO profiles (user_id, display_name, role, is_banned, wants_newsletter, onboarded)
+                VALUES (${rows[0].id}, ${name}, 'user', false, false, false)`
+      await sql`INSERT INTO sessions ("sessionToken", "userId", expires) VALUES (${`e2e-unfinished-${days}`}, ${rows[0].id}, now() + interval '1 day')
+                ON CONFLICT DO NOTHING`
+    }
+    return NextResponse.json({ ok: true })
+  }
+  if (action === 'cleanup_accounts') {
+    const result = await cleanupUnfinishedAccounts((text: string, values: unknown[]) => sql.query(text, values))
+    const { rows } = await sql<{ old_left: number; young_left: number; sessions_left: number }>`
+      SELECT (SELECT count(*) FROM users WHERE email = ${UNFINISHED_OLD})::int AS old_left,
+             (SELECT count(*) FROM users WHERE email = ${UNFINISHED_YOUNG})::int AS young_left,
+             (SELECT count(*) FROM sessions WHERE "sessionToken" = 'e2e-unfinished-31')::int AS sessions_left`
+    await sql`DELETE FROM users WHERE email = ${UNFINISHED_YOUNG}`
+    return NextResponse.json({ ...result, ...rows[0] })
   }
   if (action === 'cleanup') {
     const result = await cleanup((text: string, values: unknown[]) => sql.query(text, values))
