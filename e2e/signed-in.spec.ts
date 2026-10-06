@@ -76,6 +76,33 @@ test.describe('signed in as the test account', () => {
     await page.request.post('/api/test/sign-in', { headers: { 'x-e2e-secret': secret }, data: { avatar: false } });
   });
 
+  // COO-DEV-0037: the page threw a server error on render, and no test read its content.
+  test('the profile page renders for its member, and a bio save is kept', async ({ page }) => {
+    const res = await page.goto('/community/u/me', { waitUntil: 'load' });
+    expect(res?.status()).toBe(200);
+    await expect(page.locator('main')).not.toContainText('Application error');
+    await expect(page.locator('h1')).toBeVisible();
+    const bio = `e2e bio ${Date.now()}`;
+    await page.locator('#me-bio').fill(bio);
+    await page.getByRole('button', { name: 'Save changes' }).click();
+    await expect(page.locator('[data-profile-result="saved"]')).toBeVisible();
+    await page.reload();
+    await expect(page.locator('#me-bio')).toHaveValue(bio);
+    await page.locator('#me-bio').fill('');
+    await page.getByRole('button', { name: 'Save changes' }).click();
+    await expect(page.locator('[data-profile-result="saved"]')).toBeVisible();
+  });
+
+  test('signed out, the profile address leads to sign-in, without an error', async ({ browser }) => {
+    const ctx = await browser.newContext();
+    const p = await ctx.newPage();
+    const res = await p.goto('/community/u/me');
+    expect(res?.status()).toBe(200);
+    expect(new URL(p.url()).pathname).not.toBe('/community/u/me');
+    await expect(p.locator('body')).not.toContainText('Application error');
+    await ctx.close();
+  });
+
   test('a member reaches the ask form instead of the sign-in page', async ({ page }) => {
     await page.goto('/community/ask');
     expect(new URL(page.url()).pathname).toBe('/community/ask');

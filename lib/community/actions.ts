@@ -689,6 +689,28 @@ export async function updateProfile(formData: FormData): Promise<ActionResult> {
   return { success: true }
 }
 
+/**
+ * The profile form's action: it saves the bio only. The form has no display-name field, so it must
+ * not go through updateProfile, which requires one (every save was refused, COO-DEV-0037).
+ */
+export async function updateBio(_prev: ActionResult | null, formData: FormData): Promise<ActionResult> {
+  const authResult = await requireAuth()
+  if (!authResult.ok) return { success: false, error: authResult.error }
+
+  const bio = ((formData.get('bio') as string | null) ?? '').trim()
+  if (bio.length > 280) return { success: false, error: 'The bio can be up to 280 characters.' }
+
+  try {
+    await sql`UPDATE profiles SET bio = ${bio || null} WHERE user_id = ${authResult.userId}`
+  } catch (err: unknown) {
+    console.error('[updateBio]', redactError(err))
+    return { success: false, error: 'Could not update profile. Please try again.' }
+  }
+
+  revalidatePath('/community/u/me')
+  return { success: true }
+}
+
 // ─── Moderation actions (moderator/admin only) ────────────────────────────────
 
 export async function resolveReport(

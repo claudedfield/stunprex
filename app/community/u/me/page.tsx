@@ -1,6 +1,6 @@
 /**
  * /community/u/me — Authenticated user's own profile page.
- * Auth-gated. Shows their Q&A activity + inline profile edit form.
+ * Auth-gated. Shows their Q&A activity + the bio form (a client component with a server action).
  * Redirects to sign-in if not authenticated.
  * robots: noindex (personal account page).
  */
@@ -9,51 +9,13 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { auth } from '@/auth'
 import { getMemberProfile } from '@/lib/community/queries'
-import { updateProfile } from '@/lib/community/actions'
+import { ProfileBioForm } from '@/components/community/ProfileBioForm'
 import { CATEGORY_LABELS } from '@/lib/types/community'
 import type { QuestionCategory } from '@/lib/types/community'
 
 export const metadata: Metadata = {
   title: { absolute: 'My profile · StunpreX Community' },
   robots: { index: false, follow: false },
-}
-
-// ─── Inline edit form (server action bound) ───────────────────────────────────
-
-function EditProfileForm({ bio }: { bio: string | null }) {
-  return (
-    <form action={async (fd) => { await updateProfile(fd) }} className="space-y-4">
-      <div>
-        <label
-          htmlFor="me-bio"
-          className="block font-ui text-xs font-medium text-deepblue mb-1"
-        >
-          Bio{' '}
-          <span className="text-brown/40 font-normal">(up to 280 characters)</span>
-        </label>
-        <textarea
-          id="me-bio"
-          name="bio"
-          defaultValue={bio ?? ''}
-          maxLength={280}
-          rows={3}
-          placeholder="A few words about you or your work with the game…"
-          className="w-full rounded border border-deepblue/20 px-3 py-2 font-body text-sm text-brown placeholder:text-brown/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40 resize-none"
-        />
-      </div>
-
-      {/* LEGAL-02.3: no picture field. Pictures come back through our own site with LEGAL-01g. */}
-
-      <div className="flex items-center justify-end">
-        <button
-          type="submit"
-          className="rounded bg-deepblue px-4 py-2 text-sm font-ui font-medium text-white transition-colors hover:bg-deepblue/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40"
-        >
-          Save changes
-        </button>
-      </div>
-    </form>
-  )
 }
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
@@ -143,7 +105,7 @@ export default async function MyProfilePage() {
           <h2 className="font-ui text-sm font-semibold text-deepblue mb-4">
             Edit profile
           </h2>
-          <EditProfileForm bio={profile.bio} />
+          <ProfileBioForm bio={profile.bio} />
         </section>
 
         {/* Recent questions */}
