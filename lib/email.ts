@@ -6,9 +6,12 @@
  * Required env vars (Vercel + .env.local):
  *   SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM
  *
- * Used by Auth.js sendVerificationRequest for magic-link delivery.
+ * Used by Auth.js sendVerificationRequest for the sign-in mail (D-AUTH-02: a six-digit code and a
+ * link that opens a page with one button; neither signs anyone in when a mail scanner fetches it).
+ * Staging never sends: the message is written to newsletter_test_outbox for the e2e suite.
  */
 import nodemailer from 'nodemailer'
+import { sql } from '@/db'
 
 function getTransport() {
   return nodemailer.createTransport({
@@ -22,8 +25,10 @@ function getTransport() {
   })
 }
 
-export async function sendMagicLink(to: string, link: string) {
-  const transport = getTransport()
+export const SIGN_IN_SUBJECT = 'Your StunpreX sign-in code'
+
+export async function sendSignInMail(to: string, code: string, link: string) {
+  const spaced = `${code.slice(0, 3)} ${code.slice(3)}`
 
   const htmlBody = `<!DOCTYPE html>
 <html lang="en">
@@ -37,20 +42,26 @@ export async function sendMagicLink(to: string, link: string) {
         </td></tr>
         <tr><td style="padding-top:32px;padding-bottom:24px;">
           <p style="margin:0 0 16px;font-family:Georgia,serif;font-size:16px;color:#472B08;line-height:1.6;">
-            Here is your sign-in link for StunpreX Community.
+            Your sign-in code for StunpreX Community:
           </p>
-          <p style="margin:0 0 32px;font-family:Georgia,serif;font-size:16px;color:#472B08;line-height:1.6;">
-            This link expires in 15 minutes and can only be used once.
+          <p style="margin:0 0 24px;font-family:'Courier New',monospace;font-size:32px;font-weight:bold;color:#107099;letter-spacing:0.12em;">
+            ${spaced}
+          </p>
+          <p style="margin:0 0 24px;font-family:Georgia,serif;font-size:16px;color:#472B08;line-height:1.6;">
+            Type it on the page where you asked to sign in. Or open the sign-in page on this device:
           </p>
           <a href="${link}"
              style="display:inline-block;background:#FA961C;color:#ffffff;text-decoration:none;padding:14px 32px;border-radius:6px;font-family:Georgia,serif;font-size:16px;font-weight:bold;">
-            Sign in to StunpreX
+            Open the sign-in page
           </a>
+          <p style="margin:24px 0 0;font-family:Georgia,serif;font-size:16px;color:#472B08;line-height:1.6;">
+            The code and the link last 15 minutes and work once.
+          </p>
         </td></tr>
         <tr><td style="padding-top:24px;border-top:1px solid #E8F0E8;">
           <p style="margin:0;font-family:Georgia,serif;font-size:13px;color:#472B08;opacity:0.5;line-height:1.5;">
-            If you did not request this link, you can ignore this email. Your account is secure.<br>
-            Do not share this link with anyone.
+            If you did not ask to sign in, you can ignore this email. Nobody is signed in by it.<br>
+            Do not share the code or the link with anyone.
           </p>
         </td></tr>
       </table>
@@ -59,21 +70,25 @@ export async function sendMagicLink(to: string, link: string) {
 </body>
 </html>`
 
-  const textBody = `Sign in to StunpreX Community
+  const textBody = `Your sign-in code for StunpreX Community: ${spaced}
+
+Type it on the page where you asked to sign in. Or open the sign-in page on this device:
 
 ${link}
 
-This link expires in 15 minutes and can only be used once.
-If you did not request this, ignore this email.`
+The code and the link last 15 minutes and work once.
+If you did not ask to sign in, ignore this email. Nobody is signed in by it.`
 
-  await transport.sendMail({
-    from: `"StunpreX" <${process.env.SMTP_FROM!}>`,
-    // D-MAIL-01: sign-in mail goes out from its own mailbox (signin@), which nobody reads;
-    // a reply reaches hello@.
-    replyTo: 'hello@stunprex.com',
-    to,
-    subject: 'Your StunpreX sign-in link',
-    text: textBody,
-    html: htmlBody,
-  })
+  const from = `"StunpreX" <${process.env.SMTP_FROM!}>`
+  // D-MAIL-01: sign-in mail goes out from its own mailbox (signin@), which nobody reads;
+  // a reply reaches hello@.
+  const replyTo = 'hello@stunprex.com'
+
+  if (process.env.STAGING === '1') {
+    await sql`INSERT INTO newsletter_test_outbox (to_address, subject, headers, text_body, html_body)
+              VALUES (${to}, ${SIGN_IN_SUBJECT}, ${JSON.stringify({ From: from, 'Reply-To': replyTo })}, ${textBody}, ${htmlBody})`
+    return
+  }
+
+  await getTransport().sendMail({ from, replyTo, to, subject: SIGN_IN_SUBJECT, text: textBody, html: htmlBody })
 }

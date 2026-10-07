@@ -30,7 +30,7 @@ test('/auth/sign-up shows no newsletter box and sets no cookie on submit', async
     route.request().method() === 'POST' && route.request().headers()['next-action'] ? route.abort() : route.continue());
   await page.goto('/auth/sign-up');
   await expect(page.locator('main input[type="checkbox"]')).toHaveCount(0);
-  await expect(page.locator('main')).toContainText('No password. We send a one-time sign-in link.');
+  await expect(page.locator('main')).toContainText('No password. We send a one-time sign-in code.');
   await page.locator('#signup-email').fill('e2e@stunprex.test');
   await page.getByRole('button', { name: /Continue with email/ }).click();
   await page.waitForTimeout(500);

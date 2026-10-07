@@ -13,7 +13,7 @@ import { SignedInNotice } from '@/components/SignedInNotice'
 
 export const metadata: Metadata = {
   title: { absolute: 'Sign in · StunpreX' },
-  description: 'Sign in to the StunpreX community with a magic link. No password required.',
+  description: 'Sign in to the StunpreX community with a code sent to your email. No password required.',
   robots: { index: false, follow: false },
 }
 
@@ -38,7 +38,7 @@ export default async function SignInPage({ searchParams }: { searchParams: Promi
               Sign in
             </h1>
             <p className="text-brown/70 font-body text-sm">
-              Enter your email and we&rsquo;ll send you a sign-in link.
+              Enter your email and we&rsquo;ll send you a six-digit sign-in code.
               No password required.
             </p>
           </div>
