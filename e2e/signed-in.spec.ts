@@ -23,7 +23,9 @@ test.describe('signed in as the test account', () => {
   test.skip(!secret, 'signed-in tests run on staging only');
 
   test.beforeEach(async ({ page }) => {
-    const res = await page.request.post('/api/test/sign-in', { headers: { 'x-e2e-secret': secret } });
+    // With the terms accepted: a run that stopped part-way can leave the test account in another
+    // terms state, and these tests are about a member in good standing.
+    const res = await page.request.post('/api/test/sign-in', { headers: { 'x-e2e-secret': secret }, data: { terms: 'current' } });
     expect(res.status()).toBe(200);
   });
 
