@@ -97,3 +97,37 @@ test('em-dashes in comments are ignored, and clean strings pass', () => {
   expect(code, out).toBe(0);
 });
 
+
+// COO-DEV-0042: em-dashes in page text. The old drill pages are rewritten by hand over time, so the
+// lint holds every file to its recorded count: a new page may have none, and the total only falls.
+test('an em-dash in a new page fails the lint; the same page without it passes', async () => {
+  const os = await import('node:os');
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'emdash-'));
+  const run = () => {
+    try {
+      return { code: 0, out: execFileSync('node', ['scripts/content-lint.mjs', '--dir', dir, '--em-dash'], { cwd: REPO, encoding: 'utf8' }) };
+    } catch (err) {
+      const e = err as { status?: number; stdout?: string; stderr?: string };
+      return { code: e.status ?? 1, out: `${e.stdout ?? ''}${e.stderr ?? ''}` };
+    }
+  };
+  fs.writeFileSync(path.join(dir, 'new-page.mdx'), '---\ntitle: "A page"\n---\n\nA sentence — with a dash.\n');
+  const bad = run();
+  expect(bad.code, bad.out).not.toBe(0);
+  expect(bad.out).toContain('em-dash in page text');
+  expect(bad.out).toContain('new-page.mdx');
+  fs.writeFileSync(path.join(dir, 'new-page.mdx'), '---\ntitle: "A page"\n---\n\nA sentence, with a comma.\n');
+  expect(run().code).toBe(0);
+});
+
+test('the em-dash baseline only goes down', () => {
+  const baseline = JSON.parse(fs.readFileSync(path.join(REPO, 'scripts/em-dash-baseline.json'), 'utf8')) as Record<string, number>;
+  const total = Object.values(baseline).reduce((a, b) => a + b, 0);
+  // 2,569 on 7 Oct 2026, all on the 91 drill pages. Lower this number as pages are rewritten.
+  expect(total, 'the allowance was raised; remove the dashes instead').toBeLessThanOrEqual(2569);
+  for (const [file, allowed] of Object.entries(baseline)) {
+    const full = path.join(REPO, 'content', file);
+    const found = fs.existsSync(full) ? (fs.readFileSync(full, 'utf8').match(/—/g) ?? []).length : 0;
+    expect(allowed, `${file}: its allowance is above what the page holds; lower it`).toBe(found);
+  }
+});
