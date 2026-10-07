@@ -34,6 +34,8 @@ test.describe('code, link, trap and limits (staging)', () => {
     await page.goto('/signin', { waitUntil: 'load', timeout: 60_000 });
     await page.locator('#email').fill(ADDRESS);
     await page.getByRole('button', { name: 'Send sign-in code' }).click();
+    // Wait for the form's own answer (the code step or its error), so the mail exists before it is read.
+    await expect(page.locator('[data-signin-step="code"], main [role="alert"]:not(#__next-route-announcer__)').first()).toBeVisible();
   };
   const session = async (page: Page) => (await (await page.request.get('/api/auth/session')).json())?.user ?? null;
   const codeIn = (text: string) => text.match(/(\d{3}) (\d{3})/)!.slice(1).join('');
