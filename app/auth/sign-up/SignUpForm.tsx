@@ -1,14 +1,16 @@
 'use client'
 /**
- * Sign-up form: same magic-link mechanism as sign-in.
+ * Sign-up form: the same mechanism as sign-in (a six-digit code by email, D-AUTH-02).
  * LEGAL-01a: no newsletter box here. The old box set a cookie nothing read, so a consent was
  * collected and never acted on; the newsletter is a link to its own page instead.
  */
 import { useState, useTransition } from 'react'
 import { signInWithMagicLink } from '@/lib/community/actions'
+import { BotTrap, SignInCodeStep } from '@/components/auth/SignInCodeStep'
 
 export default function SignUpForm() {
   const [email, setEmail] = useState('')
+  const [website, setWebsite] = useState('')
   const [result, setResult] = useState<{ success?: boolean; message?: string; error?: string } | null>(null)
   const [isPending, startTransition] = useTransition()
 
@@ -17,6 +19,7 @@ export default function SignUpForm() {
 
     const fd = new FormData()
     fd.append('email', email)
+    fd.append('website', website)
     // Where to land after signing in (?next=), checked on the server.
     fd.append('next', new URLSearchParams(window.location.search).get('next') ?? '')
     startTransition(async () => {
@@ -30,16 +33,7 @@ export default function SignUpForm() {
   }
 
   if (result?.success) {
-    return (
-      <div className="rounded-lg border border-deepblue/20 bg-white p-6 text-center">
-        <p className="font-body text-deepblue font-medium mb-1">Check your email</p>
-        <p className="text-brown/70 font-body text-sm">{result.message}</p>
-        <p className="text-brown/45 font-body text-xs mt-4">
-          Click the link to confirm your email and set up your profile.
-          Link expires in 15 minutes.
-        </p>
-      </div>
-    )
+    return <SignInCodeStep email={email} message={result.message} onBack={() => setResult(null)} />
   }
 
   return (
@@ -71,6 +65,7 @@ export default function SignUpForm() {
           />
         </div>
 
+        <BotTrap value={website} onChange={setWebsite} />
         <button
           type="submit"
           disabled={isPending || !email.includes('@')}
@@ -93,7 +88,7 @@ export default function SignUpForm() {
       </form>
 
       <p className="text-xs text-brown/40 font-body text-center">
-        No password. We send a one-time sign-in link.
+        No password. We send a one-time sign-in code.
       </p>
       <p className="text-xs text-brown/50 font-body text-center">
         Want the newsletter?{' '}

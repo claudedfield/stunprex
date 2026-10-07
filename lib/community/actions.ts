@@ -8,6 +8,7 @@
  */
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
+import { headers } from 'next/headers'
 import { signIn, signOut as authSignOut, auth } from '@/auth'
 import { sql } from '@/db'
 import { z } from 'zod'
@@ -16,6 +17,7 @@ import type { QuestionCategory } from '@/lib/types/community'
 import { redactError } from '@/lib/log-redact'
 import { TERMS_VERSION } from '@/lib/legal'
 import { safeNext } from '@/lib/auth/next'
+import { limitReason, clientIp, redeemCode, redeemLink, LIMIT_MESSAGE } from '@/lib/auth/signin-code'
 
 // ─── Shared result type ───────────────────────────────────────────────────────
 
@@ -143,28 +145,64 @@ async function uniqueQuestionSlug(title: string): Promise<string> {
 // ─── Auth actions ─────────────────────────────────────────────────────────────
 
 /**
- * Send a magic-link sign-in email via Auth.js.
- * Returns an error message or success flag — never throws to the client.
+ * Send the sign-in mail via Auth.js (D-AUTH-02: a six-digit code and a one-press link).
+ * Returns an error message or success flag; never throws to the client.
+ *
+ * Bot protection: the form carries a field no person sees or fills ("website"). A request that
+ * fills it gets the same answer as a real one, and nothing is sent. The limits are checked here for
+ * a clear message, and enforced again where the mail is made (auth.ts), which a request that
+ * skips this form also passes.
  */
 export async function signInWithMagicLink(
   formData: FormData
 ): Promise<ActionResult<{ message: string }>> {
   const email = (formData.get('email') as string | null)?.trim()
-  if (!email || !email.includes('@')) {
+  if (!email || !email.includes('@') || email.length > 254) {
     return { success: false, error: 'Please enter a valid email address.' }
   }
+  const sent = { success: true as const, data: { message: "Check your email: we've sent you a six-digit code." } }
+  if (((formData.get('website') as string | null) ?? '') !== '') return sent
 
   try {
-    // After the link is used, land on the page asked for or the community: never back on the sign-in form.
+    const reason = await limitReason(email, clientIp(await headers()))
+    if (reason) return { success: false, error: LIMIT_MESSAGE[reason] }
+    // After signing in, land on the page asked for or the community: never back on the sign-in form.
     await signIn('email', { email, redirect: false, redirectTo: safeNext(formData.get('next')) })
-    return {
-      success: true,
-      data: { message: "Check your email: we've sent you a sign-in link." },
-    }
+    return sent
   } catch (err) {
     console.error('[signInWithMagicLink]', redactError(err))
-    return { success: false, error: 'Could not send sign-in link. Please try again.' }
+    return { success: false, error: 'Could not send the sign-in mail. Please try again.' }
   }
+}
+
+/**
+ * Finish a sign-in with the six-digit code. Returns the address the browser goes to next (Auth.js's
+ * own callback, which makes the session). A wrong code counts; five wrong codes end the request.
+ */
+export async function signInWithCode(formData: FormData): Promise<ActionResult<{ url: string }>> {
+  const email = ((formData.get('email') as string | null) ?? '').trim()
+  const code = ((formData.get('code') as string | null) ?? '').replace(/\s/g, '')
+  if (!email || !/^\d{6}$/.test(code)) return { success: false, error: 'Enter the six digits from the email.' }
+  try {
+    const url = await redeemCode(email, code)
+    if (!url) return { success: false, error: 'That code is not right, or it has expired. Check the newest email, or ask for a new code.' }
+    return { success: true, data: { url } }
+  } catch (err) {
+    console.error('[signInWithCode]', redactError(err))
+    return { success: false, error: 'Could not sign you in. Please try again.' }
+  }
+}
+
+/** Finish a sign-in from the mailed link's page: one press, a POST, then Auth.js's callback. */
+export async function signInWithLink(formData: FormData): Promise<void> {
+  const token = ((formData.get('token') as string | null) ?? '').trim()
+  let url: string | null = null
+  try {
+    url = token ? await redeemLink(token) : null
+  } catch (err) {
+    console.error('[signInWithLink]', redactError(err))
+  }
+  redirect(url ?? '/auth/verify?expired=1')
 }
 
 /** Sign out the current user and redirect to home. */

@@ -1,14 +1,15 @@
 'use client'
 /**
- * Sign-in form — magic-link only.
- * No Google OAuth, no password (brief §3: magic-link only at v1).
- * Non-coercive copy; "No account?" handled gracefully.
+ * Sign-in form: an email address, then the six-digit code from the mail (D-AUTH-02).
+ * No password. The "website" field is a trap no person sees: a request that fills it is not mailed.
  */
 import { useState, useTransition } from 'react'
 import { signInWithMagicLink } from '@/lib/community/actions'
+import { BotTrap, SignInCodeStep } from '@/components/auth/SignInCodeStep'
 
 export default function SignInForm() {
   const [email, setEmail] = useState('')
+  const [website, setWebsite] = useState('')
   const [result, setResult] = useState<{ success?: boolean; message?: string; error?: string } | null>(null)
   const [isPending, startTransition] = useTransition()
 
@@ -16,6 +17,7 @@ export default function SignInForm() {
     e.preventDefault()
     const fd = new FormData()
     fd.append('email', email)
+    fd.append('website', website)
     // Where to land after signing in (?next=), checked on the server.
     fd.append('next', new URLSearchParams(window.location.search).get('next') ?? '')
     startTransition(async () => {
@@ -29,15 +31,7 @@ export default function SignInForm() {
   }
 
   if (result?.success) {
-    return (
-      <div className="rounded-lg border border-deepblue/20 bg-white p-6 text-center">
-        <p className="font-body text-deepblue font-medium mb-1">Check your email</p>
-        <p className="text-brown/70 font-body text-sm">{result.message}</p>
-        <p className="text-brown/45 font-body text-xs mt-4">
-          The link expires in 15 minutes. You can close this tab.
-        </p>
-      </div>
-    )
+    return <SignInCodeStep email={email} message={result.message} onBack={() => setResult(null)} />
   }
 
   return (
@@ -68,12 +62,13 @@ export default function SignInForm() {
             placeholder="you@example.com"
           />
         </div>
+        <BotTrap value={website} onChange={setWebsite} />
         <button
           type="submit"
           disabled={isPending || !email.includes('@')}
           className="w-full rounded bg-deepblue px-4 py-2.5 font-ui text-sm font-medium text-white transition-colors hover:bg-deepblue/90 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40 focus-visible:ring-offset-1"
         >
-          {isPending ? 'Sending…' : 'Send sign-in link'}
+          {isPending ? 'Sending…' : 'Send sign-in code'}
         </button>
         {/* LEGAL-01a: creating an account means accepting the terms; LEGAL-01d: the privacy link beside the action. */}
         <p className="text-center text-xs text-brown/50 font-body">

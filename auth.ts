@@ -1,7 +1,8 @@
 /**
  * Auth.js v5 (next-auth@beta) configuration for StunpreX Community.
  *
- * Provider: Email (magic-link only). No password, no OAuth at v1.
+ * Provider: Email, no password, no OAuth at v1. Sign-in is finished by a six-digit code or a
+ * one-press link (D-AUTH-02, lib/auth/signin-code.ts).
  * Adapter: @auth/pg-adapter over Vercel Postgres.
  * Custom sendVerificationRequest calls our self-built SMTP Nodemailer send (lib/email.ts).
  *
@@ -18,7 +19,8 @@ import Email from 'next-auth/providers/email'
 import { MAGIC_LINK_MAX_AGE_SECONDS } from './lib/auth-constants'
 import PostgresAdapter from '@auth/pg-adapter'
 import { db } from '@/db'
-import { sendMagicLink } from '@/lib/email'
+import { sendSignInMail } from '@/lib/email'
+import { issueSignIn, clientIp } from '@/lib/auth/signin-code'
 import { ensureProfile } from '@/lib/auth/db'
 import { redactError } from '@/lib/log-redact'
 import { TERMS_VERSION } from './lib/legal'
@@ -44,19 +46,17 @@ export const authConfig: NextAuthConfig = {
        */
       maxAge: MAGIC_LINK_MAX_AGE_SECONDS, // LEGAL-01i: 15 minutes, as every page and email says
       server: process.env.EMAIL_SERVER ?? 'smtp://localhost:25',
-      sendVerificationRequest: async ({ identifier: email, url }) => {
-        // The magic link is sent exactly as Auth.js builds it — on the apex, which
-        // is the canonical served host since D-WEB-12 flipped the Vercel primary
-        // domain (www now 308s to the apex).
+      sendVerificationRequest: async ({ identifier: email, url, request }) => {
+        // D-AUTH-02: Auth.js's own link (`url`) signs in on a plain GET, so a mail scanner that
+        // fetches it made an account. It is never mailed. It is stored encrypted, and the mail
+        // carries a six-digit code and a link to a page with one button; either releases it by
+        // a POST. This is also the one place every sign-in request passes, so the limits are
+        // enforced here (issueSignIn throws SignInLimitError and nothing is sent).
         //
-        // This previously rewrote the link apex -> www, because the redirect ran the
-        // other way and a cross-host hop mid-callback dropped the session. After the
-        // flip that rewrite inverted: it sent the link to www and put a 308 back into
-        // the callback path — reintroducing the very hop it existed to remove. The
-        // rule it encoded still holds, so keep it in mind if the canonical host ever
-        // moves again: the link host must equal the served host, with no redirect
-        // between the click and the callback.
-        await sendMagicLink(email, url)
+        // `url` is built on the served host, which is the apex (D-WEB-12): the host of the link
+        // must equal the served host, with no redirect between the press and the callback.
+        const { code, linkToken } = await issueSignIn(email, url, clientIp(request.headers))
+        await sendSignInMail(email, code, `${new URL(url).origin}/auth/verify?token=${linkToken}`)
       },
     }),
   ],
