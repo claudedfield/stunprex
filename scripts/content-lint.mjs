@@ -23,6 +23,9 @@ const REPO = path.resolve(import.meta.dirname, '..');
 // depend on the state of the real corpus or the real UI files.
 const flag = process.argv.indexOf('--dir');
 const uiFlag = process.argv.indexOf('--ui');
+// --em-dash: apply the em-dash baseline to a --dir fixture as well (the e2e proof of the check).
+const emDashFlag = process.argv.indexOf('--em-dash');
+const EM_DASH_BASELINE = JSON.parse(fs.readFileSync(path.join(path.dirname(new URL(import.meta.url).pathname), 'em-dash-baseline.json'), 'utf8'));
 const FIXTURE = flag > -1 || uiFlag > -1;
 const DIRS =
   flag > -1
@@ -87,6 +90,20 @@ for (const dir of DIRS) {
       const ev = path.join(dir, file.replace(/\.md$/, '__evaluator.md'));
       if (!fs.existsSync(ev) || !/\bverdict\b[^\n]*\bPASS\b/i.test(fs.readFileSync(ev, 'utf8'))) {
         problems.push({ file, line: 1, label: 'newsletter without an Evaluator PASS', why: `An issue merges only with ${path.basename(ev)} beside it carrying a PASS verdict.` });
+      }
+    }
+    // Em-dashes in page text (the owner's standing rule; COO-DEV-0042). The pages written before the
+    // rule carry 2,569 of them, which are rewritten page by page as content work, not by script. So
+    // the gate holds each file to the count recorded in scripts/em-dash-baseline.json: a new file
+    // may have none, and an existing file may only go down. Lower a file's number in the baseline
+    // in the same change that removes its dashes.
+    if (!FIXTURE || emDashFlag > -1) {
+      const key = `${path.basename(dir)}/${file}`;
+      const allowed = EM_DASH_BASELINE[key] ?? 0;
+      const found = (text.match(/—/g) ?? []).length;
+      if (found > allowed) {
+        const line = text.split('\n').findIndex((l) => l.includes('—')) + 1;
+        problems.push({ file, line, label: 'em-dash in page text', why: `${found} em-dash(es); this file may carry at most ${allowed}. Restructure the sentence, or use an en-dash only where a dash is really needed.` });
       }
     }
     for (const { line, text: snippet } of unmatchedBold(text)) {
