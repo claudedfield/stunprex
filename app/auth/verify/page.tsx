@@ -1,12 +1,11 @@
 /**
  * /auth/verify: where the link in the sign-in mail leads (D-AUTH-02).
  *
- * With ?token=, the page shows one button. Pressing it is a POST that finishes the sign-in, so a
- * mail scanner that only fetches the link signs nobody in and makes no account. Without a token,
- * or after an expired one, it says what to do next.
+ * With ?token=, the page shows one button. Pressing it is a POST (to /auth/verify/redeem) that
+ * finishes the sign-in, so a mail scanner that only fetches the link signs nobody in and makes no
+ * account. Without a token, or after an expired one, it says what to do next.
  */
 import type { Metadata } from 'next'
-import { signInWithLink } from '@/lib/community/actions'
 
 export const metadata: Metadata = {
   title: { absolute: 'Sign in · StunpreX' },
@@ -24,7 +23,7 @@ export default async function VerifyPage({ searchParams }: { searchParams: Promi
       <div className="w-full max-w-md text-center">
         <div className="rounded-lg border border-deepblue/20 bg-white p-8">
           {hasToken && !expired ? (
-            <form action={signInWithLink} data-signin-step="link">
+            <form action="/auth/verify/redeem" method="post" data-signin-step="link">
               <h1 className="font-display text-xl font-bold text-deepblue mb-2">Sign in to StunpreX</h1>
               <p className="text-brown/70 font-body text-sm mb-6">
                 Press the button to finish signing in on this device.

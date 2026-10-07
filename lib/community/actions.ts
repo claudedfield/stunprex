@@ -17,7 +17,7 @@ import type { QuestionCategory } from '@/lib/types/community'
 import { redactError } from '@/lib/log-redact'
 import { TERMS_VERSION } from '@/lib/legal'
 import { safeNext } from '@/lib/auth/next'
-import { limitReason, clientIp, redeemCode, redeemLink, LIMIT_MESSAGE } from '@/lib/auth/signin-code'
+import { limitReason, clientIp, redeemCode, LIMIT_MESSAGE } from '@/lib/auth/signin-code'
 
 // ─── Shared result type ───────────────────────────────────────────────────────
 
@@ -191,18 +191,6 @@ export async function signInWithCode(formData: FormData): Promise<ActionResult<{
     console.error('[signInWithCode]', redactError(err))
     return { success: false, error: 'Could not sign you in. Please try again.' }
   }
-}
-
-/** Finish a sign-in from the mailed link's page: one press, a POST, then Auth.js's callback. */
-export async function signInWithLink(formData: FormData): Promise<void> {
-  const token = ((formData.get('token') as string | null) ?? '').trim()
-  let url: string | null = null
-  try {
-    url = token ? await redeemLink(token) : null
-  } catch (err) {
-    console.error('[signInWithLink]', redactError(err))
-  }
-  redirect(url ?? '/auth/verify?expired=1')
 }
 
 /** Sign out the current user and redirect to home. */
