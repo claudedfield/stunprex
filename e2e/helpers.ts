@@ -55,7 +55,6 @@ export const GOLDEN_ROUTES = [
   '/terms',
   '/cookies',
   '/imprint',
-  '/codex',
   '/pricing',
   '/training/yes-rondo',
   '/blog/soccer-dribbling-drills',

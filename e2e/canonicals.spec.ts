@@ -6,7 +6,8 @@ import { test, expect } from '@playwright/test';
  * Google Search Console reported "Duplicate without user-selected canonical"
  * on 6 Sep 2026 for pages that shipped with no canonical tag at all, which
  * left Google to pick one itself. These are the 16 sitemap URLs that were
- * missing it. The tag is invisible on the page, so nothing but a check like
+ * missing it (`/codex` left the list on 15 Sep: it now 308s to `/methodology`,
+ * D-WEB-24). The tag is invisible on the page, so nothing but a check like
  * this notices when one goes missing again.
  *
  * Fetched rather than navigated: this asserts a tag in the served HTML, and 16
@@ -16,7 +17,6 @@ import { test, expect } from '@playwright/test';
 const EXPECTED: Record<string, string> = {
   '/': 'https://stunprex.com',
   '/about': 'https://stunprex.com/about',
-  '/codex': 'https://stunprex.com/codex',
   '/community': 'https://stunprex.com/community',
   '/pricing': 'https://stunprex.com/pricing',
   '/games': 'https://stunprex.com/games',
