@@ -1,6 +1,6 @@
 name: e2e
 
-# D-WEB-10 / D-WEB-12 — the deterministic tester layer.
+# D-WEB-10 / D-WEB-12: the deterministic tester layer.
 #
 #   e2e (preview)     - runs on every PR. Deploys the PR's merge commit to
 #                       staging.stunprex.com over SSH (D-WEB-27, D-WEB-28), then
@@ -165,7 +165,7 @@ jobs:
           password: ${{ secrets.SMTP_PASS }}
           from: StunpreX CI <coo@stunprex.com>
           to: coo@stunprex.com
-          subject: '[NIGHTLY RED] stunprex.com e2e failed — ${{ steps.facts.outputs.date }}'
+          subject: '[NIGHTLY RED] stunprex.com e2e failed ${{ steps.facts.outputs.date }}'
           body: file://e2e-alert.txt
 
       # Heartbeat (D-WEB-14-FU). A scheduler that silently stops firing cannot
