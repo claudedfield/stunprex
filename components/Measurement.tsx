@@ -1,16 +1,21 @@
 'use client';
 
-// LEGAL-01f: Web Analytics and Speed Insights receive redacted page URLs. The consent control
-// is a later ticket (decision F); everything else behaves as before.
-import { Analytics } from '@vercel/analytics/next';
-import { SpeedInsights } from '@vercel/speed-insights/next';
-import { redactEvent } from '@/lib/analytics-redact';
+// D-WEB-31: one message to our own counter per page view. No cookie, nothing stored on the
+// device, no other host. The path is sent without its query string; the server reduces it further
+// (lib/metrics/core.ts). The referring site is sent once, on the first page of a visit.
+import { useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
+import { sendMetric } from '@/lib/analytics/events';
 
 export function Measurement() {
-  return (
-    <>
-      <Analytics beforeSend={redactEvent} />
-      <SpeedInsights beforeSend={redactEvent} />
-    </>
-  );
+  const pathname = usePathname();
+  const first = useRef(true);
+
+  useEffect(() => {
+    if (!pathname) return;
+    sendMetric({ t: 'pageview', p: pathname, r: first.current ? document.referrer || undefined : undefined });
+    first.current = false;
+  }, [pathname]);
+
+  return null;
 }
