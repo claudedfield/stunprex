@@ -65,7 +65,7 @@ function DrillCardTile({ drill }: { drill: DrillCard }) {
           ))}
         </div>
         <span className="font-ui text-[10px] text-brown/40 whitespace-nowrap">
-          {frontmatter.players} · {frontmatter.ageBand[0]}+
+          {frontmatter.players_short ?? frontmatter.players} · {frontmatter.ageBand[0]}+
         </span>
       </div>
     </Link>
