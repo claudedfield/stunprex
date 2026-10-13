@@ -77,6 +77,7 @@ test.describe('a report followed to a moderator (staging)', () => {
     await page.locator('#report-good-faith').check();
     await page.getByRole('button', { name: 'Send report' }).click();
     await expect(page.locator('[data-report-result="error"]')).toContainText('so that we can answer you');
+    await expect(page.locator('#report-what'), 'what was typed survives the error').toHaveValue(NAMED);
     await page.locator('#report-name').fill('E2E Reporter');
     await page.locator('#report-email').fill(ADDRESS);
     await page.locator('#report-good-faith').uncheck();

@@ -12,6 +12,13 @@ const label = 'block font-ui text-sm font-medium text-deepblue mb-1'
 export function ReportForm({ type, id, url, signedIn }: { type: string; id: string; url: string; signedIn: boolean }) {
   const [state, action, pending] = useActionState(submitPublicReport, null)
   const [child, setChild] = useState(false)
+  // Held in state so that nothing typed is lost when the server sends the form back with an error
+  // (React clears an uncontrolled form after its action runs).
+  const [what, setWhat] = useState('')
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [goodFaith, setGoodFaith] = useState(false)
+  const [address, setAddress] = useState(url)
 
   if (state?.ok) {
     return (
@@ -35,7 +42,7 @@ export function ReportForm({ type, id, url, signedIn }: { type: string; id: stri
 
       <div>
         <label htmlFor="report-url" className={label}>What this is about</label>
-        <input id="report-url" name="url" type="text" defaultValue={url} readOnly={Boolean(url)} required
+        <input id="report-url" name="url" type="text" value={address} onChange={(e) => setAddress(e.target.value)} readOnly={Boolean(url)} required
           placeholder="/community/…" className={`${field} ${url ? 'bg-mint/60 text-brown/70' : ''}`} />
         <p className="mt-1 text-xs font-body text-brown/50">
           {url ? 'The address of the post or page you are reporting.' : 'The address of the page or post on stunprex.com.'}
@@ -44,7 +51,7 @@ export function ReportForm({ type, id, url, signedIn }: { type: string; id: stri
 
       <div>
         <label htmlFor="report-what" className={label}>What is wrong, and why</label>
-        <textarea id="report-what" name="what" required rows={5} maxLength={3000} className={`${field} resize-y`} />
+        <textarea id="report-what" name="what" required rows={5} maxLength={3000} value={what} onChange={(e) => setWhat(e.target.value)} className={`${field} resize-y`} />
       </div>
 
       <div className="flex items-start gap-2">
@@ -67,11 +74,11 @@ export function ReportForm({ type, id, url, signedIn }: { type: string; id: stri
           </legend>
           <div>
             <label htmlFor="report-name" className={label}>Name{child ? ' (optional)' : ''}</label>
-            <input id="report-name" name="name" type="text" autoComplete="name" maxLength={80} required={!child} className={field} />
+            <input id="report-name" name="name" type="text" autoComplete="name" maxLength={80} required={!child} value={name} onChange={(e) => setName(e.target.value)} className={field} />
           </div>
           <div>
             <label htmlFor="report-email" className={label}>Email address{child ? ' (optional)' : ''}</label>
-            <input id="report-email" name="email" type="email" autoComplete="email" maxLength={254} required={!child} className={field} />
+            <input id="report-email" name="email" type="email" autoComplete="email" maxLength={254} required={!child} value={email} onChange={(e) => setEmail(e.target.value)} className={field} />
           </div>
           <p className="text-xs font-body text-brown/50">
             We use them only to answer you about this report. See our{' '}
@@ -87,7 +94,7 @@ export function ReportForm({ type, id, url, signedIn }: { type: string; id: stri
       </div>
 
       <div className="flex items-start gap-2">
-        <input id="report-good-faith" name="good_faith" type="checkbox" required className="mt-1 h-4 w-4 rounded border-deepblue/30" />
+        <input id="report-good-faith" name="good_faith" type="checkbox" required checked={goodFaith} onChange={(e) => setGoodFaith(e.target.checked)} className="mt-1 h-4 w-4 rounded border-deepblue/30" />
         <label htmlFor="report-good-faith" className="font-body text-sm text-brown">
           I believe, in good faith, that what I report is accurate and complete.
         </label>
