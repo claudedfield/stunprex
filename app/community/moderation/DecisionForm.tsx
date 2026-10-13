@@ -4,11 +4,15 @@
  * can be reached, the server mails the outcome. Recording a decision does not itself hide or
  * remove anything: the moderator does that on the post, then records it here.
  */
-import { useActionState } from 'react'
+import { useActionState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { decideReport } from '@/lib/community/report-actions'
 
 export function DecisionForm({ reportId, canAnswer }: { reportId: string; canAnswer: boolean }) {
   const [state, action, pending] = useActionState(decideReport, null)
+  const router = useRouter()
+  // Once recorded, the queue is read again, so the decided report leaves it.
+  useEffect(() => { if (state?.ok) router.refresh() }, [state, router])
   if (state?.ok) return <p role="status" data-decision-result="recorded" className="mt-2 text-xs font-ui text-deepblue">Decision recorded.</p>
   return (
     <form action={action} data-decision-form className="mt-3 space-y-2">
