@@ -24,6 +24,16 @@ function flooded(ip: string | null): boolean {
   return recent.length > 120
 }
 
+// Counting never slows a page: the answer goes out at once and the totals are written afterwards,
+// at most four messages at a time. Under a burst the rest are dropped, since the totals are a
+// measure and not a ledger.
+let writing = 0
+function later(work: () => Promise<void>) {
+  if (writing >= 4) return
+  writing += 1
+  void work().catch((err) => console.error('[metrics]', redactError(err))).finally(() => { writing -= 1 })
+}
+
 export async function POST(req: Request) {
   if (!metricsOpen() || notCounted(req.headers)) return done()
   const ip = clientIp(req.headers)
@@ -34,13 +44,15 @@ export async function POST(req: Request) {
     const body = JSON.parse(text) as { t?: string; p?: unknown; r?: unknown; e?: unknown; d?: unknown }
     if (body.t === 'pageview') {
       const path = countedPath(body.p)
-      if (path) await recordPageview(path, countedReferrer(body.r, req.headers.get('host')), ip, req.headers.get('user-agent') ?? '')
+      const referrer = countedReferrer(body.r, req.headers.get('host'))
+      const userAgent = req.headers.get('user-agent') ?? ''
+      if (path) later(() => recordPageview(path, referrer, ip, userAgent))
     } else if (body.t === 'event') {
       const key = countedEvent(body.e, body.d)
-      if (key) await recordEvent(key)
+      if (key) later(() => recordEvent(key))
     }
-  } catch (err) {
-    console.error('[metrics]', redactError(err))
+  } catch {
+    // A message that cannot be read is not counted.
   }
   return done()
 }

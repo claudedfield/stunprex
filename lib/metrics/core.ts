@@ -74,26 +74,42 @@ export function notCounted(headers: Headers): boolean {
 
 const today = () => new Date().toISOString().slice(0, 10)
 
-/** Add one to a day's total. Past the day's cap of different keys, it is counted under "(other)". */
+/**
+ * Add one to a day's total, in one statement. Past the day's cap of different keys, it is counted
+ * under "(other)"; the cap is checked from a count kept in memory, refreshed every minute.
+ */
+const keyCount = new Map<string, { n: number; at: number }>()
 async function bump(kind: string, key: string): Promise<void> {
   const day = today()
-  const hit = await sql`UPDATE metrics_daily SET n = n + 1 WHERE day = ${day} AND kind = ${kind} AND key = ${key}`
-  if (hit.rowCount) return
-  const { rows } = await sql<{ c: number }>`SELECT count(*)::int AS c FROM metrics_daily WHERE day = ${day} AND kind = ${kind}`
-  const k = rows[0].c >= MAX_KEYS_PER_DAY ? OTHER : key
+  const slot = `${day}|${kind}`
+  let known = keyCount.get(slot)
+  if (!known || known.at < Date.now() - 60_000) {
+    const { rows } = await sql<{ c: number }>`SELECT count(*)::int AS c FROM metrics_daily WHERE day = ${day} AND kind = ${kind}`
+    known = { n: rows[0].c, at: Date.now() }
+    if (keyCount.size > 50) keyCount.clear()
+    keyCount.set(slot, known)
+  }
+  const k = known.n >= MAX_KEYS_PER_DAY ? OTHER : key
   await sql`INSERT INTO metrics_daily (day, kind, key, n) VALUES (${day}, ${kind}, ${k}, 1)
             ON CONFLICT (day, kind, key) DO UPDATE SET n = metrics_daily.n + 1`
 }
 
-/** The month's salt. The first request of a month makes it and deletes last month's salt and codes. */
+/**
+ * The month's salt, read once and then held in memory. The first request of a month makes it and
+ * deletes last month's salt and codes.
+ */
+let saltInMemory: { month: string; salt: string } | null = null
 async function monthSalt(month: string): Promise<string> {
-  const found = await sql<{ salt: string }>`SELECT salt FROM metrics_salt WHERE month = ${month}`
-  if (found.rows[0]) return found.rows[0].salt
-  await sql`INSERT INTO metrics_salt (month, salt) VALUES (${month}, ${randomBytes(32).toString('hex')}) ON CONFLICT (month) DO NOTHING`
-  await sql`DELETE FROM metrics_visitors WHERE month <> ${month}`
-  await sql`DELETE FROM metrics_salt WHERE month <> ${month}`
-  const { rows } = await sql<{ salt: string }>`SELECT salt FROM metrics_salt WHERE month = ${month}`
-  return rows[0].salt
+  if (saltInMemory?.month === month) return saltInMemory.salt
+  let found = await sql<{ salt: string }>`SELECT salt FROM metrics_salt WHERE month = ${month}`
+  if (!found.rows[0]) {
+    await sql`INSERT INTO metrics_salt (month, salt) VALUES (${month}, ${randomBytes(32).toString('hex')}) ON CONFLICT (month) DO NOTHING`
+    await sql`DELETE FROM metrics_visitors WHERE month <> ${month}`
+    await sql`DELETE FROM metrics_salt WHERE month <> ${month}`
+    found = await sql<{ salt: string }>`SELECT salt FROM metrics_salt WHERE month = ${month}`
+  }
+  saltInMemory = { month, salt: found.rows[0].salt }
+  return saltInMemory.salt
 }
 
 /** The visitor's code for this month. The IP address goes no further than this function. */
@@ -105,17 +121,18 @@ export async function visitorCode(ip: string, userAgent: string): Promise<{ code
 
 /**
  * Count a visitor once a day: "new" the first day its code is seen this month, "returning" on any
- * later day. The same visitor on the same day changes nothing.
+ * later day. The same visitor on the same day changes nothing. One statement: it inserts the code,
+ * or moves its last day forward, and says which of the two it did.
  */
 async function countVisitor(ip: string | null, userAgent: string): Promise<void> {
   if (!ip) return
   const { code, month } = await visitorCode(ip, userAgent)
   const day = today()
-  const made = await sql`INSERT INTO metrics_visitors (code, month, first_day, last_day) VALUES (${code}, ${month}, ${day}, ${day})
-                         ON CONFLICT (code) DO NOTHING`
-  if (made.rowCount) return bump('visitor', 'new')
-  const back = await sql`UPDATE metrics_visitors SET last_day = ${day} WHERE code = ${code} AND last_day < ${day}`
-  if (back.rowCount) await bump('visitor', 'returning')
+  const { rows } = await sql<{ inserted: boolean }>`
+    INSERT INTO metrics_visitors (code, month, first_day, last_day) VALUES (${code}, ${month}, ${day}, ${day})
+    ON CONFLICT (code) DO UPDATE SET last_day = EXCLUDED.last_day WHERE metrics_visitors.last_day < EXCLUDED.last_day
+    RETURNING (xmax = 0) AS inserted`
+  if (rows[0]) await bump('visitor', rows[0].inserted ? 'new' : 'returning')
 }
 
 export async function recordPageview(path: string, referrer: string | null, ip: string | null, userAgent: string): Promise<void> {
