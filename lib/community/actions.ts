@@ -67,13 +67,6 @@ const CommentSchema = z.object({
   target_id: z.string().uuid(),
 })
 
-const ReportSchema = z.object({
-  target_type: z.enum(['question', 'answer', 'comment', 'user'] as const),
-  target_id: z.string().uuid(),
-  reason: z.enum(['spam', 'misinformation', 'harmful', 'off-topic', 'other'] as const),
-  detail: z.string().max(500).optional(),
-})
-
 const ProfileSchema = z.object({
   display_name: z
     .string()
@@ -632,47 +625,6 @@ export async function toggleUpvote(
 
 // ─── Report actions ───────────────────────────────────────────────────────────
 
-export async function submitReport(formData: FormData): Promise<ActionResult> {
-  const authResult = await requireAuth()
-  if (!authResult.ok) return { success: false, error: authResult.error }
-
-  const raw = {
-    target_type: formData.get('target_type') as string,
-    target_id: formData.get('target_id') as string,
-    reason: formData.get('reason') as string,
-    detail: (formData.get('detail') as string) || undefined,
-  }
-
-  const parsed = ReportSchema.safeParse(raw)
-  if (!parsed.success) {
-    return {
-      success: false,
-      error: 'Please fix the errors below.',
-      fieldErrors: parsed.error.flatten().fieldErrors as Record<string, string[]>,
-    }
-  }
-
-  // Prevent duplicate reports from same user on same target
-  const { rows: dup } = await sql<{ id: string }>`
-    SELECT id FROM reports
-    WHERE reporter_id = ${authResult.userId}
-      AND target_type = ${parsed.data.target_type}
-      AND target_id = ${parsed.data.target_id}
-      AND status = 'open'
-    LIMIT 1
-  `
-  if (dup.length > 0) {
-    return { success: false, error: 'You have already reported this content.' }
-  }
-
-  await sql`
-    INSERT INTO reports (reporter_id, target_type, target_id, reason, detail)
-    VALUES (${authResult.userId}, ${parsed.data.target_type}, ${parsed.data.target_id}, ${parsed.data.reason}, ${parsed.data.detail ?? null})
-  `
-
-  return { success: true }
-}
-
 // ─── Profile actions ──────────────────────────────────────────────────────────
 
 export async function updateProfile(formData: FormData): Promise<ActionResult> {
@@ -738,23 +690,6 @@ export async function updateBio(_prev: ActionResult | null, formData: FormData):
 }
 
 // ─── Moderation actions (moderator/admin only) ────────────────────────────────
-
-export async function resolveReport(
-  reportId: string,
-  resolution: 'actioned' | 'dismissed'
-): Promise<ActionResult> {
-  const authResult = await requireMod()
-  if (!authResult.ok) return { success: false, error: authResult.error }
-
-  await sql`
-    UPDATE reports
-    SET status = ${resolution}, reviewed_by = ${authResult.userId}, reviewed_at = NOW()
-    WHERE id = ${reportId}
-  `
-
-  revalidatePath('/community/moderation')
-  return { success: true }
-}
 
 export async function banUser(targetUserId: string): Promise<ActionResult> {
   const authResult = await requireMod()
