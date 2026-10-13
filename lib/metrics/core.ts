@@ -61,8 +61,11 @@ export function countedEvent(name: unknown, detail: unknown): string | null {
   return /^[a-z0-9+ ._:-]+$/.test(d) ? `${name}:${d}` : name
 }
 
-const BOT = /bot|crawl|spider|slurp|preview|monitor|headless|lighthouse|curl|wget|python|node-fetch|axios|scrapy|facebookexternalhit|whatsapp/i
-/** Not a person's browser, or a browser that asks not to be measured (Do Not Track, Global Privacy Control). */
+const BOT = /bot|crawl|spider|slurp|preview|monitor|headless|lighthouse|curl|wget|python|node-fetch|axios|scrapy|facebookexternalhit|whatsapp|stunprex-e2e|stunprex-agentops/i
+/**
+ * Not a person's browser (robots, and our own test suite and nightly tester, which name themselves
+ * in their user-agent), or a browser that asks not to be measured (Do Not Track, Global Privacy Control).
+ */
 export function notCounted(headers: Headers): boolean {
   const ua = headers.get('user-agent') ?? ''
   if (!ua || BOT.test(ua)) return true

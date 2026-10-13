@@ -44,5 +44,8 @@ export default defineConfig({
     // masking a genuinely hung page.
     navigationTimeout: 30_000,
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+  // D-WEB-31: the suite names itself in its user-agent, and the site's counter leaves such
+  // requests out, so the nightly run on production adds nothing to the totals. The counter's own
+  // tests set a plain browser user-agent to be counted.
+  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'], userAgent: `${devices['Desktop Chrome'].userAgent} StunpreX-E2E` } }],
 });

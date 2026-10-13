@@ -44,6 +44,7 @@ test('robots, and browsers that ask not to be measured, are not counted', () => 
   const chrome = 'Mozilla/5.0 (Macintosh) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0 Safari/537.36';
   expect(notCounted(h({ 'user-agent': chrome }))).toBe(false);
   expect(notCounted(h({ 'user-agent': 'Mozilla/5.0 (compatible; Googlebot/2.1)' }))).toBe(true);
+  expect(notCounted(h({ 'user-agent': `${chrome} StunpreX-E2E` })), 'our own test suite').toBe(true);
   expect(notCounted(h({}))).toBe(true);
   expect(notCounted(h({ 'user-agent': chrome, dnt: '1' }))).toBe(true);
   expect(notCounted(h({ 'user-agent': chrome, 'sec-gpc': '1' }))).toBe(true);
