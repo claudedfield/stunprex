@@ -433,24 +433,32 @@ export async function getMemberProfile(displayName: string): Promise<MemberProfi
  * Caller must verify role === 'moderator' | 'admin' before calling.
  */
 export async function getOpenReports() {
+  // LEGAL-03.2: every open report, with or without a member behind it (a LEFT JOIN: a visitor's
+  // report has no profile). Child-safety reports come first, then the oldest.
   const { rows } = await sql<{
     id: string
     target_type: string
     target_id: string
+    target_url: string | null
     reason: string
     detail: string | null
     status: string
     created_at: string
-    reporter_id: string
-    reporter_display_name: string
+    reporter_id: string | null
+    reporter_display_name: string | null
+    reporter_name: string | null
+    has_email: boolean
+    child_safety: boolean
   }>`
     SELECT
-      r.*,
+      r.id, r.target_type, r.target_id, r.target_url, r.reason, r.detail, r.status, r.created_at,
+      r.reporter_id, r.reporter_name, r.child_safety,
+      (r.reporter_email IS NOT NULL OR r.reporter_id IS NOT NULL) AS has_email,
       p.display_name AS reporter_display_name
     FROM reports r
-    JOIN profiles p ON p.user_id = r.reporter_id
+    LEFT JOIN profiles p ON p.user_id = r.reporter_id
     WHERE r.status = 'open'
-    ORDER BY r.created_at ASC
+    ORDER BY r.child_safety DESC, r.created_at ASC
   `
   return rows
 }

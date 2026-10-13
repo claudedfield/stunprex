@@ -24,6 +24,18 @@ const httpCredentials = stagingAuth
   ? { username: stagingUser, password: stagingPass.join(':'), origin: 'https://staging.stunprex.com', send: 'always' as const }
   : undefined;
 
+/**
+ * Found 13 Oct 2026: answering the 401 challenge page by page made about one first page load in
+ * seven hang in the browser (scripts and images left pending until the test timed out), which
+ * showed as slow, flaky runs on staging only. Sending the header with every request removes the
+ * challenge and the hangs (0 of 120 loads). The header then goes with every request of a run
+ * against staging; the suite fails on any request to a host that is not ours, and our own
+ * server writes "REDACTED" for this header in its log.
+ */
+const stagingHeaders = stagingAuth && new URL(baseURL).host === 'staging.stunprex.com'
+  ? { Authorization: `Basic ${Buffer.from(stagingAuth).toString('base64')}` }
+  : undefined;
+
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
@@ -38,6 +50,7 @@ export default defineConfig({
   use: {
     baseURL,
     httpCredentials,
+    extraHTTPHeaders: stagingHeaders,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     // Production is a real deploy behind a CDN; give navigation room without

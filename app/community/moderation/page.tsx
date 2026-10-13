@@ -9,46 +9,12 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { auth } from '@/auth'
 import { getOpenReports } from '@/lib/community/queries'
-import { resolveReport, banUser, unbanUser } from '@/lib/community/actions'
+import { banUser, unbanUser } from '@/lib/community/actions'
+import { DecisionForm } from './DecisionForm'
 
 export const metadata: Metadata = {
   title: { absolute: 'Moderation · StunpreX Community' },
   robots: { index: false, follow: false },
-}
-
-// ─── Resolve form (inline server action) ─────────────────────────────────────
-
-function ResolveForm({ reportId }: { reportId: string }) {
-  return (
-    <div className="flex items-center gap-2 mt-2">
-      <form
-        action={async () => {
-          'use server'
-          await resolveReport(reportId, 'actioned')
-        }}
-      >
-        <button
-          type="submit"
-          className="rounded bg-orange/10 border border-orange/30 px-3 py-1 text-xs font-ui text-orange hover:bg-orange/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange/40"
-        >
-          Action
-        </button>
-      </form>
-      <form
-        action={async () => {
-          'use server'
-          await resolveReport(reportId, 'dismissed')
-        }}
-      >
-        <button
-          type="submit"
-          className="rounded border border-deepblue/20 px-3 py-1 text-xs font-ui text-brown/60 hover:text-brown hover:border-deepblue/40 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepblue/40"
-        >
-          Dismiss
-        </button>
-      </form>
-    </div>
-  )
 }
 
 // ─── Ban / Unban form ─────────────────────────────────────────────────────────
@@ -126,61 +92,55 @@ export default async function ModerationPage() {
               {reports.map((report) => (
                 <li
                   key={report.id}
-                  className="rounded-lg border border-deepblue/10 bg-white p-4"
+                  data-report-row
+                  data-child-safety={report.child_safety ? 'yes' : 'no'}
+                  className={`rounded-lg border bg-white p-4 ${report.child_safety ? 'border-orange/60' : 'border-deepblue/10'}`}
                 >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2 flex-wrap mb-1">
-                        <span className="rounded bg-deepblue/8 px-1.5 py-0.5 text-xs font-ui text-deepblue/70">
-                          {report.target_type}
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap mb-1">
+                      {report.child_safety && (
+                        <span className="rounded bg-orange/15 px-1.5 py-0.5 text-xs font-ui font-medium text-orange">
+                          Child safety: follow the safeguarding procedure first
                         </span>
-                        <span className="text-xs font-mono font-ui text-brown/35 truncate max-w-[180px]">
-                          {report.target_id}
-                        </span>
+                      )}
+                      <span className="rounded bg-deepblue/8 px-1.5 py-0.5 text-xs font-ui text-deepblue/70">
+                        {report.target_type}
+                      </span>
+                      {report.target_url && (
+                        <a
+                          href={report.target_url}
+                          data-report-target
+                          className="text-xs font-ui text-deepblue underline hover:text-deepblue/75 break-all focus-visible:outline-none"
+                        >
+                          {report.target_url}
+                        </a>
+                      )}
+                    </div>
+                    {report.detail && (
+                      <p className="mt-1 text-sm font-body text-brown whitespace-pre-wrap" data-report-text>
+                        {report.detail}
+                      </p>
+                    )}
+                    <p className="mt-1.5 text-xs font-ui text-brown/50" data-report-from>
+                      {report.reporter_display_name
+                        ? `Reported by member ${report.reporter_display_name}`
+                        : report.reporter_name
+                          ? `Reported by a visitor, ${report.reporter_name}`
+                          : 'Reported by a visitor who gave no name'}
+                      {report.has_email ? ' (can be answered)' : ' (no address: nobody to write to)'}
+                      {' · '}
+                      {new Date(report.created_at).toLocaleDateString('en-GB', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric',
+                      })}
+                    </p>
+                    <DecisionForm reportId={report.id} canAnswer={report.has_email} />
+                    {report.target_type === 'user' && (
+                      <div className="mt-2">
+                        <BanForm userId={report.target_id} action="ban" />
                       </div>
-                      <p className="text-sm font-body text-brown font-medium">
-                        {report.reason}
-                      </p>
-                      {report.detail && (
-                        <p className="mt-0.5 text-sm font-body text-brown/60 italic">
-                          &ldquo;{report.detail}&rdquo;
-                        </p>
-                      )}
-                      <p className="mt-1.5 text-xs font-ui text-brown/40">
-                        Reported by{' '}
-                        <Link
-                          href={`/community/u/${encodeURIComponent(report.reporter_display_name)}`}
-                          className="text-deepblue hover:underline focus-visible:outline-none"
-                        >
-                          {report.reporter_display_name}
-                        </Link>
-                        {' · '}
-                        {new Date(report.created_at).toLocaleDateString('en-GB', {
-                          day: 'numeric',
-                          month: 'short',
-                          year: 'numeric',
-                        })}
-                      </p>
-
-                      {report.target_type === 'question' && (
-                        <Link
-                          href={`/community/${report.target_id}`}
-                          className="mt-1 inline-block text-xs font-ui text-deepblue underline hover:text-deepblue/75 focus-visible:outline-none"
-                        >
-                          View question
-                        </Link>
-                      )}
-                    </div>
-
-                    {/* Actions column */}
-                    <div className="flex-shrink-0 flex flex-col gap-1.5 items-end">
-                      <ResolveForm reportId={report.id} />
-                      {report.target_type === 'user' && (
-                        <div className="mt-2">
-                          <BanForm userId={report.target_id} action="ban" />
-                        </div>
-                      )}
-                    </div>
+                    )}
                   </div>
                 </li>
               ))}

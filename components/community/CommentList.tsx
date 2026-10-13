@@ -2,6 +2,7 @@
  * CommentList — flat list of comments for a question or answer.
  * Server Component; CommentForm is the only interactive part.
  */
+import ReportLink from './ReportLink'
 import type { CommentWithAuthor } from '@/lib/types/community'
 import { formatRelativeTime } from '@/lib/community/utils'
 import UserHandle from './UserHandle'
@@ -25,7 +26,7 @@ export default function CommentList({
       {comments.length > 0 && (
         <ul className="space-y-2 mb-2" role="list">
           {comments.map((comment) => (
-            <li key={comment.id} className="flex gap-2 text-sm font-body text-brown/75">
+            <li key={comment.id} id={`comment-${comment.id}`} className="flex gap-2 text-sm font-body text-brown/75">
               <span className="shrink-0 text-brown/25 select-none" aria-hidden="true">—</span>
               <div>
                 <span className="font-body text-brown/80">{comment.body}</span>
@@ -37,6 +38,8 @@ export default function CommentList({
                   <time dateTime={comment.created_at} suppressHydrationWarning>
                     {formatRelativeTime(comment.created_at)}
                   </time>
+                  <span className="mx-1" aria-hidden="true">·</span>
+                  <ReportLink targetType="comment" targetId={comment.id} anchor={`comment-${comment.id}`} />
                 </span>
               </div>
             </li>

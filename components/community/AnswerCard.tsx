@@ -7,6 +7,7 @@ import type { AnswerWithAuthor } from '@/lib/types/community'
 import { formatRelativeTime } from '@/lib/community/utils'
 import UserAvatar from './UserAvatar'
 import UserHandle from './UserHandle'
+import ReportLink from './ReportLink'
 import MarkdownBody from './MarkdownBody'
 import UpvoteButton from './UpvoteButton'
 import CommentList from './CommentList'
@@ -95,6 +96,8 @@ export default function AnswerCard({
                 </a>
               </div>
             )}
+            {/* LEGAL-03.2: anyone can report an answer, signed in or not. */}
+            <ReportLink targetType="answer" targetId={answer.id} anchor={`answer-${answer.id}`} />
           </div>
 
           {/* Comments on this answer */}
