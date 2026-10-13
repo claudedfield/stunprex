@@ -90,6 +90,8 @@ export interface DrillFrontmatter {
   ageBand: AgeBand[];
   /** Player count description (e.g. "1–3") */
   players: string;
+  /** A few words for the /training card, where the `players` sentence reads long (COO-DEV-0047). Optional. */
+  players_short?: string;
   /** Equipment summary */
   equipment: string;
   /** Difficulty 1–5 */
