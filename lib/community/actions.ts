@@ -186,6 +186,11 @@ export async function signInWithCode(formData: FormData): Promise<ActionResult<{
   }
 }
 
+/** Sign in with Google (lib/auth/google.ts). Auth.js sends the browser to Google and back. */
+export async function signInWithGoogle(formData: FormData): Promise<void> {
+  await signIn('google', { redirectTo: safeNext(formData.get('next')) })
+}
+
 /** Sign out the current user and redirect to home. */
 export async function signOut() {
   await authSignOut()
