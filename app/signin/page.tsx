@@ -10,6 +10,7 @@ import SignInForm from '../auth/sign-in/SignInForm'
 import { auth } from '@/auth'
 import { safeNext } from '@/lib/auth/next'
 import { SignedInNotice } from '@/components/SignedInNotice'
+import { GoogleButton } from '@/components/auth/GoogleButton'
 
 export const metadata: Metadata = {
   title: { absolute: 'Sign in · StunpreX' },
@@ -42,7 +43,7 @@ export default async function SignInPage({ searchParams }: { searchParams: Promi
               No password required.
             </p>
           </div>
-          {signedInAs ? <SignedInNotice name={signedInAs} next={next} /> : <SignInForm />}
+          {signedInAs ? <SignedInNotice name={signedInAs} next={next} /> : <><GoogleButton next={next} /><SignInForm /></>}
         </div>
       </main>
       <Footer />

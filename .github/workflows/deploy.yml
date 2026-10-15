@@ -32,4 +32,4 @@ jobs:
           printf '%s\n' "$VPS_KNOWN_HOSTS" > ~/.ssh/known_hosts
           target=$([ "$GITHUB_REF_NAME" = main ] && echo production || echo staging)
           git archive --format=tar.gz HEAD \
-            | ssh -i ~/.ssh/deploy -o IdentitiesOnly=yes -o BatchMode=yes deploy@"$VPS_HOST" "$target $GITHUB_SHA"
+            | ssh -4 -o ConnectTimeout=20 -o ConnectionAttempts=3 -i ~/.ssh/deploy -o IdentitiesOnly=yes -o BatchMode=yes deploy@"$VPS_HOST" "$target $GITHUB_SHA"

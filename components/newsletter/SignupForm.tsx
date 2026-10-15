@@ -5,6 +5,7 @@
  * `website` field catches bots. The age line (LEGAL-01b) and the privacy link (LEGAL-01d) sit
  * beside the action.
  */
+import { trackNewsletterSignup } from '@/lib/analytics/events'
 import { useState } from 'react'
 
 export function SignupForm({ source = 'site' }: { source?: string }) {
@@ -22,7 +23,9 @@ export function SignupForm({ source = 'site' }: { source?: string }) {
         method: 'POST', headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ name, email, source, website }),
       })
-      setState(await res.json())
+      const answer = await res.json()
+      setState(answer)
+      if (answer?.ok) trackNewsletterSignup(source ?? 'page')
     } catch {
       setState({ ok: false, message: 'Something went wrong. Please try again later.' })
     }

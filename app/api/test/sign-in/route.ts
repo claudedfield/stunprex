@@ -52,6 +52,10 @@ export async function POST(req: Request) {
   const avatar = (body as { avatar?: boolean }).avatar
   if (avatar === true) await sql`UPDATE profiles SET avatar_url = 'https://avatars.example.invalid/e2e.png' WHERE user_id = ${userId}`
   if (avatar === false) await sql`UPDATE profiles SET avatar_url = NULL WHERE user_id = ${userId}`
+  // LEGAL-03.2: `{ "role": "moderator" | "user" }` sets the test account's role, so the suite can
+  // open the moderation queue; the suite sets it back to "user".
+  const role = (body as { role?: string }).role
+  if (role === 'moderator' || role === 'user') await sql`UPDATE profiles SET role = ${role} WHERE user_id = ${userId}`
   if (terms === 'none') {
     await sql`UPDATE profiles SET terms_version = NULL, terms_accepted_at = NULL, age_confirmed_at = NULL
               WHERE user_id = ${userId}`

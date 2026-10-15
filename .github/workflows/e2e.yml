@@ -58,7 +58,7 @@ jobs:
           printf '%s\n' "$VPS_DEPLOY_KEY" > ~/.ssh/deploy && chmod 600 ~/.ssh/deploy
           printf '%s\n' "$VPS_KNOWN_HOSTS" > ~/.ssh/known_hosts
           git archive --format=tar.gz HEAD \
-            | ssh -i ~/.ssh/deploy -o IdentitiesOnly=yes -o BatchMode=yes deploy@"$VPS_HOST" "staging $GITHUB_SHA"
+            | ssh -4 -o ConnectTimeout=20 -o ConnectionAttempts=3 -i ~/.ssh/deploy -o IdentitiesOnly=yes -o BatchMode=yes deploy@"$VPS_HOST" "staging $GITHUB_SHA"
 
       - name: Run e2e against staging
         env:

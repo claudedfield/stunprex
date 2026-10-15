@@ -92,3 +92,19 @@ If you did not ask to sign in, ignore this email. Nobody is signed in by it.`
 
   await getTransport().sendMail({ from, replyTo, to, subject: SIGN_IN_SUBJECT, text: textBody, html: htmlBody })
 }
+
+/**
+ * A plain-text mail from the site about a report (LEGAL-03.2): the acknowledgement and the outcome
+ * to the person who reported, and the notice to hello@. It leaves from the site's sending mailbox
+ * with reply-to hello@, so a reply reaches a person. Staging never sends: the message is captured.
+ */
+export async function sendSiteMail(to: string, subject: string, text: string) {
+  const from = `"StunpreX" <${process.env.SMTP_FROM!}>`
+  const replyTo = 'hello@stunprex.com'
+  if (process.env.STAGING === '1') {
+    await sql`INSERT INTO newsletter_test_outbox (to_address, subject, headers, text_body, html_body)
+              VALUES (${to}, ${subject}, ${JSON.stringify({ From: from, 'Reply-To': replyTo })}, ${text}, ${''})`
+    return
+  }
+  await getTransport().sendMail({ from, replyTo, to, subject, text })
+}

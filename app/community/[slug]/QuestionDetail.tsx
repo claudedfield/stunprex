@@ -19,7 +19,7 @@ import MarkdownBody from '@/components/community/MarkdownBody'
 import UpvoteButton from '@/components/community/UpvoteButton'
 import AnswerCard from '@/components/community/AnswerCard'
 import CommentList from '@/components/community/CommentList'
-import ReportFlyout from '@/components/community/ReportFlyout'
+import ReportLink from '@/components/community/ReportLink'
 import { createAnswer, acceptAnswer } from '@/lib/community/actions'
 
 interface QuestionDetailProps {
@@ -153,9 +153,8 @@ export default function QuestionDetail({
                 Edit
               </Link>
             )}
-            {isAuthenticated && !isAuthor && (
-              <ReportFlyout targetType="question" targetId={question.id} />
-            )}
+            {/* LEGAL-03.2: anyone can report, signed in or not; the form is at /report. */}
+            <ReportLink targetType="question" targetId={question.id} />
           </div>
         </div>
 

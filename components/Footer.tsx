@@ -21,6 +21,7 @@ const LEGAL = [
   { href: '/terms',     label: 'Terms' },
   { href: '/cookies',   label: 'Cookies' },
   { href: '/imprint',   label: 'Imprint' },
+  { href: '/report',    label: 'Report content' },
 ];
 
 export function Footer() {
