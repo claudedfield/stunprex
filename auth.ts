@@ -16,6 +16,9 @@
 import NextAuth from 'next-auth'
 import type { NextAuthConfig } from 'next-auth'
 import Email from 'next-auth/providers/email'
+import Google from 'next-auth/providers/google'
+import type { Adapter } from 'next-auth/adapters'
+import { googleSignInOpen, googleProfile, withoutTokens } from '@/lib/auth/google'
 import { MAGIC_LINK_MAX_AGE_SECONDS } from './lib/auth-constants'
 import PostgresAdapter from '@auth/pg-adapter'
 import { db } from '@/db'
@@ -25,8 +28,15 @@ import { ensureProfile } from '@/lib/auth/db'
 import { redactError } from '@/lib/log-redact'
 import { TERMS_VERSION } from './lib/legal'
 
+// Google's tokens are dropped before the provider link is stored (lib/auth/google.ts).
+const baseAdapter = PostgresAdapter(db)
+const adapter: Adapter = {
+  ...baseAdapter,
+  linkAccount: (account) => baseAdapter.linkAccount!(withoutTokens(account)),
+}
+
 export const authConfig: NextAuthConfig = {
-  adapter: PostgresAdapter(db),
+  adapter,
 
   // Trust the host the request actually arrives on (Vercel terminates TLS and
   // forwards X-Forwarded-Host). Required so the magic-link callback validates and
@@ -59,9 +69,27 @@ export const authConfig: NextAuthConfig = {
         await sendSignInMail(email, code, `${new URL(url).origin}/auth/verify?token=${linkToken}`)
       },
     }),
+    // Sign in with Google: one click, no mail. Off on production until GOOGLE_SIGNIN_OPEN=1.
+    ...(googleSignInOpen()
+      ? [Google({
+          clientId: process.env.AUTH_GOOGLE_ID,
+          clientSecret: process.env.AUTH_GOOGLE_SECRET,
+          authorization: { params: { scope: 'openid email', prompt: 'select_account' } },
+          profile: googleProfile,
+          // A member who signed up by email and then chooses Google with the same address gets one
+          // account, not a refusal. Safe here because Google proves the address (checked below).
+          allowDangerousEmailAccountLinking: true,
+        })]
+      : []),
   ],
 
   callbacks: {
+    /** Google: only an address Google has verified, and only while Google sign-in is open. */
+    async signIn({ account, profile }) {
+      if (account?.provider !== 'google') return true
+      return googleSignInOpen() && (profile as { email_verified?: boolean } | undefined)?.email_verified === true
+    },
+
     /**
      * Extend the session with user id and role from profiles table.
      * Called on every session read; keep it lightweight.

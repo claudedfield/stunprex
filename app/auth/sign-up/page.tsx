@@ -10,6 +10,7 @@ import SignUpForm from './SignUpForm'
 import { auth } from '@/auth'
 import { safeNext } from '@/lib/auth/next'
 import { SignedInNotice } from '@/components/SignedInNotice'
+import { GoogleButton } from '@/components/auth/GoogleButton'
 
 export const metadata: Metadata = {
   title: { absolute: 'Join the community · StunpreX' },
@@ -41,7 +42,7 @@ export default async function SignUpPage({ searchParams }: { searchParams: Promi
               long-horizon football development.
             </p>
           </div>
-          {signedInAs ? <SignedInNotice name={signedInAs} next={next} /> : <SignUpForm />}
+          {signedInAs ? <SignedInNotice name={signedInAs} next={next} /> : <><GoogleButton next={next} /><SignUpForm /></>}
           <p className="mt-4 text-center text-xs text-brown/40 font-body">
             Already a member?{' '}
             <a
