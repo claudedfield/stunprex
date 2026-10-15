@@ -130,6 +130,8 @@ test('the em-dash baseline only goes down', () => {
     const found = fs.existsSync(full) ? (fs.readFileSync(full, 'utf8').match(/—/g) ?? []).length : 0;
     expect(allowed, `${file}: its allowance is above what the page holds; lower it`).toBe(found);
   }
+});
+
 /**
  * D-WEB-24: pages built from a text of record. The methodology page renders every
  * character of the Writer's file, so an em-dash anywhere in it, body included, fails.
