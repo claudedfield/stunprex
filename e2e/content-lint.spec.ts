@@ -130,4 +130,25 @@ test('the em-dash baseline only goes down', () => {
     const found = fs.existsSync(full) ? (fs.readFileSync(full, 'utf8').match(/—/g) ?? []).length : 0;
     expect(allowed, `${file}: its allowance is above what the page holds; lower it`).toBe(found);
   }
+/**
+ * D-WEB-24: pages built from a text of record. The methodology page renders every
+ * character of the Writer's file, so an em-dash anywhere in it, body included, fails.
+ */
+test('an em-dash anywhere in page content fails the lint, naming file and line', () => {
+  let code = 0;
+  let out = '';
+  try {
+    out = execFileSync(
+      'node',
+      ['scripts/content-lint.mjs', '--pages', path.join(REPO, 'e2e/fixtures/content-lint-pages')],
+      { cwd: REPO, encoding: 'utf8' },
+    );
+  } catch (err) {
+    const e = err as { status?: number; stdout?: string; stderr?: string };
+    code = e.status ?? 1;
+    out = `${e.stdout ?? ''}${e.stderr ?? ''}`;
+  }
+  expect(code).toBe(1);
+  expect(out).toContain('em-dash in page content');
+  expect(out).toContain('dirty.mdx:3');
 });
