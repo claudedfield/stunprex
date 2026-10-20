@@ -19,8 +19,11 @@ test('the Collective page exists and the overview names the six families with Co
   await expect(main.locator('a[href="/capacities/communication"]')).toHaveCount(0);
 });
 
-test('the /training filter offers Collective as a family and no longer Communication', async ({ page }) => {
+// The "Theme" filter keeps a drill category called Communication (drills about calling and
+// listening); only the capacity family is renamed.
+test('the /training family filter offers Collective and no longer Communication', async ({ page }) => {
   await page.goto('/training');
-  await expect(page.getByRole('button', { name: 'Collective', exact: true }).first()).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Communication', exact: true })).toHaveCount(0);
+  const family = page.getByRole('group', { name: 'Capacity family' });
+  await expect(family.getByRole('button', { name: 'Collective', exact: true })).toBeVisible();
+  await expect(family.getByRole('button', { name: 'Communication', exact: true })).toHaveCount(0);
 });
