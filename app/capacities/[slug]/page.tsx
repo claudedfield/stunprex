@@ -8,6 +8,23 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { getDrillCardsByCapacity, getPublishedCapacities } from '@/lib/drills';
 import type { CapacityFamily } from '@/lib/types/drill';
+import fs from 'node:fs';
+import path from 'node:path';
+import matter from 'gray-matter';
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import { mdxComponents } from '@/components/blog/MdxComponents';
+
+/**
+ * A family's reference text, where the Writer has one (content/pages/capacities/<slug>.mdx, built
+ * by scripts/sync-reference.mjs from the text of record). It takes the page's title and stands
+ * above the drill list; a family without one keeps its one-sentence description.
+ */
+function referenceText(slug: string): { title: string; body: string } | null {
+  const file = path.join(process.cwd(), 'content', 'pages', 'capacities', `${slug}.mdx`);
+  if (!fs.existsSync(file)) return null;
+  const { data, content } = matter(fs.readFileSync(file, 'utf8'));
+  return { title: String(data.title), body: content };
+}
 
 // Map lowercase slug → CapacityFamily display name
 const CAPACITY_DISPLAY: Record<string, CapacityFamily> = {
@@ -40,13 +57,10 @@ const CAPACITY_DESCRIPTION: Record<CapacityFamily, string> = {
 const RELATED_READING: Record<string, { href: string; label: string }[]> = {
   perceptual: [
     { href: '/blog/perceptual-capacity', label: 'Perceptual capacity: what the game asks you to see' },
-    { href: '/blog/rodri-spatial-intelligence', label: 'Pro Breakdown: Rodri’s positional intelligence' },
-    { href: '/blog/scanning-while-dribbling', label: 'When scanning is the dribble: Xavi’s habit' },
   ],
   cognitive: [
     { href: '/blog/cognitive-capacity', label: 'The cognitive capacity: how players think in football' },
     { href: '/blog/how-to-dribble-in-tight-spaces', label: 'How to dribble in tight spaces: the 1v1 commit window' },
-    { href: '/blog/rodri-spatial-intelligence', label: 'Pro Breakdown: Rodri’s decision-making' },
   ],
   motor: [
     { href: '/blog/soccer-dribbling-drills', label: 'Soccer dribbling drills: the complete training guide' },
@@ -78,8 +92,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const cap = CAPACITY_DISPLAY[slug];
   if (!cap) return {};
 
+  const reference = referenceText(slug);
   return {
-    title: { absolute: `${cap} Capacity: StunpreX Drills` },
+    title: { absolute: reference ? `${reference.title} · StunpreX` : `${cap} Capacity: StunpreX Drills` },
     description: `Football drills that develop the ${cap} capacity: ${CAPACITY_DESCRIPTION[cap]}`,
     alternates: { canonical: `https://stunprex.com/capacities/${slug}` },
   };
@@ -91,6 +106,7 @@ export default async function CapacityPage({ params }: Props) {
   if (!cap) notFound();
 
   const drills = getDrillCardsByCapacity(cap);
+  const reference = referenceText(slug);
 
   return (
     <>
@@ -113,13 +129,23 @@ export default async function CapacityPage({ params }: Props) {
               Capacity
             </p>
             <h1 className="font-heading text-deepblue mb-3">
-              {cap}
+              {reference ? reference.title : cap}
             </h1>
-            <p className="max-w-2xl text-lg text-brown/70 font-body leading-relaxed">
-              {CAPACITY_DESCRIPTION[cap]}
-            </p>
+            {!reference && (
+              <p className="max-w-2xl text-lg text-brown/70 font-body leading-relaxed">
+                {CAPACITY_DESCRIPTION[cap]}
+              </p>
+            )}
           </div>
         </section>
+
+        {reference && (
+          <section className="container-site pt-10 md:pt-14" data-capacity-reference>
+            <article className="prose-stunprex max-w-2xl">
+              <MDXRemote source={reference.body} components={mdxComponents} />
+            </article>
+          </section>
+        )}
 
         {/* Drill list */}
         <section className="container-site py-10 md:py-14">
