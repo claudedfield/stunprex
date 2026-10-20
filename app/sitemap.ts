@@ -16,7 +16,6 @@ const STATIC_ROUTES = [
   '/capacities',
   '/pricing',
   '/about',
-  '/codex',
   '/methodology',
   // Blog category pages
   '/blog/category/methodology',
@@ -30,7 +29,7 @@ const CAPACITY_SLUGS = [
   'perceptual',
   'cognitive',
   'motor',
-  'communication',
+  'collective',
   'affective',
   'adaptive',
 ];

@@ -21,7 +21,7 @@ export type CapacityFamily =
   | 'Perceptual'
   | 'Cognitive'
   | 'Motor'
-  | 'Communication'
+  | 'Collective'
   | 'Affective'
   | 'Adaptive';
 

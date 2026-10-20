@@ -91,8 +91,9 @@ function FacetGroup<T extends string | number>({
 }) {
   const allActive = selected.length === 0;
   return (
-    <div>
-      <p className="mb-2.5 font-ui text-[11px] uppercase tracking-widest text-brown/45">{label}</p>
+    // A named group, so a screen reader hears which filter a button belongs to.
+    <div role="group" aria-label={label}>
+      <p className="mb-2.5 font-ui text-[11px] uppercase tracking-widest text-brown/45" aria-hidden="true">{label}</p>
       <div className="flex flex-wrap gap-2">
         <button
           type="button"
