@@ -14,7 +14,7 @@ const CAPACITY_DISPLAY: Record<string, CapacityFamily> = {
   perceptual:    'Perceptual',
   cognitive:     'Cognitive',
   motor:         'Motor',
-  communication: 'Communication',
+  collective:    'Collective',
   affective:     'Affective',
   adaptive:      'Adaptive',
 };
@@ -27,8 +27,8 @@ const CAPACITY_DESCRIPTION: Record<CapacityFamily, string> = {
     'Decision-making, working memory, attention management, and the ability to plan and adapt under time pressure.',
   Motor:
     'Technical execution: first touch quality, footwork, body mechanics, and movement efficiency in all conditions.',
-  Communication:
-    'Verbal and non-verbal communication with teammates, anticipating movement, and co-ordinating collective action.',
+  Collective:
+    'How a player reads, times and combines their actions with team-mates, and acts with them as one unit against opponents. Most of it happens without words; talk is one tool among several.',
   Affective:
     'Emotional regulation, resilience under adversity, self-awareness, motivation, and the capacity to stay present.',
   Adaptive:
@@ -52,7 +52,7 @@ const RELATED_READING: Record<string, { href: string; label: string }[]> = {
     { href: '/blog/soccer-dribbling-drills', label: 'Soccer dribbling drills: the complete training guide' },
     { href: '/blog/weak-foot-dribbling-drills', label: 'Weak foot dribbling drills: a progression that holds up under pressure' },
   ],
-  communication: [
+  collective: [
     { href: '/blog/xhaka-communication-composure', label: 'Pro Breakdown: What Xhaka rebuilt, communication & composure' },
   ],
   affective: [

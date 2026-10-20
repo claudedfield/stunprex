@@ -6,7 +6,7 @@ export type Capacity =
   | 'Perceptual'
   | 'Cognitive'
   | 'Motor'
-  | 'Communication'
+  | 'Collective'
   | 'Affective'
   | 'Adaptive';
 

@@ -10,7 +10,7 @@ export type CapacityFamily =
   | 'Perceptual'
   | 'Cognitive'
   | 'Motor'
-  | 'Communication'
+  | 'Collective'
   | 'Affective'
   | 'Adaptive';
 
@@ -43,7 +43,7 @@ export type DrillCategory =
 
 /** Ordered facet lists (stable display order in the /training filter UI). */
 export const CAPACITY_FAMILIES: CapacityFamily[] = [
-  'Perceptual', 'Cognitive', 'Motor', 'Communication', 'Affective', 'Adaptive',
+  'Perceptual', 'Cognitive', 'Motor', 'Collective', 'Affective', 'Adaptive',
 ];
 
 export const AGE_BANDS: AgeBand[] = ['5-8', '9-12', '13-16', '17-20', '21+'];

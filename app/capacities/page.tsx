@@ -11,7 +11,7 @@ import type { CapacityFamily } from '@/lib/types/drill';
 export const metadata: Metadata = {
   title: { absolute: 'The Six Capacities: How StunpreX Develops the Whole Player' },
   description:
-    'Perceptual, Cognitive, Motor, Communication, Affective, Adaptive: the six families of human capacity every StunpreX drill develops. The substrate of a complete player.',
+    'Perceptual, Cognitive, Motor, Collective, Affective, Adaptive: the six families of human capacity every StunpreX drill develops. The substrate of a complete player.',
   alternates: { canonical: 'https://stunprex.com/capacities' },
 };
 
@@ -45,10 +45,10 @@ const FAMILIES: Family[] = [
       'First-touch quality, ball mastery, footwork, balance, and movement efficiency: technical execution with both feet, in all conditions.',
   },
   {
-    name: 'Communication',
-    slug: 'communication',
+    name: 'Collective',
+    slug: 'collective',
     blurb:
-      'Verbal and non-verbal coordination, anticipating teammates, and the timing of collective action under the noise of play.',
+      'Playing with others: timing and spacing with team-mates, support, signals without words, and talk where it adds what others cannot see.',
   },
   {
     name: 'Affective',

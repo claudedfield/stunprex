@@ -5,6 +5,15 @@ const nextConfig = {
   reactStrictMode: true,
   // D-WEB-27: a self-contained server for the VPS image. Vercel builds ignore it.
   output: 'standalone',
+  async redirects() {
+    return [
+      // D-WEB-24: the Codex stays internal (OT-007), so the stub's "later this year" was a promise
+      // the site will not keep; a visitor looking for it lands on the public methodology page.
+      { source: '/codex', destination: '/methodology', permanent: true },
+      // Keeper ruling 61 (20 Oct 2026): capacity family F4 is Collective; old links and search results keep working.
+      { source: '/capacities/communication', destination: '/capacities/collective', statusCode: 301 },
+    ];
+  },
 };
 
 export default nextConfig;
