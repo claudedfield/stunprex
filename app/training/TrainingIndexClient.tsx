@@ -11,7 +11,6 @@ import {
   DRILL_CATEGORIES,
 } from '@/lib/types/drill';
 import { filterChipClass } from '@/components/ui/filterChip';
-import { trackDrillFilterUsed } from '@/lib/analytics/events';
 import { bandLabel, bandsMatchingQuery } from '@/lib/codex/bands';
 
 const PER_PAGE = 12;
@@ -138,8 +137,6 @@ export function TrainingIndexClient({ drills }: { drills: DrillCard[] }) {
       (v: T) => {
         setter((prev) => {
           const next = prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v];
-          // Only fires on select, not deselect — that's what tells us what people came looking for.
-          if (next.length > prev.length) trackDrillFilterUsed(dimension, String(v));
           return next;
         });
         setPage(1);

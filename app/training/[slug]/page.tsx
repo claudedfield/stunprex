@@ -9,7 +9,6 @@ import { Footer } from '@/components/Footer';
 import { DrillDiagram, AnimatedDrillDiagram } from '@/components/drill-diagrams';
 import type { DiagramSpec } from '@/components/drill-diagrams';
 import { getDrillBySlug, getAllDrillSlugs } from '@/lib/drills';
-import { DrillReadTracker } from '@/components/analytics/DrillReadTracker';
 import { bandMeta } from '@/lib/codex/bands';
 
 interface Props {
@@ -217,7 +216,6 @@ export default async function DrillDetailPage({ params }: Props) {
                 [&_code]:font-ui [&_code]:text-xs [&_code]:bg-deepblue/5 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded">
                 <MDXRemote source={source} />
               </div>
-              <DrillReadTracker drillId={frontmatter.drillId} />
             </article>
 
             {/* Right sidebar: metadata panel */}

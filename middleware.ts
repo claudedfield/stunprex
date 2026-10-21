@@ -1,31 +1,31 @@
 /**
- * Next.js middleware — intentional NO-OP pass-through.
+ * Next.js middleware. Two jobs, and it touches no cookie in either:
  *
- * WHY THIS DOES NOT RUN NextAuth:
- * The site uses a DATABASE session strategy (auth.ts: adapter + session.strategy
- * = 'database'). The edge-compatible config (auth.config.ts) has no adapter, so an
- * edge NextAuth() handler defaults to the JWT strategy. When such a handler sees the
- * real session cookie — `__Secure-authjs.session-token`, whose value is a database
- * session UUID, not a signed JWT — it fails to decode it and emits
- * `Set-Cookie: __Secure-authjs.session-token=; Max-Age=0`, WIPING the session on
- * every request that passes through the matcher (/auth/*, /community/*). That is
- * exactly what broke magic-link sign-in: a new user is redirected to
- * /community/welcome immediately after the callback and lost the session there.
+ * 1. It does NOT run NextAuth. The site uses a DATABASE session strategy (auth.ts). An edge
+ *    NextAuth() handler defaults to JWT, fails to decode the database session cookie and wipes it
+ *    with `Set-Cookie: ...; Max-Age=0`, which once broke magic-link sign-in. Real auth enforcement
+ *    lives in Server Components and Server Actions via auth() from auth.ts.
  *
- * This middleware never provided functional value: its edge `authorized()` callback
- * always returned true (no route locking). Real auth enforcement lives in Server
- * Components / Server Actions via auth() from auth.ts (Node.js runtime, database
- * strategy). So we make the middleware a clean pass-through that touches no cookies.
+ * 2. Our own visit counting, way C (lib/metrics/core.ts): when the server is asked for a page, it
+ *    adds one to that page's daily total (people and robots apart). It runs in Node so it can write
+ *    to the database, and it writes after the page has gone, so a page is never slowed.
  */
-import { NextResponse } from 'next/server'
+import { NextResponse, type NextRequest } from 'next/server'
+import { metricsOpen, sortRequest, countedPath, countedReferrer, countLater } from '@/lib/metrics/core'
 
-export function middleware() {
+export function middleware(req: NextRequest) {
+  if (metricsOpen()) {
+    const path = countedPath(req.nextUrl.pathname)
+    if (path) {
+      const sorted = sortRequest(req.method, req.headers)
+      countLater(sorted, path, countedReferrer(req.headers.get('referer'), req.headers.get('host')))
+    }
+  }
   return NextResponse.next()
 }
 
 export const config = {
-  matcher: [
-    '/auth/:path*',
-    '/community/:path*',
-  ],
+  runtime: 'nodejs',
+  // Every page; not the framework's files, the API, or anything with a file extension.
+  matcher: ['/((?!_next/|api/|.*\\.[A-Za-z0-9]+$).*)'],
 }

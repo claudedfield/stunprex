@@ -8,7 +8,6 @@
  */
 import { useState, useTransition } from 'react'
 import { completeOnboarding } from '@/lib/community/actions'
-import { trackSignupCompleted } from '@/lib/analytics/events'
 import { TERMS_VERSION_LABEL } from '@/lib/legal'
 
 export default function WelcomeForm() {
@@ -20,9 +19,6 @@ export default function WelcomeForm() {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const fd = new FormData(e.currentTarget)
-    // Fired on submit, not after the server action: completeOnboarding() ends in a
-    // redirect(), which throws by design and would skip any code placed after the await.
-    trackSignupCompleted()
     startTransition(async () => {
       const r = await completeOnboarding(fd)
       if (r && !r.success) setError(r.error)

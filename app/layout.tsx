@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Mate, Play, Dosis, Noto_Sans } from 'next/font/google';
 import './globals.css';
-import { Measurement } from '@/components/Measurement';
 
 // StunpreX visual identity — Blueprint v2.1 §7.
 // Headings — Mate
@@ -115,8 +114,6 @@ export default function RootLayout({
           Skip to content
         </a>
         {children}
-        {/* D-WEB-31: our own page-view counter; no cookie, no other host. */}
-        <Measurement />
       </body>
     </html>
   );

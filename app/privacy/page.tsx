@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <LegalPage title="Privacy Policy" lastUpdated="2026-10-04">
+    <LegalPage title="Privacy Policy" lastUpdated="2026-10-21">
       <p>
         <strong>Controller:</strong> DField Kft., 2120 Dunakeszi, Torony köz 5. 1. ajtó,
         Hungary · <a href="mailto:hello@stunprex.com">hello@stunprex.com</a>.
@@ -30,8 +30,14 @@ export default function Page() {
         </li>
         <li>
           <strong>Basic technical/usage data</strong>: standard server logs, to keep the site
-          secure and working. We use no analytics or tracking at present. <strong>Legal basis:</strong> legitimate interest
-          (Art. 6(1)(f)).
+          secure and working. <strong>Legal basis:</strong> legitimate interest (Art. 6(1)(f)).
+        </li>
+        <li>
+          <strong>Counting visits</strong>: when our server sends you a page, it adds one to that
+          page&rsquo;s total for the day and, if your browser tells it which site you came from, one to
+          that site&rsquo;s total, by its name only. The totals contain nothing about you, and nothing
+          is sent from your device for this. We also keep one number per community question: how many times it has
+          been opened. It is a count on the question, not a record of who opened it.
         </li>
         <li>
           We do <strong>not</strong> sell personal data, and we do not run advertising

@@ -3,12 +3,12 @@ import { LegalPage } from '@/components/LegalPage';
 export const metadata = {
   title: 'Cookie Policy',
   description:
-    'StunpreX keeps cookies to the minimum needed to run the site, and uses no analytics or tracking at present.',
+    'StunpreX keeps cookies to the minimum needed to run the site. Visits are counted on our own server, with nothing on your device.',
 };
 
 export default function Page() {
   return (
-    <LegalPage title="Cookie Policy" lastUpdated="2026-09-28">
+    <LegalPage title="Cookie Policy" lastUpdated="2026-10-21">
       <p>We keep cookies to the minimum needed to run the site.</p>
 
       <ul>
@@ -21,7 +21,8 @@ export default function Page() {
           local storage. It stays on your device and is never sent to us.
         </li>
         <li>
-          <strong>Analytics</strong>: We use no analytics or tracking at present.
+          <strong>Analytics</strong>: nothing on your device. Our server counts the pages it serves, as
+          totals.
         </li>
       </ul>
 
