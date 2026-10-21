@@ -25,6 +25,14 @@ export default function Page() {
           individual. We make no promise of athletic results, selection, or performance.
         </li>
         <li>
+          <strong>How an account is made.</strong> You enter your email address and type the code
+          we email you, or press the link in that email; or you press &ldquo;Continue with
+          Google&rdquo; and sign in on Google&rsquo;s page (for an address that is not Gmail or
+          Google Workspace, we also email you a code once). On the next page you confirm that you
+          accept these terms and that you meet the age rule. The account agreement is made when you
+          press the button there; until then you can leave at any point.
+        </li>
+        <li>
           <strong>Accounts:</strong> keep your sign-in email secure; you&rsquo;re responsible
           for activity under your account. You may create an account if you are 16 or older; a
           parent or guardian may use their own account to seek guidance about a younger player,

@@ -24,6 +24,15 @@ export default function Page() {
           performance of the service (Art. 6(1)(b)) for authentication.
         </li>
         <li>
+          <strong>Sign-in with Google</strong> is optional. We store your email address and a
+          Google account identifier to recognise your StunpreX account. We do not store your Google
+          profile name or picture. Authentication tokens are processed during sign-in but are not
+          retained in our account database. We do not request access to your Gmail messages,
+          contacts or Google Drive files. Google (Google Ireland Limited, Dublin) processes the
+          sign-in under its own <a href="https://policies.google.com/privacy">privacy policy</a>. We keep the link to your Google account while your account is
+          open. <strong>Legal basis:</strong> performance of the service (Art. 6(1)(b) GDPR).
+        </li>
+        <li>
           <strong>Account data</strong>: if you create an account (email, your display name
           and profile, and your questions, answers and comments). <strong>Legal basis:</strong>{' '}
           performance of the service.
@@ -50,6 +59,10 @@ export default function Page() {
         <li>
           Hostinger International Ltd. (our server in the Netherlands, which holds the website and
           its database; sign-in and newsletter emails; our mailboxes).
+        </li>
+        <li>
+          Google Ireland Limited, only if you choose to sign in with Google; it acts under its own{' '}
+          <a href="https://policies.google.com/privacy">privacy policy</a>, not on our behalf.
         </li>
       </ul>
 

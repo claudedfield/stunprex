@@ -7,7 +7,11 @@
  * Google's tokens are not stored: we need Google once, at sign-in, and never call it afterwards.
  *
  * It is on where both values are set and GOOGLE_SIGNIN_OPEN=1, and on staging for the tests.
- * Production stays closed until Legal's sentence naming Google is on /privacy.
+ *
+ * Which Google sign-ins are one click (Legal's rule C1, revision 3 section 1): only where Google is
+ * the authority for the address, a verified @gmail.com address or a verified Google Workspace
+ * account (`hd` set). Any other address Google holds is checked once by the code we email to it,
+ * before it is linked to an account or opens one; from then on the link stands.
  */
 export const googleSignInOpen = () =>
   Boolean(process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET) &&
@@ -30,4 +34,14 @@ export function withoutTokens<T extends Record<string, unknown>>(account: T): T 
     session_state: undefined,
     token_type: undefined,
   }
+}
+
+export type GoogleTrust = 'one-click' | 'confirm' | 'refuse'
+
+/** What a Google sign-in may do, from Google's own profile (`email_verified`, `hd`). */
+export function googleTrust(p: { email?: string; email_verified?: boolean; hd?: string } | undefined): GoogleTrust {
+  const email = (p?.email ?? '').toLowerCase()
+  if (!email || p?.email_verified !== true) return 'refuse'
+  if (email.endsWith('@gmail.com') || (typeof p.hd === 'string' && p.hd !== '')) return 'one-click'
+  return 'confirm'
 }

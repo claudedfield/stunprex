@@ -5,6 +5,7 @@
  */
 import { useState, useTransition } from 'react'
 import { signInWithMagicLink } from '@/lib/community/actions'
+import { KEEP_BOX_ID } from '@/lib/auth/session-constants'
 import { BotTrap, SignInCodeStep } from '@/components/auth/SignInCodeStep'
 
 export default function SignInForm() {
@@ -18,6 +19,8 @@ export default function SignInForm() {
     const fd = new FormData()
     fd.append('email', email)
     fd.append('website', website)
+    // The "Keep me signed in" box above both ways to sign in (components/auth/KeepSignedIn.tsx).
+    if ((document.getElementById(KEEP_BOX_ID) as HTMLInputElement | null)?.checked) fd.append('keep', '1')
     // Where to land after signing in (?next=), checked on the server.
     fd.append('next', new URLSearchParams(window.location.search).get('next') ?? '')
     startTransition(async () => {

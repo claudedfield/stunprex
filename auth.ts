@@ -18,7 +18,11 @@ import type { NextAuthConfig } from 'next-auth'
 import Email from 'next-auth/providers/email'
 import Google from 'next-auth/providers/google'
 import type { Adapter } from 'next-auth/adapters'
-import { googleSignInOpen, googleProfile, withoutTokens } from '@/lib/auth/google'
+import { googleSignInOpen, googleProfile, withoutTokens, googleTrust } from '@/lib/auth/google'
+import { holdGoogleSignIn, googleLinked, linkHeldGoogle } from '@/lib/auth/google-confirm'
+import { readSignInChoice, KEEP_SECONDS, SHORT_SECONDS } from '@/lib/auth/session-choice'
+import { cookies } from 'next/headers'
+import { sql } from '@/db'
 import { MAGIC_LINK_MAX_AGE_SECONDS } from './lib/auth-constants'
 import PostgresAdapter from '@auth/pg-adapter'
 import { db } from '@/db'
@@ -29,10 +33,27 @@ import { redactError } from '@/lib/log-redact'
 import { TERMS_VERSION } from './lib/legal'
 
 // Google's tokens are dropped before the provider link is stored (lib/auth/google.ts).
+// The session's length follows the choice made on the sign-in page (lib/auth/session-choice.ts):
+// 30 days with the box ticked, 24 hours from sign-in without it, and only a ticked session is
+// extended while it is used.
 const baseAdapter = PostgresAdapter(db)
 const adapter: Adapter = {
   ...baseAdapter,
   linkAccount: (account) => baseAdapter.linkAccount!(withoutTokens(account)),
+  createSession: async (session) => {
+    const keep = (await readSignInChoice())?.keep ?? false
+    const expires = new Date(Date.now() + (keep ? KEEP_SECONDS : SHORT_SECONDS) * 1000)
+    const made = await baseAdapter.createSession!({ ...session, expires })
+    await sql`UPDATE sessions SET keep = ${keep} WHERE "sessionToken" = ${session.sessionToken}`
+    return made
+  },
+  updateSession: async ({ sessionToken, expires }) => {
+    if (!expires) return null
+    const { rows } = await sql<{ sessionToken: string; userId: string; expires: Date }>`
+      UPDATE sessions SET expires = ${expires} WHERE "sessionToken" = ${sessionToken} AND keep
+      RETURNING "sessionToken", "userId", expires`
+    return rows[0] ?? null
+  },
 }
 
 export const authConfig: NextAuthConfig = {
@@ -77,17 +98,31 @@ export const authConfig: NextAuthConfig = {
           authorization: { params: { scope: 'openid email', prompt: 'select_account' } },
           profile: googleProfile,
           // A member who signed up by email and then chooses Google with the same address gets one
-          // account, not a refusal. Safe here because Google proves the address (checked below).
+          // account, not a refusal. Allowed only behind the rule in the signIn callback below:
+          // Gmail and Workspace addresses at once, any other address after our emailed code.
           allowDangerousEmailAccountLinking: true,
         })]
       : []),
   ],
 
   callbacks: {
-    /** Google: only an address Google has verified, and only while Google sign-in is open. */
+    /**
+     * Google (C1): one click for a verified Gmail or Workspace address, or for a Google account
+     * already linked to ours. Any other verified address is held, and the browser is sent to
+     * /auth/google-confirm to type the code we email to it; nothing is linked or opened before that.
+     */
     async signIn({ account, profile }) {
       if (account?.provider !== 'google') return true
-      return googleSignInOpen() && (profile as { email_verified?: boolean } | undefined)?.email_verified === true
+      if (!googleSignInOpen()) return false
+      const p = profile as { email?: string; email_verified?: boolean; hd?: string } | undefined
+      const trust = googleTrust(p)
+      if (trust === 'refuse') return false
+      if (trust === 'one-click' || (await googleLinked(account.providerAccountId))) return true
+      const jar = await cookies()
+      const next = jar.get('__Secure-authjs.callback-url')?.value ?? jar.get('authjs.callback-url')?.value
+      let nextPath: string | undefined
+      try { nextPath = next ? new URL(next, 'https://stunprex.com').pathname : undefined } catch { nextPath = undefined }
+      return (await holdGoogleSignIn(p!.email!, account.providerAccountId, nextPath)) ? '/auth/google-confirm' : '/signin?error=google'
     },
 
     /**
@@ -109,6 +144,14 @@ export const authConfig: NextAuthConfig = {
           profile.terms_version === TERMS_VERSION && profile.age_confirmed_at != null
       }
       return session
+    },
+  },
+
+  events: {
+    /** An email sign-in finishes a Google sign-in this browser was holding for the same address. */
+    async signIn({ user, account }) {
+      if (account?.provider !== 'email' || !user?.id || !user.email) return
+      await linkHeldGoogle(user.id, user.email, async (a) => { await adapter.linkAccount!(a) })
     },
   },
 
