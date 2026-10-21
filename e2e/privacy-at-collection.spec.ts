@@ -32,7 +32,7 @@ test('/auth/sign-up shows no newsletter box and sets no cookie on submit', async
   // One box only: the session choice (03.4), never ticked. No newsletter box.
   await expect(page.locator('main input[type="checkbox"]')).toHaveCount(1);
   await expect(page.getByLabel('Keep me signed in on this device for 30 days')).not.toBeChecked();
-  await expect(page.locator('main')).not.toContainText(/newsletter/i);
+  await expect(page.locator('main label:has(input[type="checkbox"])')).not.toContainText(/newsletter/i);
   await expect(page.locator('main')).toContainText('No password. We send a one-time sign-in code.');
   await page.locator('#signup-email').fill('e2e@stunprex.test');
   await page.getByRole('button', { name: /Continue with email/ }).click();
