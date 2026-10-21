@@ -15,8 +15,8 @@ const LEGAL_ROUTES = ['/imprint', '/privacy', '/cookies', '/terms'] as const;
 // changed /privacy on 4 Oct; the registering court on /imprint was corrected on 6 Oct (D-LEGAL-14).
 const LAST_UPDATED: Record<(typeof LEGAL_ROUTES)[number], string> = {
   '/imprint': '2026-10-06',
-  '/privacy': '2026-10-04',
-  '/cookies': '2026-09-28',
+  '/privacy': '2026-10-21',
+  '/cookies': '2026-10-21',
   '/terms': '2026-09-24',
 };
 
@@ -83,10 +83,14 @@ test('/privacy names the controller, sub-processors and GDPR rights', async ({ p
   await expect(page.locator('a[href="mailto:hello@stunprex.com"]').first()).toBeVisible();
 });
 
-test('/cookies says the site uses no analytics or tracking (LEGAL-00)', async ({ page }) => {
+test('/cookies and /privacy describe counting as the server\'s, with nothing on the device (way C, OT-138)', async ({ page }) => {
+  await page.goto('/privacy');
+  await expect(page.locator('main')).toContainText('When our server sends you a page, it adds one to that');
+  await expect(page.locator('main')).not.toContainText('We use no analytics or tracking at present.');
   await page.goto('/cookies');
   const main = page.locator('main');
-  await expect(main).toContainText('We use no analytics or tracking at present.');
+  await expect(main).toContainText('Our server counts the pages it serves, as');
+  await expect(main).not.toContainText('We use no analytics or tracking at present.');
   await expect(main).not.toContainText(/cookieless/i);
   // LEGAL-00b: no preference is stored; only game scores, in local storage.
   await expect(main).toContainText('each game keeps your best score in your browser');
@@ -126,7 +130,7 @@ test('no cookie-consent banner on any legal page, and no cookies are set', async
     }
   }
 
-  // /cookies says the site uses no analytics or tracking. Hold the page to that claim:
+  // /cookies says counting puts nothing on the device. Hold the page to that claim:
   // a first-party tracking cookie here would make the published policy false.
   const cookies = await context.cookies();
   const tracking = cookies.filter((c) => !/^__Host-|^__Secure-|authjs|csrf/i.test(c.name));
