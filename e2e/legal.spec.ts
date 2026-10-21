@@ -85,7 +85,7 @@ test('/privacy names the controller, sub-processors and GDPR rights', async ({ p
 
 test('/cookies and /privacy describe counting as the server\'s, with nothing on the device (way C, OT-138)', async ({ page }) => {
   await page.goto('/privacy');
-  await expect(page.locator('main')).toContainText('When our server sends you a page, it adds one to that');
+  await expect(page.locator('main')).toContainText('when our server sends you a page, it adds one to that');
   await expect(page.locator('main')).not.toContainText('We use no analytics or tracking at present.');
   await page.goto('/cookies');
   const main = page.locator('main');
