@@ -18,7 +18,7 @@ import pg from 'pg'
 import { listIssues } from '../lib/newsletter/issues.mjs'
 import { sendPreview, sendList, ensureIssueRow, issueCounts } from '../lib/newsletter/send.mjs'
 import { cleanup } from '../lib/newsletter/cleanup.mjs'
-import { cleanupUnfinishedAccounts, countUnfinishedDue, cleanupSignInCodes, cleanupMetricCodes } from '../lib/accounts/cleanup.mjs'
+import { cleanupUnfinishedAccounts, countUnfinishedDue, cleanupSignInCodes, cleanupMetricCodes, cleanupGooglePending } from '../lib/accounts/cleanup.mjs'
 
 if (process.argv[2] === 'cleanup') {
   const pool = new pg.Pool({ connectionString: process.env.POSTGRES_URL, max: 1 })
@@ -29,7 +29,9 @@ if (process.argv[2] === 'cleanup') {
     const c = await cleanupSignInCodes((text, values) => pool.query(text, values))
     console.log(`${new Date().toISOString()} sign-in clean-up: ${c.signin_codes_deleted} sign-in code row(s) older than 24 hours deleted`)
     const v = await cleanupMetricCodes((text, values) => pool.query(text, values))
-    console.log(`${new Date().toISOString()} metrics clean-up: ${v.metric_codes_deleted} visitor code(s) of an earlier month deleted`)
+    console.log(`${new Date().toISOString()} metrics clean-up: ${v.metric_codes_deleted} old visitor code(s) deleted`)
+    const g = await cleanupGooglePending((text, values) => pool.query(text, values))
+    console.log(`${new Date().toISOString()} google clean-up: ${g.google_pending_deleted} held Google sign-in(s) older than an hour deleted`)
     // It deletes only where ACCOUNT_CLEANUP_OPEN=1. Until the owner's blank start (his word, 6 Oct:
     // the nine old accounts go when the new sign-in is ready) production only counts what is due.
     if (process.env.ACCOUNT_CLEANUP_OPEN === '1') {

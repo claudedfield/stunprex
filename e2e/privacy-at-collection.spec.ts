@@ -29,12 +29,15 @@ test('/auth/sign-up shows no newsletter box and sets no cookie on submit', async
   await page.route('**/*', (route) =>
     route.request().method() === 'POST' && route.request().headers()['next-action'] ? route.abort() : route.continue());
   await page.goto('/auth/sign-up');
-  await expect(page.locator('main input[type="checkbox"]')).toHaveCount(0);
+  // One box only: the session choice (03.4), never ticked. No newsletter box.
+  await expect(page.locator('main input[type="checkbox"]')).toHaveCount(1);
+  await expect(page.getByLabel('Keep me signed in on this device for 30 days')).not.toBeChecked();
+  await expect(page.locator('main label:has(input[type="checkbox"])')).not.toContainText(/newsletter/i);
   await expect(page.locator('main')).toContainText('No password. We send a one-time sign-in code.');
   await page.locator('#signup-email').fill('e2e@stunprex.test');
   await page.getByRole('button', { name: /Continue with email/ }).click();
   await page.waitForTimeout(500);
   const names = (await context.cookies()).map((c) => c.name);
-  expect(names.filter((n) => !/authjs/i.test(n)), 'no cookie other than the sign-in system').toEqual([]);
+  expect(names.filter((n) => !/authjs|^sx-signin$/i.test(n)), 'no cookie other than the sign-in system').toEqual([]);
   expect(names).not.toContain('signup_newsletter');
 });

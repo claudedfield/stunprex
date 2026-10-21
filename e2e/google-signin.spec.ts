@@ -20,10 +20,11 @@ test("Google's tokens are not stored with the account link", () => {
     .toEqual(['provider', 'providerAccountId', 'type', 'userId']);
 });
 
-test('on production the Google button stays hidden until it is opened', async ({ page }) => {
+test('on production Google is offered, with the session box above it (opened 21 Oct 2026, C1 to C5)', async ({ page }) => {
   test.skip(host !== 'stunprex.com', 'production only');
   await page.goto('/signin');
-  await expect(page.locator('[data-google-signin]')).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Continue with Google' })).toBeVisible();
+  await expect(page.getByLabel('Keep me signed in on this device for 30 days')).not.toBeChecked();
 });
 
 test.describe('on staging', () => {

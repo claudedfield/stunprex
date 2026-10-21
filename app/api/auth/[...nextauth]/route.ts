@@ -4,8 +4,11 @@
  * Handles: sign-in, sign-out, session, CSRF, callbacks, and providers.
  */
 import { handlers } from '@/auth'
+import { withSessionChoice } from '@/lib/auth/session-choice'
 
 // Never statically pre-render — auth routes must always be dynamic.
 export const dynamic = 'force-dynamic'
 
-export const { GET, POST } = handlers
+// The sign-in cookie of a session without "Keep me signed in" ends with the browser (03.4).
+export const GET = withSessionChoice(handlers.GET)
+export const POST = withSessionChoice(handlers.POST)

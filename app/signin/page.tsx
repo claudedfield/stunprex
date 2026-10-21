@@ -11,6 +11,7 @@ import { auth } from '@/auth'
 import { safeNext } from '@/lib/auth/next'
 import { SignedInNotice } from '@/components/SignedInNotice'
 import { GoogleButton } from '@/components/auth/GoogleButton'
+import { KeepSignedIn } from '@/components/auth/KeepSignedIn'
 
 export const metadata: Metadata = {
   title: { absolute: 'Sign in · StunpreX' },
@@ -18,14 +19,18 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
-export default async function SignInPage({ searchParams }: { searchParams: Promise<{ next?: string }> }) {
+export default async function SignInPage({ searchParams }: { searchParams: Promise<{ next?: string; error?: string }> }) {
   // A signed-in visitor sees who they are and what they can do, not the form and not a silent
   // redirect (owner report, 4 Oct 2026).
   const session = await auth()
   const signedInAs = session?.user?.id
     ? ((session.user as { display_name?: string }).display_name ?? 'a member')
     : null
-  const next = safeNext((await searchParams).next)
+  const params = await searchParams
+  const next = safeNext(params.next)
+  // Auth.js sends a sign-in that did not finish back here with ?error= (a Google sign-in refused,
+  // or its step expired). Its code is not shown; one plain sentence is.
+  const failed = Boolean(params.error) && !signedInAs
   return (
     <>
       <Header />
@@ -43,7 +48,12 @@ export default async function SignInPage({ searchParams }: { searchParams: Promi
               No password required.
             </p>
           </div>
-          {signedInAs ? <SignedInNotice name={signedInAs} next={next} /> : <><GoogleButton next={next} /><SignInForm /></>}
+          {failed && (
+            <p role="alert" className="mb-5 rounded border border-orange/30 bg-white px-4 py-3 font-body text-sm text-brown" data-signin-error>
+              That sign-in did not finish. Please try again, or sign in with a code sent to your email.
+            </p>
+          )}
+          {signedInAs ? <SignedInNotice name={signedInAs} next={next} /> : <><KeepSignedIn /><GoogleButton next={next} /><SignInForm /></>}
         </div>
       </main>
       <Footer />

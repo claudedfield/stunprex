@@ -18,6 +18,8 @@ import { redactError } from '@/lib/log-redact'
 import { TERMS_VERSION } from '@/lib/legal'
 import { safeNext } from '@/lib/auth/next'
 import { limitReason, clientIp, redeemCode, LIMIT_MESSAGE } from '@/lib/auth/signin-code'
+import { setSignInChoice } from '@/lib/auth/session-choice'
+import { heldGoogleSignIn } from '@/lib/auth/google-confirm'
 
 // ─── Shared result type ───────────────────────────────────────────────────────
 
@@ -159,6 +161,8 @@ export async function signInWithMagicLink(
   try {
     const reason = await limitReason(email, clientIp(await headers()))
     if (reason) return { success: false, error: LIMIT_MESSAGE[reason] }
+    // "Keep me signed in on this device for 30 days" (03.4); not ticked unless the person ticked it.
+    await setSignInChoice(formData.get('keep') === '1')
     // After signing in, land on the page asked for or the community: never back on the sign-in form.
     await signIn('email', { email, redirect: false, redirectTo: safeNext(formData.get('next')) })
     return sent
@@ -186,9 +190,32 @@ export async function signInWithCode(formData: FormData): Promise<ActionResult<{
   }
 }
 
-/** Sign in with Google (lib/auth/google.ts). Auth.js sends the browser to Google and back. */
+/**
+ * Sign in with Google (lib/auth/google.ts). Auth.js sends the browser to Google and back. The
+ * session choice travels with it (03.4), and so does the value that ties a held sign-in to this
+ * browser (C1).
+ */
 export async function signInWithGoogle(formData: FormData): Promise<void> {
+  await setSignInChoice(formData.get('keep') === '1')
   await signIn('google', { redirectTo: safeNext(formData.get('next')) })
+}
+
+/**
+ * C1: email the code that confirms the address of a Google sign-in this browser is holding. The
+ * session choice made before going to Google is kept (the sign-in cookie is not replaced).
+ */
+export async function sendGoogleConfirmCode(): Promise<ActionResult<{ email: string; message: string }>> {
+  const held = await heldGoogleSignIn()
+  if (!held) return { success: false, error: 'This step has expired. Please start again from the sign-in page.' }
+  try {
+    const reason = await limitReason(held.email, clientIp(await headers()))
+    if (reason) return { success: false, error: LIMIT_MESSAGE[reason] }
+    await signIn('email', { email: held.email, redirect: false, redirectTo: held.next })
+    return { success: true, data: { email: held.email, message: "Check your email: we've sent you a six-digit code." } }
+  } catch (err) {
+    console.error('[sendGoogleConfirmCode]', redactError(err))
+    return { success: false, error: 'Could not send the code. Please try again.' }
+  }
 }
 
 /** Sign out the current user and redirect to home. */

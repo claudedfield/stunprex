@@ -9,7 +9,7 @@ export function GoogleButton({ next }: { next: string }) {
   if (!googleSignInOpen()) return null
   return (
     <div className="mb-5" data-google-signin>
-      <form action={signInWithGoogle}>
+      <form id="google-signin" action={signInWithGoogle}>
         <input type="hidden" name="next" value={next} />
         <button
           type="submit"
