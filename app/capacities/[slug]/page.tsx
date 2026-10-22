@@ -56,11 +56,7 @@ const CAPACITY_DESCRIPTION: Record<CapacityFamily, string> = {
 // Curated related reading per capacity family: essays + Pro Breakdowns that
 // develop or illustrate this capacity. Keeps the topic cluster interlinked.
 const RELATED_READING: Record<string, { href: string; label: string }[]> = {
-  perceptual: [
-    { href: '/blog/perceptual-capacity', label: 'Perceptual capacity: what the game asks you to see' },
-  ],
   cognitive: [
-    { href: '/blog/cognitive-capacity', label: 'The cognitive capacity: how players think in football' },
     { href: '/blog/how-to-dribble-in-tight-spaces', label: 'How to dribble in tight spaces: the 1v1 commit window' },
   ],
   motor: [

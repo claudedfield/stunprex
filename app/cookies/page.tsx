@@ -14,7 +14,8 @@ export default function Page() {
       <ul>
         <li>
           <strong>Essential cookies</strong>: signing in sets cookies that keep you signed in and
-          protect the sign-in form. If you choose Google, one more security cookie lasts at most 15
+          protect the sign-in form, and a short cookie, kept at most 15 minutes, that carries your
+          choice below to the end of the sign-in. If you choose Google, one more security cookie lasts at most 15
           minutes, while you go to Google&rsquo;s page and back. These are needed for the sign-in you
           asked for. If you select &ldquo;Keep me signed in on this device for 30 days&rdquo;, we
           keep your sign-in cookie for that period. Otherwise, it is a session cookie, which your

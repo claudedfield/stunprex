@@ -17,6 +17,11 @@ const nextConfig = {
       // post's reader goes to the perceptual reference page.
       { source: '/blog/rodri-spatial-intelligence', destination: '/blog', permanent: false },
       { source: '/blog/scanning-while-dribbling', destination: '/capacities/perceptual', permanent: true },
+      // QUALITY-0019 (f): the June capacity essays gave way to the capacity pages (21 Oct 2026).
+      { source: '/blog/perceptual-capacity', destination: '/capacities/perceptual', permanent: true },
+      { source: '/blog/cognitive-capacity', destination: '/capacities/cognitive', permanent: true },
+      // The journal's page comes with J1; until then /journal leads to the drills (temporary).
+      { source: '/journal', destination: '/training', permanent: false },
     ];
   },
 };

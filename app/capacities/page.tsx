@@ -29,14 +29,12 @@ const FAMILIES: Family[] = [
     slug: 'perceptual',
     blurb:
       'Scanning, spatial awareness, pattern recognition, anticipation: what the player reads from the environment before and during ball contact.',
-    essay: { href: '/blog/perceptual-capacity', label: 'Read the Perceptual capacity essay' },
   },
   {
     name: 'Cognitive',
     slug: 'cognitive',
     blurb:
       'Decision-making, working memory, attention management, inhibition: the mental work that happens in the half-second before the touch.',
-    essay: { href: '/blog/cognitive-capacity', label: 'Read the Cognitive capacity essay' },
   },
   {
     name: 'Motor',
