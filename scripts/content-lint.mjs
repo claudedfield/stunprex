@@ -29,6 +29,23 @@ const emDashFlag = process.argv.indexOf('--em-dash');
 const EM_DASH_BASELINE = JSON.parse(fs.readFileSync(path.join(path.dirname(new URL(import.meta.url).pathname), 'em-dash-baseline.json'), 'utf8'));
 const pagesFlag = process.argv.indexOf('--pages');
 const FIXTURE = flag > -1 || uiFlag > -1 || pagesFlag > -1;
+
+// --lower-baseline: set each page's em-dash allowance down to what the page now holds, and drop a
+// page that no longer exists. It never raises a number. A content change that removes dashes runs it
+// so the baseline follows in the same change (dispatched runs may not edit scripts/; owner, 22 Oct).
+if (process.argv.includes('--lower-baseline')) {
+  const file = path.join(path.dirname(new URL(import.meta.url).pathname), 'em-dash-baseline.json');
+  const next = {};
+  for (const [key, allowed] of Object.entries(EM_DASH_BASELINE)) {
+    const full = path.join(REPO, 'content', key);
+    if (!fs.existsSync(full)) { console.log(`[em-dash baseline] ${key}: removed, the page is gone`); continue; }
+    const found = (fs.readFileSync(full, 'utf8').match(/\u2014/g) ?? []).length;
+    next[key] = Math.min(allowed, found);
+    if (found < allowed) console.log(`[em-dash baseline] ${key}: ${allowed} -> ${found}`);
+  }
+  fs.writeFileSync(file, `{\n${Object.entries(next).map(([k, v]) => `${JSON.stringify(k)}: ${v}`).join(',\n')}\n}\n`);
+  process.exit(0);
+}
 const DIRS =
   flag > -1
     ? [path.resolve(process.argv[flag + 1])]
