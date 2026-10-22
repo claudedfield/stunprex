@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Copy the review bar's notes from the test site into Q1_Status/review_notes.md (OT-063), newest
- * first, for the COO and the Assistant. Reads the staging login and the test secret from .env.local;
+ * first, for the COO and the Assistant. Reads the staging login from .env.local;
  * prints only counts. Run from the site folder: node scripts/review_notes.mjs
  */
 import fs from 'node:fs'
@@ -13,7 +13,7 @@ const env = Object.fromEntries(
     .filter((l) => /^[A-Z0-9_]+=/.test(l)).map((l) => { const i = l.indexOf('='); return [l.slice(0, i), l.slice(i + 1).replace(/^"|"$/g, '')] }),
 )
 const res = await fetch('https://staging.stunprex.com/api/review/notes', {
-  headers: { authorization: `Basic ${Buffer.from(env.E2E_STAGING_AUTH ?? '').toString('base64')}`, 'x-e2e-secret': env.E2E_SIGNIN_SECRET ?? '' },
+  headers: { authorization: `Basic ${Buffer.from(env.E2E_STAGING_AUTH ?? '').toString('base64')}` },
 })
 if (!res.ok) { console.error(`review notes: the test site answered ${res.status}`); process.exit(1) }
 const { notes } = await res.json()
