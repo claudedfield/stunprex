@@ -13,17 +13,18 @@ import path from 'node:path';
 import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { mdxComponents } from '@/components/blog/MdxComponents';
+import { ReviewBar } from '@/components/review/ReviewBar';
 
 /**
  * A family's reference text, where the Writer has one (content/pages/capacities/<slug>.mdx, built
  * by scripts/sync-reference.mjs from the text of record). It takes the page's title and stands
  * above the drill list; a family without one keeps its one-sentence description.
  */
-function referenceText(slug: string): { title: string; body: string } | null {
+function referenceText(slug: string): { title: string; body: string; review?: string } | null {
   const file = path.join(process.cwd(), 'content', 'pages', 'capacities', `${slug}.mdx`);
   if (!fs.existsSync(file)) return null;
   const { data, content } = matter(fs.readFileSync(file, 'utf8'));
-  return { title: String(data.title), body: content };
+  return { title: String(data.title), body: content, review: typeof data.review === 'string' ? data.review : undefined };
 }
 
 // Map lowercase slug → CapacityFamily display name
@@ -225,6 +226,7 @@ export default async function CapacityPage({ params }: Props) {
         </section>
 
       </main>
+      {reference?.review === 'pending' && <ReviewBar />}
       <Footer />
     </>
   );
