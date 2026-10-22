@@ -38,13 +38,25 @@ export default function Page() {
           performance of the service.
         </li>
         <li>
+          <strong>Reports</strong> (our report form at stunprex.com/report, open to anyone): what you
+          report and why; your name and email address if you give them, used only to answer you about
+          the report; and our decision with its reasons. <strong>Legal basis:</strong> our duties under
+          the EU Digital Services Act to handle reports of illegal content and give reasons (Art.
+          6(1)(c) GDPR); otherwise our legitimate interest in a safe and lawful community (Art.
+          6(1)(f)). We keep a reporter&rsquo;s identity confidential and do not tell a reported person
+          who reported them, unless the law requires us to in a particular case.
+        </li>
+        <li>
           <strong>Basic technical/usage data</strong>: standard server logs, to keep the site
           secure and working. <strong>Legal basis:</strong> legitimate interest (Art. 6(1)(f)).
         </li>
         <li>
           <strong>Counting visits</strong>: when our server sends you a page, it adds one to that
           page&rsquo;s total for the day and, if your browser tells it which site you came from, one to
-          that site&rsquo;s total, by its name only. The totals contain nothing about you, and nothing
+          that site&rsquo;s total, by its name only. To keep people and automated programs apart, the
+          server looks at the description your browser sends with the request while it sends the
+          page, and does not store it; a visit from a known automated program is added to that
+          program&rsquo;s total, by the program&rsquo;s name, instead. The totals contain nothing about you, and nothing
           is sent from your device for this. We also keep one number per community question: how many times it has
           been opened. It is a count on the question, not a record of who opened it.
         </li>
@@ -58,7 +70,7 @@ export default function Page() {
       <ul>
         <li>
           Hostinger International Ltd. (our server in the Netherlands, which holds the website and
-          its database; sign-in and newsletter emails; our mailboxes).
+          its database; sign-in, report and newsletter emails; our mailboxes).
         </li>
         <li>
           Google Ireland Limited, only if you choose to sign in with Google; it acts under its own{' '}
@@ -74,6 +86,10 @@ export default function Page() {
           that cannot be delivered to is deleted after 90 days.
         </li>
         <li>Account data: until you delete your account.</li>
+        <li>
+          Reports and our decisions: 1 year from the decision, and no longer than 1 year and 3
+          months; longer only while a dispute is open.
+        </li>
         <li>Logs: a limited period for security/diagnostics.</li>
       </ul>
 

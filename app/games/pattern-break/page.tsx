@@ -39,7 +39,7 @@ export default async function Page() {
           }
           related={[
             { href: '/capacities/adaptive', label: 'Adaptive capacity' },
-            { href: '/blog/cognitive-capacity', label: 'The cognitive capacity' },
+            { href: '/capacities/cognitive', label: 'Cognitive capacity' },
             { href: '/games', label: 'More games' },
           ]}
         >

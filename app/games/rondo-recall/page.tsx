@@ -39,7 +39,6 @@ export default async function Page() {
           }
           related={[
             { href: '/capacities/perceptual', label: 'Perceptual capacity' },
-            { href: '/blog/perceptual-capacity', label: 'Perceptual capacity essay' },
             { href: '/games', label: 'More games' },
           ]}
         >
