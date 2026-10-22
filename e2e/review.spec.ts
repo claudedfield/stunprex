@@ -26,7 +26,7 @@ test.describe('on staging', () => {
   test.skip(host !== 'staging.stunprex.com' || !secret, 'staging only');
   test.describe.configure({ mode: 'serial' });
   const notes = (request: import('@playwright/test').APIRequestContext) =>
-    request.get('/api/review/notes', { headers: { 'x-e2e-secret': secret } }).then((r) => r.json());
+    request.get('/api/review/notes').then((r) => r.json());
 
   test('/review lists the page with its question, and /review/posts lists the draft', async ({ page }) => {
     await page.goto('/review');
@@ -62,7 +62,7 @@ test.describe('on staging', () => {
     expect(r.status()).toBe(400);
   });
 
-  test('the notes route does not answer without the secret', async ({ request }) => {
-    expect((await request.get('/api/review/notes')).status()).toBe(404);
+  test('deleting notes needs the secret', async ({ request }) => {
+    expect((await request.delete(`/api/review/notes?path=${encodeURIComponent(FIXTURE)}`)).status()).toBe(404);
   });
 });
