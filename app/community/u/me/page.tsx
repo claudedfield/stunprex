@@ -5,6 +5,8 @@
  * robots: noindex (personal account page).
  */
 import type { Metadata } from 'next'
+import { Header } from '@/components/Header'
+import { Footer } from '@/components/Footer'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { auth } from '@/auth'
@@ -45,6 +47,8 @@ export default async function MyProfilePage() {
   })
 
   return (
+    <>
+    <Header />
     <main id="main-content" className="min-h-screen bg-mint">
       <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
         <header className="mb-8">
@@ -174,5 +178,7 @@ export default async function MyProfilePage() {
         )}
       </div>
     </main>
+    <Footer />
+    </>
   )
 }

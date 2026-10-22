@@ -6,6 +6,8 @@
  * account. Without a token, or after an expired one, it says what to do next.
  */
 import type { Metadata } from 'next'
+import { Header } from '@/components/Header'
+import { Footer } from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: { absolute: 'Sign in · StunpreX' },
@@ -19,6 +21,8 @@ export default async function VerifyPage({ searchParams }: { searchParams: Promi
   const hasToken = typeof token === 'string' && /^[A-Za-z0-9_-]{20,100}$/.test(token)
 
   return (
+    <>
+    <Header />
     <main id="main-content" className="min-h-screen bg-mint flex items-center justify-center px-4 py-16">
       <div className="w-full max-w-md text-center">
         <div className="rounded-lg border border-deepblue/20 bg-white p-8">
@@ -65,5 +69,7 @@ export default async function VerifyPage({ searchParams }: { searchParams: Promi
         </a>
       </div>
     </main>
+    <Footer />
+    </>
   )
 }

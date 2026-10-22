@@ -3,6 +3,8 @@
  * Auth required; ownership or mod/admin role required.
  */
 import type { Metadata } from 'next'
+import { Header } from '@/components/Header'
+import { Footer } from '@/components/Footer'
 import { notFound, redirect } from 'next/navigation'
 import { auth } from '@/auth'
 import { getQuestionBySlug, getAllTags } from '@/lib/community/queries'
@@ -41,6 +43,8 @@ export default async function EditQuestionPage({ params }: EditPageProps) {
   if (!canEdit) redirect(`/community/${slug}`)
 
   return (
+    <>
+    <Header />
     <main id="main-content" className="min-h-screen bg-mint">
       <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
         <header className="mb-8">
@@ -62,5 +66,7 @@ export default async function EditQuestionPage({ params }: EditPageProps) {
         />
       </div>
     </main>
+    <Footer />
+    </>
   )
 }
