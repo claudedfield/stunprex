@@ -2,15 +2,15 @@
 title: "Press-Trigger Read (When the Light Goes Green)"
 slug: "press-trigger-read"
 drillId: "SX-DR-013"
-description: "A small-group pressing drill that trains the read every collective press depends on — recognising the trigger that says 'press now' and calling it so the unit moves together, not the individual who guessed."
+description: "A small-group pressing game for five to eight players: the pressing team waits in a compact shape and each player reads the moment the ball becomes winnable, so the unit presses together when the moment comes and holds when it does not."
 status: "published"
 category: "Defending"
 capacities:
   primary: ["Perceptual", "Cognitive", "Collective"]
   secondary: ["Adaptive", "Affective"]
 ageBand: ["13-16", "17-20"]
-players: "5–8"
-equipment: "6 cones, 2 mini-goals, bibs (two teams), 2–3 balls"
+players: "5 to 8"
+equipment: "4 corner cones, 2 mini-goals, bibs in two colours, 2 or 3 balls"
 difficulty: 4
 maxDifficulty: 5
 codex_release: R1
@@ -20,7 +20,7 @@ diagrams:
   - id: run
     pitch: small
     title: Watch a press
-    caption: 'The press holds a compact shape and waits — then a square pass is the trigger: jump, cut the escapes, win, attack. Loops.'
+    caption: 'The pressing team stays compact and waits; a slow square pass makes the ball winnable, and the nearest player goes while the others cut the escapes. Loops.'
     entities:
       - type: zone
         id: grid
@@ -99,19 +99,19 @@ diagrams:
       loop: true
       steps:
         - duration: 1000
-          caption: Possession keeps the ball; the press stays compact and waits.
+          caption: The team on the ball keeps it; the pressing team stays compact and waits.
           moves:
             - id: O1
               to:
                 x: 185
                 'y': 285
         - duration: 800
-          caption: A slow square pass — the trigger. "Press!"
+          caption: A slow square pass. The ball is winnable.
           moves:
             - id: ball
               to: O2
         - duration: 800
-          caption: Nearest presser attacks the ball; teammates cut the escapes.
+          caption: The nearest player goes to the ball; teammates cut the escapes.
           moves:
             - id: X2
               to:
@@ -122,21 +122,21 @@ diagrams:
                 x: 175
                 'y': 240
         - duration: 900
-          caption: Win it — and attack the goal at once.
+          caption: Won; now the other way.
           moves:
             - id: ball
               to: X2
             - id: ball
               attachedTo: X2
         - duration: 900
-          caption: Break to goal.
+          caption: Dribble over the end line behind the team that had the ball.
           moves:
             - id: X2
               to:
                 x: 135
-                'y': 60
+                'y': 370
         - duration: 900
-          caption: Reset — read the next trigger.
+          caption: Reset; read the next moment.
           moves:
             - id: ball
               to: O1
@@ -150,83 +150,92 @@ diagrams:
                 'y': 235
 ---
 
-## Introduction
+For a coach with five to eight players aged thirteen and over. One small team keeps the ball; the other waits in a compact shape and presses only when the ball becomes winnable. Each pressing player reads that moment themselves, so the press goes together when it is on and holds when it is not.
 
-A press fails for one of two reasons: someone presses when they shouldn't, or nobody presses when they should. Both are reading failures, not effort failures. The player who sprints out of the line on a controlled pass leaves a hole; the unit that stands off a heavy first touch wastes the one moment the ball was winnable. Pressing is, before it is running, a question of *when* — and the answer is a trigger the whole group has to see at once.
+## Quick start
 
-This drill trains the trigger read. The triggers are concrete and nameable: a heavy touch, a backward pass, a pass to a player facing their own goal, a slow ball across the line. The drill makes those triggers appear, asks the players to spot them, and — critically — to *call* them, so the press is a coordinated decision and not a lottery of individual guesses (the scan that spots the trigger is a trainable habit; the decision to press or hold is the ceiling skill here).
+**You need:** 4 corner cones, 2 mini-goals, bibs in two colours, 2 or 3 balls, and an area about 24 m by 20 m.
 
-The press, when it goes, must be more intense than any match demands, so that match pressing feels comfortable (train harder than you play; overdo the complexity). But intensity without the read is just chasing. The read comes first.
-
-## Setup
-
-A compact possession grid with two outlets the pressing team is trying to deny.
+**Set it out:**
 
 ```
    [mini-goal]                 [mini-goal]
-       ▭                           ▭
-   •───────────────────────────────────•
-   |                                    |
-   |     POSSESSION TEAM (3–4)          |
-   |     PRESSING TEAM (3–4)            |
-   |          24m × 20m                 |
-   •───────────────────────────────────•
+   +-----------------------------------+
+   |                                   |
+   |   team on the ball (3 or 4)       |
+   |   pressing team (3 or 4)          |
+   |   about 24 m x 20 m               |
+   +-----------------------------------+
+     end line: the pressing team scores
+     by dribbling over it
 ```
 
-- **Grid:** 24m × 20m, 4 corner cones.
-- **Two mini-goals** at one end, 14m apart — the possession team scores by passing into either through a controlled ball; the pressing team scores by winning the ball and hitting either goal.
-- **Teams:** 3v3 or 4v4. Spare players rotate in every 2 minutes.
-- **Coach** feeds a new ball the instant one goes dead, keeping the tempo high.
+- Two mini-goals at one end, about 14 m apart. The team on the ball scores by passing into either; the pressing team scores by winning the ball and dribbling it over the end line behind the team on the ball. No extra kit. The sizes are suggestions.
+- Teams of 3 or 4; a spare player rotates in every 2 minutes. With five, 3 keep against 2 and swap; with seven, play Level 4's 4v3 from the start.
+- The coach stands at the side with the spare balls.
 
-## Description
+**How it runs:**
 
-**The trigger list (taught before play):**
+1. The team on the ball keeps it and tries to pass into a mini-goal.
+2. The pressing team holds a compact shape and waits. Each player reads for the moment the ball is winnable, and goes when they see it; the nearest teammates go with them to cut the easy passes. Nobody on the pressing team calls the press: each player reads it.
+3. A ball won goes the other way, over the end line. A press on a ball that was not winnable usually leaves an easy way out, and the game shows it.
+4. Play runs until a goal, the ball out, or about 40 seconds; then the coach plays a new ball in.
+5. After the first game, the coach asks the pressing team when the ball was winnable. The players name the moments; the coach adds a missed moment as a question ("what about the ball played back?").
 
-- **Heavy touch** — the ball gets away from the receiver by more than a stride.
-- **Backward / square pass** — the ball travels away from goal or across the line slowly.
-- **Receiver facing their own goal** — the player cannot see forward and must turn.
+**The first block:** games of 2 minutes, then 2 minutes rest; four to six games, swapping roles each game. These numbers are a suggestion: shorten the games if the pressing gets slow.
 
-**One phase of play:**
+**Load:**
 
-1. The possession team keeps the ball and tries to play into a mini-goal.
-2. The pressing team holds a compact shape and **waits** — pressing only when a trigger appears (the compact grid is the constraint that makes the disciplined wait both possible and necessary; in open space the press has nothing to key on).
-3. The first presser to see a trigger **calls it** (*"Now!"* / *"Press!"* / *"Heavy!"*) and attacks the ball; the nearest teammates jump to cut the obvious escape passes (spotting the trigger, choosing the press, and calling it simultaneously is the cognitive load that makes this a hard drill, not a running drill).
-4. If the press wins the ball, they attack the mini-goals immediately. If the trigger was misread (the presser jumped on a controlled ball), the possession team will have an easy out — and that is the teaching.
-5. Play continues until a goal, a ball out, or 40 seconds; then reset.
+- The press is a short, hard effort over and over. Rest between games is kept for every band; nobody plays on tired to make it harder. Stop the session when the pressing gets slower and sloppier, and never use extra running as a punishment.
+- Tackles are for the ball, from the side or the front, never into the back. Split teams by size and maturity, not by age or level alone.
+- Stop at once on pain, illness, dizziness or a movement that is breaking down; nobody plays through it, and nobody is pushed to.
 
-The pressing team's measure is **triggers correctly read** — how often they pressed on a real trigger and held on a false one. Counting clean presses, not just balls won, keeps the focus on the read.
+**One thing to think about:** wait, see it, go together.
 
-## Progressions
+**Easier or harder:** easier, the team on the ball plays one fewer. Harder, see the levels below.
 
-- **Level 1 (baseline):** coach announces the trigger list and freezes play to point out a trigger when it appears, so players learn to see it.
-- **Level 2 (player calls):** no freezes; players must spot and call the trigger themselves. A press with no call does not count as a clean press.
-- **Level 3 (add a trigger):** introduce the "receiver facing own goal" trigger; the press now keys on body orientation, not just the ball.
-- **Level 4 (overload the possession team):** possession plays with a +1 (e.g. 4v3) so the press must be even sharper and better-coordinated to win the ball back — the harder-than-the-match condition.
-- **Level 5 (elite — silent trigger):** calling is banned for 2-minute blocks; the unit must press together off a shared read alone, using only body cues and eye contact. This tests whether the trigger is genuinely seen by everyone or was only ever being followed off the loudest voice (the match rarely gives you a clean verbal call; the read must transfer without it).
+## What this drill is, and what it is not
 
-## Coach guidance
+This is a game problem for a small team. The choice it trains is each pressing player's: press now or hold, read from the ball and the player receiving it, and who goes to the ball and who closes a pass.
 
-**Look for:**
+It does not train pressing after losing the ball. [The Five Seconds](/training/counter-press-five-seconds) trains that.
 
-- **Patience before the trigger.** Does the pressing team hold a compact shape and wait — or chase the ball around on every pass and exhaust themselves?
-- **The call.** Is someone naming the trigger, or is the press a silent scramble where each player guesses?
-- **The jump of the second and third presser.** A press is a unit move; the first presser attacks the ball, the others cut the escapes. If only one player presses, the read was individual, not collective.
+## Levels
 
-**Cues:** *"Hold... hold... what are you waiting for? Name it."* · *"Was that a real trigger or did you guess?"* · *"Who's covering the pass behind the presser?"* · *"Heavy touch — that's green. Go."*
+- **Level 1:** the team on the ball plays at a slower pace (two touches each). The pressing team learns to wait and to see when the ball is winnable.
+- **Level 2:** free touches. The moments come faster.
+- **Level 3:** a pressing player who goes alone and is played round gives the team on the ball a point; a press where two or more go together and win it scores 2.
+- **Level 4:** the team on the ball plays with one more player (4v3), so the press has to be sharper and more together to win it.
+- **Level 5:** the area grows to about 30 m by 24 m, so the waiting shape has more ground to hold.
 
-**Praise:** the read and the call, not just the steal. *"You waited for the heavy touch and called it — the whole line went together. That's a press."*
+## A variation with a call
 
-**Don't fix yet:** the exact angle of each supporting run in early sessions — first get the trigger read and the call reliable; the geometry of the collective jump tightens once the *when* is solid.
+As a declared design, rated lower than the quiet game and never the daily default: one pressing player may call when they go ("going!"), so the others know the press has started. The call announces the caller's own action; every other player still reads whether the ball is winnable and where to go, and a press that only follows the call and does not cut a pass does not count as a clean press. Run the quiet game first.
 
-## Watch points
+## For a parent or coach
 
-- **Someone presses every pass** and the team is run ragged. *"How many of those were real triggers? Pressing on a controlled ball just opens a door."*
-- **Nobody presses a clear trigger** — a heavy touch sits there unpunished. *"That touch was green for a full second. What stopped you? Did anyone see it?"*
-- **The first presser goes alone** and is played around easily. *"You pressed — who went with you? One presser is a free pass for them."*
-- **The call comes too late**, after the trigger has passed. *"By the time you called it, the ball was controlled again. The call has to land the moment you see it."* (The scan that spots the trigger has to be early, then the call is early too.)
+**Watch for:**
 
-## Closing reflection
+- **The wait.** Does the pressing team stay compact and wait, or chase every pass?
+- **The moment.** Does the press go when the ball is winnable (a heavy touch, a slow pass across or back, a receiver facing their own goal), or on a ball under control?
+- **Together.** When one player goes, do the next two go with them to close the passes, or does one chase alone?
 
-- *"What was the clearest trigger you read today? What told you it was time?"*
-- *"When the press failed, was it a bad read or a slow call?"*
-- *"In the silent block, could the unit still press together? What replaced the words?"*
+**One question, between games:** "When did you go, what did you see, and who went with you?"
+
+**During play:** stay quiet. Questions wait for the break.
+
+**Praise** the read and the wait: "You held three passes and went on the heavy touch, and two of you went together."
+
+**Leave for later:** the exact angles of the press. First the wait and going together.
+
+**When to simplify:** if the pressing team chases every pass, go back to Level 1.
+
+## Why we think it helps
+
+A press tends to fail in one of two ways: someone goes when the ball is not winnable and leaves a hole, or nobody goes when it is. Both are a read, not effort. This game makes those moments come again and again in a small space, and asks every pressing player to see them, not to wait for a shout. If a team presses well here and not in matches, move the same scoring into a bigger game.
+
+## Self-assessment
+
+- "What told you the ball was winnable?"
+- "When did you go too early, and what did it leave open?"
+- "Did you ever wait for someone else to go? What did you see yourself?"
