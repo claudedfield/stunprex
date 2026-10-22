@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { ReviewBar } from '@/components/review/ReviewBar';
 import { BreadcrumbNav } from '@/components/blog/BreadcrumbNav';
 import { PostMeta } from '@/components/blog/PostMeta';
 import { TableOfContents } from '@/components/blog/TableOfContents';
@@ -222,6 +223,7 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
         </div>
       </main>
+      {(post.frontmatter as { review?: string }).review === 'pending' && <ReviewBar />}
       <Footer />
     </>
   );

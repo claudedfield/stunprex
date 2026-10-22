@@ -6,6 +6,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { ReviewBar } from '@/components/review/ReviewBar';
 import { DrillDiagram, AnimatedDrillDiagram } from '@/components/drill-diagrams';
 import type { DiagramSpec } from '@/components/drill-diagrams';
 import { getDrillBySlug, getAllDrillSlugs } from '@/lib/drills';
@@ -298,6 +299,7 @@ export default async function DrillDetailPage({ params }: Props) {
           </div>
         </div>
       </main>
+      {(frontmatter as { review?: string }).review === 'pending' && <ReviewBar />}
       <Footer />
     </>
   );
