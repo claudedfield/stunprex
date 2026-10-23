@@ -2,15 +2,15 @@
 title: "Position-Rotation SSG (Every Player, Every Role)"
 slug: "position-rotation-ssg"
 drillId: "SX-DR-010"
-description: "A small-sided game with one structural rule — every few minutes, everyone rotates forward a zone — so no player can finish a session without having defended, built, and attacked. Position-lock made impossible by design."
+description: "A small-sided game for a coach with six to ten players, with one rule: at each change, every player moves forward a zone, so everyone defends, builds and attacks in one session. Nobody is fixed to a role."
 status: "published"
 category: "Adaptive & game sense"
 capacities:
   primary: ["Perceptual", "Cognitive", "Motor", "Collective", "Affective", "Adaptive"]
   secondary: []
 ageBand: ["9-12", "13-16", "17-20"]
-players: "6–10"
-equipment: "zone cones, 2 mini-goals, bibs (2 colours), 2–3 spare balls"
+players: "6 to 10"
+equipment: "zone cones, 2 mini-goals, bibs in 2 colours, 2 or 3 spare balls"
 difficulty: 2
 maxDifficulty: 5
 codex_release: R1
@@ -20,7 +20,7 @@ diagrams:
   - id: run
     pitch: small
     title: The rotation
-    caption: 'One player per zone. At each signal everyone shifts forward a zone — so every player defends, builds, and attacks. Loops.'
+    caption: 'One player per zone. At each change everyone moves forward a zone, so every player defends, builds and attacks. Loops.'
     entities:
       - type: zone
         id: zFwd
@@ -95,10 +95,10 @@ diagrams:
       loop: true
       steps:
         - duration: 1100
-          caption: 'Segment 1 — one player per zone: defend, build, attack.'
+          caption: 'First segment: one player per zone, defend, build, attack.'
           moves: []
         - duration: 1100
-          caption: Rotation signal — everyone shifts forward one zone.
+          caption: 'Change: everyone moves forward one zone.'
           moves:
             - id: P1
               to:
@@ -116,7 +116,7 @@ diagrams:
           caption: 'New roles: the forward now defends; the defender now builds.'
           moves: []
         - duration: 1100
-          caption: Next signal — shift forward again; the cycle is circular.
+          caption: 'Next change: forward again; the cycle goes round.'
           moves:
             - id: P1
               to:
@@ -135,77 +135,94 @@ diagrams:
           moves: []
 ---
 
-## Introduction
+For a coach with six to ten players from nine. Two small teams play to mini-goals on a pitch split into three zones, one player of each team starting in each. At each change, every player moves forward one zone, and the forward goes back to defend. By the end of the session, every player has defended, built the play and attacked, and nobody has been told which role is theirs.
 
-The youngest players in most academies are given positions before they understand why — "you're a defender because you're big and calm," "you're a forward because you're fast" — at eight, nine, ten. The assignments persist, not because the child is genuinely suited to one role for life, but because they were trained in it, became competent in it, and the cycle closed before their foundation was complete (position-fluid through age 16; no child should be defined by a role while the foundations are still universal).
+## Quick start
 
-The Position-Rotation SSG does not argue against this. It makes it structurally impossible. The game is a small-sided match with one rule: at the rotation signal, every player shifts forward one zone. The forward becomes the defender; the defender becomes the midfielder; the game continues from where it left off, no reset. Over a session — three rotations, three roles — every player has defended against the attack, built through midfield, and searched as a forward. None is their "natural" role; all are their eventual territory (the variability of every role is the training load that builds the complete player; the forward who has never defended can't read a striker from the inside).
+**You need:** cones for the pitch and the zone lines, 2 mini-goals, bibs in 2 colours, 2 or 3 spare balls.
 
-It is the library's first drill where all six capacity families are simultaneously primary — because each role makes a different family primary, and the rotation makes every player experience all of them. The player who became a forward after three minutes of defending is not the same player who walked in: their scan priorities, their calls, their runs have all changed (the role-switch is a sharp spike in cognitive load; identifying the new role, finding the new start point, and re-reading the game from a new vantage all inside the first seconds is exactly the load that in-match transitions carry).
-
-## Setup
+**Set it out:**
 
 ```
-            GOAL A
-        ┌───────────┐
-        │   FWD     │  ← Attacking zone (10m)
-        ├───────────┤
-        │   MID     │  ← Midfield zone (10m)
-        ├───────────┤
-        │   DEF     │  ← Defensive zone (10m)
-        └───────────┘
-            GOAL B
-   (3v3 on 30m × 20m; zones are starting-position guides at L1–2)
+            mini-goal A
+        +---------------+
+        |    ATTACK     |   about 10 m deep
+        +---------------+
+        |   MIDFIELD    |   about 10 m deep
+        +---------------+
+        |    DEFEND     |   about 10 m deep
+        +---------------+
+            mini-goal B
+   3v3: about 25 to 30 m by 20 m. Zones shown for one team; the other team's run the other way.
 ```
 
-- **Pitch:** 25–30m × 20m for 3v3 (Foundation); 30–40m × 25m for 4v4 (Development). Mini-goals at each end.
-- **Three zones** (attacking / midfield / defensive), one player per team starting in each.
-- **The rule:** at the rotation signal (every 3 minutes at Foundation; every 4–5 at Development), all players shift forward one zone — toward the opponent's goal, so the current forward drops back to defend. The cycle is circular; after three segments, everyone has played every zone.
+- **3v3:** a pitch about 25 to 30 m long and 20 m wide, cut into three zones across its length. Each team starts one player in each zone: its defender in the zone by its own goal, its forward in the zone by the other goal.
+- **4v4 (13 and over, or a group of eight):** a pitch about 30 to 40 m by 25 m, the same three zones. Each team starts two players in midfield. The four places go round in a fixed order: defend, first midfield, second midfield, attack, then back to defend; name the order before the first segment.
+- **5v5:** one spare player per team waits at the side and comes in at the defender's place at each change; the forward goes out. With an odd number, the spare joins one team and goes round with it the same way.
+- All the sizes and times are suggestions.
 
-## Description
+**One session:**
 
-**One session (3v3, three 6-minute segments):**
+1. **First segment.** Play a normal small-sided game. The zones are only where players start; everyone may go anywhere. The adult watches and says nothing about how anyone plays the role.
+2. **The change.** The adult says "change". Play stops where the ball is; every player moves forward one zone (the forward goes back to defend); play restarts from that spot with the team that had the ball.
+3. **Second and third segments.** The same game, everyone in a new role. After the third, every player has played every zone once (four segments in 4v4).
+4. **Close.** Stop the game; the players talk in pairs about the questions under Self-assessment, not in front of the group.
 
-1. **Segment 1 (original positions).** Play as a normal SSG. The coach observes without correcting role performance — this segment is the player's reconnaissance, not assessment.
-2. **Rotation signal.** Everyone steps forward one zone; a 5–10 second transition to find the new zone and re-read the game; play resumes from wherever the ball was — the transition is absorbed into live play, no formal restart.
-3. **Segment 2 (first rotation).** The coach now watches the **adaptation**: does the new forward scan for space behind the line? Does the new defender track the nearest runner, or stand still? Adaptation speed is the process metric.
-4. **Segment 3 (second rotation).** Every player is in their third role; the circle is complete. The coach watches whether the cumulative experience shows — does the defender who was just a forward better anticipate the run?
-5. **Close.** Stop play; closing reflection in pairs (not in front of the group, which inhibits honest reflection).
+**Load:**
 
-The scan changes with the role — the forward scans the space behind the line, the midfielder scans all four directions, the defender scans ball-and-runner — so the same player must switch scan priorities every few minutes (scanning is a trainable habit, and this is the first drill to train *positional* scan variation). And the decisions differ by role — pressure or cover, break or hold, shoot or square — so a single session exposes the player to three decision environments, building a wider model that adapts rather than repeats (decision-making is the ceiling). The score matters (it trains desire), but it is not the session's outcome; the coach's language afterward names the rotation, not the result.
+- Segments of about 3 minutes for 9 to 12, about 4 to 5 minutes from 13; a drink and about 2 minutes easy after each full circle; one or two circles in a session. For 9 to 12: about 20 minutes in all, ending while they still want more, no level built on being tired; pain is never part of training.
+- Contact: tackles on the feet and for the ball, never into the back; where you can, balance the teams by size and maturity, not by age or level alone; a knock to the head stops play for that player.
+- Stop at once on pain, illness, dizziness or a movement that is breaking down; nobody plays through it, and nobody is pushed to.
 
-## Progressions
+**One thing to think about:** in your new zone, what is your job right now?
 
-- **Level 1 (baseline — free movement):** zones are starting-position guides only; players roam freely. The rotation signal is the only structural rule. A forward who tracks back to defend is praised, not corrected (the rotation rule is the constraint; knowing your role will change makes you read the next phase while playing the current one — a dual-horizon demand no fixed-role SSG produces).
-- **Level 2 (soft zones + briefs):** players support into adjacent zones but return; a 30-second positional brief per role per segment is introduced (every player hears all three briefs over a session).
-- **Level 3 (strict zones, 5-second grace):** players hold their zone for the segment; only the rotation signal permits the move, with a 5-second grace to take the new zone without stopping play.
-- **Level 4 (tactical task + 2-minute segments):** higher rotation frequency raises the transition load (rotation happens far more often than any match demands, so the match's occasional switch becomes automatic). Each role carries one observation task (*"find the switch pass"*), asked about afterward, not mandated.
-- **Level 5 (position auction):** before each segment, the team negotiates for 30 seconds who takes which role — players argue for or yield a role, reading teammates and the game state, making a collective decision instead of accepting an assignment (the player is the protagonist; the role discovery, and now the role choice, belongs to them).
+**Easier or harder:** easier, longer segments and the zones as starting places only. Harder, see the levels below.
 
-## Coach guidance
+## What this drill is, and what it is not
 
-**Look for:**
+This is a small-sided game in which the role changes and the player reads the game again from a new place. The choices are the players': what the new role needs now, where to stand, when to press or cover, when to go.
 
-- **Transition quality.** In the seconds after the signal, does the player move purposefully into the new role — even if the first action is wrong — or freeze and wait for instruction?
-- **Scan change across roles.** Does the pre-action scan shift between roles, or does the player apply the same scan everywhere? Unchanged scanning is habitual movement, not role-specific movement.
-- **Communication shift.** Calling for the ball as a forward, calling for cover as a defender, both as a midfielder. A player who goes silent in the unfamiliar role is still learning its vocabulary.
-- **Comfort and discomfort.** Both are information, observed privately. The player who lights up as a forward but stiffens as a defender has an asymmetric foundation the rotation is built to narrow — never commented on publicly.
+It is not a trial to find which role suits a child. Two segments say nothing about fit, and the page asks the adult not to read them that way.
 
-**Cues:** *"You're a forward now — where's the space behind them?"* · *"Defender's job: find your runner. Who are you watching?"* · *"Midfield is the link — have it? Release. Don't? Press."* · *"You were just a forward — you know what that runner wants. Use it."*
+## Levels
 
-**Praise:** the adaptation, not the polish. *"First touch in the new role — you moved straight away. Transition taken."* · *"You changed your scan when you rotated."* · *"You said you'd never defended. You just defended. You have now."* (the discovery is theirs to name.)
+- **Level 1:** as in the quick start. The zones are only where players start; the change is the one rule.
+- **Level 2:** players may go into the next zone to help but come back. Before each segment, about 30 seconds in which the group says what each role's job is; you fill a gap only if nobody does. Every player hears all three across the session.
+- **Level 3:** players stay in their zone for the segment. At the change, play does not stop: players have about 5 seconds to reach the new zone while the ball stays live.
+- **Level 4:** segments of about 2 minutes, so the changes come often. Before a segment, each role is given one thing to look for ("find the switch pass"); you ask about it afterwards, and nobody has to do it.
+- **Level 5:** before each segment, each team has about 30 seconds to agree who takes which role. Every player still plays every zone across the circle; the order is the team's choice.
 
-**Don't fix yet:** technical quality in the unfamiliar role (the first session in each role is reconnaissance, not performance — a lost first tackle is not evidence of unsuitability); zone discipline at L1 (drifting is exploration); the score. Above all, refuse to read two segments as a verdict on which role "suits" a player (comfort is not natural fit; every feeling is information, not a judgement).
+## For a coach
 
-## Watch points
+**Watch for:**
 
-- **A player drifts back to their preferred role** when zones are loose. *"You're a forward this segment but you're back in midfield. Find the gap ahead, not behind."* — a re-anchor, not a telling-off.
-- **A player disengages in the unfamiliar role** — standing still, not calling. *"What's your job right now as a defender? Find your runner."* One concrete task converts unfamiliarity into action; the paralysis is unfamiliarity, not inability.
-- **A coach or parent calls which role "suits" the player** off one or two segments. Two segments are not evidence of fit; the player who looks clumsy at the back in session one looks different in session five (the discipline is required of the coach as much as the player).
-- **At the auction, the team defaults the biggest player to the back.** *"You just did what most coaches do. Does that make the other roles stronger or weaker?"* — opening a tactical conversation most youth players never have.
+- **The first seconds after a change.** Does the player go straight into the new role, even with a wrong first action, or wait to be told?
+- **The look, role by role.** Does the player look for different things as forward, midfielder and defender, or play every zone the same way?
+- **Quiet in the new role.** A player who talked as a forward and goes quiet as a defender is often still reading the role. Note it; nobody is asked to call.
+- **Ease and unease.** A player who lights up in one role and stiffens in another is telling you where the foundation is thinner. Note it privately; never comment on it in front of others.
 
-## Closing reflection
+**During play:** stay quiet while the ball is moving. "Change" is the rule of the game, said only at the change. Between segments, a question may help ("what was the forward doing that made your job harder?"), never where to stand or what to do.
 
-- *"Which role felt most natural today, and which felt strangest? What was different between them?"*
-- *"In your defensive segment, what was the forward doing that made your job harder — and how do you know that now?"*
-- *"What did you learn about the game today that you couldn't have learned by staying in one position?"*
+**One question, after a segment:** "What did you do differently in this zone?"
+
+**Praise** the move into the new role, not the polish: "You went straight into it after the change." "You looked for something different back there."
+
+**Leave for later:** technique in the unfamiliar role, zone discipline at Level 1, and the score.
+
+**If a player drifts back to the zone they like:** at the next change, ask "what is this zone's job?", not a telling-off.
+
+**If a team builds its order around its biggest player (Level 5):** after the segment, ask the group what that does to the other roles. The circle still takes everyone through every zone.
+
+**What not to do:** tell a parent or a player which role suits them after one session, or praise a role over another.
+
+## Why we think it helps
+
+A player who has only played one role reads the game from one place. Here each player meets the defender's problem, the midfielder's and the forward's in one session, and the change makes them read the game again every few minutes. Rotating every role through sixteen is how we keep foundations broad before any specialising, and this game makes the rotation part of the rules rather than a promise. If a group enjoys this and still settles into fixed roles in matches, rotate roles inside your normal games too, at half time or between games.
+
+## Self-assessment
+
+In pairs, at the end:
+
+- "Which role felt easiest today, and which felt strangest? What was different?"
+- "When you defended, what was the forward doing that made it harder, and how do you know that now?"
+- "What did you notice about the game that you would not have noticed staying in one place?"
