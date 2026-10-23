@@ -1,7 +1,7 @@
 ---
 title: "Arrive Late, Finish Clean (Cut-Back Finishing)"
 slug: "cutback-finish-arriving-late"
-description: "A finishing drill built around the cut-back — timing a delayed run to arrive onto a pulled-back ball at the top of the box and finish first or second time, training the most reliable goal in modern football."
+description: "A finishing drill for three to six players: one player carries to the byline and pulls the ball back, and the finisher times a late run to arrive onto it at the top of the box and finish, first or second time."
 drillId: "SX-DR-019"
 status: "published"
 category: "Finishing"
@@ -9,8 +9,8 @@ capacities:
   primary: ["Perceptual", "Motor", "Cognitive"]
   secondary: ["Collective"]
 ageBand: ["13-16", "17-20"]
-players: "3–6 (plus keeper if available)"
-equipment: "1 goal + keeper (or mini-goal), 6 cones, several balls"
+players: "3 to 6, plus a keeper if you have one"
+equipment: "1 goal and a keeper (or a mini-goal), 6 cones, several balls"
 difficulty: 3
 maxDifficulty: 5
 codex_release: R1
@@ -20,7 +20,7 @@ diagrams:
   - id: run
     pitch: small
     title: Watch a rep
-    caption: 'Hold the run, then burst late: the wide player reaches the byline and cuts it back for an arriving first-time finish. Loops.'
+    caption: 'The finisher holds the run, then goes late: the player in the wide channel reaches the byline and pulls it back for a first-time finish. Loops.'
     entities:
       - type: cone
         id: gp1
@@ -46,11 +46,11 @@ diagrams:
         team: neutral
         label: K
       - type: player
-        id: W
+        id: C
         x: 300
         'y': 200
         team: home
-        label: W
+        label: C
       - type: player
         id: A
         x: 200
@@ -61,15 +61,15 @@ diagrams:
         id: ball
         x: 300
         'y': 200
-        attachedTo: W
+        attachedTo: C
         state: static
     animation:
       loop: true
       steps:
         - duration: 900
-          caption: Wide player drives to the byline; the finisher holds the run.
+          caption: C carries to the byline; the finisher holds the run.
           moves:
-            - id: W
+            - id: C
               to:
                 x: 290
                 'y': 80
@@ -78,14 +78,14 @@ diagrams:
                 x: 200
                 'y': 210
         - duration: 700
-          caption: 'As the cut-back shapes up, the finisher bursts late.'
+          caption: 'As the pull-back shapes up, the finisher goes late.'
           moves:
             - id: A
               to:
                 x: 200
                 'y': 140
         - duration: 700
-          caption: Cut-back to the penalty spot.
+          caption: The ball pulled back towards the penalty spot.
           moves:
             - id: ball
               to:
@@ -103,11 +103,11 @@ diagrams:
                 x: 195
                 'y': 118
         - duration: 900
-          caption: Reset; run it from both wings.
+          caption: Reset; run it from both sides and swap roles.
           moves:
             - id: ball
-              to: W
-            - id: W
+              to: C
+            - id: C
               to:
                 x: 300
                 'y': 200
@@ -117,77 +117,90 @@ diagrams:
                 'y': 285
 ---
 
-## Introduction
+For a coach with three to six players aged thirteen and over, and a keeper if there is one. One player carries the ball to the byline and pulls it back; the finisher holds the run and goes late, to arrive onto the ball at the top of the box and finish.
 
-The cut-back is the highest-percentage attacking pattern in modern football, and it is won by timing, not pace. The ball is worked to the byline, pulled back across the face of goal, and finished by a player who *arrived* into the space rather than camping in it. The defining skill is the timing of the late run: too early and you are marked; too late and the ball is gone. Arriving on the second pass — the third-man run — is what leaves the finisher unmarked (reading the wide player's progress, timing the run, and adjusting to the cut-back's weight all at once is the cognitive load that makes this a thinking drill, not a tap-in drill).
+## Quick start
 
-This drill isolates the arriving run and the finish off the pulled-back ball. The finish itself is usually simple — a first-time side-foot — but only if the body arrives in the right shape, open to the goal, balanced, on the correct foot (the contact off the cut-back is a first-touch-as-finish; its quality is the foundation of the whole pattern). It trains both feet, because cut-backs come to both sides, and it looks exactly like the game (specificity wins).
+**You need:** a goal with a keeper (or a mini-goal), 6 cones, several balls, and the width of a penalty area.
 
-The measure is the timing of the arrival and the cleanness of the strike, not the goal count (process before outcome).
-
-## Setup
+**Set it out:**
 
 ```
               [GOAL] + keeper
-            •──────────────•
-            |  cut-back     |
-            |  zone (top    |
-            |  of box)      |
-        (A) finisher        (W) wide player
-        starts deep,         drives to the
-        times the run        byline, cuts back
-            |               ↗ |
-            •───────────────•
+            +--------------+
+            |  pull-back   |
+            |  zone (top   |
+            |  of the box) |
+        (A) finisher        (C) carrier, in
+        starts deep         the wide channel
+            +--------------+
 ```
 
-- **Wide player (W):** starts with the ball wide, drives to the byline, and cuts the ball back to the top of the six-yard area / penalty spot.
-- **Finisher (A):** starts deeper and central, times a run to arrive onto the cut-back unmarked.
-- **Keeper** in goal if available.
-- Run from both wings so the finish is trained off both feet.
-
-## Description
+- A start cone for the carrier (C) in the wide channel, about 25 m from the byline, and one for the finisher (A) about 22 m out in the middle. The distances are suggestions.
+- Every player takes every role: carrier, finisher, and keeper if there is no keeper.
 
 **One rep:**
 
-1. W drives to the byline. A holds their run — deliberately late — reading W's progress (the read of *when* W will cut it back governs the run).
-2. As W reaches the byline and shapes to cut back, A times the burst to arrive onto the ball at the cut-back zone, open to goal.
-3. A finishes first time where possible, off whichever foot the ball arrives to (the arriving contact is the finish; both feet, because cut-backs come both ways).
-4. A light call between W and A can sync the timing (*"hold... now"*), training the communication that real cut-backs use.
-5. The rep ends on a goal, a save, or a missed connection; rotate W and A roles.
+1. C carries to the byline. A holds the run, watching C.
+2. As C reaches the byline and shapes to pull it back, A goes, to arrive onto the ball open to goal.
+3. A finishes first time where the ball allows, with whichever foot it comes to, or takes one touch if that is the better finish.
+4. The rep ends on a goal, a save or a missed connection. Rotate roles, and run it from both sides.
 
-Tally **clean arrivals** — runs timed to meet the ball unmarked and open to goal — not goals alone.
+Count clean arrivals (a run timed to meet the ball open to goal), not only goals.
 
-## Progressions
+**The first block:** 6 finishes each, then 2 to 3 minutes easy; two or three blocks. These numbers are a suggestion: use fewer if the runs get slower.
 
-- **Level 1 (baseline):** W delivers a predictable cut-back to a fixed spot; A grooves the timing of the late run and the first-time finish.
-- **Level 2 (variable cut-back):** W varies the cut-back to the near spot, the penalty spot, or the top of the box; A must read which and adjust the run.
-- **Level 3 (a marker):** a passive defender tracks A; A must time the run to lose the marker, arriving as the ball does — the third-man timing under light pressure.
-- **Level 4 (two arrivers):** a second finisher arrives at a different spot; W chooses who to find, and the two must not occupy the same space — communication and run coordination (the added bodies overdo the match's complexity).
-- **Level 5 (elite — live to the byline):** W must beat a defender to reach the byline, the cut-back is under pressure and variable, A is marked, and the keeper is live. The full cut-back pattern at match speed.
+**Load:**
 
-## Coach guidance
+- Each run is a short burst, with the walk back before the next and the rest above after each block; stop when the runs get slower and sloppier, and never use extra runs as a punishment.
+- Striking: about 6 strikes a block, then the rest above; full-power strikes in small numbers and only once warm; around a growth spurt, pain near a joint means stop, not push on. These finishes are placed, not struck at full power.
+- The keeper goes down on a soft surface with the hands to the ball, and any knock to the head stops play for that player.
+- Stop at once on pain, illness, dizziness or a movement that is breaking down; nobody plays through it, and nobody is pushed to.
 
-**Look for:**
+**One thing to think about:** arrive as the ball does, not before.
 
-- **The hold and burst.** Does A delay the run and then accelerate, arriving as the ball does — or drift into the box early and stand waiting to be marked? The late timing is the whole skill.
-- **Body shape on arrival.** Open to goal, balanced, ready to finish first time — or square and reaching? The shape decides whether a simple chance is taken.
-- **Foot selection.** Does A finish with the foot the ball arrives to, or shape onto the strong foot and miss the window?
+**Easier or harder:** easier, C pulls it back to the same spot each time. Harder, see the levels below.
 
-**Cues:** *"Hold your run — let it develop — now go."* · *"Arrive as the ball does, not before."* · *"Open your body to the goal as you come in."* · *"First time — the chance is the arrival, not the touch after."*
+## What this drill is, and what it is not
 
-**Praise:** the timing of the run, even on a missed connection. *"Your run was perfect — you arrived unmarked and open. The cut-back was behind you that time; the run was right."* (We praise the arrival; the goals follow.)
+This is a technique drill with a choice in it: the timing of the finisher's run, read from the carrier's progress, and the finish off the ball pulled back.
 
-**Don't fix yet:** the power of the finish — cut-back finishes are placement, not power; a guided side-foot into the corner is the model. Build the timing and the placement; never coach a blast here.
+It does not train getting past a defender to reach the byline. [Beat and Cross](/training/beat-and-cross-wide) trains that.
 
-## Watch points
+## Levels
 
-- **A camps in the box early** and is marked out of the chance. *"You arrived before the ball. Hold, then burst — late is unmarked."*
-- **A arrives square or off-balance** and scuffs a simple chance. *"Open your hips to the goal as you come in, and it's a side-foot."*
-- **A always finishes strong-footed,** missing balls to the other side. *"That one came to your left. The clean finish was your left foot."*
-- **W and A never sync** — the run and the cut-back miss each other repeatedly. *"Talk to each other. When does the run go? Call it."*
+- **Level 1:** C pulls it back to the same spot each time. A finds the timing and the first-time finish.
+- **Level 2:** C chooses where to pull it back (near the six-yard box, the penalty spot or the top of the box). A reads it and adjusts the run.
+- **Level 3:** a passive defender tracks A. A times the run to get away from the marker as the ball arrives.
+- **Level 4:** a second finisher runs to a different spot. C chooses whom to find; the two finishers read each other so they do not arrive in the same space.
+- **Level 5:** C has to beat a defender to reach the byline, A is marked, and the keeper is fully live.
 
-## Closing reflection
+With three, stay at Levels 1 and 2; Level 5 needs five and a keeper.
 
-- *"On your best rep, when did you start your run relative to the wide player reaching the byline?"*
-- *"Which arrivals left you unmarked, and what did you do differently on those?"*
-- *"How did finishing first time compare to taking a touch first?"*
+## For a parent or coach
+
+**Watch for:**
+
+- **The hold and the go.** Does A wait and then go, arriving as the ball does, or drift into the box early and stand there?
+- **The body on arrival.** Open to goal and balanced, or square and reaching?
+- **The foot.** Does A finish with the foot the ball arrives to, or shape onto one foot and lose the moment?
+
+**One question, between reps:** "When did you start your run, and what told you to go?"
+
+**During a rep:** stay quiet while the ball is moving. When a player is stuck, a question or a short cue may help ("where was C when you went?"), never when to run.
+
+**Praise** the timing of the run, even when the ball did not arrive: "You arrived open and unmarked. The ball was behind you that time; the run was right."
+
+**Leave for later:** the power of the finish. These are placed finishes; first the timing and the placement.
+
+**When to simplify:** if A arrives early on most reps, go back to Level 1 and start A deeper.
+
+## Why we think it helps
+
+A ball pulled back from the byline is finished by a player who arrives into the space rather than waiting in it, and arriving is a matter of timing more than pace. This drill gives the finisher many runs in a short time, each read from the carrier, so the timing becomes something the player judges, not a rule they follow. Because every player takes every role, each one also learns the pull-back from the carrier's side. Running it from both sides brings the ball to either foot; a player who can finish with either foot has more options when the ball comes across. If a player times well here and not in games, put the same pattern into a small-sided game with wide channels.
+
+## Self-assessment
+
+- "On your best rep, when did you start your run compared with C reaching the byline?"
+- "Which arrivals left you unmarked, and what did you do differently on those?"
+- "How did finishing first time compare with taking a touch first?"

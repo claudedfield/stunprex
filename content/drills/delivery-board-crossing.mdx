@@ -2,15 +2,15 @@
 title: "The Delivery Board (Crossing with Purpose)"
 slug: "delivery-board-crossing"
 drillId: "SX-DR-053"
-description: "A crossing drill that trains delivery as a choice, not a hopeful ball — driven, whipped, cut-back, and far-post crosses delivered to target zones off both feet, so the wide player picks the right ball for the run that's being made."
+description: "A crossing drill for a coach with two to five players: the crosser carries into a wide channel and chooses the ball for the run a teammate makes, driven to the near post, pulled back to the penalty spot or curled to the far post, off either foot. Everyone takes every role."
 status: "published"
 category: "Crossing & wide play"
 capacities:
   primary: ["Motor", "Perceptual", "Cognitive"]
   secondary: ["Collective"]
 ageBand: ["13-16", "17-20", "21+"]
-players: "1–4 (plus arriving attackers at higher levels)"
-equipment: "1 ball (several), cones to mark wide channels and target zones, a goal optional"
+players: "2 to 5, plus a keeper if you have one"
+equipment: "Several balls, about 10 markers for the channel and three target zones, a goal optional"
 difficulty: 3
 maxDifficulty: 5
 playerOperatingPrinciple: "Carry intent; deliver the right ball for the run"
@@ -20,7 +20,7 @@ diagrams:
   - id: run
     pitch: small
     title: Watch a delivery
-    caption: 'Carry into the channel, read the called zone, and deliver the matching ball — here a cut-back to the penalty spot. Loops.'
+    caption: 'A carries into the channel, sees where B is running, and plays the ball that run needs: here a cut-back to the penalty spot. Loops.'
     entities:
       - type: cone
         id: gp1
@@ -61,114 +61,148 @@ diagrams:
         'y': 95
         text: FAR
       - type: player
-        id: W
+        id: A
         x: 312
         'y': 255
         team: home
-        label: W
+        label: A
+      - type: player
+        id: B
+        x: 190
+        'y': 230
+        team: home
+        label: B
       - type: ball
         id: ball
         x: 312
         'y': 255
-        attachedTo: W
+        attachedTo: A
         state: static
     animation:
       loop: true
       steps:
         - duration: 1000
-          caption: Carry into the wide channel toward the byline.
+          caption: A carries into the wide channel; B starts a run toward the penalty spot.
           moves:
-            - id: W
+            - id: A
               to:
                 x: 300
                 'y': 100
+            - id: B
+              to:
+                x: 200
+                'y': 150
         - duration: 800
-          caption: Cut it back to the penalty spot for an arriving runner.
+          caption: A reads the run and pulls the ball back to the spot.
           moves:
             - id: ball
               to:
                 x: 205
                 'y': 130
         - duration: 900
-          caption: Reset; vary the cross type and the called zone.
+          caption: Reset; next time B may choose another run.
           moves:
             - id: ball
-              to: W
-            - id: W
+              to: A
+            - id: A
               to:
                 x: 312
                 'y': 255
+            - id: B
+              to:
+                x: 190
+                'y': 230
 ---
 
-## Introduction
+For a coach with two to five players. One player carries the ball into a wide channel and crosses it; a teammate makes a run into the box, and the crosser chooses the ball that run needs: driven across the near post, pulled back low to the penalty spot, or curled to the far post. Every player takes the crossing role, the running role and, without a keeper, the keeper's, on both sides of the pitch.
 
-Most youth crossing is a hopeful ball lofted into a crowd. Good crossing is a choice: the wide player reads the run being made and the defensive picture, and delivers the specific ball that run needs — a driven ball across the six-yard box for a near-post run, a cut-back for a runner arriving at the penalty spot, a whipped far-post ball for a back-post header (the cross is a struck contact whose quality and type decide everything, the foundation principle applied to delivery). The Delivery Board trains crossing as a menu of deliberate deliveries to target zones, not one stock cross.
+## Quick start
 
-It grooves the technique of each cross type through focused repetition (specificity wins; each cross is trained as the exact game delivery, to a real target zone). It trains both feet, because a winger who can only cross with one foot is forced inside and predictable (both feet, and a wide player especially needs the outside foot to deliver early). And it is measured on the *right ball to the right zone*, process over the goal it might have produced. The board overloads the demand by asking for varied, accurate deliveries under a clock, so the match's cross feels unhurried.
+**You need:** several balls, about 10 markers, a goal with a keeper if you have one, and about 30 m by 20 m in one corner of the pitch.
 
-## Setup
+**Set it out:**
 
 ```
-        [GOAL] + target zones in the box:
-        ┌───────────────────────────┐
-        │  NEAR     PEN-SPOT    FAR  │   ▯ near-post zone
-        │  ▯          ▯          ▯   │   ▯ penalty-spot (cut-back) zone
-        └───────────────────────────┘   ▯ far-post zone
-        (W) wide player delivers from the channel, byline to deep
+        [GOAL] + keeper
+   +-------------------------------+
+   |   NEAR       SPOT       FAR   |   three target zones,
+   |   [ ]        [ ]        [ ]   |   each about 4 m across
+   +-------------------------------+
+        (B) runner starts       |
+            about 18 m out      |  wide channel,
+                                |  about 8 m wide
+                             (A) crosser starts deep
 ```
 
-- **Wide player (W)** delivers from a wide channel, from positions ranging from deep to the byline.
-- **Target zones** in the box: near-post, penalty-spot (cut-back), far-post — marked with cones or a target/teammate.
-- Crosses are scored on landing in the called zone with the right type of ball.
-
-## Description
-
-**The delivery menu (taught and grooved):**
-
-- **Driven cross** — low and hard across the face for a near-post run.
-- **Cut-back** — pulled back to the penalty spot from the byline for an arriving runner.
-- **Whipped far-post** — curled away from the keeper to the back post.
+- Mark a wide channel about 8 m wide along one touchline, from about 30 m out to the byline.
+- Mark three target zones in the box, each about 4 m across: near post, penalty spot, far post.
+- The runner (B) starts about 18 m out, centrally. All distances are suggestions; fit them to your pitch.
 
 **One rep:**
 
-1. W receives or carries into the wide channel and reads the called target zone (or the run being made) (the read of which ball is needed is the process being measured).
-2. W delivers the **matching cross type** to that zone, off whichever foot the position demands.
-3. The delivery is scored on landing in the zone with the right ball — a driven ball to the near zone, a cut-back to the spot, a whip to the far post.
-4. Alternate the foot and the cross type; deliver from deep and from the byline (different crosses).
+1. A carries the ball into the channel toward the byline, or takes a pass into it.
+2. B makes one run into the box, to whichever zone B chooses, without calling it.
+3. A reads the run and crosses the ball that run needs into that zone, off whichever foot the position gives.
+4. The rep counts when the ball arrives in the zone B ran to with the type of ball that zone needs: driven along or just above the ground to the near post, low and pulled back to the spot, curled away from the keeper to the far post.
+5. B finishes with the foot if the ball arrives at foot height; a ball in the air is caught, or let land in the zone. Nobody heads the ball on this page.
+6. Roles move on: A to runner, B to the back of the crossers' line, the next player to the keeper if there is no keeper.
 
-The measure is **the right ball, accurately, to the called zone, off both feet** — not power or how spectacular the cross looks.
+**With two:** A crosses, B runs, no keeper; the zones are the target. **With three to five:** a keeper, and the others take turns. **Both sides:** every second block from the other touchline, so the ball comes off the other foot.
 
-## Progressions
+**The first block:** about 8 crosses each, then 2 to 3 minutes easy (passing, walking, a drink); two or three blocks in all. These numbers are a suggestion: use fewer if the crosses get sloppier.
 
-- **Level 1 (baseline):** static ball, deliver each cross type to its zone with no time pressure; groove the technique.
-- **Level 2 (off the carry):** W carries into the channel before delivering, so the cross comes off movement.
-- **Level 3 (called zone, late):** the target zone is called late; W must read it and deliver the matching ball quickly.
-- **Level 4 (both feet mandated):** the position forces the foot — byline cut-backs off the inside foot, early balls off the outside — so both feet deliver.
-- **Level 5 (elite — under pressure, to a live run):** a defender pressures the delivery and a real runner attacks the called zone; W must beat the block and deliver the right ball to the run at speed.
+**Load:**
 
-## Coach guidance
+- Striking: about 8 crosses a block, then the rest above; long, driven crosses in small numbers and only once warm; around a growth spurt, pain near a joint or at the front of the hip means stop, not push on.
+- The carry and the run are short sprints: walk back between reps.
+- No heading: aerial balls are caught or let land. Heading has its own pages and its own load lines.
+- With a keeper, swap the keeper every block.
+- Stop at once on pain, illness, dizziness or a movement that is breaking down; nobody plays through it, and nobody is pushed to.
 
-**Look for:**
+**One thing to think about:** see where B is going before the last touch, so the cross is chosen, not hoped.
 
-- **The right ball for the zone.** A driven ball to the near post, a cut-back to the spot, a whip to the far post — does the cross *type* match the target, or is it one stock cross every time?
-- **Accuracy to the zone.** Does the ball land where the runner is, or sail into no-man's-land? Accuracy beats power.
-- **Both feet.** Can W deliver off the foot the position demands, or do they always shape onto the strong one and telegraph it?
+**Easier or harder:** easier, B makes the same run for a block and A works on the one ball it needs. Harder, see the levels below.
 
-**Cues:** *"What run is being made? Deliver the ball it needs."* · *"Driven to the near post, cut-back to the spot, whip to the far."* · *"Accuracy first — power second."* · *"Which foot does this position want?"*
+## What this drill is, and what it is not
 
-**Praise:** the matched, accurate delivery off both feet. *"You read the near-post run and drove it across — right ball, right zone. That's a delivery, not a hope."*
+The choice this drill trains is which ball to cross for the run a teammate is making; the task fixes the channel and the three zones and leaves the run, the ball and the foot open. The crosser reads the runner and the space, and the runner reads where the space is. Nobody tells either of them.
 
-**Don't fix yet:** the power of the cross in early sessions — first build accuracy and the right ball type; the pace on the delivery follows the technique.
+It does not train beating the defender before the cross. [Beat and Cross](/training/beat-and-cross-wide) trains getting the yard to cross in, and [Arrive Late, Finish Clean](/training/cutback-finish-arriving-late) trains the runner's timing onto a ball pulled back.
 
-## Watch points
+## Levels
 
-- **One stock cross every time,** regardless of the run. *"Same ball every time — but the runs are different. What does this one need?"*
-- **The ball sails over everyone** into no-man's-land. *"Accuracy to the zone. Where's the runner — put it there."*
-- **W always shapes onto the strong foot,** delaying and telegraphing. *"That position wanted your other foot for an early ball. Use it."*
-- **The cut-back is lofted** instead of pulled back low. *"From the byline it's a low cut-back, not a chip — pull it to the spot."*
+- **Level 1:** no runner. A carries in and crosses to a zone A has chosen, with the ball that zone needs, and says nothing about it first. The rep counts on the ball arriving in a zone with its type.
+- **Level 2:** as Level 1, crossing from different depths: some early from about 25 m out, some from the byline. A finds which balls each depth allows.
+- **Level 3:** B runs, as in the rep above, and chooses the zone without calling it. A reads the run and crosses the matching ball.
+- **Level 4:** B may change the run late, once, after A's last touch toward the byline. A reads the change, or chooses a ball the first run can still reach.
+- **Level 5:** a defender (D) closes A down in the channel to block the cross, standing and blocking only, no slide and no tackle from behind. A finds the yard to cross in and still crosses the ball B's run needs.
 
-## Closing reflection
+## For a parent or coach
 
-- *"Which cross type is most reliable for you, and which needs work?"*
-- *"How do you decide which ball to deliver?"*
-- *"Which foot is weaker for crossing, and how does that limit you?"*
+**Watch for:**
+
+- **The look.** Does A see where B is going before the last touch, or only after the cross is on its way?
+- **The type.** Does the ball change with the zone, or is it the same cross every time?
+- **The arrival.** Does the ball arrive where B is arriving, or into the space B has already left?
+- **The foot.** Does A use the foot the position gives, or shape back onto one foot every time and lose the moment?
+- **The cut-back.** From the byline, does it go low and back, or get lifted?
+
+**One question, between reps:** "Where was B going when you took your last touch, and what ball did that run need?"
+
+**During a rep:** stay quiet while the ball is moving. When a player is stuck, a question or a short cue may help ("where's the run?"), never which zone or which ball.
+
+**Praise** the read and the matching ball, whatever happens to the finish: "You saw B going to the near post early and drove it across. That was the ball for that run."
+
+**Leave for later:** the power of the cross. The right ball to the right place comes first; the pace follows once the type and the arrival hold.
+
+**When to simplify:** if most crosses miss every zone, go back to Level 1 and let A cross from the byline only until the contact is clean again.
+
+## Why we think it helps
+
+A cross is a pass to a teammate who is moving, and which ball it needs depends on where that teammate is going. This drill puts that read in front of the crosser on every rep: the runner chooses, the crosser reads and answers. We count the right ball arriving in the right place, not goals and not power. Crossing from both touchlines trains the cross off either foot, with deliberate practice, because a player who can cross with either foot has more options in the channel. If a player crosses well here and not in games, put crosses into a small-sided game with wide channels and see whether the look before the last touch is still there; if it is not, that counts against our reasoning, and the drill is changed.
+
+## Self-assessment
+
+- "Which run did you read earliest today, and what told you?"
+- "Which ball was most reliable for you, and which needs work?"
+- "Where did you lose the moment by changing feet?"
