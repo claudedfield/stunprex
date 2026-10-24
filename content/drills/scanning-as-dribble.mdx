@@ -2,15 +2,15 @@
 title: "Scanning-as-Dribble (Call-the-Gate Field)"
 slug: "scanning-as-dribble"
 drillId: "SX-DR-005"
-description: "A field of six scattered gates and a home square — the player carries the ball, scans, calls a gate aloud before arriving, and commits, keeping the scan running while dribbling."
+description: "A field of six scattered gates and a home square for a player alone or with up to three others: the player carries the ball, looks up, says the next gate's name before arriving, and goes through it. The player chooses every gate."
 status: "published"
 category: "Scanning"
 capacities:
   primary: ["Perceptual", "Cognitive"]
   secondary: ["Motor", "Collective", "Adaptive"]
-ageBand: ["5-8", "9-12", "13-16", "17-20"]
-players: "1–4"
-equipment: "12 markers (6 gates), 1 ball"
+ageBand: ["9-12", "13-16", "17-20"]
+players: "1 to 4, each with a ball"
+equipment: "12 markers (6 gates), 1 ball per player"
 difficulty: 2
 maxDifficulty: 5
 codex_release: R1
@@ -20,7 +20,7 @@ diagrams:
   - id: run
     pitch: small
     title: Watch a run
-    caption: 'From the home square: scan, call a gate before arriving, carry through it, then chain to the next. Loops.'
+    caption: 'From the home square: look up, say a gate before arriving, carry through it, then choose the next. Loops.'
     entities:
       - type: zone
         id: field
@@ -112,38 +112,38 @@ diagrams:
       loop: true
       steps:
         - duration: 1000
-          caption: 'In the home square — scan and call a gate: "orange far!"'
+          caption: 'Out of the home square, ball moving: look up and say a gate, "orange far!"'
           moves: []
         - duration: 1000
-          caption: 'Carry to the called gate, head up, ball moving.'
+          caption: 'Carry to that gate, head up, ball moving.'
           moves:
             - id: P
               to:
                 x: 76
                 'y': 90
         - duration: 800
-          caption: Commit through the gate.
+          caption: Through the gate.
           moves:
             - id: P
               to:
                 x: 76
                 'y': 48
         - duration: 1000
-          caption: Scan and call the next — "blue far!" — no repeats.
+          caption: 'Look up and say the next, "blue far!", not the same gate or colour again.'
           moves:
             - id: P
               to:
                 x: 230
                 'y': 110
         - duration: 900
-          caption: Carry through the next gate.
+          caption: Through the next gate.
           moves:
             - id: P
               to:
                 x: 316
                 'y': 72
         - duration: 1000
-          caption: Return to home; the chain continues.
+          caption: 'Back to home at the end of the run.'
           moves:
             - id: P
               to:
@@ -152,7 +152,7 @@ diagrams:
   - id: layout
     pitch: small
     title: "Call-the-gate field"
-    caption: "~15 m x 15 m. Six gates (three distinguishable pairs — shown orange / deep-blue / brown) scattered at mixed orientations, at least 4 m apart. Home square at centre is the start and reset point; the player carries the ball, scans, and calls a gate before arriving."
+    caption: "About 15 m by 15 m. Six gates in three pairs (shown orange, deep blue, brown), scattered at mixed angles, at least 4 m apart. The home square in the middle is the start and the end of each run. Not to scale."
     elements:
       - { type: zone, x: 22, y: 22, width: 356, height: 356, label: "" }
       - { type: zone, x: 178, y: 178, width: 44, height: 44, label: "HOME" }
@@ -172,111 +172,123 @@ diagrams:
       - { type: ball, x: 212, y: 200, state: static }
 ---
 
-## Introduction
+For a player of nine and over, alone or with up to three others, each with a ball. Six gates stand scattered in a small field. The player carries the ball through the field and, before reaching a gate, says its name out loud, then goes through it. To say a gate's name the player has to see it, and to see it while the ball is moving the player has to look up. Which gate comes next is always the player's choice.
 
-Most players scan beautifully in drills built for scanning and never again — because the moment the ball arrives at their feet, their eyes go down and stay down. The habit football actually demands is not scanning *between* actions; it is scanning *during* them — carrying the ball as if the head and the feet have separate jobs. That habit cannot be commanded into existence. "Head up!" produces a head that bobs up for the coach and back down for the ball.
+## Quick start
 
-This drill makes the head-up position structurally unavoidable instead. The player dribbles continuously through a field of six colour-paired gates under one rule: **no gate may be entered unless it was called aloud — by name, from at least 3m away, with the ball still moving.** To call a gate, you must see it; to see it, you must look up; to look up, your touch must survive unsupervised. The call is also a committed decision: once called, that gate and no other. Entering any gate without a prior call is a **blind entry** — never punished, always counted aloud by the player. Blind entries per run is the drill's single tracked number, and the player's job across days and weeks is to drive it to zero while the gates-per-run count climbs.
+**You need:** a ball for each player, 12 markers (cones, shoes, bottles or jumpers) and about 15 m by 15 m of ground (12 m by 12 m works; 10 m by 10 m with the gates about 3 m apart and the name said from about 2 m).
 
-What begins as a rule becomes, in a few weeks, the thing the rule existed to install: a player whose default carrying posture is eyes-up, harvesting the field while the ball moves — prompted at first, then unconscious.
-
-## Setup
+**Set it out:**
 
 ```
-   [Y]                          [R]
-    •  •                      •  •          R = red gate (×2)
-                                            B = blue gate (×2)
-              [B]                           Y = yellow gate (×2)
-               •  •
-                                            each gate 1.5m wide,
-   [R]                  [HOME]              scattered orientations,
-    •  •                ▪    ▪              ≥4m between gates
-                        ▪    ▪
-                                  [Y]
-              [B]                  •  •
-               •  •
+   [orange far]                [blue far]
+     .  .                        .  .
+                 [brown near]
+                    .  .
+   [blue near]             (home)
+     .  .
+                                 [orange near]
+                [brown far]          .  .
+                   .  .
 
-         ← — — —  12–15m × 12–15m  — — — →
+        <------- about 15 m by 15 m ------->
 ```
 
-- **The field:** a square of roughly **15m × 15m** (minimum 12m × 12m; compresses to 10m × 10m with gates at ≥3m spacing).
-- **Six gates**, each **1.5m wide** (2 markers per gate), scattered across the field at mixed orientations — deliberately not in a circuit. Gates come in **three distinguishable pairs** (colours where available; otherwise object-pairs: "shoes," "bottles," "jumpers"). Keep **at least 4m between gates** so a call from 3m out is a real look, not a glance.
-- **Home square:** a **2m × 2m** square near the centre — the start and reset point.
-- **Player:** starts in the home square, ball at their feet. **No clock on any single action** — the 60-second run is a container, not a race.
+- Six gates, two markers each, about 1.5 m wide, scattered at mixed angles and not in a circuit. At least 4 m between gates, so saying a gate's name from about 3 m away needs a real look.
+- Three pairs you can tell apart (colours, or pairs of objects: shoes, bottles, jumpers). The player names each gate during set-up by its colour and a word of their own ("orange far", "blue near"); the names stay for the session.
+- A home square of about 2 m in the middle: the start and the end of each run.
+- The player sets out the field. Between blocks the player moves the gates to new places, so the next block's field has to be found again by looking.
+- All the sizes and times are suggestions.
 
-**Naming convention:** each gate is called by colour plus a position word the player chooses during setup ("red far," "red near," "blue left"…). Six gates, six names, fixed for the session. The player builds the field themselves — setup is part of the ownership structure.
+**One run (about 60 seconds):**
 
-## Description
+1. Dribble out of the home square in any direction.
+2. While the ball is moving, look up, choose the next gate and say its name before you are about 3 m from it.
+3. Carry through that gate. Then choose the next one. Not the same gate twice in a row, and not the same colour twice in a row.
+4. A gate entered without saying its name first, or after stopping the ball to look, is a "blind entry". The player notices it, says "blind" and carries on. Nothing else happens.
+5. After about 60 seconds, back to home. If the player wants to, they note two things: how many gates, and how many blind entries.
 
-**The one rule:** a gate only counts if it was **called aloud, by name, from at least 3m away, while the ball was moving.** Call → carry → enter. Any gate entered without that call — or after the ball was stopped to buy looking time — is a **blind entry**, counted aloud by the player the moment it happens ("one… two…"). Blind entries are not failures and are never punished; they are the measurement.
+**One session:** three blocks of four runs. In each block the first two runs favour one foot and the next two the other; both feet are always allowed. Between blocks, about 90 seconds: a drink, and the player moves the gates.
 
-**One run (60 seconds, continuous):**
+**Load:**
 
-1. **Start:** dribble out of the home square in any direction. From the first touch, the run is live.
-2. **Call:** while carrying — ball moving, at least 3m from the target — look up, choose, and call the next gate by name ("blue left!"). The call is a commitment: that gate and no other.
-3. **Carry and enter:** dribble through the called gate. Head back up as soon as the entry touch is taken.
-4. **Chain:** call the next gate and continue. **No-repeat rule:** never the same gate twice in a row, and never the same *pair* (colour) twice in a row — working memory stays loaded.
-5. **Count:** any uncalled entry, any call made from inside 3m, any call made with a stopped ball — blind entry, counted aloud, run continues. No resets, no drama.
-6. **End of run:** at 60 seconds, return the ball to the home square. Record two numbers: **gates entered** and **blind entries**.
+- Runs of about 60 seconds, four to a block, about 90 seconds between blocks, three blocks: about 15 to 18 minutes. For 9 to 12: end while they still want more, and no level built on being tired; pain is never part of training.
+- With more than one player in the field: everyone carries with the head up, and a player who sees a crash coming slows down; the field gets bigger with each extra player.
+- Stop at once on pain, illness, dizziness or a fall that hurts; nobody plays through it, and nobody is pushed to.
 
-**Block structure:**
+**One thing to think about:** where is your next gate, and when did you last see it?
 
-- **Block 1 — 4 runs.** First two runs right-foot-favoured carrying, second two left-foot-favoured (both feet always permitted; favouring rotates the touch diet).
-- 90 seconds rest: record the block's numbers; from Level 2, re-randomise the gates.
-- **Block 2 — 4 runs**, rest, record, re-randomise.
-- **Block 3 — 4 runs**, then the closing reflection.
+**Easier or harder:** easier, fewer gates, closer together, at walking pace. Harder, see the levels below.
 
-Total: 12 runs, roughly 15–18 minutes, several hundred carrying touches.
+## What this drill is, and what it is not
 
-**Scoring — the player's own ledger.** After each block the player writes down **blind entries per run** (e.g. `3 / 2 / 4 / 1`) and **gates per run** (e.g. `5 / 6 / 5 / 7`). The number that matters is the blind-entry trend *across sessions*, not within one. A "clean run" — zero blind entries — is the unit of progress. As blind entries fall, gates-per-run rises on its own: fluency is speed's quiet source. Never chase the gate count directly; it is the lagging of the two numbers.
+The choice this drill trains is which gate next, made from what the player sees while the ball is moving. The task fixes the gates and the rule that a gate is named before it is entered; it leaves the route, the order and the touch to the player.
 
-## Progressions
+It is not a test and not a race against anyone. Blind entries are not mistakes to be punished; they show the player when the eyes went down. A player who keeps a note compares it only with their own earlier notes.
 
-Five levels. Each level changes one to two variables. The call-before-entry rule and the blind-entry count hold at every level — they are the drill's identity. The progression follows the arc *prompted at first, then unconscious.*
+It trains close control and the look while carrying. It does not train reading an opponent: the gates do not move by themselves.
 
-- **Level 1 (baseline, 9–12 Foundation):** as described. Fixed layout, single-gate calls, no-repeat rule, alternating-foot blocks. Mastery signal: a majority of clean runs (0 blind entries) across a full session at comfortable pace.
-- **Level 2 (memory + variability):** two changes. **Chain calls** — the player calls *two* gates at once ("red far, then blue left!") and must visit both in order; working memory now holds a plan while the eyes keep harvesting. And **re-randomisation** — the player moves the gates during every between-block rest. No two blocks share a field; route memory dies, route reading replaces it.
-- **Level 3 (degraded conditions):** each block changes the ball (regulation / futsal or smaller / slightly soft) **or** the carrying constraint (one block weak-foot-only carrying). The scan window also compresses: the next call must come **within three touches** of exiting the previous gate. Where a second ball isn't available, substitute a surface change.
-- **Level 4 (override — re-decision under new information):** a partner, parent, or coach stands outside the field and, two or three times per run, calls a colour ("yellow!"). The player must abandon their current called gate and re-route to the nearest gate of the called colour — calling it by name first, rules intact. Perception now includes *listening*, and the plan becomes disposable. Solo alternative: before each run, shuffle three colour cards face-down at home; mid-run, on passing within 3m of home, flip one and obey it.
-- **Level 5 (fatigue + surprise):** each run begins with a **loading prelude** — 5 quick down-ups, or a hard 10m there-and-back sprint — so the scanning happens while breathing hard. Optionally add **constraint cards** drawn before each run (*"outside-of-foot touches only," "chain calls of three," "silent ledger — count blind entries mentally, report at the end," "left arm behind back"*). The player may time gates-per-run **against their own previous best only** — the clock enters last, after quality, always self-referenced.
+## Levels
 
-## Coach guidance
+- **Level 1:** as in the quick start. The player moves the gates between blocks.
+- **Level 2:** the player names two gates at once ("brown far, then blue near!") and goes through both in that order, then names the next two.
+- **Level 3:** the next gate's name comes within three touches of leaving the last one. Each block changes one thing: a different ball (a futsal ball or a smaller one), a different surface, or one block carried with the other foot only.
+- **Level 4:** a helper stands outside the field with bibs in the gate colours. Now and then, without a word, the helper holds up a bib: while it is up, that colour's gates are shut. The player finds the bib by looking up and chooses among the open gates. A gate already named that turns out to be shut is dropped, and the player names another.
+- **Level 5:** before each run the player draws or chooses one card: outside of the foot only; three gates named at once; count blind entries silently and say the number at the end. The player may time gates per run against their own earlier runs only.
 
-*(This drill runs without a coach. Where a coach or parent is present, this is the layer they add.)*
+## In a field of cones
 
-**Look for:**
+The same carry through a crowded space: a field of many cones makes close control, the look and the route harder. This part needs an adult or a helper outside the field.
 
-- **The look that precedes the call.** The call should be the *output* of a scan, not a memory recital. A player calling gates without their head moving is running yesterday's map — re-randomise the field and watch whether the calls survive.
-- **Honest counting.** Does the player count blind entries out loud, including the sneaky ones — the call made at 2m, the touch killed dead to buy a look? Hidden counts mean the number is being felt as a judgment, not a measurement. Fix the framing, not the player.
-- **Touch length under the look.** Eyes-up carrying needs a touch that travels the right distance — long enough to free the eyes, short enough to keep the ball owned. Watch whether it lengthens naturally as confidence grows.
-- **Call timing.** Early sessions produce calls made *at* the gate (too late) or one gate stared-at the whole way. The mature pattern is call early, eyes sweeping between commitments.
-- **Affective state after escapes.** The ball will run away the first times the eyes leave it. Watch whether the player resumes or starts sneaking supervision back in.
+- **Set out:** a square of about 10 m by 10 m, marked at the corners (4 cones). Inside it, 15 to 18 cones scattered at random: dense, but with a way through in every direction and no straight path. A gate of two cones, about 1 m wide, in the middle of three sides (6 cones); the fourth side is the way in. 25 to 28 cones in all.
+- **Run:** the player dribbles freely through the field. Now and then (every 8 to 20 seconds), the adult outside the field names a gate: "A!". The player finds a route to it, goes through, comes back in through the same gate and carries on. The choice here is the route; the call fixes the gate.
+- **Rounds:** about 3 minutes, about 90 seconds rest, three rounds. Between rounds, move 4 or 5 cones.
+- **More players:** two or three in the field at once, each with a ball; the adult names one player and a gate at a time. The other players become moving things to look out for.
+- **Harder:** a smaller square (about 8 m by 8 m), a fourth gate, or two gates named at once ("A, then C").
 
-**Cues to give** (short, in-rep, questions where possible):
+## Indoors
 
-- *"What's your next gate?"*
-- *"Where was your head when you called that?"*
-- *"Which pair haven't you visited this run?"*
-- *"Long touch, then look."*
-- *"What did the count say last block?"*
+The same drill on a hall floor, where the ball rolls faster and further.
 
-**Praise** (process):
+- Flat disc markers, which the ball glances off less than tall cones. Gates about 1.2 to 1.5 m wide. A futsal ball if you have one.
+- The gate is named from about 2.5 m on a hall floor; further is fine.
+- Keep every gate at least 1 m from a wall. A gate that can only be reached by running at a wall is not a gate.
+- After a ball runs away, one question, between runs: "what kind of touch would have kept the ball?" The player finds the answer.
 
-- *"You called that from five metres with the ball moving. That's the whole drill in one moment."*
-- *"Your head came up the instant the entry touch was taken. That's the habit forming."*
-- *"You counted that blind entry without breaking stride. Honest counting is the skill."*
-- *"Blind entries down two runs in a row — the eyes are learning to trust the feet."*
+For children of five to eight, the same field becomes a story game: see [Safari Spotter](/training/safari-spotter).
 
-**Don't fix yet:**
+## For a parent or coach
 
-- Slow carrying pace in the first week — speed is never the early objective; the call discipline is. Pace rises on its own as the eyes-up touch stabilises.
-- Escaped balls when the head lifts — this is the drill working, not failing. Volume fixes it; commentary doesn't.
-- Monotone route habits (favouring near gates) — the no-repeat rule erodes this on its own; intervene only if a full session shows no spread.
+The drill runs without an adult. Where one is present:
 
-## Watch points
+**Watch for:**
 
-- **The ball stopping dead, then a long look, then the call** — the player is buying scan time with stillness, training exactly the pause the match will punish. **Redirect:** *"Can you make that same look with the ball rolling? Slow the touch down instead of stopping it."*
-- **Calls without looks** — gate names recited from memory of the layout. **Redirect:** re-randomise two gates without announcing it, then: *"Call your next three gates. Where are they now?"*
-- **The count drifting toward flattery** — close-range and stopped-ball calls quietly not counted. **Redirect:** *"The count is a measurement, not a mark against you. If it says four, four is today's starting point. What would make it three?"*
-- **One favoured corridor** — the same two or three gates cycling while the far gates go unvisited. **Redirect:** *"Which gate have you not called all run? Start the next run with it."*
-- **Visible shrinking after an escaped ball** — the head dropping back to permanent ball-supervision. **Redirect:** one question, then back to the run: *"What did the escape cost you — two seconds? What does never looking up cost you?"*
+- The look before the name. Is the name the result of a look, or the layout remembered? A moved field shows it.
+- The touch under the look: long enough to free the eyes, short enough to keep the ball.
+- When the name comes: at the gate, or early, with the eyes moving again between gates.
+- After a ball runs away: does the player look up again, or go back to watching the ball?
+- An honest "blind", including the ones nobody else would have seen.
+
+**During a run:** stay quiet. Between runs, a question may help ("which gate didn't you visit?"), never which gate to go to.
+
+**Praise** the look and the choice: "You said that one from five metres with the ball moving." "Your head came up as soon as you were through."
+
+**Leave for later:** the pace in the first sessions, balls that run away when the head comes up, which gates the player favours.
+
+**If the player stops the ball to look:** between runs, ask: "Can you make the same look with the ball rolling?"
+
+**If the player always uses the same few gates:** between runs: "Which gate haven't you named yet? Start with it."
+
+**What not to do:** count for the player, compare their numbers with another player's, or call the next gate in the gate field. In the field of cones the adult's call sets where to go, never the way there.
+
+## Why we think it helps
+
+A player who has to name the next gate before reaching it has to look up while the ball is moving, because the rule needs it, not because an adult said "head up". Moving the gates between blocks means the look has to find the field again rather than remember it. We train the weaker foot with deliberate practice, because a player who can use either foot has more options. If the player does well here and still carries with the head down in games, move to the field of cones with other players in it, and then to games where the things to look for move.
+
+## Self-assessment
+
+At the end of the session:
+
+- "When did your head come up: before the gate, or at it?"
+- "Which touch let you look up and still keep the ball?"
+- "What would you change in the field next time?"
